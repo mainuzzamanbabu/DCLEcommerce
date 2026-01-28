@@ -1,0 +1,153 @@
+{% extends 'dashboard/base.html' %}
+
+{% block dashboard_content %}
+<nav aria-label="breadcrumb" class="mb-3">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'dashboard:product_list' %}">Products</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'dashboard:product_edit' product.pk %}">{{ product.name }}</a></li>
+        <li class="breadcrumb-item active">{{ title }}</li>
+    </ol>
+</nav>
+
+<div class="row">
+    <div class="col-lg-8">
+        <div class="card border-0 shadow-sm mb-4">
+            <div class="card-header bg-white py-3">
+                <h5 class="mb-0 fw-bold">{{ title }}</h5>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token %}
+                    
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label">SKU <span class="text-danger">*</span></label>
+                            {{ form.sku }}
+                            {% if form.sku.errors %}<div class="text-danger small">{{ form.sku.errors.0 }}</div>{% endif %}
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Variant Name</label>
+                            {{ form.variant_name }}
+                            <small class="text-muted">e.g., "16GB RAM / 512GB SSD"</small>
+                        </div>
+                    </div>
+                    
+                    <hr class="my-4">
+                    <h6 class="fw-bold mb-3"><i class="bi bi-currency-dollar text-success me-2"></i>Pricing</h6>
+                    
+                    <div class="row mb-3">
+                        <div class="col-md-4">
+                            <label class="form-label">List Price (MRP) <span class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <span class="input-group-text">৳</span>
+                                {{ form.list_price }}
+                            </div>
+                            {% if form.list_price.errors %}<div class="text-danger small">{{ form.list_price.errors.0 }}</div>{% endif %}
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Sale Price</label>
+                            <div class="input-group">
+                                <span class="input-group-text">৳</span>
+                                {{ form.sale_price }}
+                            </div>
+                            <small class="text-muted">Leave blank if not on sale</small>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Cost Price (Internal)</label>
+                            <div class="input-group">
+                                <span class="input-group-text">৳</span>
+                                {{ form.cost_price }}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <hr class="my-4">
+                    <h6 class="fw-bold mb-3"><i class="bi bi-box-seam text-primary me-2"></i>Inventory</h6>
+                    
+                    <div class="row mb-3">
+                        <div class="col-md-4">
+                            <label class="form-label">Stock Quantity <span class="text-danger">*</span></label>
+                            {{ form.stock_qty }}
+                            {% if form.stock_qty.errors %}<div class="text-danger small">{{ form.stock_qty.errors.0 }}</div>{% endif %}
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Low Stock Alert Threshold</label>
+                            {{ form.low_stock_threshold }}
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Barcode</label>
+                            {{ form.barcode }}
+                        </div>
+                    </div>
+                    
+                    <hr class="my-4">
+                    <h6 class="fw-bold mb-3"><i class="bi bi-info-circle text-info me-2"></i>Additional Info</h6>
+                    
+                    <div class="row mb-3">
+                        <div class="col-md-4">
+                            <label class="form-label">Weight (kg)</label>
+                            {{ form.weight_kg }}
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-check mt-4 pt-2">
+                                {{ form.is_active }}
+                                <label class="form-check-label">Active</label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <hr>
+                    
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bi bi-check-circle me-1"></i> Save Variant
+                        </button>
+                        <a href="{% url 'dashboard:product_edit' product.pk %}" class="btn btn-outline-secondary">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-lg-4">
+        <div class="card border-0 shadow-sm">
+            <div class="card-header bg-white py-3">
+                <h6 class="mb-0 fw-bold">Product Info</h6>
+            </div>
+            <div class="card-body">
+                <p class="mb-2"><strong>{{ product.name }}</strong></p>
+                {% if product.category %}
+                <p class="small text-muted mb-1"><i class="bi bi-folder me-1"></i> {{ product.category.name }}</p>
+                {% endif %}
+                {% if product.brand %}
+                <p class="small text-muted mb-0"><i class="bi bi-building me-1"></i> {{ product.brand.name }}</p>
+                {% endif %}
+            </div>
+        </div>
+        
+        <div class="card border-0 shadow-sm mt-3">
+            <div class="card-header bg-white py-3">
+                <h6 class="mb-0 fw-bold">Tips</h6>
+            </div>
+            <div class="card-body">
+                <p class="small text-muted mb-2"><i class="bi bi-upc text-warning me-1"></i> <strong>SKU:</strong> Unique identifier for this variant</p>
+                <p class="small text-muted mb-2"><i class="bi bi-tag text-success me-1"></i> <strong>Sale Price:</strong> Set this to create a discount</p>
+                <p class="small text-muted mb-0"><i class="bi bi-bell text-danger me-1"></i> <strong>Low Stock:</strong> You'll be alerted when stock falls below this</p>
+            </div>
+        </div>
+        
+        {% if variant %}
+        <div class="card border-0 shadow-sm mt-3">
+            <div class="card-header bg-white py-3">
+                <h6 class="mb-0 fw-bold">Quick Actions</h6>
+            </div>
+            <div class="card-body">
+                <a href="{% url 'dashboard:variant_delete' product.pk variant.pk %}" class="btn btn-outline-danger w-100">
+                    <i class="bi bi-trash me-1"></i> Delete Variant
+                </a>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

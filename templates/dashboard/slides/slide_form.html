@@ -1,0 +1,122 @@
+{% extends 'dashboard/base.html' %}
+
+{% block dashboard_content %}
+<div class="row">
+    <div class="col-lg-8">
+        <div class="card border-0 shadow-sm mb-4">
+            <div class="card-header bg-white py-3">
+                <h5 class="mb-0 fw-bold">{{ title }}</h5>
+            </div>
+            <div class="card-body">
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Title <span class="text-danger">*</span></label>
+                        {{ form.title }}
+                        {% if form.title.errors %}<div class="text-danger small">{{ form.title.errors.0 }}</div>{% endif %}
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Subtitle</label>
+                        {{ form.subtitle }}
+                    </div>
+                    
+                    <div class="row mb-3">
+                        <div class="col-md-4">
+                            <label class="form-label">Badge Text</label>
+                            {{ form.badge_text }}
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Badge Style</label>
+                            {{ form.badge_style }}
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Icon Class</label>
+                            {{ form.icon_class }}
+                            <small class="text-muted">e.g., bi-laptop</small>
+                        </div>
+                    </div>
+                    
+                    <div class="row mb-3">
+                        <div class="col-md-4">
+                            <label class="form-label">Button Text</label>
+                            {{ form.button_text }}
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Button Link</label>
+                            {{ form.button_link }}
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Button Style</label>
+                            {{ form.button_style }}
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Background Color/Gradient</label>
+                        {{ form.background_color }}
+                        <small class="text-muted">CSS value, e.g., linear-gradient(135deg, #003366 0%, #0054A6 100%)</small>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Background Image (Optional)</label>
+                        {{ form.background_image }}
+                    </div>
+                    
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="form-label">Sort Order</label>
+                            {{ form.sort_order }}
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-check mt-4 pt-2">
+                                {{ form.is_active }}
+                                <label class="form-check-label">Active</label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <hr>
+                    
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bi bi-check-circle me-1"></i> Save Slide
+                        </button>
+                        <a href="{% url 'dashboard:slide_list' %}" class="btn btn-outline-secondary">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-lg-4">
+        <div class="card border-0 shadow-sm">
+            <div class="card-header bg-white py-3">
+                <h6 class="mb-0 fw-bold">Tips</h6>
+            </div>
+            <div class="card-body">
+                <p class="small text-muted mb-2"><i class="bi bi-lightbulb text-warning me-1"></i> <strong>Icon Class:</strong> Use Bootstrap Icons (e.g., bi-laptop, bi-controller, bi-display)</p>
+                <p class="small text-muted mb-2"><i class="bi bi-palette text-primary me-1"></i> <strong>Background:</strong> Use CSS gradients or solid colors</p>
+                <p class="small text-muted mb-0"><i class="bi bi-sort-numeric-down text-success me-1"></i> <strong>Sort Order:</strong> Lower numbers appear first</p>
+            </div>
+        </div>
+        
+        {% if slide %}
+        <div class="card border-0 shadow-sm mt-3">
+            <div class="card-header bg-white py-3">
+                <h6 class="mb-0 fw-bold">Quick Actions</h6>
+            </div>
+            <div class="card-body">
+                <a href="{% url 'core:home' %}" class="btn btn-outline-secondary w-100 mb-2" target="_blank">
+                    <i class="bi bi-eye me-1"></i> View on Homepage
+                </a>
+                <a href="{% url 'dashboard:slide_delete' slide.pk %}" class="btn btn-outline-danger w-100">
+                    <i class="bi bi-trash me-1"></i> Delete Slide
+                </a>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

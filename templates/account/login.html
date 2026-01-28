@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load account socialaccount %}
+{% load crispy_forms_tags %}
+
+{% block title %}{% trans "Sign In" %}{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-5">
+            <div class="card shadow-lg border-0 rounded-4 overflow-hidden">
+                <div class="card-header bg-primary text-white py-4 text-center border-0">
+                    <h3 class="fw-bold mb-1">{% trans "Welcome Back" %}</h3>
+                    <p class="mb-0 opacity-75">{% trans "Sign in to your DCL account" %}</p>
+                </div>
+                <div class="card-body p-4 p-lg-5">
+                    {% if socialaccount_providers %}
+                    <div class="social-login mb-4">
+                        {% include "socialaccount/snippets/provider_list.html" with process="login" %}
+                        <div class="position-relative my-4">
+                            <hr>
+                            <span class="position-absolute top-50 start-50 translate-middle bg-white px-3 text-muted small">
+                                {% trans "OR" %}
+                            </span>
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    <form class="login" method="POST" action="{% url 'account_login' %}">
+                        {% csrf_token %}
+                        {{ form|crispy }}
+                        
+                        {% if redirect_field_value %}
+                        <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+                        {% endif %}
+
+                        <div class="d-grid gap-2 mt-4">
+                            <button class="btn btn-primary btn-lg fw-bold py-3 shadow-sm" type="submit">
+                                {% trans "Sign In" %}
+                            </button>
+                        </div>
+                        
+                        <div class="text-center mt-3">
+                            <a class="text-decoration-none small" href="{% url 'account_reset_password' %}">
+                                {% trans "Forgot Password?" %}
+                            </a>
+                        </div>
+                    </form>
+                </div>
+                <div class="card-footer bg-light py-3 text-center border-0">
+                    <p class="mb-0 small">
+                        {% blocktrans %}Don't have an account? <a href="{{ signup_url }}" class="fw-bold text-primary">Sign Up</a>{% endblocktrans %}
+                    </p>
+                </div>
+            </div>
+            
+            <div class="text-center mt-4">
+                <a href="{% url 'core:home' %}" class="btn btn-link text-muted text-decoration-none">
+                    <i class="bi bi-arrow-left me-1"></i>{% trans "Back to Homepage" %}
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .social-login .socialaccount_provider {
+        display: block;
+        width: 100%;
+        padding: 0.8rem;
+        text-align: center;
+        border: 1px solid #dee2e6;
+        border-radius: 0.5rem;
+        background: white;
+        color: #212529;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.2s;
+        margin-bottom: 0.5rem;
+    }
+    .social-login .socialaccount_provider:hover {
+        background: #f8f9fa;
+        border-color: #adb5bd;
+    }
+    .social-login .socialaccount_provider.google {
+        border-color: #ea4335;
+        color: #ea4335;
+    }
+    .social-login .socialaccount_provider.google:hover {
+        background: #ea4335;
+        color: white;
+    }
+</style>
+{% endblock %}

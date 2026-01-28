@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ brand.name }}{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb" class="mb-4">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'core:home' %}">Home</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'catalog:brand_list' %}">Brands</a></li>
+            <li class="breadcrumb-item active">{{ brand.name }}</li>
+        </ol>
+    </nav>
+
+    <!-- Brand Header -->
+    <div class="row mb-5 align-items-center">
+        <div class="col-auto">
+            {% if brand.logo %}
+            <img src="{{ brand.logo.url }}" alt="{{ brand.name }}" class="rounded bg-light p-3" style="max-height: 100px;">
+            {% else %}
+            <div class="bg-light rounded p-4">
+                <span class="display-6 fw-bold text-primary">{{ brand.name|slice:":2"|upper }}</span>
+            </div>
+            {% endif %}
+        </div>
+        <div class="col">
+            <h1 class="display-6 fw-bold">{{ brand.name }}</h1>
+            {% if brand.description %}
+            <p class="text-muted mb-2">{{ brand.description }}</p>
+            {% endif %}
+            {% if brand.website %}
+            <a href="{{ brand.website }}" target="_blank" class="text-primary">
+                <i class="bi bi-globe me-1"></i>Visit Website
+            </a>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Products -->
+    {% if products %}
+    <section>
+        <h4 class="section-title">Products by {{ brand.name }}</h4>
+        <div class="row g-4">
+            {% for product in products %}
+            <div class="col-6 col-md-4 col-lg-3">
+                {% include 'catalog/partials/product_card.html' with product=product %}
+            </div>
+            {% endfor %}
+        </div>
+        
+        <div class="text-center mt-4">
+            <a href="{% url 'catalog:product_list' %}?brand={{ brand.slug }}" class="btn btn-primary">
+                View All {{ brand.name }} Products <i class="bi bi-arrow-right ms-1"></i>
+            </a>
+        </div>
+    </section>
+    {% else %}
+    <div class="text-center py-5">
+        <i class="bi bi-box-seam text-muted" style="font-size: 4rem;"></i>
+        <h5 class="mt-3 text-muted">No products from this brand yet</h5>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

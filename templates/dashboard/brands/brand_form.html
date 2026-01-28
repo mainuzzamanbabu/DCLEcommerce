@@ -1,0 +1,68 @@
+{% extends 'dashboard/base.html' %}
+
+{% block dashboard_content %}
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="card border-0 shadow-sm">
+            <div class="card-header bg-white py-3">
+                <h5 class="mb-0 fw-bold">{{ title }}</h5>
+            </div>
+            <div class="card-body">
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Brand Name <span class="text-danger">*</span></label>
+                        {{ form.name }}
+                        {% if form.name.errors %}<div class="text-danger small">{{ form.name.errors.0 }}</div>{% endif %}
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Logo</label>
+                        {{ form.logo }}
+                        {% if brand and brand.logo %}
+                        <div class="mt-2">
+                            <img src="{{ brand.logo.url }}" alt="{{ brand.name }}" class="rounded" style="max-height: 80px;">
+                        </div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Description</label>
+                        {{ form.description }}
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Website</label>
+                        {{ form.website }}
+                    </div>
+                    
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <div class="form-check">
+                                {{ form.is_active }}
+                                <label class="form-check-label">Active</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-check">
+                                {{ form.is_featured }}
+                                <label class="form-check-label">Featured</label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <hr>
+                    
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bi bi-check-circle me-1"></i> Save Brand
+                        </button>
+                        <a href="{% url 'dashboard:brand_list' %}" class="btn btn-outline-secondary">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

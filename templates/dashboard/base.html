@@ -1,0 +1,352 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Staff Dashboard{% endblock %} | DCL Ecommerce</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --sidebar-width: 260px;
+            --dcl-primary: #003366;
+            --dcl-primary-dark: #002244;
+            --dcl-secondary: #FF6600;
+            --dcl-secondary-light: #FF8533;
+            --dcl-accent: #0054A6;
+            --bg-light: #f4f6f9;
+            --text-muted: #6c757d;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-light);
+            overflow-x: hidden;
+        }
+
+        /* Sidebar Styling - DCL Brand Colors */
+        #sidebar {
+            width: var(--sidebar-width);
+            height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            background: linear-gradient(180deg, var(--dcl-primary) 0%, var(--dcl-primary-dark) 100%);
+            color: white;
+            z-index: 1000;
+            box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .sidebar-header {
+            padding: 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.15);
+            background: rgba(0,0,0,0.1);
+        }
+
+        .sidebar-header h5 {
+            color: #fff;
+        }
+
+        .nav-link {
+            color: rgba(255,255,255,0.8);
+            padding: 14px 20px;
+            border-radius: 0;
+            display: flex;
+            align-items: center;
+            transition: all 0.2s ease;
+            border-left: 4px solid transparent;
+        }
+
+        .nav-link i {
+            margin-right: 12px;
+            font-size: 1.1rem;
+            width: 24px;
+            text-align: center;
+        }
+
+        .nav-link:hover {
+            color: white;
+            background: rgba(255,255,255,0.1);
+        }
+
+        .nav-link.active {
+            color: white;
+            background: rgba(255, 102, 0, 0.2);
+            border-left: 4px solid var(--dcl-secondary);
+        }
+
+        /* Main Content */
+        #content {
+            margin-left: var(--sidebar-width);
+            width: calc(100% - var(--sidebar-width));
+            padding: 30px;
+            min-height: 100vh;
+        }
+
+        /* Stats Cards - Vibrant Colors */
+        .stats-card {
+            border: none;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            background: white;
+            overflow: hidden;
+        }
+
+        .stats-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+        }
+
+        .stats-card .card-body {
+            padding: 1.5rem;
+        }
+
+        .stats-card h6 {
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .stats-card h3 {
+            font-size: 2rem;
+        }
+
+        .icon-box {
+            width: 56px;
+            height: 56px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        /* Icon Box Color Variants */
+        .icon-box.bg-orders {
+            background: linear-gradient(135deg, #4e73df 0%, #224abe 100%);
+            color: white;
+        }
+
+        .icon-box.bg-revenue {
+            background: linear-gradient(135deg, #1cc88a 0%, #13855c 100%);
+            color: white;
+        }
+
+        .icon-box.bg-customers {
+            background: linear-gradient(135deg, #36b9cc 0%, #258391 100%);
+            color: white;
+        }
+
+        .icon-box.bg-products {
+            background: linear-gradient(135deg, var(--dcl-secondary) 0%, #cc5200 100%);
+            color: white;
+        }
+
+        /* Navbar top */
+        .dash-navbar {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            padding: 18px 25px;
+            margin-bottom: 30px;
+            border-radius: 16px;
+        }
+
+        .dash-navbar h4 {
+            color: var(--dcl-primary);
+        }
+
+        /* Table Styling */
+        .table-premium {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+        }
+
+        .table-premium .table-header {
+            background: linear-gradient(135deg, var(--dcl-primary) 0%, var(--dcl-accent) 100%);
+            color: white;
+            padding: 1.25rem;
+        }
+
+        .table-premium .table-header h5 {
+            margin: 0;
+            font-weight: 600;
+        }
+
+        .table-premium thead th {
+            background: #f8f9fc;
+            border-bottom: 2px solid #e3e6f0;
+            color: var(--dcl-primary);
+            text-transform: uppercase;
+            font-size: 0.7rem;
+            letter-spacing: 0.1em;
+            padding: 1rem 1.25rem;
+            font-weight: 700;
+        }
+
+        .table-premium tbody td {
+            padding: 1rem 1.25rem;
+            vertical-align: middle;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .table-premium tbody tr:hover {
+            background: #f8f9fc;
+        }
+
+        /* Buttons */
+        .btn-primary {
+            background: var(--dcl-primary);
+            border-color: var(--dcl-primary);
+        }
+
+        .btn-primary:hover {
+            background: var(--dcl-primary-dark);
+            border-color: var(--dcl-primary-dark);
+        }
+
+        .btn-outline-primary {
+            color: var(--dcl-primary);
+            border-color: var(--dcl-primary);
+        }
+
+        .btn-outline-primary:hover {
+            background: var(--dcl-primary);
+            border-color: var(--dcl-primary);
+            color: white;
+        }
+
+        /* User Info */
+        .user-info .user-avatar {
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--dcl-primary) 0%, var(--dcl-accent) 100%);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+        }
+
+        /* Badge Styles */
+        .badge {
+            font-weight: 500;
+            padding: 0.5em 0.8em;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--dcl-primary);
+            border-radius: 3px;
+        }
+
+        /* Footer link styling */
+        .sidebar-footer {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 15px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            background: rgba(0,0,0,0.1);
+        }
+    </style>
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <div id="sidebar">
+        <div class="sidebar-header d-flex align-items-center">
+            <img src="{% static 'img/dcl_logo.png' %}" alt="Logo" height="38" class="bg-white rounded p-1 me-2">
+            <h5 class="mb-0 fw-bold">DCL Admin</h5>
+        </div>
+        <div class="nav flex-column mt-3">
+            <a href="{% url 'dashboard:home' %}" class="nav-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}">
+                <i class="bi bi-speedometer2"></i> Overview
+            </a>
+            <a href="{% url 'dashboard:order_list' %}" class="nav-link {% if 'order' in request.resolver_match.url_name %}active{% endif %}">
+                <i class="bi bi-cart-check"></i> Orders
+            </a>
+            <a href="{% url 'dashboard:product_list' %}" class="nav-link {% if 'product' in request.resolver_match.url_name %}active{% endif %}">
+                <i class="bi bi-box-seam"></i> Products
+            </a>
+            <a href="{% url 'dashboard:category_list' %}" class="nav-link {% if 'category' in request.resolver_match.url_name %}active{% endif %}">
+                <i class="bi bi-folder"></i> Categories
+            </a>
+            <a href="{% url 'dashboard:brand_list' %}" class="nav-link {% if 'brand' in request.resolver_match.url_name %}active{% endif %}">
+                <i class="bi bi-building"></i> Brands
+            </a>
+            <a href="{% url 'dashboard:customer_list' %}" class="nav-link {% if 'customer' in request.resolver_match.url_name %}active{% endif %}">
+                <i class="bi bi-people"></i> Customers
+            </a>
+            
+            <hr class="my-2 mx-3 opacity-25">
+            <small class="text-white-50 px-3 text-uppercase" style="font-size: 0.65rem; letter-spacing: 1px;">CMS</small>
+            
+            <a href="{% url 'dashboard:slide_list' %}" class="nav-link {% if 'slide' in request.resolver_match.url_name %}active{% endif %}">
+                <i class="bi bi-images"></i> Hero Slides
+            </a>
+            <a href="{% url 'dashboard:banner_list' %}" class="nav-link {% if 'banner' in request.resolver_match.url_name %}active{% endif %}">
+                <i class="bi bi-megaphone"></i> Banners
+            </a>
+        </div>
+
+        <div class="sidebar-footer">
+            <a href="{% url 'core:home' %}" class="nav-link py-2">
+                <i class="bi bi-shop"></i> View Shop
+            </a>
+            <a href="{% url 'account_logout' %}" class="nav-link py-2">
+                <i class="bi bi-box-arrow-right"></i> Logout
+            </a>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div id="content">
+        <!-- Top Navbar -->
+        <nav class="dash-navbar d-flex justify-content-between align-items-center">
+            <h4 class="mb-0 fw-bold">{{ title|default:"Dashboard" }}</h4>
+            <div class="user-info d-flex align-items-center">
+                <span class="me-3 d-none d-md-inline text-muted">Hi, {{ user.get_full_name|default:user.email }}</span>
+                <div class="user-avatar">
+                    <i class="bi bi-person"></i>
+                </div>
+            </div>
+        </nav>
+
+        {% if messages %}
+        <div class="mb-4">
+            {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show border-0 shadow-sm" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        {% block dashboard_content %}{% endblock %}
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

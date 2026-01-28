@@ -1,0 +1,242 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Checkout - Shipping | DCL Ecommerce{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <!-- Checkout Progress -->
+    <div class="row mb-5 justify-content-center">
+        <div class="col-lg-8">
+            <div class="checkout-progress d-flex justify-content-between position-relative">
+                <div class="progress-step active completed">
+                    <div class="step-icon"><i class="bi bi-geo-alt"></i></div>
+                    <div class="step-label">Address</div>
+                </div>
+                <div class="progress-step active">
+                    <div class="step-icon"><i class="bi bi-truck"></i></div>
+                    <div class="step-label">Shipping</div>
+                </div>
+                <div class="progress-step">
+                    <div class="step-icon"><i class="bi bi-credit-card"></i></div>
+                    <div class="step-label">Payment</div>
+                </div>
+                <div class="progress-step">
+                    <div class="step-icon"><i class="bi bi-check-circle"></i></div>
+                    <div class="step-label">Review</div>
+                </div>
+                <div class="progress-bar-line"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        <!-- Shipping Methods -->
+        <div class="col-lg-8">
+            <div class="card shadow-sm border-0 rounded-4">
+                <div class="card-header bg-white py-3 border-bottom">
+                    <h5 class="mb-0 fw-bold text-primary"><i class="bi bi-truck me-2"></i>Shipping Method</h5>
+                </div>
+                <div class="card-body p-4">
+                    <form method="post" id="shippingForm">
+                        {% csrf_token %}
+                        
+                        {% if shipping_methods %}
+                        <div class="shipping-options">
+                            {% for item in shipping_methods %}
+                            <div class="form-check shipping-option p-3 border-2 rounded-4 mb-3">
+                                <input class="form-check-input ms-0 me-2" type="radio" name="shipping_method" 
+                                       value="{{ item.method.id }}" id="shipping{{ item.method.id }}"
+                                       data-price="{{ item.price }}"
+                                       {% if session.shipping_method.id == item.method.id %}checked{% endif %}
+                                       {% if forloop.first and not session.shipping_method %}checked{% endif %}>
+                                <label class="form-check-label w-100 d-flex justify-content-between align-items-center ps-4" 
+                                       for="shipping{{ item.method.id }}">
+                                    <div>
+                                        <strong class="text-dark">{{ item.method.name }}</strong>
+                                        {% if item.is_free %}
+                                        <span class="badge bg-success rounded-pill ms-2">FREE</span>
+                                        {% endif %}
+                                        <p class="mb-0 text-muted small mt-1">
+                                            <i class="bi bi-clock me-1"></i>{{ item.method.get_delivery_estimate }}
+                                        </p>
+                                        {% if item.method.description %}
+                                        <small class="text-muted d-block mt-1">{{ item.method.description }}</small>
+                                        {% endif %}
+                                    </div>
+                                    <span class="fw-bold fs-5 {% if item.is_free %}text-success{% else %}text-primary{% endif %}">
+                                        {% if item.is_free %}FREE{% else %}৳{{ item.price|floatformat:2 }}{% endif %}
+                                    </span>
+                                </label>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        {% else %}
+                        <div class="alert alert-warning rounded-4 border-0">
+                            <i class="bi bi-exclamation-triangle me-2"></i>
+                            No shipping methods available. Please contact support.
+                        </div>
+                        {% endif %}
+                        
+                        <!-- Order Notes -->
+                        <hr class="my-4">
+                        <div class="mb-4">
+                            <label class="form-label fw-bold small">Order Notes (Optional)</label>
+                            <textarea class="form-control rounded-4 p-3" name="customer_note" rows="3"
+                                      placeholder="Special delivery instructions, gift message, etc.">{{ session.customer_note }}</textarea>
+                        </div>
+                        
+                        <div class="d-flex justify-content-between mt-5">
+                            <a href="{% url 'checkout:address' %}" class="btn btn-link text-decoration-none text-muted fw-semibold">
+                                <i class="bi bi-arrow-left me-2"></i>Back to Address
+                            </a>
+                            <button type="submit" class="btn btn-primary px-5 py-2 fw-bold shadow-sm rounded-pill" {% if not shipping_methods %}disabled{% endif %}>
+                                Continue to Payment <i class="bi bi-arrow-right ms-2"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Order Summary -->
+        <div class="col-lg-4">
+            <div class="card shadow-sm border-0 rounded-4 sticky-top" style="top: 6rem;">
+                <div class="card-header bg-white py-3 border-bottom">
+                    <h5 class="mb-0 fw-bold">Order Summary</h5>
+                </div>
+                <div class="card-body p-4">
+                    <div class="order-items mb-3" style="max-height: 250px; overflow-y: auto;">
+                        {% for item in cart %}
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="flex-shrink-0 position-relative">
+                                {% if item.variant.images.exists %}
+                                    <img src="{{ item.variant.images.first.image.url }}" alt="{{ item.product.name }}" class="rounded shadow-sm" style="width: 50px; height: 50px; object-fit: cover;">
+                                {% else %}
+                                    <div class="bg-light rounded d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+                                        <i class="bi bi-image text-muted"></i>
+                                    </div>
+                                {% endif %}
+                                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-secondary" style="font-size: 0.65rem;">
+                                    {{ item.quantity }}
+                                </span>
+                            </div>
+                            <div class="flex-grow-1 ms-3">
+                                <h6 class="mb-0 small fw-bold text-truncate" style="max-width: 150px;">{{ item.product.name }}</h6>
+                                <p class="mb-0 x-small text-muted">৳{{ item.unit_price|floatformat:2 }}</p>
+                            </div>
+                            <div class="text-end">
+                                <span class="fw-bold small">৳{{ item.total_price|floatformat:2 }}</span>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <hr>
+                    <div class="d-flex justify-content-between mb-2">
+                        <span class="text-muted">Subtotal</span>
+                        <span class="fw-bold">৳{{ cart.get_total_price|floatformat:2 }}</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-2">
+                        <span class="text-muted">Shipping</span>
+                        <span class="fw-bold" id="shippingCost">৳0.00</span>
+                    </div>
+                    <hr>
+                    <div class="d-flex justify-content-between mb-0">
+                        <span class="fw-bold fs-5">Total</span>
+                        <span class="fw-bold fs-5 text-primary" id="orderTotal">৳{{ cart.get_total_price|floatformat:2 }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Progress Bar */
+    .checkout-progress .progress-step {
+        text-align: center;
+        z-index: 2;
+        background: white;
+        padding: 0 10px;
+    }
+    .step-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: #eee;
+        color: #888;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 8px;
+        font-size: 1.2rem;
+        transition: all 0.3s;
+    }
+    .step-label {
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: #888;
+    }
+    .progress-step.active .step-icon {
+        background: var(--bs-primary);
+        color: white;
+        box-shadow: 0 0.5rem 1rem rgba(0, 51, 102, 0.2);
+    }
+    .progress-step.active .step-label {
+        color: var(--bs-primary);
+    }
+    .progress-step.completed .step-icon {
+        background: #28a745;
+        color: white;
+    }
+    .progress-bar-line {
+        position: absolute;
+        top: 20px;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: #eee;
+        z-index: 1;
+    }
+
+    /* Shipping Option */
+    .shipping-option {
+        cursor: pointer;
+        transition: all 0.2s;
+        border-color: #eee;
+    }
+    .shipping-option:hover {
+        border-color: var(--bs-primary);
+    }
+    .shipping-option:has(input:checked) {
+        border-color: var(--bs-primary);
+        background-color: rgba(0, 51, 102, 0.02);
+        box-shadow: 0 0.5rem 1rem rgba(0, 51, 102, 0.05);
+    }
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const subtotal = {{ cart.get_total_price }};
+    const shippingInputs = document.querySelectorAll('input[name="shipping_method"]');
+    const shippingCost = document.getElementById('shippingCost');
+    const orderTotal = document.getElementById('orderTotal');
+    
+    function updateTotals() {
+        const selected = document.querySelector('input[name="shipping_method"]:checked');
+        if (selected) {
+            const price = parseFloat(selected.dataset.price);
+            shippingCost.textContent = price > 0 ? '৳' + price.toFixed(2) : 'FREE';
+            shippingCost.className = price > 0 ? 'fw-bold' : 'fw-bold text-success';
+            orderTotal.textContent = '৳' + (subtotal + price).toFixed(2);
+        }
+    }
+    
+    shippingInputs.forEach(input => {
+        input.addEventListener('change', updateTotals);
+    });
+    
+    updateTotals();
+});
+</script>
+{% endblock %}
