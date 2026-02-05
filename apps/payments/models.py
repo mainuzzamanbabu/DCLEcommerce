@@ -3,6 +3,35 @@ from django.conf import settings
 from apps.orders.models import Order
 import uuid
 
+class PaymentMethod(models.Model):
+    """Configuration for available payment methods."""
+    
+    name = models.CharField('name', max_length=100)
+    code = models.CharField('code', max_length=50, unique=True, help_text='Internal code e.g., sslcommerz, cod')
+    description = models.TextField('description', blank=True)
+    instruction = models.TextField('payment instruction', blank=True, help_text='Instruction shown to customer')
+    
+    logo = models.ImageField('logo', upload_to='payment_logos/', blank=True, null=True)
+    
+    is_active = models.BooleanField('active', default=True)
+    is_test_mode = models.BooleanField('test mode', default=True)
+    
+    # Provider-specific settings (could be stored as JSON for flexibility)
+    settings = models.JSONField('payment settings', default=dict, blank=True, help_text='API keys, store IDs, etc.')
+    
+    sort_order = models.PositiveIntegerField('sort order', default=0)
+    
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = 'payment method'
+        verbose_name_plural = 'payment methods'
+        ordering = ['sort_order', 'name']
+
+    def __str__(self):
+        return self.name
+
 class PaymentTransaction(models.Model):
     PAYMENT_STATUS_CHOICES = [
         ('pending', 'Pending'),

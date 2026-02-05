@@ -60,7 +60,13 @@
                 {% for order in orders %}
                 <tr>
                     <td class="fw-bold text-primary">#{{ order.order_number }}</td>
-                    <td>{{ order.user.get_full_name|default:order.user.email }}</td>
+                    <td>
+                        {% if order.user %}
+                            {{ order.user.get_full_name|default:order.user.email }}
+                        {% else %}
+                            {{ order.guest_email|default:"Guest" }}
+                        {% endif %}
+                    </td>
                     <td>{{ order.created_at|date:"M d, Y H:i" }}</td>
                     <td class="fw-bold">৳{{ order.total|floatformat:2|intcomma }}</td>
                     <td>

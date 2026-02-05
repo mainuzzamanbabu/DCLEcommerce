@@ -238,3 +238,152 @@ class PromotionalBannerForm(forms.ModelForm):
             'sort_order': forms.NumberInput(attrs={'class': 'form-control', 'min': 0}),
         }
 
+
+# Shipping Forms
+from apps.checkout.models import ShippingMethod
+
+class ShippingMethodForm(forms.ModelForm):
+    """Form for creating/editing shipping methods."""
+    
+    class Meta:
+        model = ShippingMethod
+        fields = [
+            'name', 'description', 'price', 
+            'min_delivery_days', 'max_delivery_days',
+            'is_active', 'free_above', 'sort_order'
+        ]
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'e.g., Standard Delivery'}),
+            'description': forms.Textarea(attrs={'class': 'form-control', 'rows': 2, 'placeholder': 'Method description...'}),
+            'price': forms.NumberInput(attrs={'class': 'form-control', 'step': '0.01', 'min': 0}),
+            'min_delivery_days': forms.NumberInput(attrs={'class': 'form-control', 'min': 1}),
+            'max_delivery_days': forms.NumberInput(attrs={'class': 'form-control', 'min': 1}),
+            'is_active': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+            'free_above': forms.NumberInput(attrs={'class': 'form-control', 'step': '0.01', 'min': 0, 'placeholder': 'e.g., 5000 (Optional)'}),
+            'sort_order': forms.NumberInput(attrs={'class': 'form-control', 'min': 0}),
+        }
+
+
+# Payment Method Forms
+from apps.payments.models import PaymentMethod
+
+class PaymentMethodForm(forms.ModelForm):
+    """Form for creating/editing payment methods."""
+    
+    class Meta:
+        model = PaymentMethod
+        fields = [
+            'name', 'code', 'description', 'instruction',
+            'logo', 'is_active', 'is_test_mode', 'sort_order'
+        ]
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'e.g., SSLCommerz'}),
+            'code': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'e.g., sslcommerz'}),
+            'description': forms.Textarea(attrs={'class': 'form-control', 'rows': 2, 'placeholder': 'Brief description...'}),
+            'instruction': forms.Textarea(attrs={'class': 'form-control', 'rows': 3, 'placeholder': 'Instructions shown to customers...'}),
+            'logo': forms.FileInput(attrs={'class': 'form-control'}),
+            'is_active': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+            'is_test_mode': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+            'sort_order': forms.NumberInput(attrs={'class': 'form-control', 'min': 0}),
+        }
+
+
+# CMS Forms
+from apps.cms.models import SiteSettings, FooterSection, FooterLink, FeaturedSection, Testimonial, FAQItem
+
+class SiteSettingsForm(forms.ModelForm):
+    """Form for site-wide settings."""
+    class Meta:
+        model = SiteSettings
+        fields = '__all__'
+        exclude = ['created_at', 'updated_at']
+        widgets = {
+            'site_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'tagline': forms.TextInput(attrs={'class': 'form-control'}),
+            'logo': forms.FileInput(attrs={'class': 'form-control'}),
+            'favicon': forms.FileInput(attrs={'class': 'form-control'}),
+            'seo_title': forms.TextInput(attrs={'class': 'form-control', 'maxlength': 60}),
+            'seo_description': forms.Textarea(attrs={'class': 'form-control', 'rows': 2, 'maxlength': 160}),
+            'seo_keywords': forms.TextInput(attrs={'class': 'form-control'}),
+            'email': forms.EmailInput(attrs={'class': 'form-control'}),
+            'phone': forms.TextInput(attrs={'class': 'form-control'}),
+            'address': forms.Textarea(attrs={'class': 'form-control', 'rows': 2}),
+            'facebook_url': forms.URLInput(attrs={'class': 'form-control'}),
+            'instagram_url': forms.URLInput(attrs={'class': 'form-control'}),
+            'twitter_url': forms.URLInput(attrs={'class': 'form-control'}),
+            'youtube_url': forms.URLInput(attrs={'class': 'form-control'}),
+            'linkedin_url': forms.URLInput(attrs={'class': 'form-control'}),
+            'footer_text': forms.Textarea(attrs={'class': 'form-control', 'rows': 2}),
+        }
+
+
+class FooterSectionForm(forms.ModelForm):
+    """Form for footer sections."""
+    class Meta:
+        model = FooterSection
+        fields = ['title', 'sort_order', 'is_active']
+        widgets = {
+            'title': forms.TextInput(attrs={'class': 'form-control'}),
+            'sort_order': forms.NumberInput(attrs={'class': 'form-control', 'min': 0}),
+            'is_active': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+        }
+
+
+class FooterLinkForm(forms.ModelForm):
+    """Form for footer links."""
+    class Meta:
+        model = FooterLink
+        fields = ['title', 'url', 'open_in_new_tab', 'sort_order', 'is_active']
+        widgets = {
+            'title': forms.TextInput(attrs={'class': 'form-control'}),
+            'url': forms.TextInput(attrs={'class': 'form-control'}),
+            'open_in_new_tab': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+            'sort_order': forms.NumberInput(attrs={'class': 'form-control', 'min': 0}),
+            'is_active': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+        }
+
+
+class FeaturedSectionForm(forms.ModelForm):
+    """Form for featured sections."""
+    class Meta:
+        model = FeaturedSection
+        fields = ['title', 'subtitle', 'section_type', 'background_color', 'text_color', 'is_active', 'sort_order']
+        widgets = {
+            'title': forms.TextInput(attrs={'class': 'form-control'}),
+            'subtitle': forms.Textarea(attrs={'class': 'form-control', 'rows': 2}),
+            'section_type': forms.Select(attrs={'class': 'form-select'}),
+            'background_color': forms.TextInput(attrs={'class': 'form-control', 'type': 'color'}),
+            'text_color': forms.Select(attrs={'class': 'form-select'}),
+            'is_active': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+            'sort_order': forms.NumberInput(attrs={'class': 'form-control', 'min': 0}),
+        }
+
+
+class TestimonialForm(forms.ModelForm):
+    """Form for testimonials."""
+    class Meta:
+        model = Testimonial
+        fields = ['customer_name', 'customer_title', 'customer_image', 'content', 'rating', 'is_active', 'sort_order']
+        widgets = {
+            'customer_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'customer_title': forms.TextInput(attrs={'class': 'form-control'}),
+            'customer_image': forms.FileInput(attrs={'class': 'form-control'}),
+            'content': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
+            'rating': forms.Select(attrs={'class': 'form-select'}),
+            'is_active': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+            'sort_order': forms.NumberInput(attrs={'class': 'form-control', 'min': 0}),
+        }
+
+
+class FAQItemForm(forms.ModelForm):
+    """Form for FAQ items."""
+    class Meta:
+        model = FAQItem
+        fields = ['question', 'answer', 'category', 'is_active', 'sort_order']
+        widgets = {
+            'question': forms.TextInput(attrs={'class': 'form-control'}),
+            'answer': forms.Textarea(attrs={'class': 'form-control', 'rows': 4}),
+            'category': forms.Select(attrs={'class': 'form-select'}),
+            'is_active': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+            'sort_order': forms.NumberInput(attrs={'class': 'form-control', 'min': 0}),
+        }

@@ -1,10 +1,12 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from apps.catalog.models import Product, Category, Brand
 from apps.cms.models import HeroSlide, PromotionalBanner
 
 
 def home(request):
     """Homepage view with dynamic content."""
+    if request.user.is_authenticated and request.user.is_staff:
+        return redirect('dashboard:home')
     
     # Get featured products (limit to 8)
     featured_products = Product.objects.filter(
@@ -42,3 +44,8 @@ def home(request):
     }
     
     return render(request, 'pages/home.html', context)
+
+
+def terms(request):
+    """Terms and conditions page."""
+    return render(request, 'core/terms.html')

@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Terms and Conditions" %}{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="card shadow-lg border-0 rounded-4">
+                <div class="card-header bg-primary text-white py-4 border-0">
+                    <h1 class="h3 fw-bold mb-0">{% trans "Terms and Conditions" %}</h1>
+                    <p class="mb-0 opacity-75 mt-2">Last updated: February 2026</p>
+                </div>
+                <div class="card-body p-4 p-lg-5">
+                    <div class="terms-content">
+                        <section class="mb-5">
+                            <h2 class="h4 fw-bold text-primary mb-3">1. Introduction</h2>
+                            <p>Welcome to DCL E-commerce. These terms and conditions outline the rules and regulations for the use of our website and services.</p>
+                            <p>By accessing this website, we assume you accept these terms and conditions. Do not continue to use DCL E-commerce if you do not agree to take all of the terms and conditions stated on this page.</p>
+                        </section>
+
+                        <section class="mb-5">
+                            <h2 class="h4 fw-bold text-primary mb-3">2. Account Registration</h2>
+                            <p>To use certain features of our services, you must register for an account. When you register, you agree to:</p>
+                            <ul class="list-unstyled ms-3">
+                                <li class="mb-2"><i class="bi bi-check-circle text-success me-2"></i>Provide accurate and complete information</li>
+                                <li class="mb-2"><i class="bi bi-check-circle text-success me-2"></i>Maintain the security of your account credentials</li>
+                                <li class="mb-2"><i class="bi bi-check-circle text-success me-2"></i>Accept responsibility for all activities under your account</li>
+                                <li class="mb-2"><i class="bi bi-check-circle text-success me-2"></i>Notify us immediately of any unauthorized use</li>
+                            </ul>
+                        </section>
+
+                        <section class="mb-5">
+                            <h2 class="h4 fw-bold text-primary mb-3">3. Orders and Payments</h2>
+                            <p>By placing an order through our website, you agree to the following:</p>
+                            <ul class="list-unstyled ms-3">
+                                <li class="mb-2"><i class="bi bi-check-circle text-success me-2"></i>You are authorized to use the payment method provided</li>
+                                <li class="mb-2"><i class="bi bi-check-circle text-success me-2"></i>All information you provide is accurate and complete</li>
+                                <li class="mb-2"><i class="bi bi-check-circle text-success me-2"></i>You agree to pay the total amount for your order including shipping</li>
+                                <li class="mb-2"><i class="bi bi-check-circle text-success me-2"></i>Prices are subject to change without notice</li>
+                            </ul>
+                        </section>
+
+                        <section class="mb-5">
+                            <h2 class="h4 fw-bold text-primary mb-3">4. Shipping and Delivery</h2>
+                            <p>We strive to deliver your orders in a timely manner. However:</p>
+                            <ul class="list-unstyled ms-3">
+                                <li class="mb-2"><i class="bi bi-info-circle text-info me-2"></i>Delivery times are estimates and not guaranteed</li>
+                                <li class="mb-2"><i class="bi bi-info-circle text-info me-2"></i>We are not responsible for delays caused by shipping carriers</li>
+                                <li class="mb-2"><i class="bi bi-info-circle text-info me-2"></i>Risk of loss passes to you upon delivery</li>
+                            </ul>
+                        </section>
+
+                        <section class="mb-5">
+                            <h2 class="h4 fw-bold text-primary mb-3">5. Returns and Refunds</h2>
+                            <p>Our return policy allows you to return most items within 7 days of receipt for a full refund, subject to the following conditions:</p>
+                            <ul class="list-unstyled ms-3">
+                                <li class="mb-2"><i class="bi bi-check-circle text-success me-2"></i>Items must be unused and in original packaging</li>
+                                <li class="mb-2"><i class="bi bi-check-circle text-success me-2"></i>You must provide proof of purchase</li>
+                                <li class="mb-2"><i class="bi bi-exclamation-circle text-warning me-2"></i>Certain items may be non-refundable</li>
+                            </ul>
+                        </section>
+
+                        <section class="mb-5">
+                            <h2 class="h4 fw-bold text-primary mb-3">6. Privacy Policy</h2>
+                            <p>Your privacy is important to us. We collect and use your information in accordance with our Privacy Policy. By using our services, you consent to our data practices as described therein.</p>
+                        </section>
+
+                        <section class="mb-5">
+                            <h2 class="h4 fw-bold text-primary mb-3">7. Intellectual Property</h2>
+                            <p>All content on this website, including text, graphics, logos, and images, is the property of DCL E-commerce and is protected by applicable copyright and trademark laws.</p>
+                        </section>
+
+                        <section class="mb-5">
+                            <h2 class="h4 fw-bold text-primary mb-3">8. Limitation of Liability</h2>
+                            <p>To the maximum extent permitted by law, DCL E-commerce shall not be liable for any indirect, incidental, special, consequential, or punitive damages resulting from your use of our services.</p>
+                        </section>
+
+                        <section class="mb-5">
+                            <h2 class="h4 fw-bold text-primary mb-3">9. Changes to Terms</h2>
+                            <p>We reserve the right to modify these terms at any time. Changes will be effective immediately upon posting to this page. Your continued use of our services constitutes acceptance of any changes.</p>
+                        </section>
+
+                        <section>
+                            <h2 class="h4 fw-bold text-primary mb-3">10. Contact Us</h2>
+                            <p>If you have any questions about these Terms and Conditions, please contact us:</p>
+                            <ul class="list-unstyled ms-3">
+                                <li class="mb-2"><i class="bi bi-envelope text-primary me-2"></i>Email: support@dcl-ecommerce.com</li>
+                                <li class="mb-2"><i class="bi bi-telephone text-primary me-2"></i>Phone: +880-XXXX-XXXXXX</li>
+                            </ul>
+                        </section>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-4">
+                <a href="{% url 'core:home' %}" class="btn btn-link text-muted text-decoration-none">
+                    <i class="bi bi-arrow-left me-1"></i>{% trans "Back to Homepage" %}
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .terms-content section h2 {
+        border-bottom: 2px solid var(--bs-primary);
+        padding-bottom: 0.5rem;
+    }
+    .terms-content p {
+        color: #555;
+        line-height: 1.8;
+    }
+</style>
+{% endblock %}

@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib import messages
-from django.db.models import Sum, Count
+from django.db.models import Sum, Count, Q
 from django.core.paginator import Paginator
 from apps.orders.models import Order, OrderStatusHistory
 from apps.catalog.models import Category, Brand, Product, ProductImage
@@ -13,7 +13,7 @@ from .forms import CategoryForm, BrandForm, ProductForm, ProductImageForm
 
 @staff_member_required
 def dashboard_home(request):
-    """Staff dashboard home - overview of store stats."""
+    """Staff dashboard home - overview of store stats with chart data."""
     today = timezone.now().date()
     
     total_orders = Order.objects.count()
@@ -22,6 +22,34 @@ def dashboard_home(request):
     total_products = Product.objects.count()
     
     recent_orders = Order.objects.all().order_by('-created_at')[:10]
+
+    # --- Analytics Data for Charts ---
+    # 1. Monthly Sales (Last 6 months)
+    six_months_ago = today - timedelta(days=180)
+    monthly_sales = Order.objects.filter(
+        payment_status='paid',
+        created_at__date__gte=six_months_ago
+    ).extra(select={'month': "strftime('%%Y-%%m', created_at)"}).values('month').annotate(
+        revenue=Sum('total')
+    ).order_by('month')
+
+    # Convert to JSON serializable list for JS
+    sales_labels = [s['month'] for s in monthly_sales]
+    sales_data = [float(s['revenue']) for s in monthly_sales]
+
+    # 2. Category Distribution (Revenue by Category)
+    from apps.catalog.models import Category
+    category_data = []
+    category_labels = []
+    
+    # Get top 5 categories by revenue
+    top_categories = Category.objects.annotate(
+        revenue=Sum('products__variants__order_items__order__total', filter=Q(products__variants__order_items__order__payment_status='paid'))
+    ).filter(revenue__gt=0).order_by('-revenue')[:5]
+
+    for cat in top_categories:
+        category_labels.append(cat.name)
+        category_data.append(float(cat.revenue))
     
     context = {
         'total_orders': total_orders,
@@ -29,6 +57,10 @@ def dashboard_home(request):
         'total_customers': total_customers,
         'total_products': total_products,
         'recent_orders': recent_orders,
+        'sales_labels': sales_labels,
+        'sales_data': sales_data,
+        'category_labels': category_labels,
+        'category_data': category_data,
         'title': 'Staff Dashboard Overview',
     }
     return render(request, 'dashboard/index.html', context)
@@ -603,3 +635,305 @@ def banner_delete(request, pk):
     }
     return render(request, 'dashboard/banners/banner_confirm_delete.html', context)
 
+
+# ==================== SHIPPING MANAGEMENT ====================
+from apps.checkout.models import ShippingMethod
+from .forms import ShippingMethodForm
+
+@staff_member_required
+def shipping_method_list(request):
+    """List all shipping methods."""
+    methods = ShippingMethod.objects.all()
+    context = {
+        'methods': methods,
+        'title': 'Shipping Methods',
+    }
+    return render(request, 'dashboard/shipping/method_list.html', context)
+
+@staff_member_required
+def shipping_method_create(request):
+    """Create a new shipping method."""
+    if request.method == 'POST':
+        form = ShippingMethodForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Shipping method created successfully!')
+            return redirect('dashboard:shipping_method_list')
+    else:
+        form = ShippingMethodForm()
+    
+    context = {
+        'form': form,
+        'title': 'Add Shipping Method',
+    }
+    return render(request, 'dashboard/shipping/method_form.html', context)
+
+@staff_member_required
+def shipping_method_edit(request, pk):
+    """Edit an existing shipping method."""
+    method = get_object_or_404(ShippingMethod, pk=pk)
+    
+    if request.method == 'POST':
+        form = ShippingMethodForm(request.POST, instance=method)
+        if form.is_valid():
+            form.save()
+            messages.success(request, f'Shipping method "{method.name}" updated successfully!')
+            return redirect('dashboard:shipping_method_list')
+    else:
+        form = ShippingMethodForm(instance=method)
+    
+    context = {
+        'form': form,
+        'method': method,
+        'title': f'Edit Shipping Method: {method.name}',
+    }
+    return render(request, 'dashboard/shipping/method_form.html', context)
+
+@staff_member_required
+def shipping_method_delete(request, pk):
+    """Delete a shipping method."""
+    method = get_object_or_404(ShippingMethod, pk=pk)
+    
+    if request.method == 'POST':
+        method.delete()
+        messages.success(request, 'Shipping method deleted successfully!')
+        return redirect('dashboard:shipping_method_list')
+    
+    context = {
+        'method': method,
+        'title': 'Delete Shipping Method',
+    }
+    return render(request, 'dashboard/shipping/method_confirm_delete.html', context)
+
+
+# ==================== PAYMENT METHOD MANAGEMENT ====================
+from apps.payments.models import PaymentMethod, PaymentTransaction
+from .forms import PaymentMethodForm
+
+@staff_member_required
+def payment_list(request):
+    """List all payment transactions."""
+    transactions = PaymentTransaction.objects.select_related('order').order_by('-created_at')
+    
+    paginator = Paginator(transactions, 20)
+    page = request.GET.get('page')
+    transactions = paginator.get_page(page)
+    
+    context = {
+        'transactions': transactions,
+        'title': 'Payments',
+    }
+    return render(request, 'dashboard/payments/payment_list.html', context)
+
+@staff_member_required
+def payment_method_list(request):
+    """List all payment methods."""
+    methods = PaymentMethod.objects.all()
+    context = {
+        'methods': methods,
+        'title': 'Payment Methods',
+    }
+    return render(request, 'dashboard/payments/method_list.html', context)
+
+@staff_member_required
+def payment_method_create(request):
+    """Create a new payment method."""
+    if request.method == 'POST':
+        form = PaymentMethodForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Payment method created successfully!')
+            return redirect('dashboard:payment_method_list')
+    else:
+        form = PaymentMethodForm()
+    
+    context = {
+        'form': form,
+        'title': 'Add Payment Method',
+    }
+    return render(request, 'dashboard/payments/method_form.html', context)
+
+@staff_member_required
+def payment_method_edit(request, pk):
+    """Edit an existing payment method."""
+    method = get_object_or_404(PaymentMethod, pk=pk)
+    
+    if request.method == 'POST':
+        form = PaymentMethodForm(request.POST, request.FILES, instance=method)
+        if form.is_valid():
+            form.save()
+            messages.success(request, f'Payment method "{method.name}" updated successfully!')
+            return redirect('dashboard:payment_method_list')
+    else:
+        form = PaymentMethodForm(instance=method)
+    
+    context = {
+        'form': form,
+        'method': method,
+        'title': f'Edit Payment Method: {method.name}',
+    }
+    return render(request, 'dashboard/payments/method_form.html', context)
+
+@staff_member_required
+def payment_method_delete(request, pk):
+    """Delete a payment method."""
+    method = get_object_or_404(PaymentMethod, pk=pk)
+    
+    if request.method == 'POST':
+        method.delete()
+        messages.success(request, 'Payment method deleted successfully!')
+        return redirect('dashboard:payment_method_list')
+    
+    context = {
+        'method': method,
+        'title': 'Delete Payment Method',
+    }
+    return render(request, 'dashboard/payments/method_confirm_delete.html', context)
+
+
+# ==================== CUSTOMER DETAIL ====================
+from apps.accounts.models import Address
+
+@staff_member_required
+def customer_detail(request, pk):
+    """View detailed customer information."""
+    customer = get_object_or_404(User, pk=pk)
+    addresses = Address.objects.filter(user=customer)
+    orders = customer.orders.all().order_by('-created_at')[:10]
+    
+    context = {
+        'customer': customer,
+        'addresses': addresses,
+        'orders': orders,
+        'title': f'Customer: {customer.get_full_name()}',
+    }
+    return render(request, 'dashboard/customers/customer_detail.html', context)
+
+
+# ==================== CMS MANAGEMENT ====================
+from apps.cms.models import SiteSettings, FooterSection, FooterLink, FeaturedSection, Testimonial, FAQItem
+from .forms import SiteSettingsForm, FooterSectionForm, FooterLinkForm, FeaturedSectionForm, TestimonialForm, FAQItemForm
+
+@staff_member_required
+def site_settings(request):
+    """Edit site settings (singleton)."""
+    settings = SiteSettings.get_settings()
+    
+    if request.method == 'POST':
+        form = SiteSettingsForm(request.POST, request.FILES, instance=settings)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Site settings updated successfully!')
+            return redirect('dashboard:site_settings')
+    else:
+        form = SiteSettingsForm(instance=settings)
+    
+    context = {
+        'form': form,
+        'title': 'Site Settings',
+    }
+    return render(request, 'dashboard/cms/site_settings.html', context)
+
+
+# Testimonials CRUD
+@staff_member_required
+def testimonial_list(request):
+    """List all testimonials."""
+    testimonials = Testimonial.objects.all()
+    context = {
+        'testimonials': testimonials,
+        'title': 'Testimonials',
+    }
+    return render(request, 'dashboard/cms/testimonial_list.html', context)
+
+@staff_member_required
+def testimonial_create(request):
+    """Create a new testimonial."""
+    if request.method == 'POST':
+        form = TestimonialForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Testimonial created successfully!')
+            return redirect('dashboard:testimonial_list')
+    else:
+        form = TestimonialForm()
+    
+    context = {'form': form, 'title': 'Add Testimonial'}
+    return render(request, 'dashboard/cms/testimonial_form.html', context)
+
+@staff_member_required
+def testimonial_edit(request, pk):
+    """Edit a testimonial."""
+    testimonial = get_object_or_404(Testimonial, pk=pk)
+    
+    if request.method == 'POST':
+        form = TestimonialForm(request.POST, request.FILES, instance=testimonial)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Testimonial updated successfully!')
+            return redirect('dashboard:testimonial_list')
+    else:
+        form = TestimonialForm(instance=testimonial)
+    
+    context = {'form': form, 'testimonial': testimonial, 'title': 'Edit Testimonial'}
+    return render(request, 'dashboard/cms/testimonial_form.html', context)
+
+@staff_member_required
+def testimonial_delete(request, pk):
+    """Delete a testimonial."""
+    testimonial = get_object_or_404(Testimonial, pk=pk)
+    if request.method == 'POST':
+        testimonial.delete()
+        messages.success(request, 'Testimonial deleted successfully!')
+        return redirect('dashboard:testimonial_list')
+    context = {'testimonial': testimonial, 'title': 'Delete Testimonial'}
+    return render(request, 'dashboard/cms/testimonial_confirm_delete.html', context)
+
+
+# FAQ CRUD
+@staff_member_required
+def faq_list(request):
+    """List all FAQs."""
+    faqs = FAQItem.objects.all()
+    context = {'faqs': faqs, 'title': 'FAQs'}
+    return render(request, 'dashboard/cms/faq_list.html', context)
+
+@staff_member_required
+def faq_create(request):
+    """Create a new FAQ."""
+    if request.method == 'POST':
+        form = FAQItemForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'FAQ created successfully!')
+            return redirect('dashboard:faq_list')
+    else:
+        form = FAQItemForm()
+    context = {'form': form, 'title': 'Add FAQ'}
+    return render(request, 'dashboard/cms/faq_form.html', context)
+
+@staff_member_required
+def faq_edit(request, pk):
+    """Edit a FAQ."""
+    faq = get_object_or_404(FAQItem, pk=pk)
+    if request.method == 'POST':
+        form = FAQItemForm(request.POST, instance=faq)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'FAQ updated successfully!')
+            return redirect('dashboard:faq_list')
+    else:
+        form = FAQItemForm(instance=faq)
+    context = {'form': form, 'faq': faq, 'title': 'Edit FAQ'}
+    return render(request, 'dashboard/cms/faq_form.html', context)
+
+@staff_member_required
+def faq_delete(request, pk):
+    """Delete a FAQ."""
+    faq = get_object_or_404(FAQItem, pk=pk)
+    if request.method == 'POST':
+        faq.delete()
+        messages.success(request, 'FAQ deleted successfully!')
+        return redirect('dashboard:faq_list')
+    context = {'faq': faq, 'title': 'Delete FAQ'}
+    return render(request, 'dashboard/cms/faq_confirm_delete.html', context)

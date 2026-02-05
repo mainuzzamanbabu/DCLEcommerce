@@ -16,7 +16,13 @@ env = environ.Env(
 )
 
 # Read .env file
-environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
+env_file = os.path.join(BASE_DIR, '.env')
+if os.path.exists(env_file):
+    # Proactively clear placeholder values that might be stuck in the OS environment
+    for key in ['SSLCOMMERZ_STORE_ID', 'SSLCOMMERZ_STORE_PASS']:
+        if os.environ.get(key) in ['', 'your_sandbox_store_id', 'your_sandbox_store_password']:
+            os.environ.pop(key, None)
+    environ.Env.read_env(env_file, overwrite=True)
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = env('DJANGO_SECRET_KEY')
@@ -164,6 +170,10 @@ ACCOUNT_LOGIN_METHODS = {'email'}
 ACCOUNT_SIGNUP_FIELDS = ['email*', 'password1*', 'password2*']
 ACCOUNT_EMAIL_VERIFICATION = 'optional'
 ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
+ACCOUNT_LOGOUT_ON_GET = True
+ACCOUNT_FORMS = {
+    'signup': 'apps.accounts.forms.CustomSignupForm',
+}
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 

@@ -1,0 +1,26 @@
+{% extends 'dashboard/base.html' %}
+
+{% block dashboard_content %}
+<div class="card stats-card">
+    <div class="card-header bg-transparent border-bottom py-3">
+        <h5 class="mb-0 fw-bold text-danger">{{ title }}</h5>
+    </div>
+    <div class="card-body">
+        <div class="alert alert-warning">
+            <i class="bi bi-exclamation-triangle me-2"></i>
+            Are you sure you want to delete the payment method <strong>"{{ method.name }}"</strong>?
+            This action cannot be undone.
+        </div>
+        
+        <form method="post">
+            {% csrf_token %}
+            <div class="d-flex gap-2">
+                <button type="submit" class="btn btn-danger">
+                    <i class="bi bi-trash me-1"></i> Delete
+                </button>
+                <a href="{% url 'dashboard:payment_method_list' %}" class="btn btn-outline-secondary">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

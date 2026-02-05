@@ -46,9 +46,20 @@ class Category(models.Model):
             return f"{self.parent} > {self.name}"
         return self.name
     
+    def clean(self):
+        from django.core.exceptions import ValidationError
+        if self.parent == self:
+            raise ValidationError("A category cannot be its own parent.")
+        if self.parent:
+            # Check if parent is a descendant of self
+            ancestors = self.parent.get_ancestors()
+            if self in ancestors or self == self.parent:
+                raise ValidationError("Circular dependency detected.")
+
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.name)
+        self.full_clean()
         super().save(*args, **kwargs)
     
     def get_absolute_url(self):
@@ -58,17 +69,30 @@ class Category(models.Model):
         """Get all ancestor categories."""
         ancestors = []
         parent = self.parent
+        visited = {self.id}
         while parent:
+            if parent.id in visited:
+                break
             ancestors.insert(0, parent)
+            visited.add(parent.id)
             parent = parent.parent
         return ancestors
     
-    def get_all_children(self):
+    def get_all_children(self, visited=None):
         """Get all descendant categories."""
+        if visited is None:
+            visited = set()
+        
+        if self.id in visited:
+            return []
+            
+        visited.add(self.id)
         children = list(self.children.filter(is_active=True))
-        for child in self.children.filter(is_active=True):
-            children.extend(child.get_all_children())
-        return children
+        all_descendants = children.copy()
+        
+        for child in children:
+            all_descendants.extend(child.get_all_children(visited))
+        return all_descendants
 
 
 class Brand(models.Model):

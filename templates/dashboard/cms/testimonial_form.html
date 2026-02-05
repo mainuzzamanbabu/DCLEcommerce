@@ -1,0 +1,53 @@
+{% extends 'dashboard/base.html' %}
+
+{% block dashboard_content %}
+<div class="card stats-card">
+    <div class="card-header bg-transparent border-bottom py-3 d-flex justify-content-between align-items-center">
+        <h5 class="mb-0 fw-bold">
+            <i class="bi bi-chat-quote me-2"></i>
+            {% if testimonial %}Edit{% else %}Add{% endif %} Testimonial
+        </h5>
+    </div>
+    <div class="card-body">
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label class="form-label">Customer Name *</label>
+                    {{ form.customer_name }}
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Title/Location</label>
+                    {{ form.customer_title }}
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Customer Image</label>
+                    {{ form.customer_image }}
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Rating</label>
+                    {{ form.rating }}
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label">Sort Order</label>
+                    {{ form.sort_order }}
+                </div>
+                <div class="col-12">
+                    <label class="form-label">Testimonial Content *</label>
+                    {{ form.content }}
+                </div>
+                <div class="col-md-6">
+                    <div class="form-check">
+                        {{ form.is_active }}
+                        <label class="form-check-label">Active</label>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex gap-2 mt-4">
+                <button type="submit" class="btn btn-primary"><i class="bi bi-check-lg me-1"></i>Save</button>
+                <a href="{% url 'dashboard:testimonial_list' %}" class="btn btn-outline-secondary">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

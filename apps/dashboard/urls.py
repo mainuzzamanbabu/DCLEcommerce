@@ -50,4 +50,35 @@ urlpatterns = [
     path('banners/add/', views.banner_create, name='banner_create'),
     path('banners/<int:pk>/edit/', views.banner_edit, name='banner_edit'),
     path('banners/<int:pk>/delete/', views.banner_delete, name='banner_delete'),
+    
+    # Shipping Methods
+    path('shipping-methods/', views.shipping_method_list, name='shipping_method_list'),
+    path('shipping-methods/add/', views.shipping_method_create, name='shipping_method_create'),
+    path('shipping-methods/<int:pk>/edit/', views.shipping_method_edit, name='shipping_method_edit'),
+    path('shipping-methods/<int:pk>/delete/', views.shipping_method_delete, name='shipping_method_delete'),
+    
+    # Payment Methods
+    path('payments/', views.payment_list, name='payment_list'),
+    path('payment-methods/', views.payment_method_list, name='payment_method_list'),
+    path('payment-methods/add/', views.payment_method_create, name='payment_method_create'),
+    path('payment-methods/<int:pk>/edit/', views.payment_method_edit, name='payment_method_edit'),
+    path('payment-methods/<int:pk>/delete/', views.payment_method_delete, name='payment_method_delete'),
+    
+    # Customer Detail
+    path('customers/<int:pk>/', views.customer_detail, name='customer_detail'),
+    
+    # CMS - Site Settings
+    path('settings/', views.site_settings, name='site_settings'),
+    
+    # CMS - Testimonials
+    path('testimonials/', views.testimonial_list, name='testimonial_list'),
+    path('testimonials/add/', views.testimonial_create, name='testimonial_create'),
+    path('testimonials/<int:pk>/edit/', views.testimonial_edit, name='testimonial_edit'),
+    path('testimonials/<int:pk>/delete/', views.testimonial_delete, name='testimonial_delete'),
+    
+    # CMS - FAQs
+    path('faqs/', views.faq_list, name='faq_list'),
+    path('faqs/add/', views.faq_create, name='faq_create'),
+    path('faqs/<int:pk>/edit/', views.faq_edit, name='faq_edit'),
+    path('faqs/<int:pk>/delete/', views.faq_delete, name='faq_delete'),
 ]

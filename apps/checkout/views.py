@@ -5,6 +5,7 @@ from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 from django.db import transaction
 from decimal import Decimal
+import uuid
 
 from apps.cart.cart import SessionCart
 from apps.accounts.models import Address
@@ -37,6 +38,10 @@ def get_or_create_checkout_session(request):
 
 def checkout(request):
     """Main checkout view - redirects to first incomplete step."""
+    if not request.user.is_authenticated:
+        messages.info(request, 'Please login or create an account to complete your purchase.')
+        return redirect(f'/accounts/login/?next=/checkout/')
+    
     cart = SessionCart(request)
     
     if len(cart) == 0:
@@ -56,7 +61,9 @@ def checkout(request):
         return redirect('checkout:review')
 
 
+@login_required
 def checkout_address(request):
+
     """Step 1: Address selection/entry."""
     cart = SessionCart(request)
     
@@ -66,28 +73,29 @@ def checkout_address(request):
     session = get_or_create_checkout_session(request)
     
     if request.method == 'POST':
-        if request.user.is_authenticated:
-            # Logged in user selects from saved addresses
-            address_id = request.POST.get('shipping_address')
-            if address_id:
-                address = get_object_or_404(Address, id=address_id, user=request.user)
-                session.shipping_address = address
-                
-                # Handle billing address
-                same_as_shipping = request.POST.get('same_as_shipping') == 'on'
-                session.same_as_shipping = same_as_shipping
-                if same_as_shipping:
-                    session.billing_address = address
-                else:
-                    billing_id = request.POST.get('billing_address')
-                    if billing_id:
-                        session.billing_address = get_object_or_404(Address, id=billing_id, user=request.user)
-                
-                session.current_step = 'shipping'
-                session.save()
-                return redirect('checkout:shipping')
+        # 1. Try to get a saved address (only for authenticated users)
+        address_id = request.POST.get('shipping_address')
+        if request.user.is_authenticated and address_id:
+            address = get_object_or_404(Address, id=address_id, user=request.user)
+            session.shipping_address = address
+            
+            # Handle billing address
+            same_as_shipping = request.POST.get('same_as_shipping') == 'on'
+            session.same_as_shipping = same_as_shipping
+            if same_as_shipping:
+                session.billing_address = address
+            else:
+                billing_id = request.POST.get('billing_address')
+                if billing_id:
+                    session.billing_address = get_object_or_404(Address, id=billing_id, user=request.user)
+            
+            session.guest_shipping_address = {} # Clear guest info if saved address used
+            session.current_step = 'shipping'
+            session.save()
+            return redirect('checkout:shipping')
+            
+        # 2. Otherwise, handle manual address entry (Guest style)
         else:
-            # Guest checkout - save address to session JSON
             guest_address = {
                 'full_name': request.POST.get('full_name', ''),
                 'phone': request.POST.get('phone', ''),
@@ -100,28 +108,36 @@ def checkout_address(request):
                 'country': request.POST.get('country', 'Bangladesh'),
             }
             
-            session.guest_email = guest_address['email']
-            session.guest_phone = guest_address['phone']
-            session.guest_shipping_address = guest_address
-            session.same_as_shipping = request.POST.get('same_as_shipping') == 'on'
-            
-            if session.same_as_shipping:
-                session.guest_billing_address = guest_address
+            # Simple validation to ensure it's not "nothing happened" because of missing data
+            if not guest_address['full_name'] or not guest_address['address_line1']:
+                messages.error(request, 'Please fill in all required fields.')
             else:
-                session.guest_billing_address = {
-                    'full_name': request.POST.get('billing_full_name', ''),
-                    'phone': request.POST.get('billing_phone', ''),
-                    'address_line1': request.POST.get('billing_address_line1', ''),
-                    'address_line2': request.POST.get('billing_address_line2', ''),
-                    'city': request.POST.get('billing_city', ''),
-                    'area': request.POST.get('billing_area', ''),
-                    'postal_code': request.POST.get('billing_postal_code', ''),
-                    'country': request.POST.get('billing_country', 'Bangladesh'),
-                }
-            
-            session.current_step = 'shipping'
-            session.save()
-            return redirect('checkout:shipping')
+                session.guest_email = guest_address['email']
+                session.guest_phone = guest_address['phone']
+                session.guest_shipping_address = guest_address
+                session.same_as_shipping = request.POST.get('same_as_shipping') == 'on'
+                
+                # Clear saved address if manual entry used
+                session.shipping_address = None
+                
+                if session.same_as_shipping:
+                    session.guest_billing_address = guest_address
+                else:
+                    session.guest_billing_address = {
+                        'full_name': request.POST.get('billing_full_name', ''),
+                        'phone': request.POST.get('billing_phone', ''),
+                        'address_line1': request.POST.get('billing_address_line1', ''),
+                        'address_line2': request.POST.get('billing_address_line2', ''),
+                        'city': request.POST.get('billing_city', ''),
+                        'area': request.POST.get('billing_area', ''),
+                        'postal_code': request.POST.get('billing_postal_code', ''),
+                        'country': request.POST.get('billing_country', 'Bangladesh'),
+                    }
+                
+                session.current_step = 'shipping'
+                session.save()
+                return redirect('checkout:shipping')
+
     
     # Get user's saved addresses
     addresses = []
@@ -137,6 +153,7 @@ def checkout_address(request):
     return render(request, 'checkout/checkout_address.html', context)
 
 
+@login_required
 def checkout_shipping(request):
     """Step 2: Shipping method selection."""
     cart = SessionCart(request)
@@ -183,6 +200,7 @@ def checkout_shipping(request):
     return render(request, 'checkout/checkout_shipping.html', context)
 
 
+@login_required
 def checkout_payment(request):
     """Step 3: Payment method selection."""
     cart = SessionCart(request)
@@ -214,6 +232,7 @@ def checkout_payment(request):
     return render(request, 'checkout/checkout_payment.html', context)
 
 
+@login_required
 def checkout_review(request):
     """Step 3: Review order and place it."""
     cart = SessionCart(request)
@@ -348,9 +367,6 @@ def place_order(request):
         # Clear cart
         cart.clear()
         
-        # Delete checkout session
-        session.delete()
-        
         # Store order number in session for confirmation page
         request.session['last_order_number'] = order.order_number
         
@@ -367,16 +383,16 @@ def place_order(request):
         # SSLCommerz Logic
         if session.payment_method == 'sslcommerz':
             ssl = SSLCommerzProvider()
-            gateway_url = ssl.init_payment(order, transaction_id, request)
+            gateway_url, error_message = ssl.init_payment(order, transaction_id, request)
             
             if gateway_url:
                 # Delete checkout session after redirecting to payment
                 session.delete()
                 return redirect(gateway_url)
             else:
-                messages.error(request, 'Could not initialize payment with SSLCommerz. Please try COD or try again later.')
+                messages.error(request, f'SSLCommerz Error: {error_message}')
                 # Rollback transaction (implicitly handled by atomic)
-                raise Exception("SSLCommerz initialization failed")
+                raise Exception(f"SSLCommerz initialization failed: {error_message}")
 
         # COD Logic
         elif session.payment_method == 'cod':

@@ -1,0 +1,93 @@
+{% extends 'dashboard/base.html' %}
+{% load humanize %}
+
+{% block dashboard_content %}
+<!-- Header with Manage Payment Methods Button -->
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h4 class="mb-0 fw-bold"><i class="bi bi-credit-card-2-front me-2"></i>All Payments</h4>
+    <a href="{% url 'dashboard:payment_method_list' %}" class="btn btn-primary">
+        <i class="bi bi-gear me-1"></i> Manage Payment Methods
+    </a>
+</div>
+
+<!-- Payment Transactions Table -->
+<div class="table-premium">
+    <div class="table-header">
+        <h5 class="mb-0"><i class="bi bi-receipt me-2"></i>Payment Transactions ({{ transactions.paginator.count }})</h5>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-hover mb-0">
+            <thead>
+                <tr>
+                    <th>Transaction ID</th>
+                    <th>Order</th>
+                    <th>Amount</th>
+                    <th>Method</th>
+                    <th>Status</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for txn in transactions %}
+                <tr>
+                    <td class="fw-bold text-truncate" style="max-width: 150px;" title="{{ txn.transaction_id }}">
+                        {{ txn.transaction_id|slice:":12" }}...
+                    </td>
+                    <td>
+                        <a href="{% url 'dashboard:order_detail' txn.order.order_number %}" class="text-decoration-none">
+                            #{{ txn.order.order_number }}
+                        </a>
+                    </td>
+                    <td>৳{{ txn.amount|floatformat:2|intcomma }}</td>
+                    <td><span class="badge bg-secondary-subtle text-secondary">{{ txn.payment_method|upper }}</span></td>
+                    <td>
+                        <span class="badge 
+                            {% if txn.status == 'success' %}bg-success-subtle text-success
+                            {% elif txn.status == 'pending' %}bg-warning-subtle text-warning
+                            {% elif txn.status == 'processing' %}bg-info-subtle text-info
+                            {% elif txn.status == 'failed' or txn.status == 'cancelled' %}bg-danger-subtle text-danger
+                            {% elif txn.status == 'refunded' %}bg-purple-subtle text-purple
+                            {% else %}bg-secondary-subtle text-secondary{% endif %}">
+                            {{ txn.get_status_display }}
+                        </span>
+                    </td>
+                    <td>{{ txn.created_at|date:"M d, Y H:i" }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="6" class="text-center py-5">
+                        <div class="text-muted">
+                            <i class="bi bi-receipt display-4 d-block mb-3 opacity-50"></i>
+                            <p class="mb-0">No payment transactions yet.</p>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Pagination -->
+{% if transactions.has_other_pages %}
+<nav class="mt-4">
+    <ul class="pagination justify-content-center">
+        {% if transactions.has_previous %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{ transactions.previous_page_number }}">&laquo; Previous</a>
+        </li>
+        {% endif %}
+        
+        <li class="page-item disabled">
+            <span class="page-link">Page {{ transactions.number }} of {{ transactions.paginator.num_pages }}</span>
+        </li>
+        
+        {% if transactions.has_next %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{ transactions.next_page_number }}">Next &raquo;</a>
+        </li>
+        {% endif %}
+    </ul>
+</nav>
+{% endif %}
+{% endblock %}

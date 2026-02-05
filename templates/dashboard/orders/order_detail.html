@@ -21,8 +21,20 @@
                 <div class="row mb-4">
                     <div class="col-md-6">
                         <h6 class="text-muted mb-2">Customer</h6>
-                        <p class="mb-1 fw-bold">{{ order.user.get_full_name|default:order.user.email }}</p>
-                        <p class="mb-0 text-muted small">{{ order.user.email }}</p>
+                        <p class="mb-1 fw-bold">
+                            {% if order.user %}
+                                {{ order.user.get_full_name|default:order.user.email }}
+                            {% else %}
+                                {{ order.guest_full_name|default:"Guest Customer" }}
+                            {% endif %}
+                        </p>
+                        <p class="mb-0 text-muted small">
+                            {% if order.user %}
+                                {{ order.user.email }}
+                            {% else %}
+                                {{ order.guest_email }}
+                            {% endif %}
+                        </p>
                     </div>
                     <div class="col-md-6">
                         <h6 class="text-muted mb-2">Order Date</h6>

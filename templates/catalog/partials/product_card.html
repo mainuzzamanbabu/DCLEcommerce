@@ -75,7 +75,7 @@
         {% with variant=product.get_default_variant %}
         {% if variant %}
             {% if variant.is_in_stock %}
-            <button class="btn btn-primary w-100" onclick="addToCart({{ variant.id }})">
+            <button type="button" class="btn btn-primary w-100" onclick="addToCart({{ variant.id }})">
                 <i class="bi bi-cart-plus me-2"></i>Add to Cart
             </button>
             {% else %}

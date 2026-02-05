@@ -46,27 +46,37 @@ class SSLCommerzProvider:
             'cus_country': order.shipping_address.get('country', 'Bangladesh'),
             'cus_phone': order.guest_phone or order.shipping_address.get('phone', '01700000000'),
             
-            # Shipping Info
             'shipping_method': order.shipping_method_name or 'Courier',
             'num_of_item': order.items.count(),
             'product_name': f"Order {order.order_number}",
             'product_category': 'Electronic',
             'product_profile': 'general',
+            
+            # Shipping Info (Mandatory for 'general' profile)
+            'ship_name': order.shipping_address.get('full_name', 'Guest'),
+            'ship_add1': order.shipping_address.get('address_line1', 'N/A'),
+            'ship_add2': order.shipping_address.get('address_line2', ''),
+            'ship_city': order.shipping_address.get('city', 'Dhaka'),
+            'ship_state': order.shipping_address.get('area', 'Dhaka'),
+            'ship_postcode': order.shipping_address.get('postal_code', '1000'),
+            'ship_country': order.shipping_address.get('country', 'Bangladesh'),
         }
         
         try:
+            logger.info(f"SSLCommerz Post Data: {post_data}")
             response = requests.post(url, data=post_data)
             response.raise_for_status()
             data = response.json()
             
             if data.get('status') == 'SUCCESS':
-                return data.get('GatewayPageURL')
+                return data.get('GatewayPageURL'), None
             else:
-                logger.error(f"SSLCommerz Init Error: {data.get('failedreason')}")
-                return None
+                error_msg = data.get('failedreason') or str(data)
+                logger.error(f"SSLCommerz Init Error: {error_msg} | Full response: {data}")
+                return None, error_msg
         except Exception as e:
-            logger.exception("SSLCommerz Request Exception")
-            return None
+            logger.exception(f"SSLCommerz Request Exception: {str(e)}")
+            return None, str(e)
 
     def validate_transaction(self, val_id):
         """

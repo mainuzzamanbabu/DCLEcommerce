@@ -1,0 +1,1826 @@
+INFO 2026-01-29 11:15:39,585 autoreload Watching for file changes with StatReloader
+INFO 2026-01-29 11:16:41,313 utils SSLCommerz Post Data: {'store_id': 'your_sandbox_store_id', 'store_passwd': 'your_sandbox_store_password', 'total_amount': '83060.00', 'currency': 'BDT', 'tran_id': 'DCL-WTMUZ4EC_6277aa33', 'success_url': 'http://localhost:8001/payments/sslcommerz/success/', 'fail_url': 'http://localhost:8001/payments/sslcommerz/fail/', 'cancel_url': 'http://localhost:8001/payments/sslcommerz/cancel/', 'ipn_url': 'http://localhost:8001/payments/sslcommerz/ipn/', 'cus_name': 'Md Mainuzzaman', 'cus_email': 'mainuzzaman8911@gmail.com', 'cus_add1': '102/1 Shukrabad, Mirpur Road, Dhanmondi', 'cus_city': 'Dhaka', 'cus_postcode': '1207', 'cus_country': 'Bangladesh', 'cus_phone': '01717967345', 'shipping_method': 'Standard Delivery', 'num_of_item': 1, 'product_name': 'Order DCL-WTMUZ4EC', 'product_category': 'Electronic', 'product_profile': 'general', 'ship_name': 'Md Mainuzzaman', 'ship_add1': '102/1 Shukrabad, Mirpur Road, Dhanmondi', 'ship_add2': '1/15/K, BIBIR BAGICHA, NORTH JATRABARI', 'ship_city': 'Dhaka', 'ship_state': '', 'ship_postcode': '1207', 'ship_country': 'Bangladesh'}
+ERROR 2026-01-29 11:16:41,421 utils SSLCommerz Init Error: Store Credential Error Or Store is De-active | Full response: {'status': 'FAILED', 'failedreason': 'Store Credential Error Or Store is De-active', 'sessionkey': '', 'gw': {'visa': '', 'master': '', 'amex': '', 'othercards': '', 'internetbanking': '', 'mobilebanking': ''}, 'redirectGatewayURL': '', 'directPaymentURLBank': '', 'directPaymentURLCard': '', 'directPaymentURL': '', 'redirectGatewayURLFailed': '', 'GatewayPageURL': '', 'storeBanner': 'https://sandbox.sslcommerz.com/stores/logos/demoLogo.png', 'storeLogo': 'https://sandbox.sslcommerz.com/stores/logos/demoLogo.png', 'store_name': 'Demo', 'desc': []}
+ERROR 2026-01-29 11:16:41,446 log Internal Server Error: /checkout/place-order/
+Traceback (most recent call last):
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\views\decorators\http.py", line 43, in inner
+    return func(request, *args, **kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\apps\checkout\views.py", line 389, in place_order
+    raise Exception(f"SSLCommerz initialization failed: {error_message}")
+Exception: SSLCommerz initialization failed: Store Credential Error Or Store is De-active
+INFO 2026-01-29 11:19:00,836 utils SSLCommerz Post Data: {'store_id': 'your_sandbox_store_id', 'store_passwd': 'your_sandbox_store_password', 'total_amount': '83060.00', 'currency': 'BDT', 'tran_id': 'DCL-NADTFBAP_7e3fb22e', 'success_url': 'http://localhost:8001/payments/sslcommerz/success/', 'fail_url': 'http://localhost:8001/payments/sslcommerz/fail/', 'cancel_url': 'http://localhost:8001/payments/sslcommerz/cancel/', 'ipn_url': 'http://localhost:8001/payments/sslcommerz/ipn/', 'cus_name': 'Md Mainuzzaman', 'cus_email': 'mainuzzaman8911@gmail.com', 'cus_add1': '102/1 Shukrabad, Mirpur Road, Dhanmondi', 'cus_city': 'Dhaka', 'cus_postcode': '1207', 'cus_country': 'Bangladesh', 'cus_phone': '01717967345', 'shipping_method': 'Standard Delivery', 'num_of_item': 1, 'product_name': 'Order DCL-NADTFBAP', 'product_category': 'Electronic', 'product_profile': 'general', 'ship_name': 'Md Mainuzzaman', 'ship_add1': '102/1 Shukrabad, Mirpur Road, Dhanmondi', 'ship_add2': '1/15/K, BIBIR BAGICHA, NORTH JATRABARI', 'ship_city': 'Dhaka', 'ship_state': '', 'ship_postcode': '1207', 'ship_country': 'Bangladesh'}
+ERROR 2026-01-29 11:19:00,937 utils SSLCommerz Init Error: Store Credential Error Or Store is De-active | Full response: {'status': 'FAILED', 'failedreason': 'Store Credential Error Or Store is De-active', 'sessionkey': '', 'gw': {'visa': '', 'master': '', 'amex': '', 'othercards': '', 'internetbanking': '', 'mobilebanking': ''}, 'redirectGatewayURL': '', 'directPaymentURLBank': '', 'directPaymentURLCard': '', 'directPaymentURL': '', 'redirectGatewayURLFailed': '', 'GatewayPageURL': '', 'storeBanner': 'https://sandbox.sslcommerz.com/stores/logos/demoLogo.png', 'storeLogo': 'https://sandbox.sslcommerz.com/stores/logos/demoLogo.png', 'store_name': 'Demo', 'desc': []}
+ERROR 2026-01-29 11:19:00,953 log Internal Server Error: /checkout/place-order/
+Traceback (most recent call last):
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\views\decorators\http.py", line 43, in inner
+    return func(request, *args, **kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\apps\checkout\views.py", line 389, in place_order
+    raise Exception(f"SSLCommerz initialization failed: {error_message}")
+Exception: SSLCommerz initialization failed: Store Credential Error Or Store is De-active
+INFO 2026-01-29 11:22:25,283 autoreload E:\Antigravity_Proj\e-commerce\dcl-ecommerce\dcl_ecommerce\settings\base.py changed, reloading.
+INFO 2026-01-29 11:22:25,757 autoreload Watching for file changes with StatReloader
+INFO 2026-01-29 11:22:39,285 utils SSLCommerz Post Data: {'store_id': 'inter642d324bc79ae', 'store_passwd': 'inter642d324bc79ae@ssl', 'total_amount': '83060.00', 'currency': 'BDT', 'tran_id': 'DCL-QV7OHWG7_c6fc604d', 'success_url': 'http://localhost:8001/payments/sslcommerz/success/', 'fail_url': 'http://localhost:8001/payments/sslcommerz/fail/', 'cancel_url': 'http://localhost:8001/payments/sslcommerz/cancel/', 'ipn_url': 'http://localhost:8001/payments/sslcommerz/ipn/', 'cus_name': 'Md Mainuzzaman', 'cus_email': 'mainuzzaman8911@gmail.com', 'cus_add1': '102/1 Shukrabad, Mirpur Road, Dhanmondi', 'cus_city': 'Dhaka', 'cus_postcode': '1207', 'cus_country': 'Bangladesh', 'cus_phone': '01717967345', 'shipping_method': 'Standard Delivery', 'num_of_item': 1, 'product_name': 'Order DCL-QV7OHWG7', 'product_category': 'Electronic', 'product_profile': 'general', 'ship_name': 'Md Mainuzzaman', 'ship_add1': '102/1 Shukrabad, Mirpur Road, Dhanmondi', 'ship_add2': '1/15/K, BIBIR BAGICHA, NORTH JATRABARI', 'ship_city': 'Dhaka', 'ship_state': '', 'ship_postcode': '1207', 'ship_country': 'Bangladesh'}
+ERROR 2026-01-29 11:22:39,426 log Internal Server Error: /checkout/place-order/
+Traceback (most recent call last):
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\views\decorators\http.py", line 43, in inner
+    return func(request, *args, **kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\apps\checkout\views.py", line 384, in place_order
+    session.delete()
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\base.py", line 1125, in delete
+    raise ValueError(
+ValueError: CheckoutSession object can't be deleted because its id attribute is set to None.
+INFO 2026-01-29 11:23:25,355 autoreload E:\Antigravity_Proj\e-commerce\dcl-ecommerce\apps\checkout\views.py changed, reloading.
+INFO 2026-01-29 11:23:25,820 autoreload Watching for file changes with StatReloader
+INFO 2026-01-29 11:24:39,196 utils SSLCommerz Post Data: {'store_id': 'inter642d324bc79ae', 'store_passwd': 'inter642d324bc79ae@ssl', 'total_amount': '83060.00', 'currency': 'BDT', 'tran_id': 'DCL-9H25M2IQ_dd2aa226', 'success_url': 'http://localhost:8001/payments/sslcommerz/success/', 'fail_url': 'http://localhost:8001/payments/sslcommerz/fail/', 'cancel_url': 'http://localhost:8001/payments/sslcommerz/cancel/', 'ipn_url': 'http://localhost:8001/payments/sslcommerz/ipn/', 'cus_name': 'Md Mainuzzaman', 'cus_email': 'mainuzzaman8911@gmail.com', 'cus_add1': '102/1 Shukrabad, Mirpur Road, Dhanmondi', 'cus_city': 'Dhaka', 'cus_postcode': '1207', 'cus_country': 'Bangladesh', 'cus_phone': '01717967345', 'shipping_method': 'Standard Delivery', 'num_of_item': 1, 'product_name': 'Order DCL-9H25M2IQ', 'product_category': 'Electronic', 'product_profile': 'general', 'ship_name': 'Md Mainuzzaman', 'ship_add1': '102/1 Shukrabad, Mirpur Road, Dhanmondi', 'ship_add2': '1/15/K, BIBIR BAGICHA, NORTH JATRABARI', 'ship_city': 'Dhaka', 'ship_state': '', 'ship_postcode': '1207', 'ship_country': 'Bangladesh'}
+INFO 2026-01-29 11:31:46,069 utils SSLCommerz Post Data: {'store_id': 'inter642d324bc79ae', 'store_passwd': 'inter642d324bc79ae@ssl', 'total_amount': '83060.00', 'currency': 'BDT', 'tran_id': 'DCL-AYEEGB3J_f0829be0', 'success_url': 'http://localhost:8001/payments/sslcommerz/success/', 'fail_url': 'http://localhost:8001/payments/sslcommerz/fail/', 'cancel_url': 'http://localhost:8001/payments/sslcommerz/cancel/', 'ipn_url': 'http://localhost:8001/payments/sslcommerz/ipn/', 'cus_name': 'Md Mainuzzaman', 'cus_email': 'mainuzzaman8911@gmail.com', 'cus_add1': '102/1 Shukrabad, Mirpur Road, Dhanmondi', 'cus_city': 'Dhaka', 'cus_postcode': '1207', 'cus_country': 'Bangladesh', 'cus_phone': '01717967348', 'shipping_method': 'Standard Delivery', 'num_of_item': 1, 'product_name': 'Order DCL-AYEEGB3J', 'product_category': 'Electronic', 'product_profile': 'general', 'ship_name': 'Md Mainuzzaman', 'ship_add1': '102/1 Shukrabad, Mirpur Road, Dhanmondi', 'ship_add2': '1/15/K, BIBIR BAGICHA, NORTH JATRABARI', 'ship_city': 'Dhaka', 'ship_state': '', 'ship_postcode': '1207', 'ship_country': 'Bangladesh'}
+INFO 2026-01-29 11:35:04,696 autoreload E:\Antigravity_Proj\e-commerce\dcl-ecommerce\dcl_ecommerce\settings\base.py changed, reloading.
+INFO 2026-01-29 11:35:05,191 autoreload Watching for file changes with StatReloader
+ERROR 2026-01-29 11:38:45,700 log Internal Server Error: /catalog/category/electronics/
+Traceback (most recent call last):
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\views\generic\base.py", line 105, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\views\generic\base.py", line 144, in dispatch
+    return handler(request, *args, **kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\views\generic\detail.py", line 109, in get
+    context = self.get_context_data(object=self.object)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\apps\catalog\views.py", line 201, in get_context_data
+    category_ids = [category.id] + [c.id for c in category.get_all_children()]
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\apps\catalog\models.py", line 70, in get_all_children
+    children.extend(child.get_all_children())
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\apps\catalog\models.py", line 70, in get_all_children
+    children.extend(child.get_all_children())
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\apps\catalog\models.py", line 70, in get_all_children
+    children.extend(child.get_all_children())
+  [Previous line repeated 927 more times]
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\apps\catalog\models.py", line 68, in get_all_children
+    children = list(self.children.filter(is_active=True))
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\query.py", line 382, in __len__
+    self._fetch_all()
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\query.py", line 1886, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\query.py", line 93, in __iter__
+    results = compiler.execute_sql(
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\sql\compiler.py", line 1549, in execute_sql
+    sql, params = self.as_sql()
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\sql\compiler.py", line 736, in as_sql
+    extra_select, order_by, group_by = self.pre_sql_setup(
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\sql\compiler.py", line 85, in pre_sql_setup
+    order_by = self.get_order_by()
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\sql\compiler.py", line 459, in get_order_by
+    for expr, is_ref in self._order_by_pairs():
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\sql\compiler.py", line 341, in _order_by_pairs
+    selected_exprs[expr] = pos_expr
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\expressions.py", line 509, in __hash__
+    return hash(self.identity)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\utils\functional.py", line 57, in __get__
+    res = instance.__dict__[self.name] = self.func(instance)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\expressions.py", line 486, in identity
+    constructor_signature = inspect.signature(self.__init__)
+  File "C:\Users\mainuzzaman\AppData\Local\Programs\Python\Python39\lib\inspect.py", line 3113, in signature
+    return Signature.from_callable(obj, follow_wrapped=follow_wrapped)
+  File "C:\Users\mainuzzaman\AppData\Local\Programs\Python\Python39\lib\inspect.py", line 2862, in from_callable
+    return _signature_from_callable(obj, sigcls=cls,
+  File "C:\Users\mainuzzaman\AppData\Local\Programs\Python\Python39\lib\inspect.py", line 2266, in _signature_from_callable
+    sig = _get_signature_of(obj.__func__)
+  File "C:\Users\mainuzzaman\AppData\Local\Programs\Python\Python39\lib\inspect.py", line 2325, in _signature_from_callable
+    return _signature_from_function(sigcls, obj,
+  File "C:\Users\mainuzzaman\AppData\Local\Programs\Python\Python39\lib\inspect.py", line 2196, in _signature_from_function
+    parameters.append(Parameter(name, annotation=annotation,
+  File "C:\Users\mainuzzaman\AppData\Local\Programs\Python\Python39\lib\inspect.py", line 2500, in __init__
+    self._kind = _ParameterKind(kind)
+  File "C:\Users\mainuzzaman\AppData\Local\Programs\Python\Python39\lib\enum.py", line 384, in __call__
+    return cls.__new__(cls, value)
+  File "C:\Users\mainuzzaman\AppData\Local\Programs\Python\Python39\lib\enum.py", line 674, in __new__
+    if type(value) is cls:
+RecursionError: maximum recursion depth exceeded while calling a Python object
+INFO 2026-01-29 11:43:10,152 autoreload E:\Antigravity_Proj\e-commerce\dcl-ecommerce\apps\catalog\models.py changed, reloading.
+INFO 2026-01-29 11:43:11,624 autoreload Watching for file changes with StatReloader
+INFO 2026-01-29 11:43:25,417 autoreload E:\Antigravity_Proj\e-commerce\dcl-ecommerce\apps\catalog\models.py changed, reloading.
+INFO 2026-01-29 11:43:25,902 autoreload Watching for file changes with StatReloader
+INFO 2026-01-29 11:48:20,941 autoreload E:\Antigravity_Proj\e-commerce\dcl-ecommerce\apps\catalog\models.py changed, reloading.
+INFO 2026-01-29 11:48:21,446 autoreload Watching for file changes with StatReloader
+INFO 2026-01-29 12:00:48,709 autoreload Watching for file changes with StatReloader
+WARNING 2026-01-29 12:00:52,606 log Not Found: /favicon.ico
+INFO 2026-01-29 12:09:46,385 autoreload Watching for file changes with StatReloader
+WARNING 2026-01-29 12:09:59,827 log Not Found: /favicon.ico
+WARNING 2026-01-29 12:37:50,837 log Forbidden (CSRF token from POST incorrect.): /manage/products/add/
+WARNING 2026-01-29 13:22:40,724 log Forbidden (CSRF token from POST incorrect.): /cart/add/
+INFO 2026-01-29 16:03:15,190 autoreload E:\Antigravity_Proj\e-commerce\dcl-ecommerce\apps\core\context_processors.py changed, reloading.
+INFO 2026-01-29 16:03:15,882 autoreload Watching for file changes with StatReloader
+INFO 2026-01-29 16:07:53,480 utils SSLCommerz Post Data: {'store_id': 'inter642d324bc79ae', 'store_passwd': 'inter642d324bc79ae@ssl', 'total_amount': '110000.00', 'currency': 'BDT', 'tran_id': 'DCL-SG5KEYVY_72618073', 'success_url': 'http://localhost:8001/payments/sslcommerz/success/', 'fail_url': 'http://localhost:8001/payments/sslcommerz/fail/', 'cancel_url': 'http://localhost:8001/payments/sslcommerz/cancel/', 'ipn_url': 'http://localhost:8001/payments/sslcommerz/ipn/', 'cus_name': 'Md Mainuzzaman', 'cus_email': 'admin@dcl.com', 'cus_add1': '102/1 Shukrabad, Mirpur Road, Dhanmondi', 'cus_city': 'Dhaka', 'cus_postcode': '1207', 'cus_country': 'Bangladesh', 'cus_phone': '01717967348', 'shipping_method': 'Standard Delivery', 'num_of_item': 1, 'product_name': 'Order DCL-SG5KEYVY', 'product_category': 'Electronic', 'product_profile': 'general', 'ship_name': 'Md Mainuzzaman', 'ship_add1': '102/1 Shukrabad, Mirpur Road, Dhanmondi', 'ship_add2': '1/15/K, BIBIR BAGICHA, NORTH JATRABARI', 'ship_city': 'Dhaka', 'ship_state': '', 'ship_postcode': '1207', 'ship_country': 'Bangladesh'}
+INFO 2026-02-05 10:56:35,256 autoreload Watching for file changes with StatReloader
+WARNING 2026-02-05 10:58:46,920 log Not Found: /favicon.ico
+INFO 2026-02-05 11:28:52,383 autoreload E:\Antigravity_Proj\e-commerce\dcl-ecommerce\apps\checkout\views.py changed, reloading.
+INFO 2026-02-05 11:28:52,922 autoreload Watching for file changes with StatReloader
+INFO 2026-02-05 11:29:02,607 autoreload E:\Antigravity_Proj\e-commerce\dcl-ecommerce\apps\checkout\views.py changed, reloading.
+INFO 2026-02-05 11:29:03,134 autoreload Watching for file changes with StatReloader
+INFO 2026-02-05 11:32:10,594 autoreload Watching for file changes with StatReloader
+ERROR 2026-02-05 11:33:20,983 log Internal Server Error: /manage/
+Traceback (most recent call last):
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 880, in _resolve_lookup
+    current = current[bit]
+TypeError: 'NoneType' object is not subscriptable
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 890, in _resolve_lookup
+    current = getattr(current, bit)
+AttributeError: 'NoneType' object has no attribute 'email'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 896, in _resolve_lookup
+    current = current[int(bit)]
+ValueError: invalid literal for int() with base 10: 'email'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\apps\dashboard\views.py", line 34, in dashboard_home
+    return render(request, 'dashboard/index.html', context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\loader_tags.py", line 63, in render
+    result = block.nodelist.render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\defaulttags.py", line 238, in render
+    nodelist.append(node.render_annotated(context))
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 1064, in render
+    output = self.filter_expression.resolve(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 736, in resolve
+    arg_vals.append(arg.resolve(context))
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 847, in resolve
+    value = self._resolve_lookup(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 903, in _resolve_lookup
+    raise VariableDoesNotExist(
+django.template.base.VariableDoesNotExist: Failed lookup for key [email] in None
+INFO 2026-02-05 11:38:53,438 autoreload E:\Antigravity_Proj\e-commerce\dcl-ecommerce\apps\accounts\forms.py changed, reloading.
+INFO 2026-02-05 11:38:54,274 autoreload Watching for file changes with StatReloader
+ERROR 2026-02-05 11:39:51,719 log Internal Server Error: /manage/orders/
+Traceback (most recent call last):
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 880, in _resolve_lookup
+    current = current[bit]
+TypeError: 'NoneType' object is not subscriptable
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 890, in _resolve_lookup
+    current = getattr(current, bit)
+AttributeError: 'NoneType' object has no attribute 'email'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 896, in _resolve_lookup
+    current = current[int(bit)]
+ValueError: invalid literal for int() with base 10: 'email'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\apps\dashboard\views.py", line 64, in order_list
+    return render(request, 'dashboard/orders/order_list.html', context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\loader_tags.py", line 63, in render
+    result = block.nodelist.render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\defaulttags.py", line 238, in render
+    nodelist.append(node.render_annotated(context))
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 1064, in render
+    output = self.filter_expression.resolve(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 736, in resolve
+    arg_vals.append(arg.resolve(context))
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 847, in resolve
+    value = self._resolve_lookup(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 903, in _resolve_lookup
+    raise VariableDoesNotExist(
+django.template.base.VariableDoesNotExist: Failed lookup for key [email] in None
+INFO 2026-02-05 11:48:25,230 autoreload E:\Antigravity_Proj\e-commerce\dcl-ecommerce\apps\accounts\forms.py changed, reloading.
+INFO 2026-02-05 11:48:25,843 autoreload Watching for file changes with StatReloader
+WARNING 2026-02-05 12:49:50,407 log Not Found: /favicon.ico
+ERROR 2026-02-05 12:55:15,720 log Internal Server Error: /manage/orders/
+Traceback (most recent call last):
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 880, in _resolve_lookup
+    current = current[bit]
+TypeError: 'NoneType' object is not subscriptable
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 890, in _resolve_lookup
+    current = getattr(current, bit)
+AttributeError: 'NoneType' object has no attribute 'email'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 896, in _resolve_lookup
+    current = current[int(bit)]
+ValueError: invalid literal for int() with base 10: 'email'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\apps\dashboard\views.py", line 64, in order_list
+    return render(request, 'dashboard/orders/order_list.html', context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\loader_tags.py", line 63, in render
+    result = block.nodelist.render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\defaulttags.py", line 238, in render
+    nodelist.append(node.render_annotated(context))
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 1064, in render
+    output = self.filter_expression.resolve(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 736, in resolve
+    arg_vals.append(arg.resolve(context))
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 847, in resolve
+    value = self._resolve_lookup(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 903, in _resolve_lookup
+    raise VariableDoesNotExist(
+django.template.base.VariableDoesNotExist: Failed lookup for key [email] in None
+ERROR 2026-02-05 13:03:08,190 log Internal Server Error: /manage/banners/
+Traceback (most recent call last):
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\apps\dashboard\views.py", line 545, in banner_list
+    return render(request, 'dashboard/banners/banner_list.html', context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\defaulttags.py", line 471, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'site_settings' not found. 'site_settings' is not a valid view function or pattern name.
+ERROR 2026-02-05 13:03:17,614 log Internal Server Error: /manage/
+Traceback (most recent call last):
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\apps\dashboard\views.py", line 34, in dashboard_home
+    return render(request, 'dashboard/index.html', context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\defaulttags.py", line 471, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'site_settings' not found. 'site_settings' is not a valid view function or pattern name.
+ERROR 2026-02-05 13:03:26,280 log Internal Server Error: /manage/orders/
+Traceback (most recent call last):
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\apps\dashboard\views.py", line 64, in order_list
+    return render(request, 'dashboard/orders/order_list.html', context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\defaulttags.py", line 471, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'site_settings' not found. 'site_settings' is not a valid view function or pattern name.
+INFO 2026-02-05 13:11:39,265 autoreload Watching for file changes with StatReloader
+WARNING 2026-02-05 13:15:14,683 log Not Found: /favicon.ico
+INFO 2026-02-05 13:15:16,336 autoreload E:\Antigravity_Proj\e-commerce\dcl-ecommerce\apps\core\views.py changed, reloading.
+INFO 2026-02-05 13:15:16,922 autoreload Watching for file changes with StatReloader
+INFO 2026-02-05 13:15:26,535 autoreload E:\Antigravity_Proj\e-commerce\dcl-ecommerce\apps\dashboard\views.py changed, reloading.
+INFO 2026-02-05 13:15:27,130 autoreload Watching for file changes with StatReloader
+ERROR 2026-02-05 13:16:46,786 log Internal Server Error: /manage/
+Traceback (most recent call last):
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\apps\dashboard\views.py", line 46, in dashboard_home
+    top_categories = Category.objects.annotate(
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\query.py", line 1595, in annotate
+    return self._annotate(args, kwargs, select=True)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\query.py", line 1643, in _annotate
+    clone.query.add_annotation(
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\sql\query.py", line 1133, in add_annotation
+    annotation = annotation.resolve_expression(self, allow_joins=True, reuse=None)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\aggregates.py", line 64, in resolve_expression
+    c = super().resolve_expression(query, allow_joins, reuse, summarize)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\expressions.py", line 950, in resolve_expression
+    c.source_expressions[pos] = arg.resolve_expression(
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\expressions.py", line 829, in resolve_expression
+    return query.resolve_ref(self.name, allow_joins, reuse, summarize)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\sql\query.py", line 1978, in resolve_ref
+    join_info = self.setup_joins(
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\sql\query.py", line 1825, in setup_joins
+    path, final_field, targets, rest = self.names_to_path(
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\sql\query.py", line 1726, in names_to_path
+    raise FieldError(
+django.core.exceptions.FieldError: Cannot resolve keyword 'product' into field. Choices are: children, created_at, description, id, image, is_active, name, parent, parent_id, products, seo_description, seo_title, slug, sort_order, updated_at
+WARNING 2026-02-05 13:16:47,280 log Not Found: /favicon.ico
+ERROR 2026-02-05 13:18:09,459 log Internal Server Error: /manage/
+Traceback (most recent call last):
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\apps\dashboard\views.py", line 46, in dashboard_home
+    top_categories = Category.objects.annotate(
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\query.py", line 1595, in annotate
+    return self._annotate(args, kwargs, select=True)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\query.py", line 1643, in _annotate
+    clone.query.add_annotation(
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\sql\query.py", line 1133, in add_annotation
+    annotation = annotation.resolve_expression(self, allow_joins=True, reuse=None)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\aggregates.py", line 64, in resolve_expression
+    c = super().resolve_expression(query, allow_joins, reuse, summarize)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\expressions.py", line 950, in resolve_expression
+    c.source_expressions[pos] = arg.resolve_expression(
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\expressions.py", line 829, in resolve_expression
+    return query.resolve_ref(self.name, allow_joins, reuse, summarize)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\sql\query.py", line 1978, in resolve_ref
+    join_info = self.setup_joins(
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\sql\query.py", line 1825, in setup_joins
+    path, final_field, targets, rest = self.names_to_path(
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\sql\query.py", line 1726, in names_to_path
+    raise FieldError(
+django.core.exceptions.FieldError: Cannot resolve keyword 'product' into field. Choices are: children, created_at, description, id, image, is_active, name, parent, parent_id, products, seo_description, seo_title, slug, sort_order, updated_at
+ERROR 2026-02-05 13:18:16,068 log Internal Server Error: /manage/
+Traceback (most recent call last):
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\apps\dashboard\views.py", line 46, in dashboard_home
+    top_categories = Category.objects.annotate(
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\query.py", line 1595, in annotate
+    return self._annotate(args, kwargs, select=True)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\query.py", line 1643, in _annotate
+    clone.query.add_annotation(
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\sql\query.py", line 1133, in add_annotation
+    annotation = annotation.resolve_expression(self, allow_joins=True, reuse=None)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\aggregates.py", line 64, in resolve_expression
+    c = super().resolve_expression(query, allow_joins, reuse, summarize)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\expressions.py", line 950, in resolve_expression
+    c.source_expressions[pos] = arg.resolve_expression(
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\expressions.py", line 829, in resolve_expression
+    return query.resolve_ref(self.name, allow_joins, reuse, summarize)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\sql\query.py", line 1978, in resolve_ref
+    join_info = self.setup_joins(
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\sql\query.py", line 1825, in setup_joins
+    path, final_field, targets, rest = self.names_to_path(
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\sql\query.py", line 1726, in names_to_path
+    raise FieldError(
+django.core.exceptions.FieldError: Cannot resolve keyword 'product' into field. Choices are: children, created_at, description, id, image, is_active, name, parent, parent_id, products, seo_description, seo_title, slug, sort_order, updated_at
+ERROR 2026-02-05 13:18:26,424 log Internal Server Error: /manage/
+Traceback (most recent call last):
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\apps\dashboard\views.py", line 46, in dashboard_home
+    top_categories = Category.objects.annotate(
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\query.py", line 1595, in annotate
+    return self._annotate(args, kwargs, select=True)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\query.py", line 1643, in _annotate
+    clone.query.add_annotation(
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\sql\query.py", line 1133, in add_annotation
+    annotation = annotation.resolve_expression(self, allow_joins=True, reuse=None)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\aggregates.py", line 64, in resolve_expression
+    c = super().resolve_expression(query, allow_joins, reuse, summarize)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\expressions.py", line 950, in resolve_expression
+    c.source_expressions[pos] = arg.resolve_expression(
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\expressions.py", line 829, in resolve_expression
+    return query.resolve_ref(self.name, allow_joins, reuse, summarize)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\sql\query.py", line 1978, in resolve_ref
+    join_info = self.setup_joins(
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\sql\query.py", line 1825, in setup_joins
+    path, final_field, targets, rest = self.names_to_path(
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\sql\query.py", line 1726, in names_to_path
+    raise FieldError(
+django.core.exceptions.FieldError: Cannot resolve keyword 'product' into field. Choices are: children, created_at, description, id, image, is_active, name, parent, parent_id, products, seo_description, seo_title, slug, sort_order, updated_at
+ERROR 2026-02-05 13:18:32,014 log Internal Server Error: /manage/
+Traceback (most recent call last):
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\apps\dashboard\views.py", line 46, in dashboard_home
+    top_categories = Category.objects.annotate(
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\query.py", line 1595, in annotate
+    return self._annotate(args, kwargs, select=True)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\query.py", line 1643, in _annotate
+    clone.query.add_annotation(
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\sql\query.py", line 1133, in add_annotation
+    annotation = annotation.resolve_expression(self, allow_joins=True, reuse=None)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\aggregates.py", line 64, in resolve_expression
+    c = super().resolve_expression(query, allow_joins, reuse, summarize)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\expressions.py", line 950, in resolve_expression
+    c.source_expressions[pos] = arg.resolve_expression(
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\expressions.py", line 829, in resolve_expression
+    return query.resolve_ref(self.name, allow_joins, reuse, summarize)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\sql\query.py", line 1978, in resolve_ref
+    join_info = self.setup_joins(
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\sql\query.py", line 1825, in setup_joins
+    path, final_field, targets, rest = self.names_to_path(
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\sql\query.py", line 1726, in names_to_path
+    raise FieldError(
+django.core.exceptions.FieldError: Cannot resolve keyword 'product' into field. Choices are: children, created_at, description, id, image, is_active, name, parent, parent_id, products, seo_description, seo_title, slug, sort_order, updated_at
+ERROR 2026-02-05 13:31:08,091 log Internal Server Error: /manage/
+Traceback (most recent call last):
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\apps\dashboard\views.py", line 46, in dashboard_home
+    top_categories = Category.objects.annotate(
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\query.py", line 1595, in annotate
+    return self._annotate(args, kwargs, select=True)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\query.py", line 1643, in _annotate
+    clone.query.add_annotation(
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\sql\query.py", line 1133, in add_annotation
+    annotation = annotation.resolve_expression(self, allow_joins=True, reuse=None)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\aggregates.py", line 64, in resolve_expression
+    c = super().resolve_expression(query, allow_joins, reuse, summarize)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\expressions.py", line 950, in resolve_expression
+    c.source_expressions[pos] = arg.resolve_expression(
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\expressions.py", line 829, in resolve_expression
+    return query.resolve_ref(self.name, allow_joins, reuse, summarize)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\sql\query.py", line 1978, in resolve_ref
+    join_info = self.setup_joins(
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\sql\query.py", line 1825, in setup_joins
+    path, final_field, targets, rest = self.names_to_path(
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\sql\query.py", line 1726, in names_to_path
+    raise FieldError(
+django.core.exceptions.FieldError: Cannot resolve keyword 'product' into field. Choices are: children, created_at, description, id, image, is_active, name, parent, parent_id, products, seo_description, seo_title, slug, sort_order, updated_at
+ERROR 2026-02-05 13:45:19,695 log Internal Server Error: /manage/
+Traceback (most recent call last):
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\apps\dashboard\views.py", line 46, in dashboard_home
+    top_categories = Category.objects.annotate(
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\query.py", line 1595, in annotate
+    return self._annotate(args, kwargs, select=True)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\query.py", line 1643, in _annotate
+    clone.query.add_annotation(
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\sql\query.py", line 1133, in add_annotation
+    annotation = annotation.resolve_expression(self, allow_joins=True, reuse=None)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\aggregates.py", line 64, in resolve_expression
+    c = super().resolve_expression(query, allow_joins, reuse, summarize)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\expressions.py", line 950, in resolve_expression
+    c.source_expressions[pos] = arg.resolve_expression(
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\expressions.py", line 829, in resolve_expression
+    return query.resolve_ref(self.name, allow_joins, reuse, summarize)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\sql\query.py", line 1978, in resolve_ref
+    join_info = self.setup_joins(
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\sql\query.py", line 1825, in setup_joins
+    path, final_field, targets, rest = self.names_to_path(
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\sql\query.py", line 1726, in names_to_path
+    raise FieldError(
+django.core.exceptions.FieldError: Cannot resolve keyword 'product' into field. Choices are: children, created_at, description, id, image, is_active, name, parent, parent_id, products, seo_description, seo_title, slug, sort_order, updated_at
+ERROR 2026-02-05 13:45:24,456 log Internal Server Error: /manage/
+Traceback (most recent call last):
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\apps\dashboard\views.py", line 46, in dashboard_home
+    top_categories = Category.objects.annotate(
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\query.py", line 1595, in annotate
+    return self._annotate(args, kwargs, select=True)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\query.py", line 1643, in _annotate
+    clone.query.add_annotation(
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\sql\query.py", line 1133, in add_annotation
+    annotation = annotation.resolve_expression(self, allow_joins=True, reuse=None)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\aggregates.py", line 64, in resolve_expression
+    c = super().resolve_expression(query, allow_joins, reuse, summarize)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\expressions.py", line 950, in resolve_expression
+    c.source_expressions[pos] = arg.resolve_expression(
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\expressions.py", line 829, in resolve_expression
+    return query.resolve_ref(self.name, allow_joins, reuse, summarize)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\sql\query.py", line 1978, in resolve_ref
+    join_info = self.setup_joins(
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\sql\query.py", line 1825, in setup_joins
+    path, final_field, targets, rest = self.names_to_path(
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\sql\query.py", line 1726, in names_to_path
+    raise FieldError(
+django.core.exceptions.FieldError: Cannot resolve keyword 'product' into field. Choices are: children, created_at, description, id, image, is_active, name, parent, parent_id, products, seo_description, seo_title, slug, sort_order, updated_at
+ERROR 2026-02-05 13:45:57,161 log Internal Server Error: /manage/
+Traceback (most recent call last):
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\apps\dashboard\views.py", line 46, in dashboard_home
+    top_categories = Category.objects.annotate(
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\query.py", line 1595, in annotate
+    return self._annotate(args, kwargs, select=True)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\query.py", line 1643, in _annotate
+    clone.query.add_annotation(
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\sql\query.py", line 1133, in add_annotation
+    annotation = annotation.resolve_expression(self, allow_joins=True, reuse=None)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\aggregates.py", line 64, in resolve_expression
+    c = super().resolve_expression(query, allow_joins, reuse, summarize)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\expressions.py", line 950, in resolve_expression
+    c.source_expressions[pos] = arg.resolve_expression(
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\expressions.py", line 829, in resolve_expression
+    return query.resolve_ref(self.name, allow_joins, reuse, summarize)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\sql\query.py", line 1978, in resolve_ref
+    join_info = self.setup_joins(
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\sql\query.py", line 1825, in setup_joins
+    path, final_field, targets, rest = self.names_to_path(
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\sql\query.py", line 1726, in names_to_path
+    raise FieldError(
+django.core.exceptions.FieldError: Cannot resolve keyword 'product' into field. Choices are: children, created_at, description, id, image, is_active, name, parent, parent_id, products, seo_description, seo_title, slug, sort_order, updated_at
+ERROR 2026-02-05 13:46:01,522 log Internal Server Error: /manage/
+Traceback (most recent call last):
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\apps\dashboard\views.py", line 46, in dashboard_home
+    top_categories = Category.objects.annotate(
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\query.py", line 1595, in annotate
+    return self._annotate(args, kwargs, select=True)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\query.py", line 1643, in _annotate
+    clone.query.add_annotation(
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\sql\query.py", line 1133, in add_annotation
+    annotation = annotation.resolve_expression(self, allow_joins=True, reuse=None)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\aggregates.py", line 64, in resolve_expression
+    c = super().resolve_expression(query, allow_joins, reuse, summarize)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\expressions.py", line 950, in resolve_expression
+    c.source_expressions[pos] = arg.resolve_expression(
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\expressions.py", line 829, in resolve_expression
+    return query.resolve_ref(self.name, allow_joins, reuse, summarize)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\sql\query.py", line 1978, in resolve_ref
+    join_info = self.setup_joins(
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\sql\query.py", line 1825, in setup_joins
+    path, final_field, targets, rest = self.names_to_path(
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\sql\query.py", line 1726, in names_to_path
+    raise FieldError(
+django.core.exceptions.FieldError: Cannot resolve keyword 'product' into field. Choices are: children, created_at, description, id, image, is_active, name, parent, parent_id, products, seo_description, seo_title, slug, sort_order, updated_at
+ERROR 2026-02-05 13:46:42,760 log Internal Server Error: /manage/
+Traceback (most recent call last):
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\apps\dashboard\views.py", line 46, in dashboard_home
+    top_categories = Category.objects.annotate(
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\query.py", line 1595, in annotate
+    return self._annotate(args, kwargs, select=True)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\query.py", line 1643, in _annotate
+    clone.query.add_annotation(
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\sql\query.py", line 1133, in add_annotation
+    annotation = annotation.resolve_expression(self, allow_joins=True, reuse=None)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\aggregates.py", line 64, in resolve_expression
+    c = super().resolve_expression(query, allow_joins, reuse, summarize)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\expressions.py", line 950, in resolve_expression
+    c.source_expressions[pos] = arg.resolve_expression(
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\expressions.py", line 829, in resolve_expression
+    return query.resolve_ref(self.name, allow_joins, reuse, summarize)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\sql\query.py", line 1978, in resolve_ref
+    join_info = self.setup_joins(
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\sql\query.py", line 1825, in setup_joins
+    path, final_field, targets, rest = self.names_to_path(
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\sql\query.py", line 1726, in names_to_path
+    raise FieldError(
+django.core.exceptions.FieldError: Cannot resolve keyword 'product' into field. Choices are: children, created_at, description, id, image, is_active, name, parent, parent_id, products, seo_description, seo_title, slug, sort_order, updated_at
+INFO 2026-02-05 13:46:45,303 autoreload E:\Antigravity_Proj\e-commerce\dcl-ecommerce\apps\dashboard\views.py changed, reloading.
+INFO 2026-02-05 13:46:45,879 autoreload Watching for file changes with StatReloader
+ERROR 2026-02-05 13:46:54,624 log Internal Server Error: /manage/
+Traceback (most recent call last):
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\apps\dashboard\views.py", line 46, in dashboard_home
+    top_categories = Category.objects.annotate(
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\query.py", line 1595, in annotate
+    return self._annotate(args, kwargs, select=True)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\query.py", line 1643, in _annotate
+    clone.query.add_annotation(
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\sql\query.py", line 1133, in add_annotation
+    annotation = annotation.resolve_expression(self, allow_joins=True, reuse=None)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\aggregates.py", line 64, in resolve_expression
+    c = super().resolve_expression(query, allow_joins, reuse, summarize)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\expressions.py", line 950, in resolve_expression
+    c.source_expressions[pos] = arg.resolve_expression(
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\expressions.py", line 829, in resolve_expression
+    return query.resolve_ref(self.name, allow_joins, reuse, summarize)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\sql\query.py", line 1994, in resolve_ref
+    transform = join_info.transform_function(targets[0], final_alias)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\sql\query.py", line 1847, in transform
+    wrapped = previous(field, alias)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\sql\query.py", line 1847, in transform
+    wrapped = previous(field, alias)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\sql\query.py", line 1848, in transform
+    return self.try_transform(wrapped, name)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\sql\query.py", line 1357, in try_transform
+    raise FieldError(
+django.core.exceptions.FieldError: Unsupported lookup 'orderitem' for BigAutoField or join on the field not permitted.
+ERROR 2026-02-05 13:47:23,646 log Internal Server Error: /manage/
+Traceback (most recent call last):
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\apps\dashboard\views.py", line 46, in dashboard_home
+    top_categories = Category.objects.annotate(
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\query.py", line 1595, in annotate
+    return self._annotate(args, kwargs, select=True)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\query.py", line 1643, in _annotate
+    clone.query.add_annotation(
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\sql\query.py", line 1133, in add_annotation
+    annotation = annotation.resolve_expression(self, allow_joins=True, reuse=None)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\aggregates.py", line 64, in resolve_expression
+    c = super().resolve_expression(query, allow_joins, reuse, summarize)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\expressions.py", line 950, in resolve_expression
+    c.source_expressions[pos] = arg.resolve_expression(
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\expressions.py", line 829, in resolve_expression
+    return query.resolve_ref(self.name, allow_joins, reuse, summarize)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\sql\query.py", line 1994, in resolve_ref
+    transform = join_info.transform_function(targets[0], final_alias)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\sql\query.py", line 1847, in transform
+    wrapped = previous(field, alias)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\sql\query.py", line 1847, in transform
+    wrapped = previous(field, alias)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\sql\query.py", line 1848, in transform
+    return self.try_transform(wrapped, name)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\sql\query.py", line 1357, in try_transform
+    raise FieldError(
+django.core.exceptions.FieldError: Unsupported lookup 'orderitem' for BigAutoField or join on the field not permitted.
+ERROR 2026-02-05 13:49:59,541 log Internal Server Error: /manage/
+Traceback (most recent call last):
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\apps\dashboard\views.py", line 46, in dashboard_home
+    top_categories = Category.objects.annotate(
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\query.py", line 1595, in annotate
+    return self._annotate(args, kwargs, select=True)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\query.py", line 1643, in _annotate
+    clone.query.add_annotation(
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\sql\query.py", line 1133, in add_annotation
+    annotation = annotation.resolve_expression(self, allow_joins=True, reuse=None)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\aggregates.py", line 64, in resolve_expression
+    c = super().resolve_expression(query, allow_joins, reuse, summarize)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\expressions.py", line 950, in resolve_expression
+    c.source_expressions[pos] = arg.resolve_expression(
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\expressions.py", line 829, in resolve_expression
+    return query.resolve_ref(self.name, allow_joins, reuse, summarize)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\sql\query.py", line 1994, in resolve_ref
+    transform = join_info.transform_function(targets[0], final_alias)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\sql\query.py", line 1847, in transform
+    wrapped = previous(field, alias)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\sql\query.py", line 1847, in transform
+    wrapped = previous(field, alias)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\sql\query.py", line 1848, in transform
+    return self.try_transform(wrapped, name)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\sql\query.py", line 1357, in try_transform
+    raise FieldError(
+django.core.exceptions.FieldError: Unsupported lookup 'orderitem' for BigAutoField or join on the field not permitted.
+ERROR 2026-02-05 13:50:11,357 log Internal Server Error: /manage/
+Traceback (most recent call last):
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\apps\dashboard\views.py", line 46, in dashboard_home
+    top_categories = Category.objects.annotate(
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\query.py", line 1595, in annotate
+    return self._annotate(args, kwargs, select=True)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\query.py", line 1643, in _annotate
+    clone.query.add_annotation(
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\sql\query.py", line 1133, in add_annotation
+    annotation = annotation.resolve_expression(self, allow_joins=True, reuse=None)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\aggregates.py", line 64, in resolve_expression
+    c = super().resolve_expression(query, allow_joins, reuse, summarize)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\expressions.py", line 950, in resolve_expression
+    c.source_expressions[pos] = arg.resolve_expression(
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\expressions.py", line 829, in resolve_expression
+    return query.resolve_ref(self.name, allow_joins, reuse, summarize)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\sql\query.py", line 1994, in resolve_ref
+    transform = join_info.transform_function(targets[0], final_alias)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\sql\query.py", line 1847, in transform
+    wrapped = previous(field, alias)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\sql\query.py", line 1847, in transform
+    wrapped = previous(field, alias)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\sql\query.py", line 1848, in transform
+    return self.try_transform(wrapped, name)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\sql\query.py", line 1357, in try_transform
+    raise FieldError(
+django.core.exceptions.FieldError: Unsupported lookup 'orderitem' for BigAutoField or join on the field not permitted.
+ERROR 2026-02-05 13:52:27,879 log Internal Server Error: /manage/
+Traceback (most recent call last):
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\apps\dashboard\views.py", line 46, in dashboard_home
+    top_categories = Category.objects.annotate(
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\query.py", line 1595, in annotate
+    return self._annotate(args, kwargs, select=True)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\query.py", line 1643, in _annotate
+    clone.query.add_annotation(
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\sql\query.py", line 1133, in add_annotation
+    annotation = annotation.resolve_expression(self, allow_joins=True, reuse=None)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\aggregates.py", line 64, in resolve_expression
+    c = super().resolve_expression(query, allow_joins, reuse, summarize)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\expressions.py", line 950, in resolve_expression
+    c.source_expressions[pos] = arg.resolve_expression(
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\expressions.py", line 829, in resolve_expression
+    return query.resolve_ref(self.name, allow_joins, reuse, summarize)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\sql\query.py", line 1994, in resolve_ref
+    transform = join_info.transform_function(targets[0], final_alias)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\sql\query.py", line 1847, in transform
+    wrapped = previous(field, alias)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\sql\query.py", line 1847, in transform
+    wrapped = previous(field, alias)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\sql\query.py", line 1848, in transform
+    return self.try_transform(wrapped, name)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\sql\query.py", line 1357, in try_transform
+    raise FieldError(
+django.core.exceptions.FieldError: Unsupported lookup 'orderitem' for BigAutoField or join on the field not permitted.
+ERROR 2026-02-05 13:52:40,455 log Internal Server Error: /manage/
+Traceback (most recent call last):
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\apps\dashboard\views.py", line 46, in dashboard_home
+    top_categories = Category.objects.annotate(
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\query.py", line 1595, in annotate
+    return self._annotate(args, kwargs, select=True)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\query.py", line 1643, in _annotate
+    clone.query.add_annotation(
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\sql\query.py", line 1133, in add_annotation
+    annotation = annotation.resolve_expression(self, allow_joins=True, reuse=None)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\aggregates.py", line 64, in resolve_expression
+    c = super().resolve_expression(query, allow_joins, reuse, summarize)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\expressions.py", line 950, in resolve_expression
+    c.source_expressions[pos] = arg.resolve_expression(
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\expressions.py", line 829, in resolve_expression
+    return query.resolve_ref(self.name, allow_joins, reuse, summarize)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\sql\query.py", line 1994, in resolve_ref
+    transform = join_info.transform_function(targets[0], final_alias)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\sql\query.py", line 1847, in transform
+    wrapped = previous(field, alias)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\sql\query.py", line 1847, in transform
+    wrapped = previous(field, alias)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\sql\query.py", line 1848, in transform
+    return self.try_transform(wrapped, name)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\sql\query.py", line 1357, in try_transform
+    raise FieldError(
+django.core.exceptions.FieldError: Unsupported lookup 'orderitem' for BigAutoField or join on the field not permitted.
+ERROR 2026-02-05 13:54:59,956 log Internal Server Error: /manage/
+Traceback (most recent call last):
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\apps\dashboard\views.py", line 46, in dashboard_home
+    top_categories = Category.objects.annotate(
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\query.py", line 1595, in annotate
+    return self._annotate(args, kwargs, select=True)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\query.py", line 1643, in _annotate
+    clone.query.add_annotation(
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\sql\query.py", line 1133, in add_annotation
+    annotation = annotation.resolve_expression(self, allow_joins=True, reuse=None)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\aggregates.py", line 64, in resolve_expression
+    c = super().resolve_expression(query, allow_joins, reuse, summarize)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\expressions.py", line 950, in resolve_expression
+    c.source_expressions[pos] = arg.resolve_expression(
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\expressions.py", line 829, in resolve_expression
+    return query.resolve_ref(self.name, allow_joins, reuse, summarize)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\sql\query.py", line 1994, in resolve_ref
+    transform = join_info.transform_function(targets[0], final_alias)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\sql\query.py", line 1847, in transform
+    wrapped = previous(field, alias)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\sql\query.py", line 1847, in transform
+    wrapped = previous(field, alias)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\sql\query.py", line 1848, in transform
+    return self.try_transform(wrapped, name)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\sql\query.py", line 1357, in try_transform
+    raise FieldError(
+django.core.exceptions.FieldError: Unsupported lookup 'orderitem' for BigAutoField or join on the field not permitted.
+ERROR 2026-02-05 13:55:09,714 log Internal Server Error: /manage/
+Traceback (most recent call last):
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\apps\dashboard\views.py", line 46, in dashboard_home
+    top_categories = Category.objects.annotate(
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\query.py", line 1595, in annotate
+    return self._annotate(args, kwargs, select=True)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\query.py", line 1643, in _annotate
+    clone.query.add_annotation(
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\sql\query.py", line 1133, in add_annotation
+    annotation = annotation.resolve_expression(self, allow_joins=True, reuse=None)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\aggregates.py", line 64, in resolve_expression
+    c = super().resolve_expression(query, allow_joins, reuse, summarize)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\expressions.py", line 950, in resolve_expression
+    c.source_expressions[pos] = arg.resolve_expression(
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\expressions.py", line 829, in resolve_expression
+    return query.resolve_ref(self.name, allow_joins, reuse, summarize)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\sql\query.py", line 1994, in resolve_ref
+    transform = join_info.transform_function(targets[0], final_alias)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\sql\query.py", line 1847, in transform
+    wrapped = previous(field, alias)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\sql\query.py", line 1847, in transform
+    wrapped = previous(field, alias)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\sql\query.py", line 1848, in transform
+    return self.try_transform(wrapped, name)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\sql\query.py", line 1357, in try_transform
+    raise FieldError(
+django.core.exceptions.FieldError: Unsupported lookup 'orderitem' for BigAutoField or join on the field not permitted.
+ERROR 2026-02-05 13:55:16,797 log Internal Server Error: /manage/
+Traceback (most recent call last):
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\apps\dashboard\views.py", line 46, in dashboard_home
+    top_categories = Category.objects.annotate(
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\query.py", line 1595, in annotate
+    return self._annotate(args, kwargs, select=True)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\query.py", line 1643, in _annotate
+    clone.query.add_annotation(
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\sql\query.py", line 1133, in add_annotation
+    annotation = annotation.resolve_expression(self, allow_joins=True, reuse=None)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\aggregates.py", line 64, in resolve_expression
+    c = super().resolve_expression(query, allow_joins, reuse, summarize)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\expressions.py", line 950, in resolve_expression
+    c.source_expressions[pos] = arg.resolve_expression(
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\expressions.py", line 829, in resolve_expression
+    return query.resolve_ref(self.name, allow_joins, reuse, summarize)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\sql\query.py", line 1994, in resolve_ref
+    transform = join_info.transform_function(targets[0], final_alias)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\sql\query.py", line 1847, in transform
+    wrapped = previous(field, alias)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\sql\query.py", line 1847, in transform
+    wrapped = previous(field, alias)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\sql\query.py", line 1848, in transform
+    return self.try_transform(wrapped, name)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\sql\query.py", line 1357, in try_transform
+    raise FieldError(
+django.core.exceptions.FieldError: Unsupported lookup 'orderitem' for BigAutoField or join on the field not permitted.
+ERROR 2026-02-05 13:56:19,477 log Internal Server Error: /manage/
+Traceback (most recent call last):
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\apps\dashboard\views.py", line 46, in dashboard_home
+    top_categories = Category.objects.annotate(
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\query.py", line 1595, in annotate
+    return self._annotate(args, kwargs, select=True)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\query.py", line 1643, in _annotate
+    clone.query.add_annotation(
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\sql\query.py", line 1133, in add_annotation
+    annotation = annotation.resolve_expression(self, allow_joins=True, reuse=None)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\aggregates.py", line 64, in resolve_expression
+    c = super().resolve_expression(query, allow_joins, reuse, summarize)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\expressions.py", line 950, in resolve_expression
+    c.source_expressions[pos] = arg.resolve_expression(
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\expressions.py", line 829, in resolve_expression
+    return query.resolve_ref(self.name, allow_joins, reuse, summarize)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\sql\query.py", line 1994, in resolve_ref
+    transform = join_info.transform_function(targets[0], final_alias)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\sql\query.py", line 1847, in transform
+    wrapped = previous(field, alias)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\sql\query.py", line 1847, in transform
+    wrapped = previous(field, alias)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\sql\query.py", line 1848, in transform
+    return self.try_transform(wrapped, name)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\sql\query.py", line 1357, in try_transform
+    raise FieldError(
+django.core.exceptions.FieldError: Unsupported lookup 'orderitem' for BigAutoField or join on the field not permitted.
+INFO 2026-02-05 13:57:28,904 autoreload E:\Antigravity_Proj\e-commerce\dcl-ecommerce\apps\dashboard\views.py changed, reloading.
+INFO 2026-02-05 13:57:29,501 autoreload Watching for file changes with StatReloader
+INFO 2026-02-05 13:57:36,890 autoreload E:\Antigravity_Proj\e-commerce\dcl-ecommerce\apps\dashboard\views.py changed, reloading.
+INFO 2026-02-05 13:57:37,431 autoreload Watching for file changes with StatReloader
+ERROR 2026-02-05 13:57:42,217 log Internal Server Error: /manage/
+Traceback (most recent call last):
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\backends\utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\backends\sqlite3\base.py", line 328, in execute
+    return super().execute(query, params)
+sqlite3.OperationalError: sub-select returns 27 columns - expected 1
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\apps\dashboard\views.py", line 50, in dashboard_home
+    for cat in top_categories:
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\query.py", line 400, in __iter__
+    self._fetch_all()
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\query.py", line 1886, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\query.py", line 93, in __iter__
+    results = compiler.execute_sql(
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\sql\compiler.py", line 1562, in execute_sql
+    cursor.execute(sql, params)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\backends\utils.py", line 102, in execute
+    return super().execute(sql, params)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\backends\utils.py", line 67, in execute
+    return self._execute_with_wrappers(
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\backends\utils.py", line 80, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\backends\utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\backends\utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\backends\sqlite3\base.py", line 328, in execute
+    return super().execute(query, params)
+django.db.utils.OperationalError: sub-select returns 27 columns - expected 1
+ERROR 2026-02-05 13:59:10,273 log Internal Server Error: /manage/
+Traceback (most recent call last):
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\backends\utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\backends\sqlite3\base.py", line 328, in execute
+    return super().execute(query, params)
+sqlite3.OperationalError: sub-select returns 27 columns - expected 1
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\apps\dashboard\views.py", line 50, in dashboard_home
+    for cat in top_categories:
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\query.py", line 400, in __iter__
+    self._fetch_all()
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\query.py", line 1886, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\query.py", line 93, in __iter__
+    results = compiler.execute_sql(
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\sql\compiler.py", line 1562, in execute_sql
+    cursor.execute(sql, params)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\backends\utils.py", line 102, in execute
+    return super().execute(sql, params)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\backends\utils.py", line 67, in execute
+    return self._execute_with_wrappers(
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\backends\utils.py", line 80, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\backends\utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\backends\utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\backends\sqlite3\base.py", line 328, in execute
+    return super().execute(query, params)
+django.db.utils.OperationalError: sub-select returns 27 columns - expected 1
+ERROR 2026-02-05 13:59:21,284 log Internal Server Error: /manage/
+Traceback (most recent call last):
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\backends\utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\backends\sqlite3\base.py", line 328, in execute
+    return super().execute(query, params)
+sqlite3.OperationalError: sub-select returns 27 columns - expected 1
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\apps\dashboard\views.py", line 50, in dashboard_home
+    for cat in top_categories:
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\query.py", line 400, in __iter__
+    self._fetch_all()
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\query.py", line 1886, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\query.py", line 93, in __iter__
+    results = compiler.execute_sql(
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\sql\compiler.py", line 1562, in execute_sql
+    cursor.execute(sql, params)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\backends\utils.py", line 102, in execute
+    return super().execute(sql, params)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\backends\utils.py", line 67, in execute
+    return self._execute_with_wrappers(
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\backends\utils.py", line 80, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\backends\utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\utils.py", line 91, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\backends\utils.py", line 89, in _execute
+    return self.cursor.execute(sql, params)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\backends\sqlite3\base.py", line 328, in execute
+    return super().execute(query, params)
+django.db.utils.OperationalError: sub-select returns 27 columns - expected 1
+INFO 2026-02-05 13:59:51,776 autoreload E:\Antigravity_Proj\e-commerce\dcl-ecommerce\apps\dashboard\views.py changed, reloading.
+INFO 2026-02-05 13:59:52,343 autoreload Watching for file changes with StatReloader
+ERROR 2026-02-05 14:00:05,757 log Internal Server Error: /manage/
+Traceback (most recent call last):
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\apps\dashboard\views.py", line 66, in dashboard_home
+    return render(request, 'dashboard/index.html', context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\backends\django.py", line 33, in get_template
+    return Template(self.engine.get_template(template_name), self)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\engine.py", line 175, in get_template
+    template, origin = self.find_template(template_name)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\engine.py", line 157, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 200, in compile_nodelist
+    return parser.parse()
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\loader_tags.py", line 293, in do_extends
+    nodelist = parser.parse()
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\loader_tags.py", line 232, in do_block
+    nodelist = parser.parse(("endblock",))
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\loader_tags.py", line 232, in do_block
+    nodelist = parser.parse(("endblock",))
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\loader_tags.py", line 226, in do_block
+    raise TemplateSyntaxError(
+django.template.exceptions.TemplateSyntaxError: 'block' tag with name 'extra_js' appears more than once
+ERROR 2026-02-05 14:00:19,419 log Internal Server Error: /manage/
+Traceback (most recent call last):
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\apps\dashboard\views.py", line 66, in dashboard_home
+    return render(request, 'dashboard/index.html', context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\backends\django.py", line 33, in get_template
+    return Template(self.engine.get_template(template_name), self)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\engine.py", line 175, in get_template
+    template, origin = self.find_template(template_name)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\engine.py", line 157, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 200, in compile_nodelist
+    return parser.parse()
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\loader_tags.py", line 293, in do_extends
+    nodelist = parser.parse()
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\loader_tags.py", line 232, in do_block
+    nodelist = parser.parse(("endblock",))
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\loader_tags.py", line 232, in do_block
+    nodelist = parser.parse(("endblock",))
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\loader_tags.py", line 226, in do_block
+    raise TemplateSyntaxError(
+django.template.exceptions.TemplateSyntaxError: 'block' tag with name 'extra_js' appears more than once
+ERROR 2026-02-05 14:01:10,861 log Internal Server Error: /manage/
+Traceback (most recent call last):
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\apps\dashboard\views.py", line 66, in dashboard_home
+    return render(request, 'dashboard/index.html', context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\backends\django.py", line 33, in get_template
+    return Template(self.engine.get_template(template_name), self)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\engine.py", line 175, in get_template
+    template, origin = self.find_template(template_name)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\engine.py", line 157, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 200, in compile_nodelist
+    return parser.parse()
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\loader_tags.py", line 293, in do_extends
+    nodelist = parser.parse()
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\loader_tags.py", line 232, in do_block
+    nodelist = parser.parse(("endblock",))
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 518, in parse
+    self.unclosed_block_tag(parse_until)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 581, in unclosed_block_tag
+    raise self.error(token, msg)
+django.template.exceptions.TemplateSyntaxError: Unclosed tag on line 4: 'block'. Looking for one of: endblock.
+ERROR 2026-02-05 14:02:19,045 log Internal Server Error: /manage/
+Traceback (most recent call last):
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\apps\dashboard\views.py", line 66, in dashboard_home
+    return render(request, 'dashboard/index.html', context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\backends\django.py", line 33, in get_template
+    return Template(self.engine.get_template(template_name), self)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\engine.py", line 175, in get_template
+    template, origin = self.find_template(template_name)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\engine.py", line 157, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 200, in compile_nodelist
+    return parser.parse()
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\loader_tags.py", line 293, in do_extends
+    nodelist = parser.parse()
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\loader_tags.py", line 232, in do_block
+    nodelist = parser.parse(("endblock",))
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 518, in parse
+    self.unclosed_block_tag(parse_until)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 581, in unclosed_block_tag
+    raise self.error(token, msg)
+django.template.exceptions.TemplateSyntaxError: Unclosed tag on line 4: 'block'. Looking for one of: endblock.
+ERROR 2026-02-05 14:03:06,658 log Internal Server Error: /manage/
+Traceback (most recent call last):
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\apps\dashboard\views.py", line 66, in dashboard_home
+    return render(request, 'dashboard/index.html', context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\backends\django.py", line 33, in get_template
+    return Template(self.engine.get_template(template_name), self)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\engine.py", line 175, in get_template
+    template, origin = self.find_template(template_name)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\engine.py", line 157, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 200, in compile_nodelist
+    return parser.parse()
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\loader_tags.py", line 293, in do_extends
+    nodelist = parser.parse()
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\loader_tags.py", line 232, in do_block
+    nodelist = parser.parse(("endblock",))
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 518, in parse
+    self.unclosed_block_tag(parse_until)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 581, in unclosed_block_tag
+    raise self.error(token, msg)
+django.template.exceptions.TemplateSyntaxError: Unclosed tag on line 4: 'block'. Looking for one of: endblock.
+ERROR 2026-02-05 14:03:29,392 log Internal Server Error: /manage/
+Traceback (most recent call last):
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\apps\dashboard\views.py", line 66, in dashboard_home
+    return render(request, 'dashboard/index.html', context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\backends\django.py", line 33, in get_template
+    return Template(self.engine.get_template(template_name), self)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\engine.py", line 175, in get_template
+    template, origin = self.find_template(template_name)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\engine.py", line 157, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 200, in compile_nodelist
+    return parser.parse()
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\loader_tags.py", line 293, in do_extends
+    nodelist = parser.parse()
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\loader_tags.py", line 232, in do_block
+    nodelist = parser.parse(("endblock",))
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 518, in parse
+    self.unclosed_block_tag(parse_until)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 581, in unclosed_block_tag
+    raise self.error(token, msg)
+django.template.exceptions.TemplateSyntaxError: Unclosed tag on line 4: 'block'. Looking for one of: endblock.
+ERROR 2026-02-05 14:03:43,181 log Internal Server Error: /manage/
+Traceback (most recent call last):
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\apps\dashboard\views.py", line 66, in dashboard_home
+    return render(request, 'dashboard/index.html', context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\backends\django.py", line 33, in get_template
+    return Template(self.engine.get_template(template_name), self)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\engine.py", line 175, in get_template
+    template, origin = self.find_template(template_name)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\engine.py", line 157, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 200, in compile_nodelist
+    return parser.parse()
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\loader_tags.py", line 293, in do_extends
+    nodelist = parser.parse()
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\loader_tags.py", line 232, in do_block
+    nodelist = parser.parse(("endblock",))
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 518, in parse
+    self.unclosed_block_tag(parse_until)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 581, in unclosed_block_tag
+    raise self.error(token, msg)
+django.template.exceptions.TemplateSyntaxError: Unclosed tag on line 4: 'block'. Looking for one of: endblock.
+ERROR 2026-02-05 14:03:59,283 log Internal Server Error: /manage/
+Traceback (most recent call last):
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\apps\dashboard\views.py", line 66, in dashboard_home
+    return render(request, 'dashboard/index.html', context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\backends\django.py", line 33, in get_template
+    return Template(self.engine.get_template(template_name), self)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\engine.py", line 175, in get_template
+    template, origin = self.find_template(template_name)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\engine.py", line 157, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 200, in compile_nodelist
+    return parser.parse()
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\loader_tags.py", line 293, in do_extends
+    nodelist = parser.parse()
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\loader_tags.py", line 232, in do_block
+    nodelist = parser.parse(("endblock",))
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 518, in parse
+    self.unclosed_block_tag(parse_until)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 581, in unclosed_block_tag
+    raise self.error(token, msg)
+django.template.exceptions.TemplateSyntaxError: Unclosed tag on line 4: 'block'. Looking for one of: endblock.
+ERROR 2026-02-05 14:04:15,439 log Internal Server Error: /manage/
+Traceback (most recent call last):
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\apps\dashboard\views.py", line 66, in dashboard_home
+    return render(request, 'dashboard/index.html', context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\backends\django.py", line 33, in get_template
+    return Template(self.engine.get_template(template_name), self)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\engine.py", line 175, in get_template
+    template, origin = self.find_template(template_name)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\engine.py", line 157, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 200, in compile_nodelist
+    return parser.parse()
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\loader_tags.py", line 293, in do_extends
+    nodelist = parser.parse()
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\loader_tags.py", line 232, in do_block
+    nodelist = parser.parse(("endblock",))
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 518, in parse
+    self.unclosed_block_tag(parse_until)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 581, in unclosed_block_tag
+    raise self.error(token, msg)
+django.template.exceptions.TemplateSyntaxError: Unclosed tag on line 4: 'block'. Looking for one of: endblock.
+INFO 2026-02-05 15:19:58,874 autoreload E:\Antigravity_Proj\e-commerce\dcl-ecommerce\apps\payments\models.py changed, reloading.
+INFO 2026-02-05 15:19:59,569 autoreload Watching for file changes with StatReloader
+INFO 2026-02-05 15:42:41,805 autoreload E:\Antigravity_Proj\e-commerce\dcl-ecommerce\apps\dashboard\urls.py changed, reloading.
+INFO 2026-02-05 15:42:42,452 autoreload Watching for file changes with StatReloader
+INFO 2026-02-05 15:44:39,882 autoreload E:\Antigravity_Proj\e-commerce\dcl-ecommerce\apps\dashboard\views.py changed, reloading.
+INFO 2026-02-05 15:44:40,391 autoreload Watching for file changes with StatReloader
+INFO 2026-02-05 15:44:58,161 autoreload E:\Antigravity_Proj\e-commerce\dcl-ecommerce\apps\dashboard\forms.py changed, reloading.
+INFO 2026-02-05 15:44:58,712 autoreload Watching for file changes with StatReloader
+INFO 2026-02-05 15:49:34,957 utils SSLCommerz Post Data: {'store_id': 'inter642d324bc79ae', 'store_passwd': 'inter642d324bc79ae@ssl', 'total_amount': '211000.00', 'currency': 'BDT', 'tran_id': 'DCL-AKK5TCLI_67c2d21e', 'success_url': 'http://localhost:8001/payments/sslcommerz/success/', 'fail_url': 'http://localhost:8001/payments/sslcommerz/fail/', 'cancel_url': 'http://localhost:8001/payments/sslcommerz/cancel/', 'ipn_url': 'http://localhost:8001/payments/sslcommerz/ipn/', 'cus_name': 'Md Mainuzzaman', 'cus_email': 'mainuzzaman8911@gmail.com', 'cus_add1': '102/1 Shukrabad, Mirpur Road, Dhanmondi', 'cus_city': 'Dhaka', 'cus_postcode': '1207', 'cus_country': 'Bangladesh', 'cus_phone': '01717967348', 'shipping_method': 'Standard Delivery', 'num_of_item': 2, 'product_name': 'Order DCL-AKK5TCLI', 'product_category': 'Electronic', 'product_profile': 'general', 'ship_name': 'Md Mainuzzaman', 'ship_add1': '102/1 Shukrabad, Mirpur Road, Dhanmondi', 'ship_add2': '1/15/K, BIBIR BAGICHA, NORTH JATRABARI', 'ship_city': 'Dhaka', 'ship_state': '', 'ship_postcode': '1207', 'ship_country': 'Bangladesh'}
+INFO 2026-02-05 16:29:37,601 autoreload E:\Antigravity_Proj\e-commerce\dcl-ecommerce\apps\dashboard\views.py changed, reloading.
+INFO 2026-02-05 16:29:38,195 autoreload Watching for file changes with StatReloader
+INFO 2026-02-05 16:30:04,491 autoreload E:\Antigravity_Proj\e-commerce\dcl-ecommerce\apps\dashboard\urls.py changed, reloading.
+INFO 2026-02-05 16:30:05,004 autoreload Watching for file changes with StatReloader
+ERROR 2026-02-05 16:52:42,914 log Internal Server Error: /profile/
+Traceback (most recent call last):
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\apps\accounts\views.py", line 11, in profile
+    profile_obj, created = request.user.profile, False
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\utils\functional.py", line 268, in inner
+    return func(_wrapped, *args)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\fields\related_descriptors.py", line 492, in __get__
+    raise self.RelatedObjectDoesNotExist(
+apps.accounts.models.User.profile.RelatedObjectDoesNotExist: User has no profile.
+ERROR 2026-02-05 16:56:24,586 log Internal Server Error: /profile/
+Traceback (most recent call last):
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\apps\accounts\views.py", line 11, in profile
+    profile_obj, created = request.user.profile, False
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\utils\functional.py", line 268, in inner
+    return func(_wrapped, *args)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\db\models\fields\related_descriptors.py", line 492, in __get__
+    raise self.RelatedObjectDoesNotExist(
+apps.accounts.models.User.profile.RelatedObjectDoesNotExist: User has no profile.
+INFO 2026-02-05 17:02:47,937 autoreload E:\Antigravity_Proj\e-commerce\dcl-ecommerce\apps\cms\models.py changed, reloading.
+INFO 2026-02-05 17:02:48,629 autoreload Watching for file changes with StatReloader
+INFO 2026-02-05 17:03:32,591 autoreload E:\Antigravity_Proj\e-commerce\dcl-ecommerce\apps\dashboard\forms.py changed, reloading.
+INFO 2026-02-05 17:03:33,118 autoreload Watching for file changes with StatReloader
+INFO 2026-02-05 17:04:02,506 autoreload E:\Antigravity_Proj\e-commerce\dcl-ecommerce\apps\dashboard\views.py changed, reloading.
+INFO 2026-02-05 17:04:03,029 autoreload Watching for file changes with StatReloader
+INFO 2026-02-05 17:04:25,109 autoreload E:\Antigravity_Proj\e-commerce\dcl-ecommerce\apps\dashboard\urls.py changed, reloading.
+INFO 2026-02-05 17:04:25,640 autoreload Watching for file changes with StatReloader
+WARNING 2026-02-05 17:33:35,201 log Not Found: /favicon.ico
+INFO 2026-02-05 17:41:11,440 autoreload E:\Antigravity_Proj\e-commerce\dcl-ecommerce\apps\core\context_processors.py changed, reloading.
+INFO 2026-02-05 17:41:12,121 autoreload Watching for file changes with StatReloader

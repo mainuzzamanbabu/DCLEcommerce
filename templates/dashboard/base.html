@@ -10,261 +10,360 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.css" rel="stylesheet">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Google Fonts: Outfit -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
     <style>
         :root {
-            --sidebar-width: 260px;
-            --dcl-primary: #003366;
-            --dcl-primary-dark: #002244;
-            --dcl-secondary: #FF6600;
-            --dcl-secondary-light: #FF8533;
-            --dcl-accent: #0054A6;
-            --bg-light: #f4f6f9;
-            --text-muted: #6c757d;
+            --sidebar-width: 280px;
+            --primary-slate: #0f172a;
+            --accent-amber: #f59e0b; /* Amber 500 */
+            --glass-bg: rgba(255, 255, 255, 0.8);
+            --glass-border: rgba(255, 255, 255, 0.4);
+            --card-shadow: 0 8px 32px 0 rgba(15, 23, 42, 0.08);
+            --bg-body: #f1f5f9; /* Slate 100 */
+            --sidebar-text: #94a3b8;
+            --sidebar-active: #ffffff;
         }
         
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg-light);
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--bg-body);
+            color: #1e293b;
             overflow-x: hidden;
         }
 
-        /* Sidebar Styling - DCL Brand Colors */
+        /* Modern Glassmorphism Utilities */
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--card-shadow);
+            border-radius: 20px;
+        }
+
+        /* Sidebar Redesign */
         #sidebar {
             width: var(--sidebar-width);
             height: 100vh;
             position: fixed;
             left: 0;
             top: 0;
-            background: linear-gradient(180deg, var(--dcl-primary) 0%, var(--dcl-primary-dark) 100%);
-            color: white;
-            z-index: 1000;
-            box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
+            background: #111827; /* Gray 900 */
+            color: #f3f4f6;
+            z-index: 1050;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(255,255,255,0.1) transparent;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #sidebar::-webkit-scrollbar {
+            width: 5px;
+        }
+        #sidebar::-webkit-scrollbar-thumb {
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
         }
 
         .sidebar-header {
-            padding: 20px;
-            border-bottom: 1px solid rgba(255,255,255,0.15);
-            background: rgba(0,0,0,0.1);
-        }
-
-        .sidebar-header h5 {
-            color: #fff;
+            padding: 30px 25px;
+            background: transparent;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
         }
 
         .nav-link {
-            color: rgba(255,255,255,0.8);
-            padding: 14px 20px;
-            border-radius: 0;
+            color: #94a3b8; /* Explicitly set for better baseline */
+            padding: 12px 25px;
+            margin: 4px 15px;
+            border-radius: 12px;
             display: flex;
             align-items: center;
+            font-size: 0.95rem;
+            font-weight: 500;
             transition: all 0.2s ease;
-            border-left: 4px solid transparent;
         }
 
         .nav-link i {
-            margin-right: 12px;
-            font-size: 1.1rem;
-            width: 24px;
-            text-align: center;
+            margin-right: 15px;
+            font-size: 1.2rem;
+            width: 20px;
+            transition: transform 0.2s;
         }
 
         .nav-link:hover {
             color: white;
-            background: rgba(255,255,255,0.1);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .nav-link:hover i {
+            transform: scale(1.1);
         }
 
         .nav-link.active {
             color: white;
-            background: rgba(255, 102, 0, 0.2);
-            border-left: 4px solid var(--dcl-secondary);
+            background: var(--accent-amber);
+            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
+        }
+
+        .nav-link.active i {
+            color: white;
         }
 
         /* Main Content */
         #content {
             margin-left: var(--sidebar-width);
             width: calc(100% - var(--sidebar-width));
-            padding: 30px;
+            padding: 40px;
             min-height: 100vh;
+            transition: all 0.3s ease;
         }
 
-        /* Stats Cards - Vibrant Colors */
+        /* Mobile Sidebar Toggle - Hidden by default */
+        .sidebar-toggler {
+            display: none;
+            background: white;
+            border: 1px solid #e2e8f0;
+            color: #0f172a;
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .sidebar-toggler:hover {
+            background: #f8fafc;
+            color: var(--accent-amber);
+        }
+
+        /* Sidebar Backdrop */
+        .sidebar-backdrop {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(4px);
+            z-index: 1040;
+        }
+
+        /* Responsive Breakpoints */
+        @media (max-width: 991.98px) {
+            #sidebar {
+                left: calc(-1 * var(--sidebar-width));
+            }
+            #sidebar.active {
+                left: 0;
+                box-shadow: 20px 0 50px rgba(0,0,0,0.2);
+            }
+            #content {
+                margin-left: 0;
+                width: 100%;
+                padding: 20px;
+            }
+            .sidebar-toggler {
+                display: flex;
+            }
+            .sidebar-backdrop.active {
+                display: block;
+            }
+        }
+
+        @media (max-width: 575.98px) {
+            .dash-navbar h4 {
+                font-size: 1.25rem;
+            }
+            #content {
+                padding: 15px;
+            }
+            .breadcrumb {
+                display: none;
+            }
+        }
+
+        /* Stats Cards Redesign */
         .stats-card {
             border: none;
-            border-radius: 16px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-            transition: all 0.3s ease;
+            border-radius: 24px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             background: white;
+            position: relative;
             overflow: hidden;
+        }
+
+        .stats-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: transparent;
+            transition: all 0.3s;
         }
 
         .stats-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.06);
+        }
+        
+        .stats-card:hover::before {
+            background: var(--accent-amber);
         }
 
         .stats-card .card-body {
-            padding: 1.5rem;
-        }
-
-        .stats-card h6 {
-            font-size: 0.75rem;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-        }
-
-        .stats-card h3 {
-            font-size: 2rem;
+            padding: 2rem;
         }
 
         .icon-box {
-            width: 56px;
-            height: 56px;
-            border-radius: 14px;
+            width: 64px;
+            height: 64px;
+            border-radius: 18px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
         }
 
-        /* Icon Box Color Variants */
-        .icon-box.bg-orders {
-            background: linear-gradient(135deg, #4e73df 0%, #224abe 100%);
-            color: white;
-        }
-
-        .icon-box.bg-revenue {
-            background: linear-gradient(135deg, #1cc88a 0%, #13855c 100%);
-            color: white;
-        }
-
-        .icon-box.bg-customers {
-            background: linear-gradient(135deg, #36b9cc 0%, #258391 100%);
-            color: white;
-        }
-
-        .icon-box.bg-products {
-            background: linear-gradient(135deg, var(--dcl-secondary) 0%, #cc5200 100%);
-            color: white;
-        }
-
-        /* Navbar top */
+        /* Top Bar Redesign */
         .dash-navbar {
-            background: white;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            padding: 18px 25px;
-            margin-bottom: 30px;
-            border-radius: 16px;
+            background: transparent;
+            margin-bottom: 40px;
+            border-radius: 0;
+            padding: 0;
+            box-shadow: none;
         }
 
         .dash-navbar h4 {
-            color: var(--dcl-primary);
+            font-weight: 700;
+            color: #0f172a;
+            font-size: 1.75rem;
         }
 
-        /* Table Styling */
+        .user-profile {
+            background: white;
+            padding: 8px 12px;
+            border-radius: 50px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+            border: 1px solid #f1f5f9;
+        }
+
+        /* Table Styling Redesign */
         .table-premium {
             background: white;
-            border-radius: 16px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border-radius: 24px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
             overflow: hidden;
+            border: 1px solid #f1f5f9;
         }
 
         .table-premium .table-header {
-            background: linear-gradient(135deg, var(--dcl-primary) 0%, var(--dcl-accent) 100%);
+            background: #111827;
             color: white;
-            padding: 1.25rem;
-        }
-
-        .table-premium .table-header h5 {
-            margin: 0;
-            font-weight: 600;
+            padding: 1.5rem;
         }
 
         .table-premium thead th {
-            background: #f8f9fc;
-            border-bottom: 2px solid #e3e6f0;
-            color: var(--dcl-primary);
+            background: #f8fafc;
+            border-bottom: 2px solid #f1f5f9;
+            color: #475569; /* Darker Slate for better contrast */
             text-transform: uppercase;
-            font-size: 0.7rem;
-            letter-spacing: 0.1em;
-            padding: 1rem 1.25rem;
+            font-size: 0.75rem;
+            letter-spacing: 0.05em;
+            padding: 1.5rem;
             font-weight: 700;
         }
 
         .table-premium tbody td {
-            padding: 1rem 1.25rem;
+            padding: 1.5rem;
             vertical-align: middle;
-            border-bottom: 1px solid #f0f0f0;
+            border-bottom: 1px solid #f1f5f9;
         }
 
         .table-premium tbody tr:hover {
-            background: #f8f9fc;
+            background: #f8fafc;
         }
 
-        /* Buttons */
+        /* Buttons Redesign */
+        .btn {
+            padding: 10px 20px;
+            border-radius: 12px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
         .btn-primary {
-            background: var(--dcl-primary);
-            border-color: var(--dcl-primary);
+            background: #111827 !important;
+            color: white !important;
+            border: none !important;
         }
 
         .btn-primary:hover {
-            background: var(--dcl-primary-dark);
-            border-color: var(--dcl-primary-dark);
+            background: #1f2937 !important;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(17, 24, 39, 0.15);
         }
 
         .btn-outline-primary {
-            color: var(--dcl-primary);
-            border-color: var(--dcl-primary);
+            color: #111827;
+            border-color: #e2e8f0;
+            background: white;
         }
 
         .btn-outline-primary:hover {
-            background: var(--dcl-primary);
-            border-color: var(--dcl-primary);
-            color: white;
+            background: #f8fafc;
+            border-color: #cbd5e1;
+            color: #111827;
         }
 
-        /* User Info */
+        /* User Info Redesign */
         .user-info .user-avatar {
             width: 42px;
             height: 42px;
-            border-radius: 12px;
-            background: linear-gradient(135deg, var(--dcl-primary) 0%, var(--dcl-accent) 100%);
-            color: white;
+            border-radius: 14px;
+            background: #f1f5f9;
+            color: #111827;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 1.1rem;
+            border: 1px solid #e2e8f0;
         }
 
-        /* Badge Styles */
+        /* Badge Styles Redesign */
         .badge {
-            font-weight: 500;
-            padding: 0.5em 0.8em;
+            padding: 8px 16px !important;
+            border-radius: 100px !important;
+            font-weight: 600;
+            font-size: 0.75rem;
         }
 
-        /* Scrollbar */
+        /* Custom Scrollbar */
         ::-webkit-scrollbar {
-            width: 6px;
+            width: 8px;
         }
         ::-webkit-scrollbar-track {
-            background: #f1f1f1;
+            background: #f1f5f9;
         }
         ::-webkit-scrollbar-thumb {
-            background: var(--dcl-primary);
-            border-radius: 3px;
+            background: #cbd5e1;
+            border-radius: 10px;
         }
-
-        /* Footer link styling */
-        .sidebar-footer {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            padding: 15px;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            background: rgba(0,0,0,0.1);
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
         }
     </style>
     {% block extra_css %}{% endblock %}
@@ -273,60 +372,103 @@
 
     <!-- Sidebar -->
     <div id="sidebar">
-        <div class="sidebar-header d-flex align-items-center">
-            <img src="{% static 'img/dcl_logo.png' %}" alt="Logo" height="38" class="bg-white rounded p-1 me-2">
-            <h5 class="mb-0 fw-bold">DCL Admin</h5>
+        <div class="sidebar-header">
+            <div class="d-flex align-items-center">
+                <img src="{% static 'img/dcl_logo.png' %}" alt="Logo" height="32" class="bg-white rounded p-1 me-3">
+                <h5 class="mb-0 fw-bold" style="letter-spacing: -0.5px;">DCL Admin</h5>
+            </div>
         </div>
-        <div class="nav flex-column mt-3">
+        
+        <div class="nav flex-column mt-4">
+            <div class="px-4 mb-2 small text-uppercase fw-bold text-muted opacity-50" style="font-size: 0.65rem;">Main Menu</div>
+            
             <a href="{% url 'dashboard:home' %}" class="nav-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}">
-                <i class="bi bi-speedometer2"></i> Overview
+                <i class="bi bi-grid-1x2"></i> Overview
             </a>
             <a href="{% url 'dashboard:order_list' %}" class="nav-link {% if 'order' in request.resolver_match.url_name %}active{% endif %}">
-                <i class="bi bi-cart-check"></i> Orders
+                <i class="bi bi-bag"></i> Orders
             </a>
             <a href="{% url 'dashboard:product_list' %}" class="nav-link {% if 'product' in request.resolver_match.url_name %}active{% endif %}">
                 <i class="bi bi-box-seam"></i> Products
             </a>
             <a href="{% url 'dashboard:category_list' %}" class="nav-link {% if 'category' in request.resolver_match.url_name %}active{% endif %}">
-                <i class="bi bi-folder"></i> Categories
+                <i class="bi bi-folder2"></i> Categories
             </a>
             <a href="{% url 'dashboard:brand_list' %}" class="nav-link {% if 'brand' in request.resolver_match.url_name %}active{% endif %}">
-                <i class="bi bi-building"></i> Brands
+                <i class="bi bi-tag"></i> Brands
             </a>
             <a href="{% url 'dashboard:customer_list' %}" class="nav-link {% if 'customer' in request.resolver_match.url_name %}active{% endif %}">
                 <i class="bi bi-people"></i> Customers
             </a>
             
-            <hr class="my-2 mx-3 opacity-25">
-            <small class="text-white-50 px-3 text-uppercase" style="font-size: 0.65rem; letter-spacing: 1px;">CMS</small>
+            <div class="px-4 mt-4 mb-2 small text-uppercase fw-bold text-muted opacity-50" style="font-size: 0.65rem;">CMS</div>
             
+            <a href="{% url 'dashboard:site_settings' %}" class="nav-link {% if 'site_settings' in request.resolver_match.url_name %}active{% endif %}">
+                <i class="bi bi-gear"></i> Site Settings
+            </a>
             <a href="{% url 'dashboard:slide_list' %}" class="nav-link {% if 'slide' in request.resolver_match.url_name %}active{% endif %}">
-                <i class="bi bi-images"></i> Hero Slides
+                <i class="bi bi-collection"></i> Hero Slides
             </a>
             <a href="{% url 'dashboard:banner_list' %}" class="nav-link {% if 'banner' in request.resolver_match.url_name %}active{% endif %}">
-                <i class="bi bi-megaphone"></i> Banners
+                <i class="bi bi-flag"></i> Banners
+            </a>
+            <a href="{% url 'dashboard:testimonial_list' %}" class="nav-link {% if 'testimonial' in request.resolver_match.url_name %}active{% endif %}">
+                <i class="bi bi-chat-quote"></i> Testimonials
+            </a>
+            <a href="{% url 'dashboard:faq_list' %}" class="nav-link {% if 'faq' in request.resolver_match.url_name %}active{% endif %}">
+                <i class="bi bi-question-circle"></i> FAQs
+            </a>
+            
+            <div class="px-4 mt-4 mb-2 small text-uppercase fw-bold text-muted opacity-50" style="font-size: 0.65rem;">Settings</div>
+            
+            <a href="{% url 'dashboard:shipping_method_list' %}" class="nav-link {% if 'shipping' in request.resolver_match.url_name %}active{% endif %}">
+                <i class="bi bi-truck"></i> Shipping
+            </a>
+            <a href="{% url 'dashboard:payment_list' %}" class="nav-link {% if 'payment' in request.resolver_match.url_name %}active{% endif %}">
+                <i class="bi bi-credit-card"></i> Payments
             </a>
         </div>
-
-        <div class="sidebar-footer">
-            <a href="{% url 'core:home' %}" class="nav-link py-2">
-                <i class="bi bi-shop"></i> View Shop
+            
+        <div class="mt-auto px-3 pb-4">
+            <hr class="mx-3 opacity-10">
+            <a href="{% url 'core:home' %}" target="_blank" class="nav-link mb-2">
+                <i class="bi bi-display"></i> View Shop
             </a>
-            <a href="{% url 'account_logout' %}" class="nav-link py-2">
-                <i class="bi bi-box-arrow-right"></i> Logout
+            <a href="{% url 'account_logout' %}" class="nav-link text-danger">
+                <i class="bi bi-box-arrow-left text-danger"></i> Logout
             </a>
         </div>
     </div>
+
+    <!-- Sidebar Backdrop for Mobile -->
+    <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
 
     <!-- Main Content -->
     <div id="content">
         <!-- Top Navbar -->
         <nav class="dash-navbar d-flex justify-content-between align-items-center">
-            <h4 class="mb-0 fw-bold">{{ title|default:"Dashboard" }}</h4>
-            <div class="user-info d-flex align-items-center">
-                <span class="me-3 d-none d-md-inline text-muted">Hi, {{ user.get_full_name|default:user.email }}</span>
-                <div class="user-avatar">
-                    <i class="bi bi-person"></i>
+            <div class="d-flex align-items-center">
+                <button class="sidebar-toggler" id="sidebarToggle">
+                    <i class="bi bi-list"></i>
+                </button>
+                <div>
+                    <h4 class="mb-1 fw-bold text-slate-900">{{ title|default:"Dashboard" }}</h4>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb mb-0" style="font-size: 0.75rem;">
+                            <li class="breadcrumb-item"><a href="#" class="text-decoration-none text-muted opacity-75">Admin</a></li>
+                            <li class="breadcrumb-item active text-slate-900 fw-medium" aria-current="page">{{ title|default:"Overview" }}</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+            
+            <div class="user-profile d-flex align-items-center">
+                <div class="me-3 text-end d-none d-md-block">
+                    <div class="fw-bold small lh-1 mb-1">{{ user.get_full_name|default:user.username }}</div>
+                    <div class="text-muted" style="font-size: 0.7rem;">Administrator</div>
+                </div>
+                <div class="user-avatar shadow-sm">
+                    <i class="bi bi-person-fill"></i>
                 </div>
             </div>
         </nav>
@@ -347,6 +489,39 @@
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Sidebar Toggle Logic
+        const sidebar = document.getElementById('sidebar');
+        const sidebarToggle = document.getElementById('sidebarToggle');
+        const sidebarBackdrop = document.getElementById('sidebarBackdrop');
+
+        function toggleSidebar() {
+            sidebar.classList.toggle('active');
+            sidebarBackdrop.classList.toggle('active');
+            document.body.style.overflow = sidebar.classList.contains('active') ? 'hidden' : '';
+        }
+
+        if (sidebarToggle) {
+            sidebarToggle.addEventListener('click', toggleSidebar);
+        }
+
+        if (sidebarBackdrop) {
+            sidebarBackdrop.addEventListener('click', toggleSidebar);
+        }
+
+        // Close sidebar on link click (mobile)
+        if (window.innerWidth < 992) {
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    if (sidebar.classList.contains('active')) {
+                        toggleSidebar();
+                    }
+                });
+            });
+        }
+    </script>
     {% block extra_js %}{% endblock %}
 </body>
 </html>

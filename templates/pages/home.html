@@ -118,42 +118,42 @@
 </section>
 
 <!-- Features Bar -->
-<section class="py-4 bg-light border-bottom">
+<section class="features-bar py-4 bg-white border-bottom">
     <div class="container">
         <div class="row g-4 text-center">
             <div class="col-6 col-md-3">
-                <div class="d-flex align-items-center justify-content-center gap-3">
-                    <i class="bi bi-truck text-secondary fs-2"></i>
+                <div class="feature-item justify-content-center">
+                    <i class="bi bi-truck"></i>
                     <div class="text-start">
-                        <h6 class="mb-0 fw-bold">Free Shipping</h6>
-                        <small class="text-muted">On orders over ৳5,000</small>
+                        <h6>Free Shipping</h6>
+                        <small>On orders over ৳5,000</small>
                     </div>
                 </div>
             </div>
             <div class="col-6 col-md-3">
-                <div class="d-flex align-items-center justify-content-center gap-3">
-                    <i class="bi bi-shield-check text-secondary fs-2"></i>
+                <div class="feature-item justify-content-center">
+                    <i class="bi bi-shield-check"></i>
                     <div class="text-start">
-                        <h6 class="mb-0 fw-bold">Secure Payment</h6>
-                        <small class="text-muted">100% secure checkout</small>
+                        <h6>Secure Payment</h6>
+                        <small>100% secure checkout</small>
                     </div>
                 </div>
             </div>
             <div class="col-6 col-md-3">
-                <div class="d-flex align-items-center justify-content-center gap-3">
-                    <i class="bi bi-arrow-repeat text-secondary fs-2"></i>
+                <div class="feature-item justify-content-center">
+                    <i class="bi bi-arrow-repeat"></i>
                     <div class="text-start">
-                        <h6 class="mb-0 fw-bold">Easy Returns</h6>
-                        <small class="text-muted">7-day return policy</small>
+                        <h6>Easy Returns</h6>
+                        <small>7-day return policy</small>
                     </div>
                 </div>
             </div>
             <div class="col-6 col-md-3">
-                <div class="d-flex align-items-center justify-content-center gap-3">
-                    <i class="bi bi-headset text-secondary fs-2"></i>
+                <div class="feature-item justify-content-center">
+                    <i class="bi bi-headset"></i>
                     <div class="text-start">
-                        <h6 class="mb-0 fw-bold">24/7 Support</h6>
-                        <small class="text-muted">Dedicated support</small>
+                        <h6>24/7 Support</h6>
+                        <small>Dedicated support</small>
                     </div>
                 </div>
             </div>
@@ -260,66 +260,7 @@
         <div class="row g-4">
             {% for product in featured_products %}
             <div class="col-6 col-md-4 col-lg-3">
-                <div class="product-card card h-100 position-relative">
-                    {% if product.is_featured %}
-                    <span class="product-badge badge badge-new">Featured</span>
-                    {% endif %}
-                    <div class="product-actions">
-                        <button class="btn" title="Add to Wishlist">
-                            <i class="bi bi-heart"></i>
-                        </button>
-                        <a href="{% url 'catalog:product_detail' product.slug %}" class="btn" title="Quick View">
-                            <i class="bi bi-eye"></i>
-                        </a>
-                    </div>
-                    <a href="{% url 'catalog:product_detail' product.slug %}">
-                        {% if product.get_primary_image %}
-                        <img src="{{ product.get_primary_image.image.url }}" class="card-img-top" alt="{{ product.name }}" style="height: 180px; object-fit: cover;">
-                        {% else %}
-                        <div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height: 180px;">
-                            <i class="bi bi-image text-muted" style="font-size: 3rem;"></i>
-                        </div>
-                        {% endif %}
-                    </a>
-                    <div class="card-body">
-                        <div class="rating mb-2">
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star"></i>
-                            <small class="text-muted ms-1">({{ product.reviews.count|default:0 }})</small>
-                        </div>
-                        <h6 class="product-title">
-                            <a href="{% url 'catalog:product_detail' product.slug %}" class="text-decoration-none text-dark">{{ product.name|truncatewords:8 }}</a>
-                        </h6>
-                        <div class="d-flex align-items-center gap-2 mb-3">
-                            {% with variant=product.get_default_variant %}
-                            {% if variant and variant.price %}
-                            <span class="product-price">৳{{ variant.price.effective_price|floatformat:0|intcomma }}</span>
-                            {% if variant.price.sale_price %}
-                            <span class="product-price-old">৳{{ variant.price.list_price|floatformat:0|intcomma }}</span>
-                            {% endif %}
-                            {% else %}
-                            <span class="product-price text-muted">Price on request</span>
-                            {% endif %}
-                            {% endwith %}
-                        </div>
-                        <form action="{% url 'cart:cart_add' %}" method="post" class="add-to-cart-form">
-                            {% csrf_token %}
-                            <input type="hidden" name="product_id" value="{{ product.id }}">
-                            {% with variant=product.get_default_variant %}
-                            {% if variant %}
-                            <input type="hidden" name="variant_id" value="{{ variant.id }}">
-                            {% endif %}
-                            {% endwith %}
-                            <input type="hidden" name="quantity" value="1">
-                            <button type="submit" class="btn btn-primary w-100">
-                                <i class="bi bi-cart-plus me-2"></i>Add to Cart
-                            </button>
-                        </form>
-                    </div>
-                </div>
+                {% include 'catalog/partials/product_card.html' with product=product %}
             </div>
             {% empty %}
             <div class="col-12 text-center py-5">
@@ -397,64 +338,7 @@
         <div class="row g-4">
             {% for product in deal_products %}
             <div class="col-6 col-md-4 col-lg-3">
-                <div class="product-card card h-100 position-relative">
-                    <span class="product-badge badge badge-sale">Deal</span>
-                    <div class="product-actions">
-                        <button class="btn" title="Add to Wishlist">
-                            <i class="bi bi-heart"></i>
-                        </button>
-                        <a href="{% url 'catalog:product_detail' product.slug %}" class="btn" title="Quick View">
-                            <i class="bi bi-eye"></i>
-                        </a>
-                    </div>
-                    <a href="{% url 'catalog:product_detail' product.slug %}">
-                        {% if product.get_primary_image %}
-                        <img src="{{ product.get_primary_image.image.url }}" class="card-img-top" alt="{{ product.name }}" style="height: 180px; object-fit: cover;">
-                        {% else %}
-                        <div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height: 180px;">
-                            <i class="bi bi-image text-muted" style="font-size: 3rem;"></i>
-                        </div>
-                        {% endif %}
-                    </a>
-                    <div class="card-body">
-                        <div class="rating mb-2">
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-half"></i>
-                            <small class="text-muted ms-1">({{ product.reviews.count|default:0 }})</small>
-                        </div>
-                        <h6 class="product-title">
-                            <a href="{% url 'catalog:product_detail' product.slug %}" class="text-decoration-none text-dark">{{ product.name|truncatewords:8 }}</a>
-                        </h6>
-                        <div class="d-flex align-items-center gap-2 mb-3">
-                            {% with variant=product.get_default_variant %}
-                            {% if variant and variant.price %}
-                            <span class="product-price">৳{{ variant.price.effective_price|floatformat:0|intcomma }}</span>
-                            {% if variant.price.sale_price %}
-                            <span class="product-price-old">৳{{ variant.price.list_price|floatformat:0|intcomma }}</span>
-                            {% endif %}
-                            {% else %}
-                            <span class="product-price text-muted">Price on request</span>
-                            {% endif %}
-                            {% endwith %}
-                        </div>
-                        <form action="{% url 'cart:cart_add' %}" method="post" class="add-to-cart-form">
-                            {% csrf_token %}
-                            <input type="hidden" name="product_id" value="{{ product.id }}">
-                            {% with variant=product.get_default_variant %}
-                            {% if variant %}
-                            <input type="hidden" name="variant_id" value="{{ variant.id }}">
-                            {% endif %}
-                            {% endwith %}
-                            <input type="hidden" name="quantity" value="1">
-                            <button type="submit" class="btn btn-primary w-100">
-                                <i class="bi bi-cart-plus me-2"></i>Add to Cart
-                            </button>
-                        </form>
-                    </div>
-                </div>
+                {% include 'catalog/partials/product_card.html' with product=product %}
             </div>
             {% empty %}
             <div class="col-12 text-center py-5">
@@ -467,55 +351,73 @@
     </div>
 </section>
 
-<!-- Brand Logos -->
-<section class="py-5 border-top border-bottom">
+<!-- Brand Logos Marquee -->
+<section class="brand-marquee-section">
     <div class="container">
-        <h6 class="text-center text-muted mb-4">Trusted Brands We Carry</h6>
-        <div class="row g-4 align-items-center justify-content-center text-center">
+        <h6 class="brand-marquee-title text-center">Trusted Brands We Carry</h6>
+    </div>
+    <div class="brand-marquee">
+        <div class="brand-track">
             {% for brand in brands %}
-            <div class="col-4 col-md-2">
-                <a href="{% url 'catalog:brand_detail' brand.slug %}" class="text-decoration-none">
-                    {% if brand.logo %}
-                    <img src="{{ brand.logo.url }}" alt="{{ brand.name }}" class="img-fluid" style="max-height: 40px; filter: grayscale(100%); opacity: 0.7; transition: all 0.3s;">
-                    {% else %}
-                    <span class="text-muted fw-bold fs-5">{{ brand.name }}</span>
-                    {% endif %}
-                </a>
-            </div>
+            <a href="{% url 'catalog:brand_detail' brand.slug %}" class="brand-item text-decoration-none">
+                {% if brand.logo %}
+                <img src="{{ brand.logo.url }}" alt="{{ brand.name }}">
+                {% else %}
+                <span>{{ brand.name }}</span>
+                {% endif %}
+            </a>
             {% empty %}
-            <div class="col-4 col-md-2">
-                <span class="text-muted fw-bold fs-5">ASUS</span>
-            </div>
-            <div class="col-4 col-md-2">
-                <span class="text-muted fw-bold fs-5">HP</span>
-            </div>
-            <div class="col-4 col-md-2">
-                <span class="text-muted fw-bold fs-5">DELL</span>
-            </div>
-            <div class="col-4 col-md-2">
-                <span class="text-muted fw-bold fs-5">LENOVO</span>
-            </div>
-            <div class="col-4 col-md-2">
-                <span class="text-muted fw-bold fs-5">MSI</span>
-            </div>
-            <div class="col-4 col-md-2">
-                <span class="text-muted fw-bold fs-5">ACER</span>
-            </div>
+            <!-- Default brands when no DB brands exist -->
+            <div class="brand-item"><span>ASUS</span></div>
+            <div class="brand-item"><span>HP</span></div>
+            <div class="brand-item"><span>DELL</span></div>
+            <div class="brand-item"><span>LENOVO</span></div>
+            <div class="brand-item"><span>MSI</span></div>
+            <div class="brand-item"><span>ACER</span></div>
+            <div class="brand-item"><span>INTEL</span></div>
+            <div class="brand-item"><span>AMD</span></div>
+            <div class="brand-item"><span>NVIDIA</span></div>
+            <div class="brand-item"><span>SAMSUNG</span></div>
+            <div class="brand-item"><span>CORSAIR</span></div>
+            <div class="brand-item"><span>LOGITECH</span></div>
+            {% endfor %}
+            <!-- Duplicate for seamless loop -->
+            {% for brand in brands %}
+            <a href="{% url 'catalog:brand_detail' brand.slug %}" class="brand-item text-decoration-none">
+                {% if brand.logo %}
+                <img src="{{ brand.logo.url }}" alt="{{ brand.name }}">
+                {% else %}
+                <span>{{ brand.name }}</span>
+                {% endif %}
+            </a>
+            {% empty %}
+            <div class="brand-item"><span>ASUS</span></div>
+            <div class="brand-item"><span>HP</span></div>
+            <div class="brand-item"><span>DELL</span></div>
+            <div class="brand-item"><span>LENOVO</span></div>
+            <div class="brand-item"><span>MSI</span></div>
+            <div class="brand-item"><span>ACER</span></div>
+            <div class="brand-item"><span>INTEL</span></div>
+            <div class="brand-item"><span>AMD</span></div>
+            <div class="brand-item"><span>NVIDIA</span></div>
+            <div class="brand-item"><span>SAMSUNG</span></div>
+            <div class="brand-item"><span>CORSAIR</span></div>
+            <div class="brand-item"><span>LOGITECH</span></div>
             {% endfor %}
         </div>
     </div>
 </section>
 
 <!-- Newsletter -->
-<section class="py-5 bg-primary text-white">
-    <div class="container">
+<section class="newsletter-section py-5 text-white position-relative">
+    <div class="container position-relative">
         <div class="row justify-content-center">
             <div class="col-lg-6 text-center">
                 <h3 class="fw-bold mb-3">Stay Updated</h3>
-                <p class="mb-4">Subscribe to our newsletter for exclusive deals, tech news, and product launches.</p>
-                <form class="d-flex gap-2 justify-content-center">
-                    <input type="email" class="form-control" style="max-width: 300px;" placeholder="Enter your email">
-                    <button type="submit" class="btn btn-secondary">Subscribe</button>
+                <p class="mb-4 opacity-75">Subscribe to our newsletter for exclusive deals, tech news, and product launches.</p>
+                <form class="d-flex gap-2 justify-content-center flex-wrap">
+                    <input type="email" class="form-control newsletter-input" style="max-width: 320px;" placeholder="Enter your email">
+                    <button type="submit" class="btn btn-secondary px-4">Subscribe</button>
                 </form>
             </div>
         </div>

@@ -1,0 +1,83 @@
+{% extends 'dashboard/base.html' %}
+
+{% block dashboard_content %}
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 class="h3 mb-0">{{ title }}</h2>
+            <a href="{% url 'dashboard:shipping_method_list' %}" class="btn btn-outline-secondary">
+                <i class="bi bi-arrow-left me-2"></i>Back to List
+            </a>
+        </div>
+
+        <div class="card shadow-sm border-0 rounded-3">
+            <div class="card-body p-4">
+                <form method="post">
+                    {% csrf_token %}
+                    
+                    <div class="row g-3">
+                        <!-- Main Info -->
+                        <div class="col-12">
+                            <label class="form-label fw-bold small text-uppercase text-muted">Method Name</label>
+                            {{ form.name }}
+                            {% if form.name.errors %}<div class="text-danger small mt-1">{{ form.name.errors }}</div>{% endif %}
+                        </div>
+
+                        <div class="col-12">
+                            <label class="form-label fw-bold small text-uppercase text-muted">Description</label>
+                            {{ form.description }}
+                            {% if form.description.errors %}<div class="text-danger small mt-1">{{ form.description.errors }}</div>{% endif %}
+                        </div>
+
+                        <!-- Pricing and Conditions -->
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold small text-uppercase text-muted">Price (৳)</label>
+                            {{ form.price }}
+                            {% if form.price.errors %}<div class="text-danger small mt-1">{{ form.price.errors }}</div>{% endif %}
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold small text-uppercase text-muted">Free Above (Optional)</label>
+                            {{ form.free_above }}
+                            {% if form.free_above.errors %}<div class="text-danger small mt-1">{{ form.free_above.errors }}</div>{% endif %}
+                        </div>
+
+                        <!-- Delivery Days -->
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold small text-uppercase text-muted">Min Delivery Days</label>
+                            {{ form.min_delivery_days }}
+                            {% if form.min_delivery_days.errors %}<div class="text-danger small mt-1">{{ form.min_delivery_days.errors }}</div>{% endif %}
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold small text-uppercase text-muted">Max Delivery Days</label>
+                            {{ form.max_delivery_days }}
+                            {% if form.max_delivery_days.errors %}<div class="text-danger small mt-1">{{ form.max_delivery_days.errors }}</div>{% endif %}
+                        </div>
+
+                        <!-- Settings -->
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold small text-uppercase text-muted">Display Order</label>
+                            {{ form.sort_order }}
+                            {% if form.sort_order.errors %}<div class="text-danger small mt-1">{{ form.sort_order.errors }}</div>{% endif %}
+                        </div>
+
+                        <div class="col-12">
+                            <div class="form-check form-switch mt-2">
+                                {{ form.is_active }}
+                                <label class="form-check-label fw-bold small text-uppercase text-muted ms-2" for="{{ form.is_active.id_for_label }}">Active Method</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-5 pt-3 border-top">
+                        <button type="submit" class="btn btn-primary px-5 rounded-pill shadow-sm">
+                            <i class="bi bi-check2-circle me-2"></i>Save Shipping Method
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

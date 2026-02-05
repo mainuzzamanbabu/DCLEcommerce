@@ -1,0 +1,71 @@
+{% extends 'dashboard/base.html' %}
+
+{% block dashboard_content %}
+<div class="card stats-card">
+    <div class="card-header bg-transparent border-bottom py-3">
+        <h5 class="mb-0 fw-bold">{{ title }}</h5>
+    </div>
+    <div class="card-body">
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label class="form-label fw-bold">Name</label>
+                    {{ form.name }}
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label fw-bold">Code</label>
+                    {{ form.code }}
+                    <small class="text-muted">Internal identifier (e.g., sslcommerz, cod)</small>
+                </div>
+            </div>
+            
+            <div class="mb-3">
+                <label class="form-label fw-bold">Description</label>
+                {{ form.description }}
+            </div>
+            
+            <div class="mb-3">
+                <label class="form-label fw-bold">Customer Instructions</label>
+                {{ form.instruction }}
+                <small class="text-muted">Instructions shown to customers during checkout</small>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label class="form-label fw-bold">Logo</label>
+                    {{ form.logo }}
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label fw-bold">Sort Order</label>
+                    {{ form.sort_order }}
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <div class="form-check">
+                        {{ form.is_active }}
+                        <label class="form-check-label fw-bold">Active</label>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <div class="form-check">
+                        {{ form.is_test_mode }}
+                        <label class="form-check-label fw-bold">Test Mode</label>
+                    </div>
+                </div>
+            </div>
+            
+            <hr>
+            <div class="d-flex gap-2">
+                <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-check-lg me-1"></i> Save Payment Method
+                </button>
+                <a href="{% url 'dashboard:payment_method_list' %}" class="btn btn-outline-secondary">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

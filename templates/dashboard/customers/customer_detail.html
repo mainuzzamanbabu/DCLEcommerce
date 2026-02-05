@@ -1,0 +1,119 @@
+{% extends 'dashboard/base.html' %}
+{% load humanize %}
+
+{% block dashboard_content %}
+<!-- Customer Info Card -->
+<div class="row g-4 mb-4">
+    <div class="col-lg-4">
+        <div class="card stats-card h-100">
+            <div class="card-body text-center py-4">
+                <div class="avatar-lg mx-auto mb-3 bg-primary-subtle rounded-circle d-flex align-items-center justify-content-center" style="width: 80px; height: 80px;">
+                    <span class="display-6 text-primary">{{ customer.email|slice:":1"|upper }}</span>
+                </div>
+                <h5 class="fw-bold mb-1">{{ customer.get_full_name }}</h5>
+                <p class="text-muted mb-2">{{ customer.email }}</p>
+                {% if customer.phone %}
+                <p class="text-muted mb-0"><i class="bi bi-phone me-1"></i> {{ customer.phone }}</p>
+                {% endif %}
+            </div>
+            <div class="card-footer bg-transparent border-top">
+                <div class="row text-center">
+                    <div class="col-6 border-end">
+                        <h5 class="mb-0 fw-bold">{{ orders.count }}</h5>
+                        <small class="text-muted">Orders</small>
+                    </div>
+                    <div class="col-6">
+                        <h5 class="mb-0 fw-bold">{{ customer.date_joined|date:"M Y" }}</h5>
+                        <small class="text-muted">Joined</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-lg-8">
+        <div class="card stats-card h-100">
+            <div class="card-header bg-transparent border-bottom py-3">
+                <h5 class="mb-0 fw-bold"><i class="bi bi-geo-alt me-2"></i>Addresses</h5>
+            </div>
+            <div class="card-body">
+                {% if addresses %}
+                <div class="row g-3">
+                    {% for address in addresses %}
+                    <div class="col-md-6">
+                        <div class="border rounded p-3">
+                            <div class="d-flex justify-content-between mb-2">
+                                <span class="badge bg-secondary-subtle text-secondary">{{ address.label|title }}</span>
+                                {% if address.is_default_shipping %}
+                                <span class="badge bg-success-subtle text-success">Default</span>
+                                {% endif %}
+                            </div>
+                            <p class="mb-1 fw-bold">{{ address.full_name }}</p>
+                            <p class="mb-1 text-muted small">{{ address.phone }}</p>
+                            <p class="mb-0 text-muted small">{{ address.get_full_address }}</p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <p class="text-muted mb-0">No addresses saved.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Recent Orders -->
+<div class="table-premium">
+    <div class="table-header d-flex justify-content-between align-items-center">
+        <h5 class="mb-0"><i class="bi bi-bag me-2"></i>Recent Orders</h5>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-hover mb-0">
+            <thead>
+                <tr>
+                    <th>Order #</th>
+                    <th>Date</th>
+                    <th>Amount</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in orders %}
+                <tr>
+                    <td class="fw-bold">#{{ order.order_number }}</td>
+                    <td>{{ order.created_at|date:"M d, Y" }}</td>
+                    <td>৳{{ order.total|floatformat:2|intcomma }}</td>
+                    <td>
+                        <span class="badge 
+                            {% if order.status == 'delivered' %}bg-success-subtle text-success
+                            {% elif order.status == 'shipped' %}bg-info-subtle text-info
+                            {% elif order.status == 'processing' %}bg-warning-subtle text-warning
+                            {% elif order.status == 'cancelled' %}bg-danger-subtle text-danger
+                            {% else %}bg-secondary-subtle text-secondary{% endif %}">
+                            {{ order.get_status_display }}
+                        </span>
+                    </td>
+                    <td>
+                        <a href="{% url 'dashboard:order_detail' order.order_number %}" class="btn btn-sm btn-outline-primary">
+                            <i class="bi bi-eye"></i> View
+                        </a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5" class="text-center py-4 text-muted">No orders yet.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="mt-4">
+    <a href="{% url 'dashboard:customer_list' %}" class="btn btn-outline-secondary">
+        <i class="bi bi-arrow-left me-1"></i> Back to Customers
+    </a>
+</div>
+{% endblock %}
