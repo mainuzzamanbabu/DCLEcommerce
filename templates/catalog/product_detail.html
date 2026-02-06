@@ -5,47 +5,52 @@
 {% block meta_description %}{{ product.seo_description|default:product.short_description }}{% endblock %}
 
 {% block content %}
-<div class="container py-4">
+<div class="container py-5">
     <!-- Breadcrumb -->
-    <nav aria-label="breadcrumb" class="mb-4">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="{% url 'core:home' %}">Home</a></li>
-            <li class="breadcrumb-item"><a href="{% url 'catalog:product_list' %}">Products</a></li>
+    <nav aria-label="breadcrumb" class="mb-5">
+        <ol class="breadcrumb px-4 py-3 glass-card border-0 shadow-sm rounded-pill d-inline-flex">
+            <li class="breadcrumb-item"><a href="{% url 'core:home' %}" class="text-decoration-none text-muted transition-all hover-text-secondary"><i class="bi bi-house me-2"></i>Home</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'catalog:product_list' %}" class="text-decoration-none text-muted transition-all hover-text-secondary">Products</a></li>
             {% for crumb in breadcrumbs %}
-            <li class="breadcrumb-item"><a href="{{ crumb.url }}">{{ crumb.name }}</a></li>
+            <li class="breadcrumb-item"><a href="{{ crumb.url }}" class="text-decoration-none text-muted transition-all hover-text-secondary">{{ crumb.name }}</a></li>
             {% endfor %}
-            <li class="breadcrumb-item active">{{ product.name }}</li>
+            <li class="breadcrumb-item active text-secondary fw-bold">{{ product.name }}</li>
         </ol>
     </nav>
 
-    <div class="row g-4">
+    <div class="row g-5">
         <!-- Product Images -->
         <div class="col-lg-6">
-            <div class="card border-0">
+            <div class="card glass-card border-0 shadow-sm overflow-hidden p-3 h-100">
                 <!-- Main Image -->
-                <div class="position-relative mb-3">
+                <div class="position-relative mb-4 bg-light rounded-4 overflow-hidden" style="aspect-ratio: 1/1;">
                     {% with image=product.get_primary_image %}
                     <img id="mainImage" 
-                         src="{% if image %}{{ image.image.url }}{% else %}https://via.placeholder.com/600x500?text={{ product.name|urlencode }}{% endif %}" 
-                         class="img-fluid rounded" 
+                         src="{% if image %}{{ image.image.url }}{% else %}https://via.placeholder.com/600x600?text={{ product.name|urlencode }}{% endif %}" 
+                         class="img-fluid transition-all w-100 h-100" 
                          alt="{{ product.name }}"
-                         style="width: 100%; max-height: 500px; object-fit: contain; background: #f8f9fa;">
+                         style="object-fit: contain;">
                     {% endwith %}
                     
-                    {% if product.is_featured %}
-                    <span class="position-absolute top-0 start-0 m-3 badge bg-success fs-6">Featured</span>
-                    {% endif %}
+                    <div class="position-absolute top-0 start-0 m-3 d-flex flex-column gap-2">
+                        {% if product.is_featured %}
+                        <span class="badge bg-success shadow-sm px-3 py-2 rounded-pill" style="font-size: 0.75rem; letter-spacing: 0.05em; text-transform: uppercase;">Featured</span>
+                        {% endif %}
+                    </div>
                 </div>
                 
                 <!-- Thumbnail Gallery -->
                 {% if product.images.all|length > 1 %}
-                <div class="d-flex gap-2 flex-wrap">
+                <div class="d-flex gap-3 flex-wrap justify-content-center">
                     {% for image in product.images.all %}
-                    <img src="{{ image.image.url }}" 
-                         class="img-thumbnail product-thumbnail {% if image.is_primary %}border-primary{% endif %}" 
-                         alt="{{ image.alt_text|default:product.name }}"
-                         style="width: 80px; height: 80px; object-fit: cover; cursor: pointer;"
-                         onclick="document.getElementById('mainImage').src='{{ image.image.url }}'">
+                    <div class="thumbnail-wrapper rounded-3 overflow-hidden transition-all hover-shadow-md border-2 {% if image.is_primary %}border-secondary{% else %}border-transparent{% endif %}" 
+                         style="width: 80px; height: 80px; cursor: pointer;"
+                         onclick="changeMainImage('{{ image.image.url }}', this)">
+                        <img src="{{ image.image.url }}" 
+                             class="w-100 h-100" 
+                             alt="{{ image.alt_text|default:product.name }}"
+                             style="object-fit: cover;">
+                    </div>
                     {% endfor %}
                 </div>
                 {% endif %}
@@ -54,212 +59,229 @@
 
         <!-- Product Info -->
         <div class="col-lg-6">
-            <!-- Brand -->
-            {% if product.brand %}
-            <a href="{% url 'catalog:brand_detail' product.brand.slug %}" class="text-muted text-decoration-none">
-                {{ product.brand.name }}
-            </a>
-            {% endif %}
-            
-            <!-- Title -->
-            <h1 class="h2 fw-bold mb-3">{{ product.name }}</h1>
-            
-            <!-- Rating -->
-            {% if product.average_rating %}
-            <div class="d-flex align-items-center gap-2 mb-3">
-                <div class="rating">
-                    {% for i in "12345" %}
-                        {% if forloop.counter <= product.average_rating %}
-                        <i class="bi bi-star-fill"></i>
-                        {% else %}
-                        <i class="bi bi-star"></i>
-                        {% endif %}
-                    {% endfor %}
+            <div class="h-100 d-flex flex-column">
+                <!-- Brand & Meta -->
+                <div class="mb-3 d-flex align-items-center gap-3">
+                    {% if product.brand %}
+                    <a href="{% url 'catalog:brand_detail' product.brand.slug %}" class="badge bg-light text-secondary text-decoration-none px-3 py-2 rounded-pill fw-bold text-uppercase tracking-widest" style="font-size: 0.65rem;">
+                        {{ product.brand.name }}
+                    </a>
+                    {% endif %}
+                    {% if product.category %}
+                    <a href="{{ product.category.get_absolute_url }}" class="text-muted small text-decoration-none hover-text-secondary">
+                        <i class="bi bi-tag me-1"></i>{{ product.category.name }}
+                    </a>
+                    {% endif %}
                 </div>
-                <span class="text-muted">({{ product.review_count }} reviews)</span>
-            </div>
-            {% endif %}
-            
-            <!-- Short Description -->
-            {% if product.short_description %}
-            <p class="lead text-muted mb-4">{{ product.short_description }}</p>
-            {% endif %}
-            
-            <hr>
-            
-            <!-- Variant Selection & Price -->
-            {% if variants %}
-            <form id="addToCartForm">
-                {% csrf_token %}
                 
-                <!-- Variant Selector (if multiple) -->
-                {% if variants|length > 1 %}
-                <div class="mb-4">
-                    <label class="form-label fw-bold">Select Variant:</label>
-                    <select class="form-select" name="variant_id" id="variantSelect" onchange="updateVariantDetails()">
-                        {% for variant in variants %}
-                        <option value="{{ variant.id }}" 
-                                data-price="{{ variant.price.effective_price|default:0 }}"
-                                data-list-price="{{ variant.price.list_price|default:0 }}"
-                                data-is-sale="{% if variant.price.is_on_sale %}1{% else %}0{% endif %}"
-                                data-discount="{{ variant.price.discount_percent|default:0 }}"
-                                data-in-stock="{% if variant.is_in_stock %}1{% else %}0{% endif %}"
-                                data-stock-qty="{{ variant.inventory.available_qty|default:0 }}"
-                                {% if variant == default_variant %}selected{% endif %}>
-                            {{ variant.variant_name|default:variant.sku }}
-                            {% if variant.price %} - ৳{{ variant.price.effective_price|floatformat:0 }}{% endif %}
-                        </option>
+                <!-- Title -->
+                <h1 class="display-6 fw-bold mb-4" style="font-family: 'Merriweather', serif; color: var(--dcl-primary);">{{ product.name }}</h1>
+                
+                <!-- Rating -->
+                {% if product.average_rating %}
+                <div class="d-flex align-items-center gap-3 mb-4">
+                    <div class="rating" style="color: #ffc107; font-size: 1.1rem;">
+                        {% for i in "12345" %}
+                            {% if forloop.counter <= product.average_rating|default:0 %}
+                            <i class="bi bi-star-fill"></i>
+                            {% else %}
+                            <i class="bi bi-star"></i>
+                            {% endif %}
                         {% endfor %}
-                    </select>
+                    </div>
+                    <span class="text-muted small fw-medium">({{ product.review_count }} Verified Reviews)</span>
                 </div>
-                {% else %}
-                <input type="hidden" name="variant_id" value="{{ default_variant.id }}">
                 {% endif %}
                 
-                <!-- Price Display -->
-                <div class="mb-4">
-                    {% if default_variant and default_variant.price %}
-                    <div id="priceDisplay">
-                        <span class="h2 fw-bold text-secondary me-2" id="currentPrice">
-                            ৳{{ default_variant.price.effective_price|floatformat:0 }}
-                        </span>
-                        {% if default_variant.price.is_on_sale %}
-                        <span class="text-muted text-decoration-line-through" id="listPrice">
-                            ৳{{ default_variant.price.list_price|floatformat:0 }}
-                        </span>
-                        <span class="badge bg-danger ms-2" id="discountBadge">
-                            -{{ default_variant.price.discount_percent }}% OFF
-                        </span>
+                <!-- Short Description -->
+                {% if product.short_description %}
+                <p class="lead text-muted mb-5" style="font-size: 1.1rem; line-height: 1.6;">{{ product.short_description }}</p>
+                {% endif %}
+                
+                <!-- Variant Selection & Price -->
+                <div class="card glass-card border-0 shadow-sm p-4 mb-5">
+                    {% if variants %}
+                    <form id="addToCartForm">
+                        {% csrf_token %}
+                        
+                        <!-- Variant Selector -->
+                        {% if variants|length > 1 %}
+                        <div class="mb-4">
+                            <label class="form-label fw-bold small text-uppercase tracking-widest text-muted mb-2">Select Variation</label>
+                            <select class="form-select bg-light border-0 py-3 px-4 rounded-4 fw-medium" name="variant_id" id="variantSelect" onchange="updateVariantDetails()">
+                                {% for variant in variants %}
+                                <option value="{{ variant.id }}" 
+                                        data-price="{{ variant.price.effective_price|default:0 }}"
+                                        data-list-price="{{ variant.price.list_price|default:0 }}"
+                                        data-is-sale="{% if variant.price.is_on_sale %}1{% else %}0{% endif %}"
+                                        data-discount="{{ variant.price.discount_percent|default:0 }}"
+                                        data-in-stock="{% if variant.is_in_stock %}1{% else %}0{% endif %}"
+                                        data-stock-qty="{{ variant.inventory.available_qty|default:0 }}"
+                                        {% if variant == default_variant %}selected{% endif %}>
+                                    {{ variant.variant_name|default:variant.sku }}
+                                </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        {% else %}
+                        <input type="hidden" name="variant_id" value="{{ default_variant.id }}" id="variantSelect">
                         {% endif %}
-                    </div>
-                    {% else %}
-                    <span class="h3 text-muted">Price not available</span>
-                    {% endif %}
-                </div>
-                
-                <!-- Stock Status -->
-                <div class="mb-4" id="stockStatus">
-                    {% if default_variant and default_variant.is_in_stock %}
-                    <span class="text-success">
-                        <i class="bi bi-check-circle me-1"></i>
-                        In Stock ({{ default_variant.inventory.available_qty }} available)
-                    </span>
-                    {% else %}
-                    <span class="text-danger">
-                        <i class="bi bi-x-circle me-1"></i>
-                        Out of Stock
-                    </span>
-                    {% endif %}
-                </div>
-                
-                <!-- Quantity & Add to Cart -->
-                <div class="row g-3 mb-4">
-                    <div class="col-auto">
-                        <div class="input-group quantity-input" style="width: 140px;">
-                            <button class="btn btn-outline-secondary qty-btn-minus" type="button">
-                                <i class="bi bi-dash"></i>
+                        
+                        <!-- Price Display -->
+                        <div class="mb-4">
+                            <div id="priceDisplay" class="d-flex align-items-center gap-3">
+                                <span class="display-5 fw-bold" style="color: var(--dcl-secondary);" id="currentPrice">
+                                    ৳{{ default_variant.price.effective_price|floatformat:0 }}
+                                </span>
+                                {% if default_variant.price.is_on_sale %}
+                                <div class="d-flex flex-column">
+                                    <span class="text-muted text-decoration-line-through h5 mb-0" id="listPrice">
+                                        ৳{{ default_variant.price.list_price|floatformat:0 }}
+                                    </span>
+                                    <span class="badge bg-danger rounded-pill mt-1" id="discountBadge">
+                                        -{{ default_variant.price.discount_percent }}% OFF
+                                    </span>
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        
+                        <!-- Stock Status -->
+                        <div class="mb-5 d-flex align-items-center gap-2" id="stockStatus">
+                            {% if default_variant and default_variant.is_in_stock %}
+                            <span class="badge bg-success-subtle text-success px-3 py-2 rounded-pill fw-bold">
+                                <i class="bi bi-check-circle me-1"></i>
+                                IN STOCK ({{ default_variant.inventory.available_qty }} UNITS)
+                            </span>
+                            {% else %}
+                            <span class="badge bg-danger-subtle text-danger px-3 py-2 rounded-pill fw-bold">
+                                <i class="bi bi-x-circle me-1"></i>
+                                TEMPORARILY OUT OF STOCK
+                            </span>
+                            {% endif %}
+                        </div>
+                        
+                        <!-- Quantity & Add to Cart -->
+                        <div class="row g-3 mb-4">
+                            <div class="col-md-4">
+                                <div class="input-group glass-card border-0 shadow-none overflow-hidden" style="background: rgba(149, 78, 39, 0.05);">
+                                    <button class="btn btn-link text-dark text-decoration-none px-3 border-0 qty-btn-minus" type="button">
+                                        <i class="bi bi-dash fs-5"></i>
+                                    </button>
+                                    <input type="number" class="form-control text-center bg-transparent border-0 fw-bold" name="quantity" value="1" min="1" max="99" style="color: var(--dcl-primary);">
+                                    <button class="btn btn-link text-dark text-decoration-none px-3 border-0 qty-btn-plus" type="button">
+                                        <i class="bi bi-plus fs-5"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <button type="button" class="btn btn-primary btn-lg w-100 py-3 rounded-4 shadow-sm transition-all hover-shadow-lg" id="addToCartBtn"
+                                        {% if not default_variant or not default_variant.is_in_stock %}disabled{% endif %}>
+                                    <i class="bi bi-cart-plus me-2"></i>Securely Add to Cart
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Wishlist & Compare -->
+                        <div class="d-flex gap-3">
+                            <button type="button" class="btn btn-outline-light text-muted border-0 bg-light-subtle rounded-3 py-2 px-4 flex-grow-1 add-wishlist-btn" 
+                                    data-variant-id="{{ default_variant.id|default:0 }}">
+                                <i class="bi bi-heart me-2 text-danger"></i>Add to Wishlist
                             </button>
-                            <input type="number" class="form-control text-center" name="quantity" value="1" min="1" max="99">
-                            <button class="btn btn-outline-secondary qty-btn-plus" type="button">
-                                <i class="bi bi-plus"></i>
+                            <button type="button" class="btn btn-outline-light text-muted border-0 bg-light-subtle rounded-3 py-2 px-4 flex-grow-1">
+                                <i class="bi bi-shuffle me-2 text-primary"></i>Compare
                             </button>
                         </div>
+                    </form>
+                    {% else %}
+                    <div class="alert bg-warning-subtle text-warning border-0 rounded-4 p-4 mb-0">
+                        <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                        This product configuration is currently unavailable.
                     </div>
-                    <div class="col">
-                        <button type="button" class="btn btn-primary btn-lg w-100" id="addToCartBtn"
-                                onclick="addToCart(document.getElementById('variantSelect')?.value || {{ default_variant.id|default:0 }}, document.querySelector('input[name=quantity]').value)"
-                                {% if not default_variant or not default_variant.is_in_stock %}disabled{% endif %}>
-                            <i class="bi bi-cart-plus me-2"></i>Add to Cart
-                        </button>
-                    </div>
+                    {% endif %}
                 </div>
                 
-                <!-- Wishlist & Compare -->
-                <div class="d-flex gap-3 mb-4">
-                    <button type="button" class="btn btn-outline-secondary" onclick="addToWishlist({{ default_variant.id|default:0 }})">
-                        <i class="bi bi-heart me-2"></i>Add to Wishlist
-                    </button>
-                    <button type="button" class="btn btn-outline-secondary">
-                        <i class="bi bi-shuffle me-2"></i>Compare
-                    </button>
+                <!-- Trust Badges -->
+                <div class="row g-3 mt-auto">
+                    <div class="col-md-4">
+                        <div class="text-center p-3 rounded-4" style="background: rgba(149, 78, 39, 0.03);">
+                            <i class="bi bi-truck fs-3 text-secondary mb-2"></i>
+                            <p class="mb-0 small fw-bold text-muted">Free Shipping</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="text-center p-3 rounded-4" style="background: rgba(149, 78, 39, 0.03);">
+                            <i class="bi bi-shield-check fs-3 text-secondary mb-2"></i>
+                            <p class="mb-0 small fw-bold text-muted">Auth. Guarantee</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="text-center p-3 rounded-4" style="background: rgba(149, 78, 39, 0.03);">
+                            <i class="bi bi-arrow-counterclockwise fs-3 text-secondary mb-2"></i>
+                            <p class="mb-0 small fw-bold text-muted">7-Day Returns</p>
+                        </div>
+                    </div>
                 </div>
-            </form>
-            {% else %}
-            <div class="alert alert-warning">
-                <i class="bi bi-exclamation-triangle me-2"></i>
-                This product is currently unavailable.
-            </div>
-            {% endif %}
-            
-            <hr>
-            
-            <!-- Product Meta -->
-            <div class="small text-muted">
-                {% if product.category %}
-                <p class="mb-2">
-                    <strong>Category:</strong> 
-                    <a href="{{ product.category.get_absolute_url }}" class="text-decoration-none">
-                        {{ product.category.name }}
-                    </a>
-                </p>
-                {% endif %}
-                
-                {% if default_variant %}
-                <p class="mb-2"><strong>SKU:</strong> {{ default_variant.sku }}</p>
-                {% endif %}
-                
-                {% if product.warranty_months > 0 %}
-                <p class="mb-2">
-                    <strong>Warranty:</strong> 
-                    <span class="text-success">{{ product.warranty_months }} Months</span>
-                </p>
-                {% endif %}
             </div>
         </div>
     </div>
 
-    <!-- Product Description & Specifications -->
-    <div class="row mt-5">
+    <!-- Product Details Content -->
+    <div class="row mt-5 pt-5">
         <div class="col-12">
-            <ul class="nav nav-tabs" id="productTabs" role="tablist">
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link active" id="description-tab" data-bs-toggle="tab" data-bs-target="#description" type="button">
-                        Description
-                    </button>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="specifications-tab" data-bs-toggle="tab" data-bs-target="#specifications" type="button">
-                        Specifications
-                    </button>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="reviews-tab" data-bs-toggle="tab" data-bs-target="#reviews" type="button">
-                        Reviews ({{ product.review_count }})
-                    </button>
-                </li>
-            </ul>
-            <div class="tab-content p-4 border border-top-0 rounded-bottom" id="productTabContent">
-                <div class="tab-pane fade show active" id="description" role="tabpanel">
-                    {{ product.description|safe|default:"No description available." }}
-                </div>
-                <div class="tab-pane fade" id="specifications" role="tabpanel">
-                    {% if default_variant and default_variant.attributes %}
-                    <table class="table table-striped">
-                        <tbody>
-                            {% for key, value in default_variant.attributes.items %}
-                            <tr>
-                                <th style="width: 30%;">{{ key }}</th>
-                                <td>{{ value }}</td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                    {% else %}
-                    <p class="text-muted">No specifications available.</p>
-                    {% endif %}
-                </div>
-                <div class="tab-pane fade" id="reviews" role="tabpanel">
-                    <p class="text-muted">Reviews coming soon.</p>
+            <div class="card glass-card border-0 shadow-sm overflow-hidden">
+                <ul class="nav nav-tabs nav-fill bg-light border-0" id="productTabs" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active py-4 fw-bold text-uppercase tracking-widest border-0" id="description-tab" data-bs-toggle="tab" data-bs-target="#description" type="button" style="font-size: 0.8rem;">
+                            Description
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link py-4 fw-bold text-uppercase tracking-widest border-0" id="specifications-tab" data-bs-toggle="tab" data-bs-target="#specifications" type="button" style="font-size: 0.8rem;">
+                            Specifications
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link py-4 fw-bold text-uppercase tracking-widest border-0" id="reviews-tab" data-bs-toggle="tab" data-bs-target="#reviews" type="button" style="font-size: 0.8rem;">
+                            Reviews ({{ product.review_count }})
+                        </button>
+                    </li>
+                </ul>
+                <div class="tab-content p-5" id="productTabContent">
+                    <div class="tab-pane fade show active" id="description" role="tabpanel">
+                        <div class="product-description" style="line-height: 1.8; color: #4b5563;">
+                            {{ product.description|safe|default:"No detailed description available for this product." }}
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="specifications" role="tabpanel">
+                        {% if default_variant and default_variant.attributes %}
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <tbody>
+                                    {% for key, value in default_variant.attributes.items %}
+                                    <tr style="border-color: rgba(149, 78, 39, 0.05);">
+                                        <th class="ps-4 py-3 bg-light text-muted fw-bold text-uppercase tracking-wider" style="width: 30%; font-size: 0.75rem;">{{ key }}</th>
+                                        <td class="ps-4 py-3 fw-medium" style="color: var(--dcl-primary);">{{ value }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        {% else %}
+                        <div class="text-center py-5">
+                            <i class="bi bi-list-task text-muted mb-3" style="font-size: 3rem; opacity: 0.3;"></i>
+                            <p class="text-muted italic">No technical specifications listed for this variant.</p>
+                        </div>
+                        {% endif %}
+                    </div>
+                    <div class="tab-pane fade" id="reviews" role="tabpanel">
+                        <div class="text-center py-5">
+                            <i class="bi bi-chat-left-text text-muted mb-3" style="font-size: 3rem; opacity: 0.3;"></i>
+                            <h5 class="text-muted">No Reviews Yet</h5>
+                            <p class="text-muted small">Be the first to review this product!</p>
+                            <button class="btn btn-outline-secondary rounded-pill px-4 mt-2">Write a Review</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -267,8 +289,11 @@
 
     <!-- Related Products -->
     {% if related_products %}
-    <section class="mt-5">
-        <h3 class="section-title">Related Products</h3>
+    <section class="mt-5 pt-5">
+        <div class="d-flex align-items-center justify-content-between mb-4">
+            <h3 class="mb-0 fw-bold" style="font-family: 'Merriweather', serif; color: var(--dcl-primary);">Related Products</h3>
+            <a href="{% url 'catalog:product_list' %}" class="small text-secondary text-decoration-none fw-bold hover-underline">View All <i class="bi bi-arrow-right ms-1"></i></a>
+        </div>
         <div class="row g-4">
             {% for product in related_products %}
             <div class="col-6 col-md-3">
@@ -280,11 +305,39 @@
     {% endif %}
 </div>
 
+<style>
+    .glass-card {
+        background: rgba(255, 255, 255, 0.8) !important;
+        backdrop-filter: blur(20px) !important;
+        -webkit-backdrop-filter: blur(20px) !important;
+        border: 1px solid rgba(255, 255, 255, 0.5) !important;
+        border-radius: 28px !important;
+    }
+    .bg-light-subtle { background: rgba(149, 78, 39, 0.05); }
+    .thumbnail-wrapper:hover { transform: scale(1.05); }
+    .nav-tabs .nav-link { color: var(--dcl-gray); transition: all 0.3s ease; }
+    .nav-tabs .nav-link:hover { color: var(--dcl-primary); background: rgba(149, 78, 39, 0.03); }
+    .nav-tabs .nav-link.active { color: var(--dcl-secondary); background: white !important; border-bottom: 3px solid var(--dcl-secondary) !important; }
+    .tracking-widest { letter-spacing: 0.15em; }
+    .tracking-wider { letter-spacing: 0.05em; }
+</style>
+
 {% block extra_js %}
 <script>
+function changeMainImage(url, thumbEl) {
+    const mainImg = document.getElementById('mainImage');
+    mainImg.style.opacity = '0.5';
+    mainImg.src = url;
+    setTimeout(() => { mainImg.style.opacity = '1'; }, 200);
+    
+    // Update active thumbnail
+    document.querySelectorAll('.thumbnail-wrapper').forEach(t => t.classList.remove('border-secondary'));
+    thumbEl.classList.add('border-secondary');
+}
+
 function updateVariantDetails() {
     const select = document.getElementById('variantSelect');
-    if (!select) return;
+    if (!select || select.tagName === 'INPUT') return;
     
     const option = select.options[select.selectedIndex];
     const price = parseFloat(option.dataset.price);
@@ -302,26 +355,67 @@ function updateVariantDetails() {
     
     if (isSale && listPriceEl) {
         listPriceEl.textContent = '৳' + listPrice.toLocaleString('en-BD');
-        listPriceEl.style.display = 'inline';
+        listPriceEl.parentNode.style.display = 'flex';
         if (discountEl) {
             discountEl.textContent = '-' + discount + '% OFF';
-            discountEl.style.display = 'inline';
         }
-    } else {
-        if (listPriceEl) listPriceEl.style.display = 'none';
-        if (discountEl) discountEl.style.display = 'none';
+    } else if (listPriceEl) {
+        listPriceEl.parentNode.style.display = 'none';
     }
     
     // Update stock status
     const stockEl = document.getElementById('stockStatus');
     if (inStock) {
-        stockEl.innerHTML = '<span class="text-success"><i class="bi bi-check-circle me-1"></i>In Stock (' + stockQty + ' available)</span>';
+        stockEl.innerHTML = '<span class="badge bg-success-subtle text-success px-3 py-2 rounded-pill fw-bold"><i class="bi bi-check-circle me-1"></i>IN STOCK (' + stockQty + ' UNITS)</span>';
         document.getElementById('addToCartBtn').disabled = false;
     } else {
-        stockEl.innerHTML = '<span class="text-danger"><i class="bi bi-x-circle me-1"></i>Out of Stock</span>';
+        stockEl.innerHTML = '<span class="badge bg-danger-subtle text-danger px-3 py-2 rounded-pill fw-bold"><i class="bi bi-x-circle me-1"></i>TEMPORARILY OUT OF STOCK</span>';
         document.getElementById('addToCartBtn').disabled = true;
     }
+
+    // Update wishlist button data attribute
+    const wishlistBtn = document.querySelector('.add-wishlist-btn');
+    if (wishlistBtn) wishlistBtn.dataset.variantId = select.value;
 }
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Add to Cart listener
+    const addToCartBtn = document.getElementById('addToCartBtn');
+    if (addToCartBtn) {
+        addToCartBtn.addEventListener('click', function() {
+            const variantId = document.getElementById('variantSelect').value;
+            const quantity = document.querySelector('input[name="quantity"]').value;
+            if (typeof addToCart === 'function') {
+                addToCart(variantId, quantity);
+            }
+        });
+    }
+
+    // Add to Wishlist listener
+    const wishlistBtn = document.querySelector('.add-wishlist-btn');
+    if (wishlistBtn) {
+        wishlistBtn.addEventListener('click', function() {
+            const variantId = this.dataset.variantId;
+            if (typeof addToWishlist === 'function') {
+                addToWishlist(variantId);
+            }
+        });
+    }
+
+    // Quantity selectors
+    document.querySelector('.qty-btn-minus').addEventListener('click', function() {
+        const input = document.querySelector('input[name="quantity"]');
+        if (input.value > 1) {
+            input.value = parseInt(input.value) - 1;
+        }
+    });
+    document.querySelector('.qty-btn-plus').addEventListener('click', function() {
+        const input = document.querySelector('input[name="quantity"]');
+        if (input.value < 99) {
+            input.value = parseInt(input.value) + 1;
+        }
+    });
+});
 </script>
 {% endblock %}
 {% endblock %}

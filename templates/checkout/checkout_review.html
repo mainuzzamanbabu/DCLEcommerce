@@ -7,22 +7,22 @@
 <div class="container py-5">
     <!-- Checkout Progress -->
     <div class="row mb-5 justify-content-center">
-        <div class="col-lg-8">
+        <div class="col-lg-10">
             <div class="checkout-progress d-flex justify-content-between position-relative">
-                <div class="progress-step active completed">
+                <div class="progress-step completed">
                     <div class="step-icon"><i class="bi bi-geo-alt"></i></div>
                     <div class="step-label">Address</div>
                 </div>
-                <div class="progress-step active completed">
+                <div class="progress-step completed">
                     <div class="step-icon"><i class="bi bi-truck"></i></div>
                     <div class="step-label">Shipping</div>
                 </div>
-                <div class="progress-step active completed">
+                <div class="progress-step completed">
                     <div class="step-icon"><i class="bi bi-credit-card"></i></div>
                     <div class="step-label">Payment</div>
                 </div>
                 <div class="progress-step active">
-                    <div class="step-icon"><i class="bi bi-check-circle"></i></div>
+                    <div class="step-icon shadow-sm"><i class="bi bi-check-circle"></i></div>
                     <div class="step-label">Review</div>
                 </div>
                 <div class="progress-bar-line"></div>
@@ -34,58 +34,70 @@
         <!-- Order Review -->
         <div class="col-lg-8">
             <!-- Shipping Address -->
-            <div class="card shadow-sm border-0 mb-4 rounded-4">
-                <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center border-bottom">
-                    <h6 class="mb-0 fw-bold text-primary"><i class="bi bi-geo-alt me-2"></i>Shipping Address</h6>
-                    <a href="{% url 'checkout:address' %}" class="btn btn-sm btn-outline-primary rounded-pill px-3">Edit</a>
+            <div class="card glass-card border-0 mb-4">
+                <div class="card-header bg-transparent py-4 px-4 d-flex justify-content-between align-items-center border-bottom" style="border-color: rgba(149, 78, 39, 0.1) !important;">
+                    <h5 class="mb-0 fw-bold" style="font-family: 'Merriweather', serif; color: var(--dcl-primary);">
+                        <i class="bi bi-geo-alt me-2 text-secondary"></i>Shipping Address
+                    </h5>
+                    <a href="{% url 'checkout:address' %}" class="btn btn-sm btn-outline-primary rounded-pill px-4">Edit</a>
                 </div>
-                <div class="card-body">
-                    <pre class="mb-0" style="font-family: inherit; white-space: pre-wrap;">{{ shipping_display }}</pre>
+                <div class="card-body p-4">
+                    <div class="p-3 rounded-4" style="background: rgba(149, 78, 39, 0.03); color: var(--dcl-primary);">
+                        <pre class="mb-0 fw-medium" style="font-family: 'Inter', sans-serif; white-space: pre-wrap; font-size: 0.95rem;">{{ shipping_display }}</pre>
+                    </div>
                 </div>
             </div>
             
             <!-- Shipping Method -->
-            <div class="card shadow-sm border-0 mb-4 rounded-4">
-                <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center border-bottom">
-                    <h6 class="mb-0 fw-bold text-primary"><i class="bi bi-truck me-2"></i>Shipping Method</h6>
-                    <a href="{% url 'checkout:shipping' %}" class="btn btn-sm btn-outline-primary rounded-pill px-3">Edit</a>
+            <div class="card glass-card border-0 mb-4">
+                <div class="card-header bg-transparent py-4 px-4 d-flex justify-content-between align-items-center border-bottom" style="border-color: rgba(149, 78, 39, 0.1) !important;">
+                    <h5 class="mb-0 fw-bold" style="font-family: 'Merriweather', serif; color: var(--dcl-primary);">
+                        <i class="bi bi-truck me-2 text-secondary"></i>Shipping Method
+                    </h5>
+                    <a href="{% url 'checkout:shipping' %}" class="btn btn-sm btn-outline-primary rounded-pill px-4">Edit</a>
                 </div>
-                <div class="card-body d-flex justify-content-between">
+                <div class="card-body p-4 d-flex justify-content-between align-items-center">
                     <div>
-                        <strong>{{ session.shipping_method.name }}</strong>
+                        <h6 class="mb-1 fw-bold" style="color: var(--dcl-primary);">{{ session.shipping_method.name }}</h6>
                         <p class="mb-0 text-muted small">
-                            <i class="bi bi-clock me-1"></i>{{ session.shipping_method.get_delivery_estimate }}
+                            <i class="bi bi-clock me-2"></i>{{ session.shipping_method.get_delivery_estimate }}
                         </p>
                     </div>
-                    <span class="fw-bold">
+                    <h5 class="mb-0 fw-bold" style="color: var(--dcl-primary);">
                         {% if shipping_cost == 0 %}
                         <span class="text-success">FREE</span>
                         {% else %}
                         ৳{{ shipping_cost|floatformat:2 }}
                         {% endif %}
-                    </span>
+                    </h5>
                 </div>
             </div>
 
             <!-- Payment Method -->
-            <div class="card shadow-sm border-0 mb-4 rounded-4">
-                <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center border-bottom">
-                    <h6 class="mb-0 fw-bold text-primary"><i class="bi bi-credit-card me-2"></i>Payment Method</h6>
-                    <a href="{% url 'checkout:payment' %}" class="btn btn-sm btn-outline-primary rounded-pill px-3">Edit</a>
+            <div class="card glass-card border-0 mb-4">
+                <div class="card-header bg-transparent py-4 px-4 d-flex justify-content-between align-items-center border-bottom" style="border-color: rgba(149, 78, 39, 0.1) !important;">
+                    <h5 class="mb-0 fw-bold" style="font-family: 'Merriweather', serif; color: var(--dcl-primary);">
+                        <i class="bi bi-credit-card me-2 text-secondary"></i>Payment Method
+                    </h5>
+                    <a href="{% url 'checkout:payment' %}" class="btn btn-sm btn-outline-primary rounded-pill px-4">Edit</a>
                 </div>
-                <div class="card-body">
+                <div class="card-body p-4">
                     <div class="d-flex align-items-center">
                         {% if session.payment_method == 'sslcommerz' %}
-                            <i class="bi bi-credit-card-2-front text-primary fs-4 me-3"></i>
+                            <div class="bg-light p-3 rounded-circle me-3">
+                                <i class="bi bi-credit-card-2-front text-primary fs-3"></i>
+                            </div>
                             <div>
-                                <strong class="text-dark">Online Payment (SSLCommerz)</strong>
-                                <p class="mb-0 text-muted small">Visa, Mastercard, Mobile Banking (bKash, Nagad, Rocket)</p>
+                                <h6 class="mb-1 fw-bold" style="color: var(--dcl-primary);">Online Payment (SSLCommerz)</h6>
+                                <p class="mb-0 text-muted small">Cards, bKash, Nagad, Rocket</p>
                             </div>
                         {% else %}
-                            <i class="bi bi-cash-stack text-success fs-4 me-3"></i>
+                            <div class="bg-light p-3 rounded-circle me-3">
+                                <i class="bi bi-cash-stack text-success fs-3"></i>
+                            </div>
                             <div>
-                                <strong class="text-dark">Cash on Delivery (COD)</strong>
-                                <p class="mb-0 text-muted small">Pay with cash when your product is delivered</p>
+                                <h6 class="mb-1 fw-bold" style="color: var(--dcl-primary);">Cash on Delivery (COD)</h6>
+                                <p class="mb-0 text-muted small">Pay with cash upon delivery</p>
                             </div>
                         {% endif %}
                     </div>
@@ -93,38 +105,48 @@
             </div>
             
             <!-- Order Items -->
-            <div class="card shadow-sm border-0 mb-4 rounded-4">
-                <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center border-bottom">
-                    <h6 class="mb-0 fw-bold text-primary"><i class="bi bi-bag me-2"></i>Order Items ({{ cart|length }})</h6>
-                    <a href="{% url 'cart:cart_detail' %}" class="btn btn-sm btn-outline-primary rounded-pill px-3">Edit Cart</a>
+            <div class="card glass-card border-0 mb-4 overflow-hidden">
+                <div class="card-header bg-transparent py-4 px-4 d-flex justify-content-between align-items-center border-bottom" style="border-color: rgba(149, 78, 39, 0.1) !important;">
+                    <h5 class="mb-0 fw-bold" style="font-family: 'Merriweather', serif; color: var(--dcl-primary);">
+                        <i class="bi bi-bag me-2 text-secondary"></i>Order Items ({{ cart|length }})
+                    </h5>
+                    <a href="{% url 'cart:cart_detail' %}" class="btn btn-sm btn-outline-primary rounded-pill px-4">Edit Cart</a>
                 </div>
                 <div class="card-body p-0">
                     <div class="table-responsive">
                         <table class="table table-hover align-middle mb-0">
+                            <thead style="background: rgba(149, 78, 39, 0.03);">
+                                <tr>
+                                    <th class="ps-4 py-3 small text-muted letter-spacing-05">PRODUCT</th>
+                                    <th class="py-3 small text-muted letter-spacing-05 text-center">PRICE × QTY</th>
+                                    <th class="pe-4 py-3 small text-muted letter-spacing-05 text-end">TOTAL</th>
+                                </tr>
+                            </thead>
                             <tbody>
                                 {% for item in cart %}
                                 <tr>
-                                    <td class="ps-4 py-3" style="width: 80px;">
-                                        {% if item.variant.images.exists %}
-                                        <img src="{{ item.variant.images.first.image.url }}" 
-                                             alt="{{ item.variant.product.name }}" 
-                                             class="rounded shadow-sm" style="width: 60px; height: 60px; object-fit: cover;">
-                                        {% else %}
-                                        <div class="bg-light rounded d-flex align-items-center justify-content-center" style="width: 60px; height: 60px;">
-                                            <i class="bi bi-image text-muted"></i>
+                                    <td class="ps-4 py-4">
+                                        <div class="d-flex align-items-center">
+                                            {% with image=item.variant.get_image %}
+                                                <img src="{% if image %}{{ image.image.url }}{% else %}https://via.placeholder.com/60x60?text=Empty{% endif %}" 
+                                                     alt="{{ item.variant.product.name }}" 
+                                                     class="rounded-3 shadow-sm me-3" 
+                                                     style="width: 55px; height: 55px; object-fit: cover; border: 1px solid rgba(149, 78, 39, 0.1);">
+                                            {% endwith %}
+                                            <div>
+                                                <h6 class="mb-0 fw-bold" style="color: var(--dcl-primary);">{{ item.variant.product.name }}</h6>
+                                                {% if item.variant.variant_name %}
+                                                <small class="text-secondary fw-medium">{{ item.variant.variant_name }}</small>
+                                                {% endif %}
+                                            </div>
                                         </div>
-                                        {% endif %}
                                     </td>
-                                    <td class="py-3">
-                                        <div class="fw-bold">{{ item.variant.product.name }}</div>
-                                        {% if item.variant.variant_name %}
-                                        <small class="text-muted">{{ item.variant.variant_name }}</small>
-                                        {% endif %}
+                                    <td class="py-4 text-center">
+                                        <span class="fw-medium" style="color: var(--dcl-primary);">৳{{ item.unit_price|floatformat:2 }}</span>
+                                        <span class="text-muted small mx-2">×</span>
+                                        <span class="badge bg-light text-primary rounded-pill">{{ item.quantity }}</span>
                                     </td>
-                                    <td class="py-3 text-center">
-                                        ৳{{ item.unit_price|floatformat:2 }} × {{ item.quantity }}
-                                    </td>
-                                    <td class="py-3 pe-4 text-end fw-bold">
+                                    <td class="py-4 pe-4 text-end fw-bold" style="color: var(--dcl-primary);">
                                         ৳{{ item.total_price|floatformat:2 }}
                                     </td>
                                 </tr>
@@ -137,79 +159,150 @@
             
             {% if session.customer_note %}
             <!-- Order Notes -->
-            <div class="card shadow-sm border-0 mb-4 rounded-4">
-                <div class="card-header bg-white py-3 border-bottom">
-                    <h6 class="mb-0 fw-bold text-primary"><i class="bi bi-chat-left-text me-2"></i>Order Notes</h6>
+            <div class="card glass-card border-0 mb-4">
+                <div class="card-header bg-transparent py-4 px-4 border-bottom" style="border-color: rgba(149, 78, 39, 0.1) !important;">
+                    <h5 class="mb-0 fw-bold" style="font-family: 'Merriweather', serif; color: var(--dcl-primary);">
+                        <i class="bi bi-chat-left-text me-2 text-secondary"></i>Order Notes
+                    </h5>
                 </div>
-                <div class="card-body">
-                    <p class="mb-0 text-muted">{{ session.customer_note }}</p>
+                <div class="card-body p-4">
+                    <div class="p-3 rounded-4 italic" style="background: rgba(149, 78, 39, 0.03); color: var(--dcl-primary); font-size: 0.9rem;">
+                        "{{ session.customer_note }}"
+                    </div>
                 </div>
             </div>
             {% endif %}
             
-            <!-- Place Order -->
+            <!-- Place Order Actions -->
             <form method="post" action="{% url 'checkout:place_order' %}">
                 {% csrf_token %}
-                <div class="d-flex justify-content-between mt-4">
-                    <a href="{% url 'checkout:payment' %}" class="btn btn-link text-decoration-none text-muted fw-semibold">
+                <div class="d-flex justify-content-between align-items-center mt-5 mb-5 mb-lg-0">
+                    <a href="{% url 'checkout:payment' %}" class="btn btn-link text-decoration-none text-muted fw-bold">
                         <i class="bi bi-arrow-left me-2"></i>Back to Payment
                     </a>
-                    <button type="submit" class="btn btn-secondary btn-lg px-5 py-3 fw-bold rounded-pill shadow">
+                    <button type="submit" class="btn btn-primary px-5 py-4 fw-bold shadow-lg" style="font-size: 1.1rem; border-radius: 20px;">
                         <i class="bi bi-bag-check me-2"></i>Confirm and Place Order
                     </button>
                 </div>
             </form>
         </div>
         
-        <!-- Order Summary -->
+        <!-- Order Summary Sidebar -->
         <div class="col-lg-4">
-            <div class="card shadow-sm border-0 sticky-top" style="top: 2rem;">
-                <div class="card-header bg-primary text-white py-3">
-                    <h5 class="mb-0">Order Total</h5>
+            <div class="card glass-card border-0 sticky-top" style="top: 100px;">
+                <div class="card-header bg-transparent border-0 pt-4 px-4 pb-0">
+                    <h5 class="mb-0 fw-bold" style="font-family: 'Merriweather', serif; color: var(--dcl-primary);">Order Summary</h5>
                 </div>
                 <div class="card-body p-4">
-                    <div class="d-flex justify-content-between mb-2">
-                        <span>Subtotal ({{ cart|length }} items)</span>
-                        <span class="fw-bold">৳{{ subtotal|floatformat:2 }}</span>
+                    <div class="d-flex justify-content-between mb-3 pb-3 border-bottom" style="border-style: dashed !important; border-color: rgba(149, 78, 39, 0.1) !important;">
+                        <span class="text-muted">Subtotal ({{ cart|length }} items)</span>
+                        <span class="fw-bold" style="color: var(--dcl-primary);">৳{{ subtotal|floatformat:2 }}</span>
                     </div>
-                    <div class="d-flex justify-content-between mb-2">
-                        <span>Shipping</span>
-                        <span class="fw-bold {% if shipping_cost == 0 %}text-success{% endif %}">
+                    <div class="d-flex justify-content-between mb-3 pb-3 border-bottom" style="border-style: dashed !important; border-color: rgba(149, 78, 39, 0.1) !important;">
+                        <span class="text-muted">Shipping</span>
+                        <span class="fw-bold {% if shipping_cost == 0 %}text-success{% else %}text-primary{% endif %}">
                             {% if shipping_cost == 0 %}FREE{% else %}৳{{ shipping_cost|floatformat:2 }}{% endif %}
                         </span>
                     </div>
                     {% if session.promo_code %}
-                    <div class="d-flex justify-content-between mb-2">
-                        <span>Promo ({{ session.promo_code }})</span>
-                        <span class="text-success">-৳0.00</span>
+                    <div class="d-flex justify-content-between mb-3 text-success">
+                        <span class="small">Promo ({{ session.promo_code }})</span>
+                        <span class="fw-bold">-৳0.00</span>
                     </div>
                     {% endif %}
-                    <hr>
-                    <div class="d-flex justify-content-between mb-3">
-                        <span class="h5 mb-0">Total</span>
-                        <span class="h4 mb-0 text-primary fw-bold">৳{{ total|floatformat:2 }}</span>
+                    
+                    <div class="d-flex justify-content-between align-items-center mt-4 pt-2">
+                        <span class="fw-bold h5 mb-0" style="color: var(--dcl-primary);">Total</span>
+                        <span class="fw-bold h3 mb-0" style="color: var(--dcl-secondary);">৳{{ total|floatformat:2 }}</span>
                     </div>
                     
-                    <div class="text-center text-muted small">
-                        <i class="bi bi-shield-check me-1"></i>Secure checkout<br>
-                        <i class="bi bi-lock me-1"></i>Your data is protected
+                    <div class="mt-4 pt-4 text-center border-top" style="border-color: rgba(149, 78, 39, 0.05) !important;">
+                        <p class="text-muted smaller mb-0">
+                            <i class="bi bi-shield-check me-2 text-success"></i>Guaranteed Safe Checkout
+                        </p>
                     </div>
                 </div>
+            </div>
+            
+            <div class="mt-4 p-4 rounded-4 glass-card border-0 text-center">
+                <h6 class="fw-bold mb-2 small text-muted">HAVE QUESTIONS?</h6>
+                <p class="mb-0 fw-bold" style="color: var(--dcl-primary);">Call us: +880 1234 567 890</p>
+                <p class="mb-0 smaller text-muted">24/7 Premium Support</p>
             </div>
         </div>
     </div>
 </div>
 
 <style>
-.checkout-progress .step { text-align: center; flex: 0 0 auto; }
-.checkout-progress .step-circle {
-    width: 50px; height: 50px; border-radius: 50%; background: #e9ecef;
-    display: flex; align-items: center; justify-content: center; margin: 0 auto 0.5rem;
-    font-size: 1.2rem; color: #6c757d;
-}
-.checkout-progress .step.active .step-circle { background: var(--bs-primary); color: white; }
-.checkout-progress .step.completed .step-circle { background: #28a745; color: white; }
-.checkout-progress .step-line { flex: 1; height: 3px; background: #e9ecef; margin: 25px 10px; }
-.checkout-progress .step-line.completed { background: #28a745; }
+    /* Glass Effect Utilities */
+    .glass-card {
+        background: rgba(255, 255, 255, 0.8) !important;
+        backdrop-filter: blur(20px) !important;
+        -webkit-backdrop-filter: blur(20px) !important;
+        border: 1px solid rgba(255, 255, 255, 0.5) !important;
+        border-radius: 28px !important;
+        box-shadow: 0 15px 35px rgba(149, 78, 39, 0.1) !important;
+    }
+
+    .letter-spacing-05 { letter-spacing: 0.05em; }
+    .smaller { font-size: 0.75rem; }
+    .italic { font-style: italic; }
+
+    /* Progress Bar Redesign */
+    .checkout-progress {
+        margin-bottom: 2rem;
+    }
+    .checkout-progress .progress-step {
+        text-align: center;
+        z-index: 2;
+        background: transparent;
+        padding: 0 10px;
+        flex: 1;
+    }
+    .step-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        background: white;
+        color: var(--dcl-gray);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 12px;
+        font-size: 1.25rem;
+        transition: all 0.4s ease;
+        border: 2px solid rgba(149, 78, 39, 0.1);
+    }
+    .step-label {
+        font-size: 0.75rem;
+        font-weight: 700;
+        color: var(--dcl-gray);
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+    }
+    .progress-step.active .step-icon {
+        background: var(--dcl-secondary);
+        color: white;
+        border-color: var(--dcl-secondary);
+        transform: scale(1.1);
+        box-shadow: 0 10px 25px rgba(218, 93, 4, 0.3);
+    }
+    .progress-step.active .step-label {
+        color: var(--dcl-secondary);
+    }
+    .progress-step.completed .step-icon {
+        background: var(--dcl-primary);
+        color: white;
+        border-color: var(--dcl-primary);
+    }
+    .progress-bar-line {
+        position: absolute;
+        top: 24px;
+        left: 50px;
+        right: 50px;
+        height: 2px;
+        background: rgba(149, 78, 39, 0.1);
+        z-index: 1;
+    }
 </style>
 {% endblock %}

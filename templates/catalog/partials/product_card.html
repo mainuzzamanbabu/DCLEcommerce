@@ -1,93 +1,114 @@
 {% load static %}
 
-<div class="product-card card h-100 position-relative">
+<div class="product-card card h-100 position-relative glass-card border-0 overflow-hidden transition-all hover-lift">
     <!-- Badges -->
-    {% if product.is_featured %}
-    <span class="product-badge badge bg-success">Featured</span>
-    {% endif %}
+    <div class="position-absolute top-0 start-0 m-3 z-3 d-flex flex-column gap-2">
+        {% if product.is_featured %}
+        <span class="badge bg-success shadow-sm px-3 py-2 rounded-pill" style="font-size: 0.7rem; letter-spacing: 0.05em; text-transform: uppercase;">Featured</span>
+        {% endif %}
+        {% with variant=product.get_default_variant %}
+        {% if variant.price.is_on_sale %}
+        <span class="badge bg-danger shadow-sm px-3 py-2 rounded-pill" style="font-size: 0.7rem; letter-spacing: 0.05em; text-transform: uppercase;">Sale</span>
+        {% endif %}
+        {% endwith %}
+    </div>
     
     <!-- Quick Actions -->
-    <div class="product-actions">
-        <button class="btn" title="Add to Wishlist" onclick="addToWishlist({{ product.get_default_variant.id|default:0 }})">
-            <i class="bi bi-heart"></i>
-        </button>
-        <button class="btn" title="Quick View" data-bs-toggle="modal" data-bs-target="#quickView{{ product.id }}">
-            <i class="bi bi-eye"></i>
-        </button>
+    <div class="product-actions-overlay position-absolute bottom-0 start-0 end-0 p-3 z-3 transition-all transform-translate-y-100 opacity-0 bg-gradient-to-t from-dark to-transparent">
+        <div class="d-flex justify-content-center gap-2">
+            <button class="btn btn-light btn-sm rounded-circle shadow-sm add-wishlist-btn" title="Add to Wishlist" 
+                    data-variant-id="{{ product.get_default_variant.id|default:0 }}">
+                <i class="bi bi-heart"></i>
+            </button>
+            <button class="btn btn-light btn-sm rounded-circle shadow-sm" title="Quick View" data-bs-toggle="modal" data-bs-target="#quickView{{ product.id }}">
+                <i class="bi bi-eye"></i>
+            </button>
+        </div>
     </div>
     
     <!-- Product Image -->
-    <a href="{{ product.get_absolute_url }}">
-        {% with image=product.get_primary_image %}
-        {% if image %}
-        <img src="{{ image.image.url }}" class="card-img-top" alt="{{ image.alt_text|default:product.name }}">
-        {% else %}
-        <img src="https://via.placeholder.com/300x200?text={{ product.name|urlencode }}" class="card-img-top" alt="{{ product.name }}">
-        {% endif %}
-        {% endwith %}
-    </a>
+    <div class="product-image-wrapper overflow-hidden bg-light" style="aspect-ratio: 1/1;">
+        <a href="{{ product.get_absolute_url }}" class="d-block h-100">
+            {% with image=product.get_primary_image %}
+            <img src="{% if image %}{{ image.image.url }}{% else %}https://via.placeholder.com/400x400?text={{ product.name|urlencode }}{% endif %}" 
+                 class="card-img-top h-100 w-100 transition-all hover-scale" 
+                 alt="{{ image.alt_text|default:product.name }}"
+                 style="object-fit: cover;">
+            {% endwith %}
+        </a>
+    </div>
     
-    <div class="card-body">
+    <div class="card-body p-4 d-flex flex-column">
         <!-- Brand -->
         {% if product.brand %}
-        <small class="text-muted d-block mb-1">{{ product.brand.name }}</small>
+        <small class="text-uppercase tracking-widest fw-bold text-secondary mb-2" style="font-size: 0.65rem; letter-spacing: 0.15em;">{{ product.brand.name }}</small>
         {% endif %}
         
         <!-- Product Title -->
-        <h6 class="product-title mb-2">
-            <a href="{{ product.get_absolute_url }}" class="text-decoration-none text-dark">
+        <h6 class="product-title mb-2 flex-grow-1">
+            <a href="{{ product.get_absolute_url }}" class="text-decoration-none fw-bold transition-all hover-text-secondary" 
+               style="color: var(--dcl-primary); font-family: 'Merriweather', serif; font-size: 0.95rem; line-height: 1.4;">
                 {{ product.name }}
             </a>
         </h6>
         
         <!-- Rating -->
         {% if product.average_rating %}
-        <div class="rating mb-2">
+        <div class="rating mb-3 d-flex align-items-center gap-1" style="color: #ffc107; font-size: 0.8rem;">
             {% for i in "12345" %}
-                {% if forloop.counter <= product.average_rating %}
+                {% if forloop.counter <= product.average_rating|default:0 %}
                 <i class="bi bi-star-fill"></i>
                 {% else %}
                 <i class="bi bi-star"></i>
                 {% endif %}
             {% endfor %}
-            <small class="text-muted ms-1">({{ product.review_count }})</small>
+            <span class="text-muted ms-1 small">({{ product.review_count }})</span>
         </div>
         {% endif %}
         
         <!-- Price -->
         {% with variant=product.get_default_variant %}
-        {% if variant and variant.price %}
-        <div class="d-flex align-items-center gap-2 mb-3">
-            <span class="product-price">৳{{ variant.price.effective_price|floatformat:0 }}</span>
-            {% if variant.price.is_on_sale %}
-            <span class="product-price-old">৳{{ variant.price.list_price|floatformat:0 }}</span>
-            <span class="badge bg-danger">-{{ variant.price.discount_percent }}%</span>
-            {% endif %}
-        </div>
-        {% else %}
-        <div class="mb-3">
-            <span class="text-muted">Price not available</span>
-        </div>
-        {% endif %}
-        {% endwith %}
-        
-        <!-- Stock Status & Add to Cart -->
-        {% with variant=product.get_default_variant %}
-        {% if variant %}
-            {% if variant.is_in_stock %}
-            <button type="button" class="btn btn-primary w-100" onclick="addToCart({{ variant.id }})">
-                <i class="bi bi-cart-plus me-2"></i>Add to Cart
-            </button>
+        <div class="mt-auto">
+            {% if variant and variant.price %}
+            <div class="d-flex align-items-baseline gap-2 mb-3">
+                <span class="fw-bold fs-5" style="color: var(--dcl-secondary);">৳{{ variant.price.effective_price|floatformat:0 }}</span>
+                {% if variant.price.is_on_sale %}
+                <span class="text-muted text-decoration-line-through small">৳{{ variant.price.list_price|floatformat:0 }}</span>
+                {% endif %}
+            </div>
             {% else %}
-            <button class="btn btn-secondary w-100" disabled>
-                <i class="bi bi-x-circle me-2"></i>Out of Stock
-            </button>
+            <div class="mb-3">
+                <span class="text-muted small italic">Price unavailable</span>
+            </div>
             {% endif %}
-        {% else %}
-        <a href="{{ product.get_absolute_url }}" class="btn btn-outline-primary w-100">
-            <i class="bi bi-eye me-2"></i>View Details
-        </a>
-        {% endif %}
+            
+            <!-- Stock Status & Add to Cart -->
+            {% if variant %}
+                {% if variant.is_in_stock %}
+                <button type="button" class="btn btn-primary w-100 py-2 rounded-3 shadow-sm transition-all hover-shadow-lg add-cart-btn" 
+                        data-variant-id="{{ variant.id }}">
+                    <i class="bi bi-cart-plus me-2"></i>Add to Cart
+                </button>
+                {% else %}
+                <button class="btn btn-light w-100 py-2 rounded-3 opacity-75" disabled>
+                    <i class="bi bi-x-circle me-2"></i>Out of Stock
+                </button>
+                {% endif %}
+            {% else %}
+            <a href="{{ product.get_absolute_url }}" class="btn btn-outline-primary w-100 py-2 rounded-3">
+                <i class="bi bi-eye me-2"></i>Details
+            </a>
+            {% endif %}
+        </div>
         {% endwith %}
     </div>
 </div>
+
+<style>
+    .hover-lift { transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); }
+    .hover-lift:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(149, 78, 39, 0.15) !important; }
+    .hover-scale { transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1); }
+    .product-card:hover .hover-scale { transform: scale(1.1); }
+    .hover-text-secondary:hover { color: var(--dcl-secondary) !important; }
+    .tracking-widest { letter-spacing: 0.1em; }
+</style>

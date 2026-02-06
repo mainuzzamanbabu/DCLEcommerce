@@ -1824,3 +1824,27 @@ INFO 2026-02-05 17:04:25,640 autoreload Watching for file changes with StatReloa
 WARNING 2026-02-05 17:33:35,201 log Not Found: /favicon.ico
 INFO 2026-02-05 17:41:11,440 autoreload E:\Antigravity_Proj\e-commerce\dcl-ecommerce\apps\core\context_processors.py changed, reloading.
 INFO 2026-02-05 17:41:12,121 autoreload Watching for file changes with StatReloader
+INFO 2026-02-06 12:00:11,852 autoreload Watching for file changes with StatReloader
+INFO 2026-02-06 12:02:41,549 autoreload Watching for file changes with StatReloader
+INFO 2026-02-06 12:04:03,209 autoreload Watching for file changes with StatReloader
+INFO 2026-02-06 12:04:48,712 autoreload Watching for file changes with StatReloader
+INFO 2026-02-06 12:06:32,166 autoreload Watching for file changes with StatReloader
+INFO 2026-02-06 12:08:12,212 utils SSLCommerz Post Data: {'store_id': 'inter642d324bc79ae', 'store_passwd': 'inter642d324bc79ae@ssl', 'total_amount': '110000.00', 'currency': 'BDT', 'tran_id': 'DCL-Y8QJ9WKE_c9c1a5b1', 'success_url': 'http://localhost:8000/payments/sslcommerz/success/', 'fail_url': 'http://localhost:8000/payments/sslcommerz/fail/', 'cancel_url': 'http://localhost:8000/payments/sslcommerz/cancel/', 'ipn_url': 'http://localhost:8000/payments/sslcommerz/ipn/', 'cus_name': 'Md Mainuzzaman', 'cus_email': 'mainuzzaman8911@gmail.com', 'cus_add1': '102/1 Shukrabad, Mirpur Road, Dhanmondi', 'cus_city': 'Dhaka', 'cus_postcode': '1207', 'cus_country': 'Bangladesh', 'cus_phone': '01717967348', 'shipping_method': 'Standard Delivery', 'num_of_item': 1, 'product_name': 'Order DCL-Y8QJ9WKE', 'product_category': 'Electronic', 'product_profile': 'general', 'ship_name': 'Md Mainuzzaman', 'ship_add1': '102/1 Shukrabad, Mirpur Road, Dhanmondi', 'ship_add2': '1/15/K, BIBIR BAGICHA, NORTH JATRABARI', 'ship_city': 'Dhaka', 'ship_state': 'cx', 'ship_postcode': '1207', 'ship_country': 'Bangladesh'}
+WARNING 2026-02-06 12:09:26,364 log Not Found: /favicon.ico
+INFO 2026-02-06 12:56:36,658 autoreload Watching for file changes with StatReloader
+WARNING 2026-02-06 14:39:11,124 log Not Found: /account/login/
+WARNING 2026-02-06 14:39:11,561 log Not Found: /favicon.ico
+WARNING 2026-02-06 14:39:58,847 log Not Found: /account/login/
+WARNING 2026-02-06 14:43:18,075 log Not Found: /members
+WARNING 2026-02-06 14:48:35,974 log Not Found: /dashboard/
+WARNING 2026-02-06 14:49:45,253 log Not Found: /manage/dashboard/
+WARNING 2026-02-06 14:50:12,962 log Not Found: /manage/dashboard/
+WARNING 2026-02-06 14:50:23,061 log Not Found: /dashboard/
+WARNING 2026-02-06 14:50:37,550 log Not Found: /dashboard/
+WARNING 2026-02-06 14:51:05,022 log Not Found: /dashboard/
+WARNING 2026-02-06 14:51:21,382 log Not Found: /manage/dashboard/
+WARNING 2026-02-06 14:52:31,467 log Not Found: /pages/dashboard/
+WARNING 2026-02-06 14:53:17,363 log Not Found: /dashboard/
+WARNING 2026-02-06 14:53:30,589 log Not Found: /dashboard
+WARNING 2026-02-06 14:53:45,679 log Not Found: /manage/dashboard/
+WARNING 2026-02-06 18:49:00,459 log Not Found: /favicon.ico

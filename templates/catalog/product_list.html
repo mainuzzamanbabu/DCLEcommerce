@@ -4,30 +4,32 @@
 {% block title %}{% if current_category %}{{ current_category.name }}{% else %}All Products{% endif %}{% endblock %}
 
 {% block content %}
-<div class="container py-4">
+<div class="container py-5">
     <!-- Breadcrumb -->
-    <nav aria-label="breadcrumb" class="mb-4">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="{% url 'core:home' %}">Home</a></li>
+    <nav aria-label="breadcrumb" class="mb-5">
+        <ol class="breadcrumb px-4 py-3 glass-card border-0 shadow-sm rounded-pill d-inline-flex">
+            <li class="breadcrumb-item"><a href="{% url 'core:home' %}" class="text-decoration-none text-muted transition-all hover-text-secondary"><i class="bi bi-house me-2"></i>Home</a></li>
             {% if current_category %}
                 {% for ancestor in current_category.get_ancestors %}
-                <li class="breadcrumb-item"><a href="{{ ancestor.get_absolute_url }}">{{ ancestor.name }}</a></li>
+                <li class="breadcrumb-item"><a href="{{ ancestor.get_absolute_url }}" class="text-decoration-none text-muted transition-all hover-text-secondary">{{ ancestor.name }}</a></li>
                 {% endfor %}
-                <li class="breadcrumb-item active">{{ current_category.name }}</li>
+                <li class="breadcrumb-item active text-secondary fw-bold">{{ current_category.name }}</li>
             {% else %}
-                <li class="breadcrumb-item active">All Products</li>
+                <li class="breadcrumb-item active text-secondary fw-bold">All Products</li>
             {% endif %}
         </ol>
     </nav>
 
-    <div class="row">
+    <div class="row g-4">
         <!-- Sidebar Filters -->
         <div class="col-lg-3">
-            <div class="card mb-4">
-                <div class="card-header bg-primary text-white">
-                    <h6 class="mb-0"><i class="bi bi-funnel me-2"></i>Filters</h6>
+            <div class="card glass-card border-0 shadow-sm overflow-hidden sticky-top" style="top: 100px;">
+                <div class="card-header bg-transparent py-4 px-4 border-bottom" style="border-color: rgba(149, 78, 39, 0.05) !important;">
+                    <h5 class="mb-0 fw-bold" style="font-family: 'Merriweather', serif; color: var(--dcl-primary);">
+                        <i class="bi bi-funnel me-2 text-secondary"></i>Filters
+                    </h5>
                 </div>
-                <div class="card-body">
+                <div class="card-body p-4">
                     <form method="get" id="filterForm">
                         <!-- Search within results -->
                         {% if current_filters.q %}
@@ -35,12 +37,12 @@
                         {% endif %}
                         
                         <!-- Categories -->
-                        <h6 class="fw-bold mb-3">Categories</h6>
+                        <h6 class="fw-bold mb-3 small text-uppercase tracking-widest text-muted">Categories</h6>
                         <ul class="list-unstyled mb-4">
                             {% for category in categories %}
                             <li class="mb-2">
                                 <a href="{% url 'catalog:category_products' category.slug %}" 
-                                   class="text-decoration-none {% if current_category.slug == category.slug %}text-primary fw-bold{% else %}text-dark{% endif %}">
+                                   class="text-decoration-none transition-all hover-translate-x-1 d-block py-1 {% if current_category.slug == category.slug %}text-secondary fw-bold{% else %}text-dark{% endif %}">
                                     {{ category.name }}
                                 </a>
                                 {% if category.children.all %}
@@ -48,7 +50,7 @@
                                     {% for child in category.children.all %}
                                     <li class="mb-1">
                                         <a href="{% url 'catalog:category_products' child.slug %}" 
-                                           class="text-decoration-none small {% if current_category.slug == child.slug %}text-primary fw-bold{% else %}text-muted{% endif %}">
+                                           class="text-decoration-none small transition-all hover-text-secondary {% if current_category.slug == child.slug %}text-secondary fw-bold{% else %}text-muted{% endif %}">
                                             {{ child.name }}
                                         </a>
                                     </li>
@@ -60,67 +62,73 @@
                         </ul>
 
                         <!-- Brands -->
-                        <h6 class="fw-bold mb-3">Brands</h6>
+                        <h6 class="fw-bold mb-3 small text-uppercase tracking-widest text-muted">Brands</h6>
                         <div class="mb-4">
                             {% for brand in brands %}
-                            <div class="form-check">
+                            <div class="form-check custom-check mb-2">
                                 <input class="form-check-input" type="radio" name="brand" 
                                        id="brand_{{ brand.slug }}" value="{{ brand.slug }}"
                                        {% if current_filters.brand == brand.slug %}checked{% endif %}
                                        onchange="this.form.submit()">
-                                <label class="form-check-label" for="brand_{{ brand.slug }}">
+                                <label class="form-check-label transition-all" for="brand_{{ brand.slug }}">
                                     {{ brand.name }}
                                 </label>
                             </div>
                             {% endfor %}
                             {% if current_filters.brand %}
-                            <a href="?" class="small text-muted"><i class="bi bi-x"></i> Clear brand</a>
+                            <a href="?" class="small text-secondary text-decoration-none hover-underline"><i class="bi bi-x"></i> Clear brand</a>
                             {% endif %}
                         </div>
 
                         <!-- Price Range -->
-                        <h6 class="fw-bold mb-3">Price Range</h6>
+                        <h6 class="fw-bold mb-3 small text-uppercase tracking-widest text-muted">Price Range</h6>
                         <div class="row g-2 mb-4">
                             <div class="col-6">
-                                <input type="number" class="form-control form-control-sm" 
-                                       name="min_price" placeholder="Min" 
-                                       value="{{ current_filters.min_price }}">
+                                <div class="form-floating">
+                                    <input type="number" class="form-control bg-light border-0" 
+                                           name="min_price" id="minPrice" placeholder="Min" 
+                                           value="{{ current_filters.min_price }}" style="height: 50px; font-size: 0.85rem;">
+                                    <label for="minPrice">Min</label>
+                                </div>
                             </div>
                             <div class="col-6">
-                                <input type="number" class="form-control form-control-sm" 
-                                       name="max_price" placeholder="Max" 
-                                       value="{{ current_filters.max_price }}">
+                                <div class="form-floating">
+                                    <input type="number" class="form-control bg-light border-0" 
+                                           name="max_price" id="maxPrice" placeholder="Max" 
+                                           value="{{ current_filters.max_price }}" style="height: 50px; font-size: 0.85rem;">
+                                    <label for="maxPrice">Max</label>
+                                </div>
                             </div>
                         </div>
 
-                        <!-- Other Filters -->
-                        <h6 class="fw-bold mb-3">Availability</h6>
-                        <div class="form-check mb-2">
+                        <!-- Availability -->
+                        <h6 class="fw-bold mb-3 small text-uppercase tracking-widest text-muted">Availability</h6>
+                        <div class="form-check custom-check mb-2">
                             <input class="form-check-input" type="checkbox" name="in_stock" 
                                    id="in_stock" value="1" 
                                    {% if current_filters.in_stock %}checked{% endif %}
                                    onchange="this.form.submit()">
-                            <label class="form-check-label" for="in_stock">
+                            <label class="form-check-label transition-all" for="in_stock">
                                 In Stock Only
                             </label>
                         </div>
-                        <div class="form-check mb-3">
+                        <div class="form-check custom-check mb-4">
                             <input class="form-check-input" type="checkbox" name="featured" 
                                    id="featured" value="1" 
                                    {% if current_filters.featured %}checked{% endif %}
                                    onchange="this.form.submit()">
-                            <label class="form-check-label" for="featured">
+                            <label class="form-check-label transition-all" for="featured">
                                 Featured Only
                             </label>
                         </div>
 
-                        <button type="submit" class="btn btn-primary w-100">
+                        <button type="submit" class="btn btn-primary w-100 py-3 rounded-pill shadow-sm mb-2 transition-all hover-shadow-lg">
                             <i class="bi bi-funnel me-2"></i>Apply Filters
                         </button>
                         
                         <a href="{% if current_category %}{% url 'catalog:category_products' current_category.slug %}{% else %}{% url 'catalog:product_list' %}{% endif %}" 
-                           class="btn btn-outline-secondary w-100 mt-2">
-                            <i class="bi bi-x-circle me-2"></i>Clear All
+                           class="btn btn-outline-light text-muted w-100 py-2 rounded-pill border-0 bg-light-subtle">
+                            Clear All
                         </a>
                     </form>
                 </div>
@@ -129,49 +137,57 @@
 
         <!-- Product Grid -->
         <div class="col-lg-9">
-            <!-- Header -->
-            <div class="d-flex justify-content-between align-items-center mb-4">
-                <div>
-                    <h4 class="mb-0">
-                        {% if current_category %}
-                            {{ current_category.name }}
-                        {% elif current_filters.q %}
-                            Search: "{{ current_filters.q }}"
-                        {% else %}
-                            All Products
-                        {% endif %}
-                    </h4>
-                    <small class="text-muted">{{ page_obj.paginator.count }} products found</small>
-                </div>
-                
-                <!-- Sort Dropdown -->
-                <div class="d-flex align-items-center gap-2">
-                    <label class="text-muted small">Sort by:</label>
-                    <select class="form-select form-select-sm" style="width: auto;" 
-                            onchange="window.location.href='?sort='+this.value+'{% if current_filters.brand %}&brand={{ current_filters.brand }}{% endif %}{% if current_filters.q %}&q={{ current_filters.q }}{% endif %}'">
-                        <option value="-created_at" {% if current_filters.sort == '-created_at' %}selected{% endif %}>Newest</option>
-                        <option value="created_at" {% if current_filters.sort == 'created_at' %}selected{% endif %}>Oldest</option>
-                        <option value="name" {% if current_filters.sort == 'name' %}selected{% endif %}>Name A-Z</option>
-                        <option value="-name" {% if current_filters.sort == '-name' %}selected{% endif %}>Name Z-A</option>
-                        <option value="price" {% if current_filters.sort == 'price' %}selected{% endif %}>Price Low to High</option>
-                        <option value="-price" {% if current_filters.sort == '-price' %}selected{% endif %}>Price High to Low</option>
-                    </select>
+            <!-- Grid Header -->
+            <div class="card glass-card border-0 shadow-sm p-4 mb-5">
+                <div class="row align-items-center g-3">
+                    <div class="col-md-auto">
+                        <h4 class="mb-0 fw-bold" style="font-family: 'Merriweather', serif; color: var(--dcl-primary);">
+                            {% if current_category %}
+                                {{ current_category.name }}
+                            {% elif current_filters.q %}
+                                Search: "{{ current_filters.q }}"
+                            {% else %}
+                                All Products
+                            {% endif %}
+                        </h4>
+                        <p class="text-muted small mb-0">{{ page_obj.paginator.count }} items discovered</p>
+                    </div>
+                    
+                    <div class="col-md ms-auto d-flex flex-wrap justify-content-md-end gap-3 align-items-center">
+                        <!-- Sort Dropdown -->
+                        <div class="d-flex align-items-center gap-2">
+                            <label class="text-muted small text-uppercase fw-bold tracking-widest" style="font-size: 0.65rem;">Sort BY</label>
+                            <select class="form-select form-select-sm glass-card border-0 shadow-none px-3" style="width: auto; min-width: 150px; background-color: rgba(149, 78, 39, 0.03);" 
+                                    onchange="window.location.href='?sort='+this.value+'{% if current_filters.brand %}&brand={{ current_filters.brand }}{% endif %}{% if current_filters.q %}&q={{ current_filters.q }}{% endif %}'">
+                                <option value="-created_at" {% if current_filters.sort == '-created_at' %}selected{% endif %}>Newest First</option>
+                                <option value="created_at" {% if current_filters.sort == 'created_at' %}selected{% endif %}>Oldest First</option>
+                                <option value="name" {% if current_filters.sort == 'name' %}selected{% endif %}>Name (A-Z)</option>
+                                <option value="-name" {% if current_filters.sort == '-name' %}selected{% endif %}>Name (Z-A)</option>
+                                <option value="price" {% if current_filters.sort == 'price' %}selected{% endif %}>Price (Low-High)</option>
+                                <option value="-price" {% if current_filters.sort == '-price' %}selected{% endif %}>Price (High-Low)</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
             </div>
 
             <!-- Products Grid -->
-            <div class="row g-4">
+            <div class="row g-4 px-1" id="productGrid">
                 {% for product in products %}
                 <div class="col-6 col-md-4">
                     {% include 'catalog/partials/product_card.html' with product=product %}
                 </div>
                 {% empty %}
                 <div class="col-12">
-                    <div class="text-center py-5">
-                        <i class="bi bi-box-seam text-muted" style="font-size: 4rem;"></i>
-                        <h5 class="mt-3 text-muted">No products found</h5>
-                        <p class="text-muted">Try adjusting your filters or search criteria.</p>
-                        <a href="{% url 'catalog:product_list' %}" class="btn btn-primary">
+                    <div class="text-center py-5 glass-card border-0 shadow-sm rounded-5">
+                        <div class="mb-4">
+                            <div class="d-inline-flex align-items-center justify-content-center rounded-circle" style="width: 120px; height: 120px; background: rgba(149, 78, 39, 0.05);">
+                                <i class="bi bi-box-seam text-muted" style="font-size: 3.5rem; opacity: 0.5;"></i>
+                            </div>
+                        </div>
+                        <h4 class="mb-3" style="font-family: 'Merriweather', serif; color: var(--dcl-primary);">No products found</h4>
+                        <p class="text-muted mb-4 px-4">Try adjusting your filters or searching for something else.</p>
+                        <a href="{% url 'catalog:product_list' %}" class="btn btn-primary px-5 rounded-pill shadow-sm">
                             View All Products
                         </a>
                     </div>
@@ -182,10 +198,10 @@
             <!-- Pagination -->
             {% if page_obj.has_other_pages %}
             <nav class="mt-5">
-                <ul class="pagination justify-content-center">
+                <ul class="pagination pagination-rounded justify-content-center gap-2">
                     {% if page_obj.has_previous %}
                     <li class="page-item">
-                        <a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if current_filters.sort %}&sort={{ current_filters.sort }}{% endif %}{% if current_filters.brand %}&brand={{ current_filters.brand }}{% endif %}">
+                        <a class="page-link shadow-sm border-0 glass-card" href="?page={{ page_obj.previous_page_number }}{% if current_filters.sort %}&sort={{ current_filters.sort }}{% endif %}{% if current_filters.brand %}&brand={{ current_filters.brand }}{% endif %}">
                             <i class="bi bi-chevron-left"></i>
                         </a>
                     </li>
@@ -193,10 +209,10 @@
                     
                     {% for num in page_obj.paginator.page_range %}
                         {% if page_obj.number == num %}
-                        <li class="page-item active"><span class="page-link">{{ num }}</span></li>
+                        <li class="page-item active"><span class="page-link shadow-sm border-0">{{ num }}</span></li>
                         {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
                         <li class="page-item">
-                            <a class="page-link" href="?page={{ num }}{% if current_filters.sort %}&sort={{ current_filters.sort }}{% endif %}{% if current_filters.brand %}&brand={{ current_filters.brand }}{% endif %}">
+                            <a class="page-link shadow-sm border-0 glass-card" href="?page={{ num }}{% if current_filters.sort %}&sort={{ current_filters.sort }}{% endif %}{% if current_filters.brand %}&brand={{ current_filters.brand }}{% endif %}">
                                 {{ num }}
                             </a>
                         </li>
@@ -205,7 +221,7 @@
                     
                     {% if page_obj.has_next %}
                     <li class="page-item">
-                        <a class="page-link" href="?page={{ page_obj.next_page_number }}{% if current_filters.sort %}&sort={{ current_filters.sort }}{% endif %}{% if current_filters.brand %}&brand={{ current_filters.brand }}{% endif %}">
+                        <a class="page-link shadow-sm border-0 glass-card" href="?page={{ page_obj.next_page_number }}{% if current_filters.sort %}&sort={{ current_filters.sort }}{% endif %}{% if current_filters.brand %}&brand={{ current_filters.brand }}{% endif %}">
                             <i class="bi bi-chevron-right"></i>
                         </a>
                     </li>
@@ -216,4 +232,63 @@
         </div>
     </div>
 </div>
+
+<style>
+    .glass-card {
+        background: rgba(255, 255, 255, 0.8) !important;
+        backdrop-filter: blur(20px) !important;
+        -webkit-backdrop-filter: blur(20px) !important;
+        border: 1px solid rgba(255, 255, 255, 0.5) !important;
+        border-radius: 28px !important;
+    }
+    .hover-translate-x-1:hover { transform: translateX(8px); }
+    .pagination-rounded .page-link {
+        width: 45px;
+        height: 45px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50% !important;
+        margin: 0;
+        color: var(--dcl-primary);
+        font-weight: 600;
+    }
+    .pagination-rounded .page-item.active .page-link {
+        background: var(--dcl-secondary);
+        color: white;
+    }
+    .custom-check .form-check-input:checked {
+        background-color: var(--dcl-secondary);
+        border-color: var(--dcl-secondary);
+    }
+    .custom-check .form-check-label:hover { color: var(--dcl-secondary); cursor: pointer; }
+    .tracking-widest { letter-spacing: 0.15em; }
+    .bg-light-subtle { background: rgba(149, 78, 39, 0.05); }
+</style>
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Add to Cart listeners
+    document.querySelectorAll('.add-cart-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const variantId = this.dataset.variantId;
+            if (typeof addToCart === 'function') {
+                addToCart(variantId);
+            }
+        });
+    });
+
+    // Add to Wishlist listeners
+    document.querySelectorAll('.add-wishlist-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const variantId = this.dataset.variantId;
+            if (typeof addToWishlist === 'function') {
+                addToWishlist(variantId);
+            }
+        });
+    });
+});
+</script>
+{% endblock %}
 {% endblock %}

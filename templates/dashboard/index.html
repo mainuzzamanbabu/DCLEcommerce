@@ -7,22 +7,22 @@
     <div class="col-xl-3 col-md-6">
         <div class="card stats-card h-100">
             <div class="card-body">
-                <div class="icon-box" style="background: rgba(15, 23, 42, 0.05); color: #0f172a;">
+                <div class="icon-box" style="background: rgba(149, 78, 39, 0.1); color: var(--primary-brown);">
                     <i class="bi bi-bag-check-fill"></i>
                 </div>
                 <h6 class="text-muted mb-2 small fw-bold">TOTAL ORDERS</h6>
-                <h3 class="mb-0 fw-bold text-slate-900">{{ total_orders }}</h3>
+                <h3 class="mb-0 fw-bold">{{ total_orders }}</h3>
             </div>
         </div>
     </div>
     <div class="col-xl-3 col-md-6">
         <div class="card stats-card h-100">
             <div class="card-body">
-                <div class="icon-box" style="background: rgba(245, 158, 11, 0.1); color: #f59e0b;">
+                <div class="icon-box" style="background: rgba(218, 93, 4, 0.1); color: var(--accent-terracotta);">
                     <i class="bi bi-wallet2"></i>
                 </div>
                 <h6 class="text-muted mb-2 small fw-bold">TOTAL REVENUE</h6>
-                <h3 class="mb-0 fw-bold text-slate-900">৳{{ total_revenue|floatformat:0|intcomma }}</h3>
+                <h3 class="mb-0 fw-bold">৳{{ total_revenue|floatformat:0|intcomma }}</h3>
             </div>
         </div>
     </div>
@@ -33,18 +33,18 @@
                     <i class="bi bi-people-fill"></i>
                 </div>
                 <h6 class="text-muted mb-2 small fw-bold">TOTAL CUSTOMERS</h6>
-                <h3 class="mb-0 fw-bold text-slate-900">{{ total_customers }}</h3>
+                <h3 class="mb-0 fw-bold">{{ total_customers }}</h3>
             </div>
         </div>
     </div>
     <div class="col-xl-3 col-md-6">
         <div class="card stats-card h-100">
             <div class="card-body">
-                <div class="icon-box" style="background: rgba(99, 102, 241, 0.1); color: #6366f1;">
+                <div class="icon-box" style="background: rgba(149, 78, 39, 0.1); color: var(--primary-brown);">
                     <i class="bi bi-box-seam-fill"></i>
                 </div>
                 <h6 class="text-muted mb-2 small fw-bold">ACTIVE PRODUCTS</h6>
-                <h3 class="mb-0 fw-bold text-slate-900">{{ total_products }}</h3>
+                <h3 class="mb-0 fw-bold">{{ total_products }}</h3>
             </div>
         </div>
     </div>
@@ -56,9 +56,9 @@
         <div class="card stats-card h-100">
             <div class="card-body">
                 <div class="d-flex justify-content-between align-items-center mb-4">
-                    <h5 class="mb-0 fw-bold text-slate-900">Sales Overview</h5>
+                    <h5 class="mb-0 fw-bold">Sales Overview</h5>
                     <div class="btn-group">
-                        <button class="btn btn-sm btn-light border-0 dropdown-toggle" style="font-size: 0.7rem;">Last 6 Months</button>
+                        <button class="btn btn-sm btn-light border dropdown-toggle" style="font-size: 0.7rem; border-radius: 8px;">Last 6 Months</button>
                     </div>
                 </div>
                 <div style="min-height: 320px;">
@@ -71,7 +71,7 @@
         <div class="card stats-card h-100">
             <div class="card-body">
                 <div class="d-flex justify-content-between align-items-center mb-4">
-                    <h5 class="mb-0 fw-bold text-slate-900">Top Categories</h5>
+                    <h5 class="mb-0 fw-bold">Top Categories</h5>
                     <i class="bi bi-pie-chart text-muted"></i>
                 </div>
                 <div style="min-height: 320px;">
@@ -93,7 +93,7 @@
     <div class="col-12">
         <div class="table-premium">
             <div class="table-header d-flex justify-content-between align-items-center bg-white border-bottom py-4 px-4">
-                <h5 class="mb-0 fw-bold text-slate-900">Recent Transactions</h5>
+                <h5 class="mb-0 fw-bold">Recent Transactions</h5>
                 <a href="{% url 'dashboard:order_list' %}" class="btn btn-sm btn-outline-primary">
                     View All Orders <i class="bi bi-arrow-right ms-1"></i>
                 </a>
@@ -114,7 +114,7 @@
                         {% for order in recent_orders %}
                         <tr>
                             <td>
-                                <span class="fw-bold text-slate-900">#{{ order.order_number }}</span>
+                                <span class="fw-bold">#{{ order.order_number }}</span>
                             </td>
                             <td>
                                 <div class="d-flex align-items-center">
@@ -123,20 +123,20 @@
                                     </div>
                                     <div>
                                         {% if order.user %}
-                                            <div class="fw-medium text-slate-900">{{ order.user.get_full_name|default:order.user.email }}</div>
+                                            <div class="fw-medium">{{ order.user.get_full_name|default:order.user.email }}</div>
                                             <div class="text-muted small">{{ order.user.email }}</div>
                                         {% else %}
-                                            <div class="fw-medium text-slate-900">{{ order.guest_full_name|default:"Guest Customer" }}</div>
+                                            <div class="fw-medium">{{ order.guest_full_name|default:"Guest Customer" }}</div>
                                             <div class="text-muted small">{{ order.guest_email }}</div>
                                         {% endif %}
                                     </div>
                                 </div>
                             </td>
                             <td>
-                                <div class="text-slate-900">{{ order.created_at|date:"M d, Y" }}</div>
+                                <div>{{ order.created_at|date:"M d, Y" }}</div>
                                 <div class="text-muted small">{{ order.created_at|time:"H:i" }}</div>
                             </td>
-                            <td class="fw-bold text-slate-900">৳{{ order.total|floatformat:2|intcomma }}</td>
+                            <td class="fw-bold">৳{{ order.total|floatformat:2|intcomma }}</td>
                             <td>
                                 <span class="badge 
                                     {% if order.status == 'delivered' %}bg-success-subtle text-success
@@ -189,13 +189,13 @@
                 datasets: [{
                     label: 'Revenue (৳)',
                     data: salesData,
-                    borderColor: '#f59e0b',
-                    backgroundColor: 'rgba(245, 158, 11, 0.08)',
+                    borderColor: '#da5d04',
+                    backgroundColor: 'rgba(218, 93, 4, 0.08)',
                     borderWidth: 3,
                     tension: 0.4,
                     fill: true,
                     pointBackgroundColor: '#fff',
-                    pointBorderColor: '#f59e0b',
+                    pointBorderColor: '#da5d04',
                     pointBorderWidth: 2,
                     pointRadius: 4,
                     pointHoverRadius: 6
@@ -207,7 +207,7 @@
                 plugins: {
                     legend: { display: false },
                     tooltip: {
-                        backgroundColor: '#0f172a',
+                        backgroundColor: '#954e27',
                         titleFont: { family: 'Outfit', size: 14 },
                         bodyFont: { family: 'Outfit', size: 13 },
                         padding: 12,
@@ -218,12 +218,12 @@
                 scales: {
                     y: {
                         beginAtZero: true,
-                        grid: { color: 'rgba(0, 0, 0, 0.05)', drawBorder: false },
-                        ticks: { font: { family: 'Outfit' }, color: '#64748b' }
+                        grid: { color: 'rgba(149, 78, 39, 0.05)', drawBorder: false },
+                        ticks: { font: { family: 'Outfit' }, color: '#954e27' }
                     },
                     x: {
                         grid: { display: false },
-                        ticks: { font: { family: 'Outfit' }, color: '#64748b' }
+                        ticks: { font: { family: 'Outfit' }, color: '#954e27' }
                     }
                 }
             }
@@ -238,11 +238,11 @@
                 datasets: [{
                     data: categoryData,
                     backgroundColor: [
-                        '#0f172a',
-                        '#f59e0b',
+                        '#954e27',
+                        '#da5d04',
                         '#10b981',
-                        '#6366f1',
-                        '#ec4899'
+                        '#b86b3d',
+                        '#7a3f1e'
                     ],
                     borderWidth: 0,
                     hoverOffset: 15
@@ -259,11 +259,11 @@
                             padding: 20,
                             usePointStyle: true,
                             font: { family: 'Outfit', size: 12 },
-                            color: '#64748b'
+                            color: '#954e27'
                         }
                     },
                     tooltip: {
-                        backgroundColor: '#0f172a',
+                        backgroundColor: '#954e27',
                         padding: 12,
                         cornerRadius: 10
                     }
