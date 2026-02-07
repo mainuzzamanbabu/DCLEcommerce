@@ -12,6 +12,8 @@ dj-database-url>=2.1.0
 
 # Authentication
 django-allauth>=0.60.1
+PyJWT>=2.8.0
+cryptography>=42.0.0
 
 # Admin Enhancements
 django-import-export>=3.3.6
@@ -35,7 +37,6 @@ gunicorn>=21.2.0
 whitenoise>=6.6.0
 
 # SSLCommerz
-sslcommerz-lib>=1.0.7
 requests>=2.31.0
 
 # Testing

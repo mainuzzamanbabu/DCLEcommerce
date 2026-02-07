@@ -52,55 +52,55 @@
         </div>
         <div class="carousel-inner">
             <!-- Slide 1 -->
-            <div class="carousel-item active bg-gradient-primary">
+            <div class="carousel-item active" style="background: linear-gradient(135deg, #FDF6F2 0%, #f8ece4 50%, #f5e6da 100%);">
                 <div class="container h-100">
-                    <div class="row h-100 align-items-center" style="min-height: 400px;">
+                    <div class="row h-100 align-items-center" style="min-height: 450px;">
                         <div class="col-lg-6">
-                            <h1 class="display-4 fw-bold mb-4">Premium Laptops for Every Need</h1>
-                            <p class="lead mb-4">Discover our collection of high-performance laptops from top brands. Perfect for work, gaming, and creativity.</p>
-                            <a href="{% url 'catalog:product_list' %}" class="btn btn-secondary btn-lg hero-btn me-2">
+                            <h1 class="display-4 fw-bold mb-4" style="color: #954E27;">Premium Laptops for Every Need</h1>
+                            <p class="lead mb-4" style="color: #0D0D0D;">Discover our collection of high-performance laptops from top brands. Perfect for work, gaming, and creativity.</p>
+                            <a href="{% url 'catalog:product_list' %}" class="btn btn-lg hero-btn" style="background: #DA5D04; color: white;">
                                 <i class="bi bi-laptop me-2"></i>Shop Laptops
                             </a>
                         </div>
                         <div class="col-lg-6 d-none d-lg-block text-center">
-                            <i class="bi bi-laptop display-1" style="font-size: 200px; opacity: 0.3;"></i>
+                            <i class="bi bi-laptop display-1" style="font-size: 200px; opacity: 0.15; color: #954E27;"></i>
                         </div>
                     </div>
                 </div>
             </div>
             
             <!-- Slide 2 -->
-            <div class="carousel-item" style="background: linear-gradient(135deg, #FF6600 0%, #FF8533 100%);">
+            <div class="carousel-item" style="background: linear-gradient(135deg, #f8ece4 0%, #FDF6F2 100%);">
                 <div class="container h-100">
-                    <div class="row h-100 align-items-center" style="min-height: 400px;">
+                    <div class="row h-100 align-items-center" style="min-height: 450px;">
                         <div class="col-lg-6">
-                            <span class="badge bg-white text-danger mb-3 px-3 py-2 fs-6">🔥 HOT DEALS</span>
-                            <h1 class="display-4 fw-bold mb-4">Up to 30% Off Gaming PCs</h1>
-                            <p class="lead mb-4">Build your dream gaming setup with our exclusive deals on high-end gaming computers and accessories.</p>
-                            <a href="{% url 'catalog:product_list' %}" class="btn btn-primary btn-lg hero-btn me-2">
+                            <span class="badge mb-3 px-3 py-2 fs-6" style="background: #DA5D04; color: white;">🔥 HOT DEALS</span>
+                            <h1 class="display-4 fw-bold mb-4" style="color: #954E27;">Up to 30% Off Gaming PCs</h1>
+                            <p class="lead mb-4" style="color: #0D0D0D;">Build your dream gaming setup with our exclusive deals on high-end gaming computers and accessories.</p>
+                            <a href="{% url 'catalog:product_list' %}" class="btn btn-lg hero-btn" style="background: #DA5D04; color: white;">
                                 <i class="bi bi-controller me-2"></i>Shop Gaming
                             </a>
                         </div>
                         <div class="col-lg-6 d-none d-lg-block text-center">
-                            <i class="bi bi-pc-display-horizontal display-1" style="font-size: 200px; opacity: 0.3;"></i>
+                            <i class="bi bi-pc-display-horizontal display-1" style="font-size: 200px; opacity: 0.15; color: #954E27;"></i>
                         </div>
                     </div>
                 </div>
             </div>
             
             <!-- Slide 3 -->
-            <div class="carousel-item" style="background: linear-gradient(135deg, #0054A6 0%, #003366 100%);">
+            <div class="carousel-item" style="background: linear-gradient(135deg, #FDF6F2 0%, #f5e6da 100%);">
                 <div class="container h-100">
-                    <div class="row h-100 align-items-center" style="min-height: 400px;">
+                    <div class="row h-100 align-items-center" style="min-height: 450px;">
                         <div class="col-lg-6">
-                            <h1 class="display-4 fw-bold mb-4">Complete Office Solutions</h1>
-                            <p class="lead mb-4">Everything you need for a productive workspace - desktops, monitors, printers, and more.</p>
-                            <a href="{% url 'catalog:product_list' %}" class="btn btn-secondary btn-lg hero-btn">
+                            <h1 class="display-4 fw-bold mb-4" style="color: #954E27;">Complete Office Solutions</h1>
+                            <p class="lead mb-4" style="color: #0D0D0D;">Everything you need for a productive workspace - desktops, monitors, printers, and more.</p>
+                            <a href="{% url 'catalog:product_list' %}" class="btn btn-lg hero-btn" style="background: #DA5D04; color: white;">
                                 <i class="bi bi-briefcase me-2"></i>Shop Office
                             </a>
                         </div>
                         <div class="col-lg-6 d-none d-lg-block text-center">
-                            <i class="bi bi-display display-1" style="font-size: 200px; opacity: 0.3;"></i>
+                            <i class="bi bi-display display-1" style="font-size: 200px; opacity: 0.15; color: #954E27;"></i>
                         </div>
                     </div>
                 </div>
@@ -299,19 +299,19 @@
             {% empty %}
             <!-- Default banners -->
             <div class="col-lg-6">
-                <div class="card border-0 bg-gradient-primary text-white h-100" style="border-radius: 1rem; overflow: hidden;">
+                <div class="card border-0 text-white h-100" style="background: linear-gradient(135deg, #954E27 0%, #B86B3D 100%); border-radius: 1rem; overflow: hidden;">
                     <div class="card-body p-4 p-lg-5">
-                        <span class="badge bg-secondary mb-3">Limited Offer</span>
+                        <span class="badge mb-3" style="background: #DA5D04;">Limited Offer</span>
                         <h3 class="fw-bold mb-3">Gaming Accessories Sale</h3>
                         <p class="mb-4">Get up to 40% off on gaming keyboards, mice, headsets, and more!</p>
-                        <a href="{% url 'catalog:product_list' %}" class="btn btn-light">
+                        <a href="{% url 'catalog:product_list' %}" class="btn btn-light" style="color: #954E27;">
                             Shop Now <i class="bi bi-arrow-right ms-2"></i>
                         </a>
                     </div>
                 </div>
             </div>
             <div class="col-lg-6">
-                <div class="card border-0 text-white h-100" style="background: linear-gradient(135deg, #FF6600 0%, #FF8533 100%); border-radius: 1rem; overflow: hidden;">
+                <div class="card border-0 text-white h-100" style="background: linear-gradient(135deg, #DA5D04 0%, #F07020 100%); border-radius: 1rem; overflow: hidden;">
                     <div class="card-body p-4 p-lg-5">
                         <span class="badge bg-dark mb-3">New Arrival</span>
                         <h3 class="fw-bold mb-3">Latest Processors</h3>

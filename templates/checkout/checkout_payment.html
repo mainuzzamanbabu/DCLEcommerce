@@ -7,22 +7,22 @@
 <div class="container py-5">
     <!-- Checkout Progress -->
     <div class="row mb-5 justify-content-center">
-        <div class="col-lg-8">
+        <div class="col-lg-10">
             <div class="checkout-progress d-flex justify-content-between position-relative">
-                <div class="progress-step active completed">
+                <div class="progress-step completed">
                     <div class="step-icon"><i class="bi bi-geo-alt"></i></div>
                     <div class="step-label">Address</div>
                 </div>
-                <div class="progress-step active completed">
+                <div class="progress-step completed">
                     <div class="step-icon"><i class="bi bi-truck"></i></div>
                     <div class="step-label">Shipping</div>
                 </div>
                 <div class="progress-step active">
-                    <div class="step-icon"><i class="bi bi-credit-card"></i></div>
+                    <div class="step-icon shadow-sm"><i class="bi bi-credit-card"></i></div>
                     <div class="step-label">Payment</div>
                 </div>
                 <div class="progress-step">
-                    <div class="step-icon"><i class="bi bi-check-circle"></i></div>
+                    <div class="step-icon shadow-sm"><i class="bi bi-check-circle"></i></div>
                     <div class="step-label">Review</div>
                 </div>
                 <div class="progress-bar-line"></div>
@@ -33,9 +33,11 @@
     <div class="row g-4">
         <!-- Main Content -->
         <div class="col-lg-8">
-            <div class="card shadow-sm border-0 rounded-4">
-                <div class="card-header bg-white py-3 border-bottom">
-                    <h5 class="mb-0 fw-bold">Select Payment Method</h5>
+            <div class="card glass-card border-0">
+                <div class="card-header bg-transparent py-4 px-4 border-bottom" style="border-color: rgba(149, 78, 39, 0.1) !important;">
+                    <h4 class="mb-0 fw-bold" style="font-family: 'Merriweather', serif; color: var(--dcl-primary);">
+                        <i class="bi bi-credit-card me-2 text-secondary"></i>Payment Method
+                    </h4>
                 </div>
                 <div class="card-body p-4">
                     <form method="post">
@@ -43,36 +45,36 @@
                         
                         <div class="payment-options mb-4">
                             <!-- SSLCommerz -->
-                            <div class="payment-option mb-3">
+                            <div class="payment-option mb-4">
                                 <input type="radio" class="btn-check" name="payment_method" id="sslcommerz" value="sslcommerz" 
                                        {% if session.payment_method == 'sslcommerz' or not session.payment_method %}checked{% endif %} required>
-                                <label class="btn btn-outline-light text-start p-4 border-2 rounded-4 w-100 h-100" for="sslcommerz">
+                                <label class="btn btn-outline-light text-start p-4 rounded-4 w-100 h-100 transition-all border-2" for="sslcommerz">
                                     <div class="d-flex align-items-center">
-                                        <div class="me-4 d-flex align-items-center justify-content-center bg-light rounded-circle" style="width: 50px; height: 50px;">
-                                            <i class="bi bi-credit-card-2-front text-primary fs-3"></i>
+                                        <div class="me-4 d-flex align-items-center justify-content-center bg-white rounded-circle shadow-sm" style="width: 60px; height: 60px; min-width: 60px;">
+                                            <i class="bi bi-credit-card-2-front fs-2" style="color: var(--dcl-secondary);"></i>
                                         </div>
                                         <div class="flex-grow-1">
-                                            <h6 class="mb-1 fw-bold text-dark">Online Payment (SSLCommerz)</h6>
-                                            <p class="mb-0 text-muted small">Pay securely via Cards, Mobile Banking (bKash, Nagad, Rocket) or Net Banking.</p>
+                                            <h5 class="mb-1 fw-bold" style="color: var(--dcl-primary);">Online Payment</h5>
+                                            <p class="mb-0 text-muted small">Pay securely via Cards, bKash, Nagad, Rocket or Net Banking.</p>
                                         </div>
-                                        <div class="ms-3">
-                                            <img src="https://www.sslcommerz.com/wp-content/uploads/2021/11/footer_logo-1.png" alt="SSLCommerz" height="30">
+                                        <div class="ms-3 d-none d-sm-block">
+                                            <img src="https://www.sslcommerz.com/wp-content/uploads/2021/11/footer_logo-1.png" alt="SSLCommerz" height="35">
                                         </div>
                                     </div>
                                 </label>
                             </div>
 
                             <!-- COD -->
-                            <div class="payment-option mb-3">
+                            <div class="payment-option mb-4">
                                 <input type="radio" class="btn-check" name="payment_method" id="cod" value="cod"
                                        {% if session.payment_method == 'cod' %}checked{% endif %}>
-                                <label class="btn btn-outline-light text-start p-4 border-2 rounded-4 w-100 h-100" for="cod">
+                                <label class="btn btn-outline-light text-start p-4 rounded-4 w-100 h-100 transition-all border-2" for="cod">
                                     <div class="d-flex align-items-center">
-                                        <div class="me-4 d-flex align-items-center justify-content-center bg-light rounded-circle" style="width: 50px; height: 50px;">
-                                            <i class="bi bi-cash-stack text-success fs-3"></i>
+                                        <div class="me-4 d-flex align-items-center justify-content-center bg-white rounded-circle shadow-sm" style="width: 60px; height: 60px; min-width: 60px;">
+                                            <i class="bi bi-cash-stack fs-2" style="color: #28a745;"></i>
                                         </div>
                                         <div class="flex-grow-1">
-                                            <h6 class="mb-1 fw-bold text-dark">Cash on Delivery (COD)</h6>
+                                            <h5 class="mb-1 fw-bold" style="color: var(--dcl-primary);">Cash on Delivery (COD)</h5>
                                             <p class="mb-0 text-muted small">Pay with cash when your product is delivered to your doorstep.</p>
                                         </div>
                                     </div>
@@ -80,11 +82,11 @@
                             </div>
                         </div>
 
-                        <div class="d-flex justify-content-between mt-5">
-                            <a href="{% url 'checkout:shipping' %}" class="btn btn-link text-decoration-none text-muted fw-semibold">
+                        <div class="d-flex justify-content-between align-items-center mt-5">
+                            <a href="{% url 'checkout:shipping' %}" class="btn btn-link text-decoration-none text-muted fw-bold">
                                 <i class="bi bi-arrow-left me-2"></i>Back to Shipping
                             </a>
-                            <button type="submit" class="btn btn-primary px-5 py-2 fw-bold shadow-sm rounded-pill">
+                            <button type="submit" class="btn btn-primary px-5 py-3 shadow">
                                 Continue to Review <i class="bi bi-arrow-right ms-2"></i>
                             </button>
                         </div>
@@ -95,119 +97,144 @@
 
         <!-- Order Summary Sidebar -->
         <div class="col-lg-4">
-            <div class="card shadow-sm border-0 rounded-4 sticky-top" style="top: 6rem;">
-                <div class="card-header bg-white py-3 border-bottom">
-                    <h5 class="mb-0 fw-bold">Order Summary</h5>
+            <div class="card glass-card border-0 sticky-top" style="top: 100px;">
+                <div class="card-header bg-transparent border-0 pt-4 px-4 pb-0">
+                    <h5 class="mb-0 fw-bold" style="font-family: 'Merriweather', serif; color: var(--dcl-primary);">Order Summary</h5>
                 </div>
                 <div class="card-body p-4">
-                    {% for item in cart %}
-                    <div class="d-flex mb-3">
-                        <div class="flex-shrink-0">
-                            {% if item.variant.images.exists %}
-                                <img src="{{ item.variant.images.first.image.url }}" alt="{{ item.product.name }}" class="rounded shadow-sm" style="width: 50px; height: 50px; object-fit: cover;">
-                            {% else %}
-                                <div class="bg-light rounded d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
-                                    <i class="bi bi-image text-muted"></i>
-                                </div>
-                            {% endif %}
+                    <div class="order-items mb-4" style="max-height: 250px; overflow-y: auto; scrollbar-width: thin;">
+                        {% for item in cart %}
+                        <div class="d-flex align-items-center mb-3 pb-3 border-bottom" style="border-color: rgba(149, 78, 39, 0.05) !important;">
+                            <div class="flex-shrink-0 position-relative">
+                                {% with image=item.variant.get_image %}
+                                    <img src="{% if image %}{{ image.image.url }}{% else %}https://via.placeholder.com/60x60?text=Empty{% endif %}" 
+                                         alt="{{ item.product.name }}" 
+                                         class="rounded-3 shadow-sm" 
+                                         style="width: 50px; height: 50px; object-fit: cover; border: 1px solid rgba(149, 78, 39, 0.1);">
+                                {% endwith %}
+                            </div>
+                            <div class="flex-grow-1 ms-3">
+                                <h6 class="mb-0 small fw-bold text-truncate" style="max-width: 140px; color: var(--dcl-primary);">{{ item.product.name }}</h6>
+                                <p class="mb-0 smaller text-muted">{{ item.quantity }} × ৳{{ item.unit_price|floatformat:2 }}</p>
+                            </div>
                         </div>
-                        <div class="flex-grow-1 ms-3">
-                            <h6 class="mb-0 small fw-bold">{{ item.product.name }}</h6>
-                            <p class="mb-0 x-small text-muted">{{ item.quantity }} x ৳{{ item.unit_price }}</p>
-                        </div>
+                        {% endfor %}
                     </div>
-                    {% endfor %}
                     
-                    <hr>
-                    
-                    <div class="d-flex justify-content-between mb-2">
-                        <span class="text-muted">Subtotal</span>
-                        <span class="fw-bold">৳{{ cart.get_total_price|floatformat:2 }}</span>
+                    <div class="d-flex justify-content-between mb-3">
+                        <span class="text-muted small">Subtotal</span>
+                        <span class="fw-bold small" style="color: var(--dcl-primary);">৳{{ cart.get_total_price|floatformat:2 }}</span>
                     </div>
-                    <div class="d-flex justify-content-between mb-2">
-                        <span class="text-muted">Shipping</span>
-                        <span class="fw-bold text-success">
+                    <div class="d-flex justify-content-between mb-3">
+                        <span class="text-muted small">Shipping</span>
+                        <span class="fw-bold small text-success">
                             {% with cost=session.shipping_method.get_price_for_amount|default:0 %}
                                 {% if cost == 0 %}Free{% else %}৳{{ cost|floatformat:2 }}{% endif %}
                             {% endwith %}
                         </span>
                     </div>
-                    <hr>
-                    <div class="d-flex justify-content-between mb-0">
-                        <span class="fw-bold fs-5">Total</span>
-                        <span class="fw-bold fs-5 text-primary">৳{{ cart.get_total_price|floatformat:2 }}</span>
+                    <hr style="opacity: 0.1;">
+                    <div class="d-flex justify-content-between align-items-center mt-3">
+                        <span class="fw-bold h5 mb-0" style="color: var(--dcl-primary);">Total</span>
+                        <span class="fw-bold h4 mb-0" style="color: var(--dcl-secondary);">৳{{ cart.get_total_price|floatformat:2 }}</span>
                     </div>
                 </div>
+            </div>
+            
+            <div class="mt-4 p-4 rounded-4 glass-card border-0 text-center">
+                <p class="mb-2 small fw-bold text-muted">ORDER SECURELY</p>
+                <i class="bi bi-shield-lock-fill fs-2" style="color: var(--dcl-primary);"></i>
+                <p class="mt-2 mb-0 smaller text-muted">Your transaction is encrypted</p>
             </div>
         </div>
     </div>
 </div>
 
 <style>
-    .payment-option .btn-check + label {
-        border-color: #eee;
-        transition: all 0.3s;
+    /* Glass Effect Utilities */
+    .glass-card {
+        background: rgba(255, 255, 255, 0.8) !important;
+        backdrop-filter: blur(20px) !important;
+        -webkit-backdrop-filter: blur(20px) !important;
+        border: 1px solid rgba(255, 255, 255, 0.5) !important;
+        border-radius: 28px !important;
+        box-shadow: 0 15px 35px rgba(149, 78, 39, 0.1) !important;
     }
-    .payment-option .btn-check:checked + label {
-        border-color: var(--bs-primary);
-        background-color: rgba(0, 51, 102, 0.02);
-        box-shadow: 0 0.5rem 1rem rgba(0, 51, 102, 0.05);
+
+    .transition-all { transition: all 0.3s ease; }
+    .smaller { font-size: 0.75rem; }
+
+    /* Progress Bar Redesign */
+    .checkout-progress {
+        margin-bottom: 2rem;
     }
-    .payment-option .btn-check:checked + label h6 {
-        color: var(--bs-primary) !important;
-    }
-    .payment-option .btn-check:checked + label .rounded-circle {
-        background-color: var(--bs-primary) !important;
-    }
-    .payment-option .btn-check:checked + label .rounded-circle i {
-        color: white !important;
-    }
-    
-    /* Progress Bar */
     .checkout-progress .progress-step {
         text-align: center;
         z-index: 2;
-        background: white;
+        background: transparent;
         padding: 0 10px;
+        flex: 1;
     }
     .step-icon {
-        width: 40px;
-        height: 40px;
+        width: 48px;
+        height: 48px;
         border-radius: 50%;
-        background: #eee;
-        color: #888;
+        background: white;
+        color: var(--dcl-gray);
         display: flex;
         align-items: center;
         justify-content: center;
-        margin: 0 auto 8px;
-        font-size: 1.2rem;
-        transition: all 0.3s;
+        margin: 0 auto 12px;
+        font-size: 1.25rem;
+        transition: all 0.4s ease;
+        border: 2px solid rgba(149, 78, 39, 0.1);
     }
     .step-label {
-        font-size: 0.8rem;
-        font-weight: 600;
-        color: #888;
+        font-size: 0.75rem;
+        font-weight: 700;
+        color: var(--dcl-gray);
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
     }
     .progress-step.active .step-icon {
-        background: var(--bs-primary);
+        background: var(--dcl-secondary);
         color: white;
-        box-shadow: 0 0.5rem 1rem rgba(0, 51, 102, 0.2);
+        border-color: var(--dcl-secondary);
+        transform: scale(1.1);
+        box-shadow: 0 10px 25px rgba(218, 93, 4, 0.3);
     }
     .progress-step.active .step-label {
-        color: var(--bs-primary);
+        color: var(--dcl-secondary);
     }
     .progress-step.completed .step-icon {
-        background: #28a745;
+        background: var(--dcl-primary);
         color: white;
+        border-color: var(--dcl-primary);
     }
     .progress-bar-line {
         position: absolute;
-        top: 20px;
-        left: 0;
-        right: 0;
+        top: 24px;
+        left: 50px;
+        right: 50px;
         height: 2px;
-        background: #eee;
+        background: rgba(149, 78, 39, 0.1);
         z-index: 1;
+    }
+
+    /* Payment Option Stylings */
+    .payment-option .btn-check + label {
+        border-color: rgba(149, 78, 39, 0.1);
+        background: white;
+        cursor: pointer;
+    }
+    .payment-option .btn-check:checked + label {
+        border-color: var(--dcl-secondary);
+        background: rgba(218, 93, 4, 0.03);
+        box-shadow: 0 10px 25px rgba(218, 93, 4, 0.1);
+        transform: translateY(-3px);
+    }
+    .payment-option .btn-check + label:hover {
+        border-color: rgba(218, 93, 4, 0.3);
     }
 </style>
 {% endblock %}
