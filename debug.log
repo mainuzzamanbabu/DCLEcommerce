@@ -4383,3 +4383,6 @@ WARNING 2026-02-07 16:15:43,348 log Not Found: /catalog/c/
 WARNING 2026-02-07 17:06:31,233 log Not Found: /favicon.ico
 INFO 2026-02-07 18:13:52,048 autoreload E:\Antigravity_Proj\e-commerce\dcl-ecommerce\apps\catalog\views.py changed, reloading.
 INFO 2026-02-07 18:13:52,670 autoreload Watching for file changes with StatReloader
+WARNING 2026-02-07 18:48:43,648 log Not Found: /cart/add/
+WARNING 2026-02-07 18:48:43,749 log Not Found: /favicon.ico
+WARNING 2026-02-07 18:48:49,140 log Not Found: /cart/add/

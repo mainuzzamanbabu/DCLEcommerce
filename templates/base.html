@@ -301,23 +301,6 @@
 
     <!-- Custom JS -->
     <script src="{% static 'js/main.js' %}"></script>
-    <script>
-      // Navbar scroll effect
-      const navbar = document.querySelector('.navbar');
-      const isSolid = navbar.classList.contains('navbar-solid');
-      
-      const handleScroll = () => {
-        if (window.scrollY > 50 || isSolid) {
-          navbar.classList.add('scrolled');
-        } else {
-          navbar.classList.remove('scrolled');
-        }
-      };
-
-      window.addEventListener('scroll', handleScroll);
-      // Run once on load
-      handleScroll();
-    </script>
 
     {% block extra_js %}{% endblock %}
   </body>

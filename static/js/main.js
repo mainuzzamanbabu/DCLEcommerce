@@ -51,18 +51,20 @@ function initNavbar() {
     if (!navbar) return;
 
     const scrollThreshold = 50;
+    const isSolid = navbar.classList.contains('navbar-solid');
 
-    window.addEventListener('scroll', () => {
+    const handleScroll = () => {
         const currentScroll = window.pageYOffset;
 
-        // Add scrolled class for slight style change
-        if (currentScroll > scrollThreshold) {
+        if (currentScroll > scrollThreshold || isSolid) {
             navbar.classList.add('scrolled');
         } else {
             navbar.classList.remove('scrolled');
         }
-        // Navbar always stays visible - no hide on scroll
-    });
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    handleScroll(); // Initialize on load
 }
 
 // ===== SCROLL ANIMATIONS =====
