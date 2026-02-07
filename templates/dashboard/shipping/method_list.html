@@ -1,79 +1,84 @@
 {% extends 'dashboard/base.html' %}
+{% load static %}
+
+{% block title %}Shipping Methods{% endblock %}
+{% block page_title %}Shipping Methods{% endblock %}
 
 {% block dashboard_content %}
 <div class="d-flex justify-content-between align-items-center mb-4">
-    <h2 class="h3 mb-0">Shipping Methods</h2>
-    <a href="{% url 'dashboard:shipping_method_create' %}" class="btn btn-primary">
-        <i class="bi bi-plus-lg me-2"></i>Add Shipping Method
+    <div>
+        <h2 class="mb-1">Shipping Methods</h2>
+        <p class="text-muted mb-0">Configure your delivery options and costs</p>
+    </div>
+    <a href="{% url 'dashboard:shipping_method_create' %}" class="btn-primary">
+        <i class="bi bi-plus-lg me-2"></i>Add Method
     </a>
 </div>
 
-<div class="card shadow-sm border-0 rounded-3">
-    <div class="card-body p-0">
-        <div class="table-responsive">
-            <table class="table table-hover align-middle mb-0">
-                <thead class="bg-light">
-                    <tr>
-                        <th class="ps-4">Name</th>
-                        <th>Price</th>
-                        <th>Delivery Estimate</th>
-                        <th>Free Above</th>
-                        <th>Status</th>
-                        <th class="text-end pe-4">Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for method in methods %}
-                    <tr>
-                        <td class="ps-4">
-                            <div class="fw-bold text-dark">{{ method.name }}</div>
-                            {% if method.description %}
-                            <small class="text-muted d-block text-truncate" style="max-width: 200px;">{{ method.description }}</small>
-                            {% endif %}
-                        </td>
-                        <td>
-                            <span class="fw-medium">৳{{ method.price }}</span>
-                        </td>
-                        <td>{{ method.get_delivery_estimate }}</td>
-                        <td>
-                            {% if method.free_above %}
-                            <span class="text-success small fw-bold">৳{{ method.free_above }}</span>
-                            {% else %}
-                            <span class="text-muted small">N/A</span>
-                            {% endif %}
-                        </td>
-                        <td>
-                            {% if method.is_active %}
-                            <span class="badge bg-success-soft text-success rounded-pill px-3">Active</span>
-                            {% else %}
-                            <span class="badge bg-secondary-soft text-secondary rounded-pill px-3">Inactive</span>
-                            {% endif %}
-                        </td>
-                        <td class="text-end pe-4">
-                            <div class="btn-group">
-                                <a href="{% url 'dashboard:shipping_method_edit' method.pk %}" class="btn btn-sm btn-outline-primary">
-                                    <i class="bi bi-pencil"></i>
-                                </a>
-                                <a href="{% url 'dashboard:shipping_method_delete' method.pk %}" class="btn btn-sm btn-outline-danger">
-                                    <i class="bi bi-trash"></i>
-                                </a>
-                            </div>
-                        </td>
-                    </tr>
-                    {% empty %}
-                    <tr>
-                        <td colspan="6" class="text-center py-5">
-                            <div class="text-muted">
-                                <i class="bi bi-truck fs-1 d-block mb-3"></i>
-                                <p class="mb-0">No shipping methods found.</p>
-                                <a href="{% url 'dashboard:shipping_method_create' %}" class="btn btn-sm btn-primary mt-3">Add your first method</a>
-                            </div>
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-    </div>
+<div class="table-card p-0 overflow-hidden">
+    <table class="admin-table mb-0">
+        <thead>
+            <tr>
+                <th>Method Name</th>
+                <th>Price</th>
+                <th>Delivery Estimate</th>
+                <th>Free Threshold</th>
+                <th>Status</th>
+                <th style="width: 120px;">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for method in methods %}
+            <tr>
+                <td>
+                    <div class="fw-semibold">{{ method.name }}</div>
+                    {% if method.description %}
+                    <small class="text-muted">{{ method.description|truncatechars:60 }}</small>
+                    {% endif %}
+                </td>
+                <td>
+                    <span class="fw-bold text-dark">৳{{ method.price }}</span>
+                </td>
+                <td>
+                    <span class="status-badge info">{{ method.get_delivery_estimate }}</span>
+                </td>
+                <td>
+                    {% if method.free_above %}
+                    <span class="status-badge success">Free above ৳{{ method.free_above }}</span>
+                    {% else %}
+                    <span class="text-muted small">None</span>
+                    {% endif %}
+                </td>
+                <td>
+                    {% if method.is_active %}
+                    <span class="status-badge success">Active</span>
+                    {% else %}
+                    <span class="status-badge danger">Inactive</span>
+                    {% endif %}
+                </td>
+                <td>
+                    <div class="d-flex gap-1">
+                        <a href="{% url 'dashboard:shipping_method_edit' method.pk %}" class="action-btn" title="Edit">
+                            <i class="bi bi-pencil"></i>
+                        </a>
+                        <a href="{% url 'dashboard:shipping_method_delete' method.pk %}" class="action-btn text-danger" title="Delete">
+                            <i class="bi bi-trash"></i>
+                        </a>
+                    </div>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="6" class="text-center py-5">
+                    <div class="text-muted">
+                        <i class="bi bi-truck display-4 d-block mb-3 opacity-25"></i>
+                        <p class="mb-0">No shipping methods found.</p>
+                        <a href="{% url 'dashboard:shipping_method_create' %}" class="btn-primary mt-3">Add First Method</a>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 </div>
 {% endblock %}

@@ -1,92 +1,86 @@
 {% extends 'dashboard/base.html' %}
+{% load static %}
+
+{% block title %}Banners{% endblock %}
+{% block page_title %}Banners{% endblock %}
 
 {% block dashboard_content %}
 <div class="d-flex justify-content-between align-items-center mb-4">
     <div>
-        <h5 class="mb-0 fw-bold">{{ title }}</h5>
-        <p class="text-muted mb-0">Manage promotional banners for the homepage</p>
+        <h2 class="mb-1">Promotional Banners</h2>
+        <p class="text-muted mb-0">Manage advertising banners across the site</p>
     </div>
-    <a href="{% url 'dashboard:banner_create' %}" class="btn btn-primary">
-        <i class="bi bi-plus-circle me-1"></i> Add Banner
+    <a href="{% url 'dashboard:banner_create' %}" class="btn-primary">
+        <i class="bi bi-plus-lg me-2"></i>Add Banner
     </a>
 </div>
 
-{% if messages %}
-<div class="mb-3">
-    {% for message in messages %}
-    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
-        {{ message }}
-        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-    </div>
-    {% endfor %}
-</div>
-{% endif %}
-
-<div class="card border-0 shadow-sm">
-    <div class="card-header bg-white py-3">
-        <h6 class="mb-0 fw-bold">Banners ({{ banners.count }})</h6>
-    </div>
-    <div class="card-body p-0">
-        {% if banners %}
-        <div class="table-responsive">
-            <table class="table table-hover align-middle mb-0">
-                <thead class="table-light">
-                    <tr>
-                        <th>Order</th>
-                        <th>Title</th>
-                        <th>Position</th>
-                        <th>Status</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for banner in banners %}
-                    <tr>
-                        <td><span class="badge bg-secondary">{{ banner.sort_order }}</span></td>
-                        <td>
-                            <div>
-                                <strong>{{ banner.title }}</strong>
-                                {% if banner.badge_text %}
-                                <span class="badge bg-{{ banner.badge_style }} ms-1">{{ banner.badge_text }}</span>
-                                {% endif %}
-                            </div>
-                            {% if banner.description %}
-                            <small class="text-muted">{{ banner.description|truncatewords:10 }}</small>
+<div class="table-card p-0 overflow-hidden">
+    <table class="admin-table mb-0">
+        <thead>
+            <tr>
+                <th style="width: 80px;">Order</th>
+                <th>Banner Info</th>
+                <th>Position</th>
+                <th>Status</th>
+                <th style="width: 120px;">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for banner in banners %}
+            <tr>
+                <td>
+                    <span class="fw-bold text-primary">#{{ banner.sort_order }}</span>
+                </td>
+                <td>
+                    <div class="d-flex align-items-center gap-3">
+                        {% if banner.image %}
+                        <div class="rounded border overflow-hidden" style="width: 80px; height: 45px; background: #f8f9fa;">
+                            <img src="{{ banner.image.url }}" alt="{{ banner.title }}" style="width: 100%; height: 100%; object-fit: cover;">
+                        </div>
+                        {% endif %}
+                        <div>
+                            <div class="fw-semibold">{{ banner.title }}</div>
+                            {% if banner.badge_text %}
+                            <span class="status-badge info small py-0 px-2" style="font-size: 0.7rem;">{{ banner.badge_text }}</span>
                             {% endif %}
-                        </td>
-                        <td>
-                            <span class="badge bg-info">{{ banner.get_position_display }}</span>
-                        </td>
-                        <td>
-                            {% if banner.is_active %}
-                            <span class="badge bg-success">Active</span>
-                            {% else %}
-                            <span class="badge bg-secondary">Inactive</span>
-                            {% endif %}
-                        </td>
-                        <td>
-                            <a href="{% url 'dashboard:banner_edit' banner.pk %}" class="btn btn-sm btn-outline-primary me-1">
-                                <i class="bi bi-pencil"></i>
-                            </a>
-                            <a href="{% url 'dashboard:banner_delete' banner.pk %}" class="btn btn-sm btn-outline-danger">
-                                <i class="bi bi-trash"></i>
-                            </a>
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-        {% else %}
-        <div class="text-center py-5">
-            <i class="bi bi-megaphone display-1 text-muted mb-3"></i>
-            <h5 class="text-muted">No banners yet</h5>
-            <p class="text-muted">Create promotional banners for the homepage</p>
-            <a href="{% url 'dashboard:banner_create' %}" class="btn btn-primary">
-                <i class="bi bi-plus-circle me-1"></i> Create First Banner
-            </a>
-        </div>
-        {% endif %}
-    </div>
+                            <div class="text-muted small mt-1">{{ banner.description|truncatechars:50 }}</div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <span class="status-badge info">{{ banner.get_position_display }}</span>
+                </td>
+                <td>
+                    {% if banner.is_active %}
+                    <span class="status-badge success">Active</span>
+                    {% else %}
+                    <span class="status-badge danger">Inactive</span>
+                    {% endif %}
+                </td>
+                <td>
+                    <div class="d-flex gap-1">
+                        <a href="{% url 'dashboard:banner_edit' banner.pk %}" class="action-btn" title="Edit">
+                            <i class="bi bi-pencil"></i>
+                        </a>
+                        <a href="{% url 'dashboard:banner_delete' banner.pk %}" class="action-btn text-danger" title="Delete">
+                            <i class="bi bi-trash"></i>
+                        </a>
+                    </div>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5" class="text-center py-5">
+                    <div class="text-muted">
+                        <i class="bi bi-megaphone display-4 d-block mb-3 opacity-25"></i>
+                        <p class="mb-0">No banners found.</p>
+                        <a href="{% url 'dashboard:banner_create' %}" class="btn-primary mt-3">Create First Banner</a>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 </div>
 {% endblock %}

@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Browse our collection of premium tech products - Laptops, Smartphones, Accessories and more">
+    <title>Shop All Products | DCL E-Commerce</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/animations.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <span class="brand-gradient">DCL</span><span class="brand-text">Store</span>
+            </a>
+            
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <i class="bi bi-list fs-2"></i>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle active" href="#" data-bs-toggle="dropdown">Shop</a>
+                        <ul class="dropdown-menu glass-light">
+                            <li><a class="dropdown-item" href="products.html">All Products</a></li>
+                            <li><a class="dropdown-item" href="products.html?category=laptops">Laptops</a></li>
+                            <li><a class="dropdown-item" href="products.html?category=phones">Smartphones</a></li>
+                            <li><a class="dropdown-item" href="products.html?category=accessories">Accessories</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="products.html?featured=true">Featured</a></li>
+                    <li class="nav-item"><a class="nav-link" href="products.html?sale=true">Sale</a></li>
+                </ul>
+                
+                <div class="d-flex align-items-center gap-3">
+                    <button class="btn btn-link p-0 search-toggle"><i class="bi bi-search fs-5"></i></button>
+                    <a href="wishlist.html" class="btn btn-link p-0"><i class="bi bi-heart fs-5"></i></a>
+                    <a href="cart.html" class="btn btn-link p-0 position-relative cart-icon">
+                        <i class="bi bi-bag fs-5"></i>
+                        <span class="cart-count">0</span>
+                    </a>
+                    <a href="signin.html" class="btn btn-link p-0"><i class="bi bi-person fs-5"></i></a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header py-4" style="background: var(--gradient-dark); position: relative; overflow: hidden; padding-top: 100px !important;">
+        <div class="position-absolute inset-0" style="background: var(--gradient-mesh); opacity: 0.3;"></div>
+        <div class="container py-3 position-relative">
+            <nav aria-label="breadcrumb" class="mb-2">
+                <ol class="breadcrumb mb-0">
+                    <li class="breadcrumb-item"><a href="index.html" class="text-white-50">Home</a></li>
+                    <li class="breadcrumb-item active text-white">Products</li>
+                </ol>
+            </nav>
+            <h1 class="text-white mb-2" data-animate="fade-up">All Products</h1>
+            <p class="text-white-50 mb-0" data-animate="fade-up" data-animate-delay="100">Discover our premium collection of tech products</p>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="section py-5">
+        <div class="container">
+            <div class="row">
+                <!-- Sidebar Filters -->
+                <div class="col-lg-3 mb-4 mb-lg-0">
+                    <div class="filter-sidebar glass-card p-4" data-animate="fade-right">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h5 class="mb-0 fw-bold">Filters</h5>
+                            <button class="btn btn-sm btn-link text-danger p-0">Clear All</button>
+                        </div>
+                        
+                        <!-- Categories Filter -->
+                        <div class="filter-group mb-4">
+                            <h6 class="filter-title mb-3" data-bs-toggle="collapse" data-bs-target="#categoriesFilter">
+                                Categories <i class="bi bi-chevron-down float-end"></i>
+                            </h6>
+                            <div class="collapse show" id="categoriesFilter">
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="checkbox" id="cat-laptops">
+                                    <label class="form-check-label" for="cat-laptops">Laptops <span class="text-muted">(250)</span></label>
+                                </div>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="checkbox" id="cat-phones">
+                                    <label class="form-check-label" for="cat-phones">Smartphones <span class="text-muted">(180)</span></label>
+                                </div>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="checkbox" id="cat-accessories">
+                                    <label class="form-check-label" for="cat-accessories">Accessories <span class="text-muted">(320)</span></label>
+                                </div>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="checkbox" id="cat-gaming">
+                                    <label class="form-check-label" for="cat-gaming">Gaming <span class="text-muted">(150)</span></label>
+                                </div>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="checkbox" id="cat-wearables">
+                                    <label class="form-check-label" for="cat-wearables">Wearables <span class="text-muted">(95)</span></label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Price Filter -->
+                        <div class="filter-group mb-4">
+                            <h6 class="filter-title mb-3" data-bs-toggle="collapse" data-bs-target="#priceFilter">
+                                Price Range <i class="bi bi-chevron-down float-end"></i>
+                            </h6>
+                            <div class="collapse show" id="priceFilter">
+                                <div class="price-range-inputs">
+                                    <div class="row g-2 mb-3">
+                                        <div class="col-6">
+                                            <input type="number" class="form-control form-control-sm" placeholder="Min" value="0">
+                                        </div>
+                                        <div class="col-6">
+                                            <input type="number" class="form-control form-control-sm" placeholder="Max" value="300000">
+                                        </div>
+                                    </div>
+                                    <input type="range" class="form-range" min="0" max="300000" value="150000">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Brands Filter -->
+                        <div class="filter-group mb-4">
+                            <h6 class="filter-title mb-3" data-bs-toggle="collapse" data-bs-target="#brandsFilter">
+                                Brands <i class="bi bi-chevron-down float-end"></i>
+                            </h6>
+                            <div class="collapse show" id="brandsFilter">
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="checkbox" id="brand-apple">
+                                    <label class="form-check-label" for="brand-apple">Apple</label>
+                                </div>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="checkbox" id="brand-samsung">
+                                    <label class="form-check-label" for="brand-samsung">Samsung</label>
+                                </div>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="checkbox" id="brand-sony">
+                                    <label class="form-check-label" for="brand-sony">Sony</label>
+                                </div>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="checkbox" id="brand-dell">
+                                    <label class="form-check-label" for="brand-dell">Dell</label>
+                                </div>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="checkbox" id="brand-hp">
+                                    <label class="form-check-label" for="brand-hp">HP</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Rating Filter -->
+                        <div class="filter-group">
+                            <h6 class="filter-title mb-3">Rating</h6>
+                            <div class="rating-filter">
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" name="rating" id="rating-4">
+                                    <label class="form-check-label" for="rating-4">
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <span class="ms-1">& Up</span>
+                                    </label>
+                                </div>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" name="rating" id="rating-3">
+                                    <label class="form-check-label" for="rating-3">
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <i class="bi bi-star-fill text-warning"></i>
+                                        <span class="ms-1">& Up</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Products Grid -->
+                <div class="col-lg-9">
+                    <!-- Toolbar -->
+                    <div class="products-toolbar d-flex flex-wrap justify-content-between align-items-center mb-4 gap-3" data-animate="fade-up">
+                        <div class="d-flex align-items-center gap-3">
+                            <span class="text-muted">Showing 1-12 of 1,250 products</span>
+                        </div>
+                        <div class="d-flex align-items-center gap-3">
+                            <select class="form-select form-select-sm" style="width: auto;">
+                                <option>Sort by: Featured</option>
+                                <option>Price: Low to High</option>
+                                <option>Price: High to Low</option>
+                                <option>Newest First</option>
+                                <option>Best Rating</option>
+                            </select>
+                            <div class="btn-group" role="group">
+                                <button type="button" class="btn btn-outline-secondary btn-sm active"><i class="bi bi-grid-3x3-gap"></i></button>
+                                <button type="button" class="btn btn-outline-secondary btn-sm"><i class="bi bi-list"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Products Grid -->
+                    <div class="row g-4 stagger-children">
+                        <!-- Product 1 -->
+                        <div class="col-sm-6 col-xl-4" data-animate="fade-up">
+                            <div class="product-card">
+                                <div class="product-image">
+                                    <a href="product-detail.html">
+                                        <img src="https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?w=400" alt="MacBook Pro">
+                                    </a>
+                                    <span class="product-badge badge-sale">-15%</span>
+                                    <button class="wishlist-btn" data-product-id="1"><i class="bi bi-heart"></i></button>
+                                    <div class="product-overlay">
+                                        <button class="btn btn-primary btn-sm add-to-cart-btn" data-product-id="1" data-product-name="MacBook Pro M3" data-product-price="189990" data-product-image="https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?w=400">
+                                            <i class="bi bi-bag-plus me-2"></i>Add to Cart
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="product-info">
+                                    <span class="product-category">Laptops</span>
+                                    <a href="product-detail.html"><h5 class="product-title">MacBook Pro M3</h5></a>
+                                    <div class="d-flex align-items-center gap-2 mb-2">
+                                        <div class="rating text-warning small">
+                                            <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-half"></i>
+                                        </div>
+                                        <span class="text-muted small">(128)</span>
+                                    </div>
+                                    <div class="product-price">
+                                        <span class="current-price">৳189,990</span>
+                                        <span class="original-price">৳223,500</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Product 2 -->
+                        <div class="col-sm-6 col-xl-4" data-animate="fade-up">
+                            <div class="product-card">
+                                <div class="product-image">
+                                    <a href="product-detail.html">
+                                        <img src="https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?w=400" alt="iPhone 15 Pro">
+                                    </a>
+                                    <span class="product-badge badge-new">New</span>
+                                    <button class="wishlist-btn" data-product-id="2"><i class="bi bi-heart"></i></button>
+                                    <div class="product-overlay">
+                                        <button class="btn btn-primary btn-sm add-to-cart-btn" data-product-id="2" data-product-name="iPhone 15 Pro" data-product-price="164990">
+                                            <i class="bi bi-bag-plus me-2"></i>Add to Cart
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="product-info">
+                                    <span class="product-category">Smartphones</span>
+                                    <a href="product-detail.html"><h5 class="product-title">iPhone 15 Pro</h5></a>
+                                    <div class="d-flex align-items-center gap-2 mb-2">
+                                        <div class="rating text-warning small">
+                                            <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                                        </div>
+                                        <span class="text-muted small">(256)</span>
+                                    </div>
+                                    <div class="product-price">
+                                        <span class="current-price">৳164,990</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Product 3-6 (condensed) -->
+                        <div class="col-sm-6 col-xl-4" data-animate="fade-up">
+                            <div class="product-card">
+                                <div class="product-image">
+                                    <a href="product-detail.html"><img src="https://images.unsplash.com/photo-1546435770-a3e426bf472b?w=400" alt="Sony Headphones"></a>
+                                    <span class="product-badge badge-sale">-20%</span>
+                                    <button class="wishlist-btn" data-product-id="3"><i class="bi bi-heart"></i></button>
+                                    <div class="product-overlay">
+                                        <button class="btn btn-primary btn-sm add-to-cart-btn" data-product-id="3" data-product-name="Sony WH-1000XM5" data-product-price="34990">
+                                            <i class="bi bi-bag-plus me-2"></i>Add to Cart
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="product-info">
+                                    <span class="product-category">Accessories</span>
+                                    <a href="product-detail.html"><h5 class="product-title">Sony WH-1000XM5</h5></a>
+                                    <div class="d-flex align-items-center gap-2 mb-2">
+                                        <div class="rating text-warning small"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star"></i></div>
+                                        <span class="text-muted small">(89)</span>
+                                    </div>
+                                    <div class="product-price">
+                                        <span class="current-price">৳34,990</span>
+                                        <span class="original-price">৳43,740</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-sm-6 col-xl-4" data-animate="fade-up">
+                            <div class="product-card">
+                                <div class="product-image">
+                                    <a href="product-detail.html"><img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400" alt="Apple Watch"></a>
+                                    <button class="wishlist-btn" data-product-id="4"><i class="bi bi-heart"></i></button>
+                                    <div class="product-overlay">
+                                        <button class="btn btn-primary btn-sm add-to-cart-btn" data-product-id="4" data-product-name="Apple Watch Ultra 2" data-product-price="89990">
+                                            <i class="bi bi-bag-plus me-2"></i>Add to Cart
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="product-info">
+                                    <span class="product-category">Wearables</span>
+                                    <a href="product-detail.html"><h5 class="product-title">Apple Watch Ultra 2</h5></a>
+                                    <div class="d-flex align-items-center gap-2 mb-2">
+                                        <div class="rating text-warning small"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></div>
+                                        <span class="text-muted small">(156)</span>
+                                    </div>
+                                    <div class="product-price"><span class="current-price">৳89,990</span></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-sm-6 col-xl-4" data-animate="fade-up">
+                            <div class="product-card">
+                                <div class="product-image">
+                                    <a href="product-detail.html"><img src="https://images.unsplash.com/photo-1625961332771-3f40b0e2bdcf?w=400" alt="Samsung Galaxy"></a>
+                                    <span class="product-badge badge-new">New</span>
+                                    <button class="wishlist-btn" data-product-id="5"><i class="bi bi-heart"></i></button>
+                                    <div class="product-overlay">
+                                        <button class="btn btn-primary btn-sm add-to-cart-btn" data-product-id="5" data-product-name="Samsung Galaxy S24 Ultra" data-product-price="149990">
+                                            <i class="bi bi-bag-plus me-2"></i>Add to Cart
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="product-info">
+                                    <span class="product-category">Smartphones</span>
+                                    <a href="product-detail.html"><h5 class="product-title">Samsung Galaxy S24 Ultra</h5></a>
+                                    <div class="d-flex align-items-center gap-2 mb-2">
+                                        <div class="rating text-warning small"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-half"></i></div>
+                                        <span class="text-muted small">(203)</span>
+                                    </div>
+                                    <div class="product-price"><span class="current-price">৳149,990</span></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-sm-6 col-xl-4" data-animate="fade-up">
+                            <div class="product-card">
+                                <div class="product-image">
+                                    <a href="product-detail.html"><img src="https://images.unsplash.com/photo-1612815154858-60aa4c59eaa6?w=400" alt="PlayStation 5"></a>
+                                    <button class="wishlist-btn" data-product-id="6"><i class="bi bi-heart"></i></button>
+                                    <div class="product-overlay">
+                                        <button class="btn btn-primary btn-sm add-to-cart-btn" data-product-id="6" data-product-name="PlayStation 5" data-product-price="74990">
+                                            <i class="bi bi-bag-plus me-2"></i>Add to Cart
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="product-info">
+                                    <span class="product-category">Gaming</span>
+                                    <a href="product-detail.html"><h5 class="product-title">PlayStation 5</h5></a>
+                                    <div class="d-flex align-items-center gap-2 mb-2">
+                                        <div class="rating text-warning small"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></div>
+                                        <span class="text-muted small">(412)</span>
+                                    </div>
+                                    <div class="product-price"><span class="current-price">৳74,990</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Pagination -->
+                    <nav class="mt-5" data-animate="fade-up">
+                        <ul class="pagination justify-content-center">
+                            <li class="page-item disabled"><a class="page-link" href="#"><i class="bi bi-chevron-left"></i></a></li>
+                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item"><a class="page-link" href="#">...</a></li>
+                            <li class="page-item"><a class="page-link" href="#">12</a></li>
+                            <li class="page-item"><a class="page-link" href="#"><i class="bi bi-chevron-right"></i></a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row g-5">
+                <div class="col-lg-4">
+                    <div class="footer-brand gradient-text">DCLStore</div>
+                    <p class="footer-description">Premium tech products with unbeatable prices and lightning-fast delivery across Bangladesh.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="social-link"><i class="bi bi-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="bi bi-twitter-x"></i></a>
+                    </div>
+                </div>
+                <div class="col-6 col-lg-2">
+                    <h5 class="footer-title">Shop</h5>
+                    <ul class="footer-links">
+                        <li><a href="products.html">All Products</a></li>
+                        <li><a href="products.html?category=laptops">Laptops</a></li>
+                        <li><a href="products.html?category=phones">Smartphones</a></li>
+                    </ul>
+                </div>
+                <div class="col-6 col-lg-2">
+                    <h5 class="footer-title">Account</h5>
+                    <ul class="footer-links">
+                        <li><a href="profile.html">My Account</a></li>
+                        <li><a href="orders.html">Orders</a></li>
+                        <li><a href="wishlist.html">Wishlist</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4">
+                    <h5 class="footer-title">Contact</h5>
+                    <ul class="footer-links">
+                        <li><i class="bi bi-geo-alt me-2"></i>Dhaka, Bangladesh</li>
+                        <li><i class="bi bi-envelope me-2"></i>info@dclstore.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p class="footer-copyright mb-0">© 2026 DCL E-Commerce. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <button class="back-to-top"><i class="bi bi-arrow-up"></i></button>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Navbar Scroll Effect
+        const nav = document.querySelector('.navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+    </script>
+    <script src="js/main.js"></script>
+    
+    <style>
+        .filter-sidebar { position: sticky; top: 100px; }
+        .filter-title { cursor: pointer; transition: color 0.3s; }
+        .filter-title:hover { color: var(--primary); }
+        .form-check-input:checked { background-color: var(--primary); border-color: var(--primary); }
+        .page-link { border: none; border-radius: var(--radius-lg) !important; margin: 0 4px; color: var(--dark); transition: all 0.3s; }
+        .page-link:hover, .page-item.active .page-link { background: var(--gradient-primary); color: white; box-shadow: var(--shadow-md); }
+    </style>
+</body>
+</html>

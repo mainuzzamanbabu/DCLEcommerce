@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customers | DCL Admin</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+    <div class="admin-wrapper">
+        <!-- Sidebar -->
+        <aside class="admin-sidebar">
+            <div class="sidebar-header">
+                <a href="dashboard.html" class="sidebar-brand">
+                    <div class="brand-icon"><i class="bi bi-box-seam"></i></div>
+                    <span>DCL Store</span>
+                </a>
+            </div>
+            <nav class="sidebar-nav">
+                <div class="nav-section">
+                    <div class="nav-section-title">Main Menu</div>
+                    <ul class="nav-menu">
+                        <li class="nav-item"><a href="dashboard.html" class="nav-link"><i class="bi bi-grid-1x2"></i>Dashboard</a></li>
+                        <li class="nav-item"><a href="products.html" class="nav-link"><i class="bi bi-box"></i>Products</a></li>
+                        <li class="nav-item"><a href="#" class="nav-link"><i class="bi bi-lightning"></i>Flash Sales</a></li>
+                        <li class="nav-item"><a href="users.html" class="nav-link active"><i class="bi bi-people"></i>Customers</a></li>
+                        <li class="nav-item"><a href="orders.html" class="nav-link"><i class="bi bi-receipt"></i>Order List</a></li>
+                        <li class="nav-item"><a href="reports.html" class="nav-link"><i class="bi bi-bar-chart"></i>Reports</a></li>
+                    </ul>
+                </div>
+                <div class="nav-section">
+                    <div class="nav-section-title">Store Management</div>
+                    <ul class="nav-menu">
+                        <li class="nav-item"><a href="categories.html" class="nav-link"><i class="bi bi-folder"></i>Categories</a></li>
+                        <li class="nav-item"><a href="#" class="nav-link"><i class="bi bi-tag"></i>Coupons</a></li>
+                        <li class="nav-item"><a href="#" class="nav-link"><i class="bi bi-star"></i>Reviews</a></li>
+                    </ul>
+                </div>
+                <div class="nav-section">
+                    <div class="nav-section-title">Settings</div>
+                    <ul class="nav-menu">
+                        <li class="nav-item"><a href="settings.html" class="nav-link"><i class="bi bi-gear"></i>Settings</a></li>
+                    </ul>
+                </div>
+            </nav>
+            <div class="sidebar-footer">
+                <button class="logout-btn"><i class="bi bi-box-arrow-left"></i>Log out</button>
+            </div>
+        </aside>
+        
+        <main class="admin-main">
+            <header class="admin-header">
+                <div class="header-left">
+                    <h1 class="page-title">Customers</h1>
+                    <div class="header-search">
+                        <i class="bi bi-search"></i>
+                        <input type="text" placeholder="Search customers...">
+                    </div>
+                </div>
+                <div class="header-right">
+                    <button class="header-btn"><i class="bi bi-bell"></i><span class="badge-dot"></span></button>
+                    <div class="user-dropdown">
+                        <img src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?w=100" alt="Admin" class="user-avatar">
+                        <div class="user-info">
+                            <div class="user-name">Admin User</div>
+                            <div class="user-role">Administrator</div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            
+            <div class="admin-content">
+                <!-- Stats -->
+                <div class="stats-grid mb-4">
+                    <div class="stat-card">
+                        <div class="stat-header"><span class="stat-title">Total Customers</span></div>
+                        <div class="stat-value">42,456</div>
+                        <div class="stat-trend up"><i class="bi bi-arrow-up"></i> 11% <span>vs last month</span></div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-header"><span class="stat-title">New This Month</span></div>
+                        <div class="stat-value" style="color: #10b981;">1,234</div>
+                        <div class="text-muted" style="font-size: 0.8rem;">Feb 2026</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-header"><span class="stat-title">Active Shoppers</span></div>
+                        <div class="stat-value" style="color: #3b82f6;">18,920</div>
+                        <div class="text-muted" style="font-size: 0.8rem;">Last 30 days</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-header"><span class="stat-title">Avg Order Value</span></div>
+                        <div class="stat-value">৳45,230</div>
+                        <div class="stat-trend up"><i class="bi bi-arrow-up"></i> 8% <span>vs last month</span></div>
+                    </div>
+                </div>
+                
+                <!-- Filters -->
+                <div class="table-card mb-4">
+                    <div class="row g-3 align-items-center">
+                        <div class="col-md-4">
+                            <input type="text" class="form-control" placeholder="Search by name or email...">
+                        </div>
+                        <div class="col-md-2">
+                            <select class="form-select">
+                                <option value="">All Status</option>
+                                <option>Active</option>
+                                <option>Inactive</option>
+                                <option>Blocked</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <select class="form-select">
+                                <option>Newest First</option>
+                                <option>Oldest First</option>
+                                <option>Most Orders</option>
+                                <option>Highest Spent</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4 text-end">
+                            <button class="btn-outline"><i class="bi bi-download me-1"></i>Export</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Customers Table -->
+                <div class="table-card">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th><input type="checkbox" class="form-check-input"></th>
+                                <th>Customer</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Orders</th>
+                                <th>Total Spent</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input type="checkbox" class="form-check-input"></td>
+                                <td>
+                                    <div class="d-flex align-items-center gap-2">
+                                        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100" class="rounded-circle" style="width:40px;height:40px;object-fit:cover;">
+                                        <div>
+                                            <div class="fw-semibold">Sarah Ahmed</div>
+                                            <small class="text-muted">Joined Jan 2025</small>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>sarah@email.com</td>
+                                <td>+880 1712-345678</td>
+                                <td class="fw-semibold">28</td>
+                                <td class="fw-semibold">৳485,230</td>
+                                <td><span class="status-badge success">Active</span></td>
+                                <td>
+                                    <div class="d-flex gap-1">
+                                        <button class="action-btn"><i class="bi bi-eye"></i></button>
+                                        <button class="action-btn"><i class="bi bi-envelope"></i></button>
+                                        <button class="action-btn text-danger"><i class="bi bi-slash-circle"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox" class="form-check-input"></td>
+                                <td>
+                                    <div class="d-flex align-items-center gap-2">
+                                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100" class="rounded-circle" style="width:40px;height:40px;object-fit:cover;">
+                                        <div>
+                                            <div class="fw-semibold">Karim Rahman</div>
+                                            <small class="text-muted">Joined Dec 2024</small>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>karim@email.com</td>
+                                <td>+880 1819-876543</td>
+                                <td class="fw-semibold">15</td>
+                                <td class="fw-semibold">৳325,100</td>
+                                <td><span class="status-badge success">Active</span></td>
+                                <td>
+                                    <div class="d-flex gap-1">
+                                        <button class="action-btn"><i class="bi bi-eye"></i></button>
+                                        <button class="action-btn"><i class="bi bi-envelope"></i></button>
+                                        <button class="action-btn text-danger"><i class="bi bi-slash-circle"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox" class="form-check-input"></td>
+                                <td>
+                                    <div class="d-flex align-items-center gap-2">
+                                        <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100" class="rounded-circle" style="width:40px;height:40px;object-fit:cover;">
+                                        <div>
+                                            <div class="fw-semibold">Fatima Khan</div>
+                                            <small class="text-muted">Joined Feb 2026</small>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>fatima@email.com</td>
+                                <td>+880 1677-234567</td>
+                                <td class="fw-semibold">3</td>
+                                <td class="fw-semibold">৳78,500</td>
+                                <td><span class="status-badge success">Active</span></td>
+                                <td>
+                                    <div class="d-flex gap-1">
+                                        <button class="action-btn"><i class="bi bi-eye"></i></button>
+                                        <button class="action-btn"><i class="bi bi-envelope"></i></button>
+                                        <button class="action-btn text-danger"><i class="bi bi-slash-circle"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox" class="form-check-input"></td>
+                                <td>
+                                    <div class="d-flex align-items-center gap-2">
+                                        <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100" class="rounded-circle" style="width:40px;height:40px;object-fit:cover;">
+                                        <div>
+                                            <div class="fw-semibold">Tanvir Hossain</div>
+                                            <small class="text-muted">Joined Nov 2024</small>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>tanvir@email.com</td>
+                                <td>+880 1912-567890</td>
+                                <td class="fw-semibold">42</td>
+                                <td class="fw-semibold">৳892,350</td>
+                                <td><span class="status-badge warning">Inactive</span></td>
+                                <td>
+                                    <div class="d-flex gap-1">
+                                        <button class="action-btn"><i class="bi bi-eye"></i></button>
+                                        <button class="action-btn"><i class="bi bi-envelope"></i></button>
+                                        <button class="action-btn text-danger"><i class="bi bi-slash-circle"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox" class="form-check-input"></td>
+                                <td>
+                                    <div class="d-flex align-items-center gap-2">
+                                        <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100" class="rounded-circle" style="width:40px;height:40px;object-fit:cover;">
+                                        <div>
+                                            <div class="fw-semibold">Nadia Islam</div>
+                                            <small class="text-muted">Joined Sep 2024</small>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>nadia@email.com</td>
+                                <td>+880 1532-345678</td>
+                                <td class="fw-semibold">0</td>
+                                <td class="fw-semibold">৳0</td>
+                                <td><span class="status-badge danger">Blocked</span></td>
+                                <td>
+                                    <div class="d-flex gap-1">
+                                        <button class="action-btn"><i class="bi bi-eye"></i></button>
+                                        <button class="action-btn"><i class="bi bi-envelope"></i></button>
+                                        <button class="action-btn text-success"><i class="bi bi-check-circle"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <div class="d-flex justify-content-between align-items-center mt-4 pt-3 border-top">
+                        <div class="text-muted" style="font-size: 0.875rem;">Showing 1-5 of 42,456 customers</div>
+                        <nav>
+                            <ul class="pagination pagination-sm mb-0">
+                                <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+                                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -85,3 +85,17 @@ def cart_detail(request):
     """Display the cart summary page."""
     cart = SessionCart(request)
     return render(request, 'cart/cart_detail.html', {'cart': cart})
+
+
+@require_POST
+def cart_clear(request):
+    """Clear the entire cart via AJAX."""
+    cart = SessionCart(request)
+    cart.clear()
+    
+    return JsonResponse({
+        'status': 'success',
+        'message': 'Cart cleared.',
+        'cart_count': 0,
+        'cart_total': 0
+    })

@@ -1,81 +1,76 @@
 {% extends 'dashboard/base.html' %}
+{% load static %}
+
+{% block title %}Brands{% endblock %}
+{% block page_title %}Brands{% endblock %}
 
 {% block dashboard_content %}
 <div class="d-flex justify-content-between align-items-center mb-4">
-    <h5 class="mb-0">Brands ({{ brands|length }})</h5>
-    <a href="{% url 'dashboard:brand_create' %}" class="btn btn-success">
-        <i class="bi bi-plus-circle me-1"></i> Add Brand
+    <div>
+        <h2 class="mb-1">Brands</h2>
+        <p class="text-muted mb-0">Manage your product brands and logos</p>
+    </div>
+    <a href="{% url 'dashboard:brand_create' %}" class="btn-primary">
+        <i class="bi bi-plus-lg me-2"></i>Add Brand
     </a>
 </div>
 
-<div class="table-premium">
-    <div class="table-responsive">
-        <table class="table table-hover mb-0">
-            <thead>
-                <tr>
-                    <th style="width: 60px;">Logo</th>
-                    <th>Name</th>
-                    <th>Website</th>
-                    <th>Products</th>
-                    <th>Status</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for brand in brands %}
-                <tr>
-                    <td>
-                        {% if brand.logo %}
-                        <img src="{{ brand.logo.url }}" alt="{{ brand.name }}" class="rounded" style="width: 50px; height: 50px; object-fit: contain; background: #f8f9fa;">
-                        {% else %}
-                        <div class="bg-light rounded d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
-                            <i class="bi bi-building text-muted"></i>
-                        </div>
-                        {% endif %}
-                    </td>
-                    <td class="fw-bold">{{ brand.name }}</td>
-                    <td>
+<div class="row g-4">
+    {% for brand in brands %}
+    <div class="col-md-6 col-lg-4">
+        <div class="table-card h-100">
+            <div class="d-flex align-items-start gap-3">
+                <div class="brand-logo-container p-2 border rounded-3 bg-white d-flex align-items-center justify-content-center" style="width: 64px; height: 64px; overflow: hidden;">
+                    {% if brand.logo %}
+                        <img src="{{ brand.logo.url }}" alt="{{ brand.name }}" style="width: 100%; height: 100%; object-fit: contain;">
+                    {% else %}
+                        <i class="bi bi-building text-muted fs-3"></i>
+                    {% endif %}
+                </div>
+                <div class="flex-grow-1">
+                    <h5 class="fw-semibold mb-1">{{ brand.name }}</h5>
+                    <div class="mb-2">
                         {% if brand.website %}
-                        <a href="{{ brand.website }}" target="_blank" class="text-decoration-none">
-                            <i class="bi bi-link-45deg"></i> Visit
+                        <a href="{{ brand.website }}" target="_blank" class="text-primary small text-decoration-none">
+                            <i class="bi bi-link-45deg"></i> Website
                         </a>
                         {% else %}
-                        -
+                        <span class="text-muted small">No website</span>
                         {% endif %}
-                    </td>
-                    <td><span class="badge bg-secondary">{{ brand.products.count }}</span></td>
-                    <td>
-                        {% if brand.is_active %}
-                        <span class="badge bg-success">Active</span>
-                        {% else %}
-                        <span class="badge bg-danger">Inactive</span>
-                        {% endif %}
-                        {% if brand.is_featured %}
-                        <span class="badge bg-warning text-dark">Featured</span>
-                        {% endif %}
-                    </td>
-                    <td>
-                        <a href="{% url 'dashboard:brand_edit' brand.pk %}" class="btn btn-sm btn-outline-primary">
-                            <i class="bi bi-pencil"></i>
-                        </a>
-                        <a href="{% url 'dashboard:brand_delete' brand.pk %}" class="btn btn-sm btn-outline-danger">
-                            <i class="bi bi-trash"></i>
-                        </a>
-                    </td>
-                </tr>
-                {% empty %}
-                <tr>
-                    <td colspan="6" class="text-center py-5">
-                        <div class="text-muted">
-                            <i class="bi bi-building display-4 d-block mb-3 opacity-50"></i>
-                            <p class="mb-0">No brands found.</p>
-                            <a href="{% url 'dashboard:brand_create' %}" class="btn btn-primary mt-3">Create First Brand</a>
+                    </div>
+                    <div class="d-flex align-items-center gap-2">
+                        <span class="badge bg-primary bg-opacity-10 text-primary">{{ brand.products.count }} Products</span>
+                        <div class="d-flex gap-1">
+                            {% if brand.is_active %}
+                                <span class="status-badge success small">Active</span>
+                            {% else %}
+                                <span class="status-badge danger small">Inactive</span>
+                            {% endif %}
+                            {% if brand.is_featured %}
+                                <span class="status-badge warning small">Featured</span>
+                            {% endif %}
                         </div>
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <button class="action-btn" data-bs-toggle="dropdown"><i class="bi bi-three-dots-vertical"></i></button>
+                    <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0">
+                        <li><a class="dropdown-item" href="{% url 'dashboard:brand_edit' brand.pk %}"><i class="bi bi-pencil me-2"></i>Edit</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item text-danger" href="{% url 'dashboard:brand_delete' brand.pk %}"><i class="bi bi-trash me-2"></i>Delete</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
     </div>
+    {% empty %}
+    <div class="col-12">
+        <div class="table-card text-center py-5">
+            <i class="bi bi-building display-4 d-block mb-3 opacity-25"></i>
+            <p class="text-muted">No brands found.</p>
+            <a href="{% url 'dashboard:brand_create' %}" class="btn-primary mt-3">Add Your First Brand</a>
+        </div>
+    </div>
+    {% endfor %}
 </div>
 {% endblock %}

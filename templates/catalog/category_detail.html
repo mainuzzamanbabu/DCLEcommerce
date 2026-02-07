@@ -4,51 +4,64 @@
 {% block title %}{{ category.name }}{% endblock %}
 
 {% block content %}
-<div class="container py-4">
-    <!-- Breadcrumb -->
-    <nav aria-label="breadcrumb" class="mb-4">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="{% url 'core:home' %}">Home</a></li>
-            <li class="breadcrumb-item"><a href="{% url 'catalog:category_list' %}">Categories</a></li>
-            {% for crumb in breadcrumbs %}
-            <li class="breadcrumb-item"><a href="{{ crumb.url }}">{{ crumb.name }}</a></li>
-            {% endfor %}
-            <li class="breadcrumb-item active">{{ category.name }}</li>
-        </ol>
-    </nav>
+<!-- Category Hero -->
+<section class="page-header py-5 mb-5" style="background: var(--gradient-dark); position: relative; overflow: hidden;">
+    <div class="position-absolute inset-0" style="background: var(--gradient-mesh); opacity: 0.4;"></div>
+    <div class="container position-relative z-1">
+        <!-- Breadcrumbs -->
+        <nav aria-label="breadcrumb" class="mb-3" data-animate="fade-down">
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item"><a href="{% url 'core:home' %}" class="text-white-50 text-decoration-none transition-all hover-white">Home</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'catalog:category_list' %}" class="text-white-50 text-decoration-none transition-all hover-white">Collections</a></li>
+                {% for crumb in breadcrumbs %}
+                <li class="breadcrumb-item"><a href="{{ crumb.url }}" class="text-white-50 text-decoration-none transition-all hover-white">{{ crumb.name }}</a></li>
+                {% endfor %}
+                <li class="breadcrumb-item active text-white" aria-current="page">{{ category.name }}</li>
+            </ol>
+        </nav>
 
-    <!-- Category Header -->
-    <div class="row mb-5">
-        <div class="col-12">
-            <div class="card bg-gradient-primary text-white">
-                <div class="card-body p-5">
-                    <h1 class="display-5 fw-bold">{{ category.name }}</h1>
-                    {% if category.description %}
-                    <p class="lead mb-0">{{ category.description }}</p>
-                    {% endif %}
+        <div class="row align-items-center">
+            <div class="col-lg-8">
+                <h1 class="display-4 fw-bold text-white mb-3" data-animate="fade-up">{{ category.name }}</h1>
+                {% if category.description %}
+                <p class="lead text-white-50 mb-0" data-animate="fade-up" data-animate-delay="100">{{ category.description }}</p>
+                {% else %}
+                <p class="lead text-white-50 mb-0" data-animate="fade-up" data-animate-delay="100">Browse our premium collection of {{ category.name|lower }}.</p>
+                {% endif %}
+            </div>
+            {% if category.image %}
+            <div class="col-lg-4 d-none d-lg-block" data-animate="fade-left">
+                <div class="glass-card p-3 rounded-4 shadow-lg rotate-3 float-end" style="width: 250px; border: 1px solid rgba(255,255,255,0.1);">
+                    <img src="{{ category.image.url }}" alt="{{ category.name }}" class="img-fluid rounded-3">
                 </div>
             </div>
+            {% endif %}
         </div>
     </div>
+</section>
 
-    <!-- Sub-categories -->
+<div class="container pb-5">
+    <!-- Sub-categories Section -->
     {% if child_categories %}
-    <section class="mb-5">
-        <h4 class="section-title">Subcategories</h4>
-        <div class="row g-4">
+    <section class="mb-5 pb-4" data-animate="fade-up">
+        <div class="section-header d-flex align-items-center gap-3 mb-4">
+            <h4 class="fw-bold mb-0">Explore Sub-collections</h4>
+            <div class="flex-grow-1 h-px bg-light mt-1"></div>
+        </div>
+        <div class="row g-4 overflow-auto flex-nowrap pb-3 hide-scrollbar">
             {% for child in child_categories %}
-            <div class="col-6 col-md-3 col-lg-2">
+            <div class="col-8 col-sm-6 col-md-4 col-lg-3 col-xl-2">
                 <a href="{{ child.get_absolute_url }}" class="text-decoration-none">
-                    <div class="category-card card h-100">
-                        <div class="card-body text-center py-4">
+                    <div class="glass-card hover-lift transition-all h-100 p-4 text-center border">
+                        <div class="rounded-pill bg-light d-flex align-items-center justify-content-center mx-auto mb-3" style="width: 70px; height: 70px;">
                             {% if child.image %}
-                            <img src="{{ child.image.url }}" alt="{{ child.name }}" class="mb-3" style="max-height: 60px;">
+                            <img src="{{ child.image.url }}" alt="{{ child.name }}" class="img-fluid p-3" style="max-height: 100%;">
                             {% else %}
-                            <i class="bi bi-folder text-primary" style="font-size: 3rem;"></i>
+                            <i class="bi bi-folder2-open text-primary fs-3"></i>
                             {% endif %}
-                            <h6 class="mb-0 text-dark">{{ child.name }}</h6>
-                            <small class="text-muted">{{ child.products.count }} products</small>
                         </div>
+                        <h6 class="fw-bold text-dark mb-1">{{ child.name }}</h6>
+                        <span class="badge bg-light text-muted border fw-normal">{{ child.products.count }} Items</span>
                     </div>
                 </a>
             </div>
@@ -58,14 +71,18 @@
     {% endif %}
 
     <!-- Products in Category -->
-    {% if products %}
-    <section>
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <h4 class="section-title mb-0">Products in {{ category.name }}</h4>
-            <a href="{% url 'catalog:category_products' category.slug %}" class="btn btn-outline-primary">
-                View All <i class="bi bi-arrow-right ms-1"></i>
+    <section id="category-products">
+        <div class="d-flex justify-content-between align-items-end mb-4" data-animate="fade-up">
+            <div>
+                <h4 class="fw-bold mb-1">Products in {{ category.name }}</h4>
+                <p class="text-muted small mb-0">Found {{ products|length }} items</p>
+            </div>
+            <a href="{% url 'catalog:product_list' %}?category={{ category.slug }}" class="btn btn-outline-primary rounded-pill px-4 btn-sm fw-bold">
+                View All Collection <i class="bi bi-arrow-right ms-1"></i>
             </a>
         </div>
+
+        {% if products %}
         <div class="row g-4">
             {% for product in products %}
             <div class="col-6 col-md-4 col-lg-3">
@@ -73,12 +90,24 @@
             </div>
             {% endfor %}
         </div>
+        {% else %}
+        <div class="glass-card text-center py-5" data-animate="fade-up">
+            <div class="mb-4">
+                <i class="bi bi-box-seam text-muted opacity-25" style="font-size: 5rem;"></i>
+            </div>
+            <h5 class="fw-bold text-dark">No products available</h5>
+            <p class="text-muted">We haven't added any products to this collection yet.</p>
+            <a href="{% url 'catalog:product_list' %}" class="btn btn-primary rounded-pill px-5 mt-3">Browse All Collections</a>
+        </div>
+        {% endif %}
     </section>
-    {% else %}
-    <div class="text-center py-5">
-        <i class="bi bi-box-seam text-muted" style="font-size: 4rem;"></i>
-        <h5 class="mt-3 text-muted">No products in this category yet</h5>
-    </div>
-    {% endif %}
 </div>
+
+<style>
+    .h-px { height: 1px; }
+    .rotate-3 { transform: rotate(3deg); }
+    .hover-white:hover { color: white !important; }
+    .hide-scrollbar::-webkit-scrollbar { display: none; }
+    .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+</style>
 {% endblock %}

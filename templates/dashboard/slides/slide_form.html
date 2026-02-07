@@ -1,122 +1,155 @@
 {% extends 'dashboard/base.html' %}
+{% load static %}
+
+{% block title %}{{ title }}{% endblock %}
+{% block page_title %}{{ title }}{% endblock %}
 
 {% block dashboard_content %}
-<div class="row">
+<div class="row g-4">
     <div class="col-lg-8">
-        <div class="card border-0 shadow-sm mb-4">
-            <div class="card-header bg-white py-3">
-                <h5 class="mb-0 fw-bold">{{ title }}</h5>
+        <div class="table-card">
+            <div class="form-header mb-4">
+                <h2 class="form-title">{{ title }}</h2>
+                <p class="form-subtitle">Customize the hero slider for the storefront</p>
             </div>
-            <div class="card-body">
-                <form method="post" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    
-                    <div class="mb-3">
-                        <label class="form-label">Title <span class="text-danger">*</span></label>
+            
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                
+                <div class="row g-4">
+                    <div class="col-12">
+                        <label class="form-label">Headline <span class="text-danger">*</span></label>
                         {{ form.title }}
-                        {% if form.title.errors %}<div class="text-danger small">{{ form.title.errors.0 }}</div>{% endif %}
+                        {% if form.title.errors %}<div class="text-danger small mt-1">{{ form.title.errors.0 }}</div>{% endif %}
                     </div>
                     
-                    <div class="mb-3">
-                        <label class="form-label">Subtitle</label>
+                    <div class="col-12">
+                        <label class="form-label">Subheadline</label>
                         {{ form.subtitle }}
                     </div>
                     
-                    <div class="row mb-3">
-                        <div class="col-md-4">
-                            <label class="form-label">Badge Text</label>
-                            {{ form.badge_text }}
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label">Badge Style</label>
-                            {{ form.badge_style }}
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label">Icon Class</label>
-                            {{ form.icon_class }}
-                            <small class="text-muted">e.g., bi-laptop</small>
-                        </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Badge Text</label>
+                        {{ form.badge_text }}
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Badge Style</label>
+                        {{ form.badge_style }}
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Icon (Bootstrap Class)</label>
+                        {{ form.icon_class }}
+                        <small class="text-muted">Example: bi-gift</small>
                     </div>
                     
-                    <div class="row mb-3">
-                        <div class="col-md-4">
-                            <label class="form-label">Button Text</label>
-                            {{ form.button_text }}
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label">Button Link</label>
-                            {{ form.button_link }}
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label">Button Style</label>
-                            {{ form.button_style }}
-                        </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Primary Button Text</label>
+                        {{ form.button_text }}
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Button Target URL</label>
+                        {{ form.button_link }}
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Button Style</label>
+                        {{ form.button_style }}
                     </div>
                     
-                    <div class="mb-3">
-                        <label class="form-label">Background Color/Gradient</label>
+                    <div class="col-12">
+                        <label class="form-label">Background Style (CSS)</label>
                         {{ form.background_color }}
-                        <small class="text-muted">CSS value, e.g., linear-gradient(135deg, #003366 0%, #0054A6 100%)</small>
+                        <small class="text-muted">Use solid colors or linear-gradient</small>
                     </div>
                     
-                    <div class="mb-3">
-                        <label class="form-label">Background Image (Optional)</label>
-                        {{ form.background_image }}
-                    </div>
-                    
-                    <div class="row mb-3">
-                        <div class="col-md-6">
-                            <label class="form-label">Sort Order</label>
-                            {{ form.sort_order }}
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-check mt-4 pt-2">
-                                {{ form.is_active }}
-                                <label class="form-check-label">Active</label>
+                    <div class="col-md-12">
+                        <label class="form-label">Hero Image</label>
+                        <div class="d-flex align-items-center gap-4">
+                            {% if slide and slide.image %}
+                            <div class="p-2 border rounded bg-light">
+                                <img src="{{ slide.image.url }}" alt="{{ slide.title }}" style="height: 60px; width: 120px; object-fit: cover;">
+                            </div>
+                            {% endif %}
+                            <div class="flex-grow-1">
+                                {{ form.image }}
                             </div>
                         </div>
                     </div>
                     
-                    <hr>
-                    
-                    <div class="d-flex gap-2">
-                        <button type="submit" class="btn btn-primary">
-                            <i class="bi bi-check-circle me-1"></i> Save Slide
-                        </button>
-                        <a href="{% url 'dashboard:slide_list' %}" class="btn btn-outline-secondary">Cancel</a>
+                    <div class="col-md-6">
+                        <label class="form-label">Display Order</label>
+                        {{ form.sort_order }}
                     </div>
-                </form>
-            </div>
+                    
+                    <div class="col-md-6">
+                        <div class="form-check form-switch p-0 ms-4 mt-4">
+                            {{ form.is_active }}
+                            <label class="form-check-label fw-semibold ms-2" for="{{ form.is_active.id_for_label }}">Show in Slider</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-actions mt-5">
+                    <button type="submit" class="btn-primary px-5">
+                        <i class="bi bi-check-lg me-2"></i>Save Hero Slide
+                    </button>
+                    <a href="{% url 'dashboard:slide_list' %}" class="btn-outline">Cancel</a>
+                </div>
+            </form>
         </div>
     </div>
     
     <div class="col-lg-4">
-        <div class="card border-0 shadow-sm">
-            <div class="card-header bg-white py-3">
-                <h6 class="mb-0 fw-bold">Tips</h6>
-            </div>
-            <div class="card-body">
-                <p class="small text-muted mb-2"><i class="bi bi-lightbulb text-warning me-1"></i> <strong>Icon Class:</strong> Use Bootstrap Icons (e.g., bi-laptop, bi-controller, bi-display)</p>
-                <p class="small text-muted mb-2"><i class="bi bi-palette text-primary me-1"></i> <strong>Background:</strong> Use CSS gradients or solid colors</p>
-                <p class="small text-muted mb-0"><i class="bi bi-sort-numeric-down text-success me-1"></i> <strong>Sort Order:</strong> Lower numbers appear first</p>
+        <div class="table-card mb-4">
+            <h5 class="fw-bold mb-3">Slide Tips</h5>
+            <div class="d-flex flex-column gap-3">
+                <div class="d-flex gap-3">
+                    <div class="rounded-circle bg-warning bg-opacity-10 p-2 text-warning" style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;">
+                        <i class="bi bi-lightning-charge"></i>
+                    </div>
+                    <div>
+                        <p class="small fw-bold mb-0">Visual Impact</p>
+                        <p class="small text-muted mb-0">Use high-resolution images with a clear subject to grab attention.</p>
+                    </div>
+                </div>
+                <div class="d-flex gap-3">
+                    <div class="rounded-circle bg-info bg-opacity-10 p-2 text-info" style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;">
+                        <i class="bi bi-box-arrow-right"></i>
+                    </div>
+                    <div>
+                        <p class="small fw-bold mb-0">Call to Action</p>
+                        <p class="small text-muted mb-0">Ensure the button link points to an active promotional page.</p>
+                    </div>
+                </div>
             </div>
         </div>
         
         {% if slide %}
-        <div class="card border-0 shadow-sm mt-3">
-            <div class="card-header bg-white py-3">
-                <h6 class="mb-0 fw-bold">Quick Actions</h6>
-            </div>
-            <div class="card-body">
-                <a href="{% url 'core:home' %}" class="btn btn-outline-secondary w-100 mb-2" target="_blank">
-                    <i class="bi bi-eye me-1"></i> View on Homepage
-                </a>
-                <a href="{% url 'dashboard:slide_delete' slide.pk %}" class="btn btn-outline-danger w-100">
-                    <i class="bi bi-trash me-1"></i> Delete Slide
+        <div class="table-card">
+            <h5 class="fw-bold mb-4">Quick Actions</h5>
+            <div class="d-grid gap-2">
+                <a href="{% url 'dashboard:slide_delete' slide.pk %}" class="btn-outline text-danger text-center py-2">
+                    <i class="bi bi-trash me-2"></i>Delete Slide
                 </a>
             </div>
         </div>
         {% endif %}
     </div>
 </div>
+
+<style>
+    .table-card input[type="text"], 
+    .table-card input[type="url"], 
+    .table-card input[type="number"], 
+    .table-card textarea, 
+    .table-card select {
+        display: block;
+        width: 100%;
+        padding: 0.625rem 1rem;
+        font-size: 0.875rem;
+        border: 1px solid var(--admin-gray-200);
+        border-radius: var(--radius-md);
+    }
+    .table-card textarea { height: 80px; }
+    .form-check-input { width: 40px; height: 20px; cursor: pointer; }
+</style>
 {% endblock %}

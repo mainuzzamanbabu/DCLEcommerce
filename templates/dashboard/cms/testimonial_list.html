@@ -1,69 +1,93 @@
 {% extends 'dashboard/base.html' %}
+{% load static %}
+
+{% block title %}Testimonials{% endblock %}
+{% block page_title %}Testimonials{% endblock %}
 
 {% block dashboard_content %}
-<div class="table-premium">
-    <div class="table-header d-flex justify-content-between align-items-center">
-        <h5 class="mb-0"><i class="bi bi-chat-quote me-2"></i>Testimonials ({{ testimonials.count }})</h5>
-        <a href="{% url 'dashboard:testimonial_create' %}" class="btn btn-primary btn-sm">
-            <i class="bi bi-plus-lg me-1"></i>Add Testimonial
-        </a>
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h2 class="mb-1">Customer Testimonials</h2>
+        <p class="text-muted mb-0">Showcase feedback from your happy customers</p>
     </div>
-    <div class="table-responsive">
-        <table class="table table-hover mb-0">
-            <thead>
-                <tr>
-                    <th>Customer</th>
-                    <th>Content</th>
-                    <th>Rating</th>
-                    <th>Status</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for testimonial in testimonials %}
-                <tr>
-                    <td>
-                        <div class="fw-bold">{{ testimonial.customer_name }}</div>
-                        <small class="text-muted">{{ testimonial.customer_title }}</small>
-                    </td>
-                    <td class="text-muted" style="max-width: 300px;">{{ testimonial.content|truncatechars:80 }}</td>
-                    <td>
+    <a href="{% url 'dashboard:testimonial_create' %}" class="btn-primary">
+        <i class="bi bi-plus-lg me-2"></i>Add Testimonial
+    </a>
+</div>
+
+<div class="table-card p-0 overflow-hidden">
+    <table class="admin-table mb-0">
+        <thead>
+            <tr>
+                <th>Customer</th>
+                <th>Content</th>
+                <th>Rating</th>
+                <th>Status</th>
+                <th style="width: 120px;">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for testimonial in testimonials %}
+            <tr>
+                <td>
+                    <div class="d-flex align-items-center gap-3">
+                        {% if testimonial.customer_image %}
+                        <img src="{{ testimonial.customer_image.url }}" alt="{{ testimonial.customer_name }}" class="rounded-circle" style="width: 40px; height: 40px; object-fit: cover;">
+                        {% else %}
+                        <div class="rounded-circle bg-light d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+                            <i class="bi bi-person text-muted"></i>
+                        </div>
+                        {% endif %}
+                        <div>
+                            <div class="fw-semibold">{{ testimonial.customer_name }}</div>
+                            <div class="text-muted small">{{ testimonial.customer_title }}</div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="text-muted small italic" style="max-width: 300px;">"{{ testimonial.content|truncatechars:100 }}"</div>
+                </td>
+                <td>
+                    <div class="d-flex gap-1 text-warning">
                         {% for i in "12345" %}
                             {% if forloop.counter <= testimonial.rating %}
-                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill" style="font-size: 0.75rem;"></i>
                             {% else %}
-                            <i class="bi bi-star text-muted"></i>
+                            <i class="bi bi-star" style="font-size: 0.75rem; color: #dee2e6;"></i>
                             {% endif %}
                         {% endfor %}
-                    </td>
-                    <td>
-                        {% if testimonial.is_active %}
-                        <span class="badge bg-success-subtle text-success">Active</span>
-                        {% else %}
-                        <span class="badge bg-secondary-subtle text-secondary">Inactive</span>
-                        {% endif %}
-                    </td>
-                    <td>
-                        <a href="{% url 'dashboard:testimonial_edit' testimonial.pk %}" class="btn btn-sm btn-outline-primary me-1">
+                    </div>
+                </td>
+                <td>
+                    {% if testimonial.is_active %}
+                    <span class="status-badge success">Active</span>
+                    {% else %}
+                    <span class="status-badge danger">Inactive</span>
+                    {% endif %}
+                </td>
+                <td>
+                    <div class="d-flex gap-1">
+                        <a href="{% url 'dashboard:testimonial_edit' testimonial.pk %}" class="action-btn" title="Edit">
                             <i class="bi bi-pencil"></i>
                         </a>
-                        <a href="{% url 'dashboard:testimonial_delete' testimonial.pk %}" class="btn btn-sm btn-outline-danger">
+                        <a href="{% url 'dashboard:testimonial_delete' testimonial.pk %}" class="action-btn text-danger" title="Delete">
                             <i class="bi bi-trash"></i>
                         </a>
-                    </td>
-                </tr>
-                {% empty %}
-                <tr>
-                    <td colspan="5" class="text-center py-5">
-                        <div class="text-muted">
-                            <i class="bi bi-chat-quote display-4 d-block mb-3 opacity-50"></i>
-                            <p class="mb-0">No testimonials yet.</p>
-                        </div>
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
+                    </div>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5" class="text-center py-5">
+                    <div class="text-muted">
+                        <i class="bi bi-chat-quote display-4 d-block mb-3 opacity-25"></i>
+                        <p class="mb-0">No testimonials found.</p>
+                        <a href="{% url 'dashboard:testimonial_create' %}" class="btn-primary mt-3">Add First Testimonial</a>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 </div>
 {% endblock %}

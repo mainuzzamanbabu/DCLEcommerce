@@ -1,294 +1,524 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}{% if current_category %}{{ current_category.name }}{% else %}All Products{% endif %}{% endblock %}
+{% block title %}{% if category %}{{ category.name }}{% else %}All Products{% endif %} | DCL E-Commerce{% endblock %}
 
 {% block content %}
-<div class="container py-5">
-    <!-- Breadcrumb -->
-    <nav aria-label="breadcrumb" class="mb-5">
-        <ol class="breadcrumb px-4 py-3 glass-card border-0 shadow-sm rounded-pill d-inline-flex">
-            <li class="breadcrumb-item"><a href="{% url 'core:home' %}" class="text-decoration-none text-muted transition-all hover-text-secondary"><i class="bi bi-house me-2"></i>Home</a></li>
-            {% if current_category %}
-                {% for ancestor in current_category.get_ancestors %}
-                <li class="breadcrumb-item"><a href="{{ ancestor.get_absolute_url }}" class="text-decoration-none text-muted transition-all hover-text-secondary">{{ ancestor.name }}</a></li>
-                {% endfor %}
-                <li class="breadcrumb-item active text-secondary fw-bold">{{ current_category.name }}</li>
-            {% else %}
-                <li class="breadcrumb-item active text-secondary fw-bold">All Products</li>
-            {% endif %}
-        </ol>
-    </nav>
+<!-- Page Header -->
+<section class="page-header py-4 animate-fadeIn" style="background: var(--dark); position: relative; overflow: hidden; padding-top: 4rem !important; border-bottom: 1px solid rgba(255,255,255,0.05);">
+    <div class="position-absolute inset-0" style="background: var(--gradient-mesh); opacity: 0.15; pointer-events: none;"></div>
+    <div class="container py-4 position-relative z-1">
+        <nav aria-label="breadcrumb" class="mb-3">
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item"><a href="{% url 'core:home' %}" class="text-white-50 text-decoration-none hover-white">Home</a></li>
+                {% if category %}
+                <li class="breadcrumb-item"><a href="{% url 'catalog:product_list' %}" class="text-white-50 text-decoration-none hover-white">Products</a></li>
+                <li class="breadcrumb-item active text-white fw-medium">{{ category.name }}</li>
+                {% else %}
+                <li class="breadcrumb-item active text-white fw-medium">All Products</li>
+                {% endif %}
+            </ol>
+        </nav>
+        <h1 class="text-white mb-2 fw-bold display-5">{% if category %}{{ category.name }}{% else %}Catalog{% endif %}</h1>
+        <p class="text-white-50 mb-0 max-w-500">Explore our premium selection of technology and electronics crafted for performance.</p>
+    </div>
+</section>
 
-    <div class="row g-4">
-        <!-- Sidebar Filters -->
-        <div class="col-lg-3">
-            <div class="card glass-card border-0 shadow-sm overflow-hidden sticky-top" style="top: 100px;">
-                <div class="card-header bg-transparent py-4 px-4 border-bottom" style="border-color: rgba(149, 78, 39, 0.05) !important;">
-                    <h5 class="mb-0 fw-bold" style="font-family: 'Merriweather', serif; color: var(--dcl-primary);">
-                        <i class="bi bi-funnel me-2 text-secondary"></i>Filters
-                    </h5>
+<!-- Products Section -->
+<section class="section py-5 bg-light-subtle">
+    <div class="container">
+        <div class="row">
+            <!-- Sidebar Filters -->
+            <div class="col-lg-3 mb-5 mb-lg-0">
+                <!-- Mobile Filter Toggle -->
+                <div class="d-lg-none mb-3">
+                    <button class="btn btn-dark w-100 rounded-4 py-3 d-flex justify-content-between align-items-center shadow-sm" 
+                            type="button" data-bs-toggle="collapse" data-bs-target="#filter-content">
+                        <span class="fw-bold"><i class="bi bi-filter-left me-2"></i>Filters</span>
+                        <i class="bi bi-chevron-down"></i>
+                    </button>
                 </div>
-                <div class="card-body p-4">
-                    <form method="get" id="filterForm">
-                        <!-- Search within results -->
-                        {% if current_filters.q %}
-                        <input type="hidden" name="q" value="{{ current_filters.q }}">
+                
+                <div class="collapse d-lg-block" id="filter-content">
+                    <div class="glass-card p-4 rounded-4 shadow-sm sticky-top" style="top: 100px;">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h5 class="mb-0 fw-bold">Filters</h5>
+                        {% if request.GET.items %}
+                        <a href="{% url 'catalog:product_list' %}" class="btn btn-sm btn-link text-danger p-0 text-decoration-none" id="clear-all-filters">Clear All</a>
                         {% endif %}
-                        
-                        <!-- Categories -->
-                        <h6 class="fw-bold mb-3 small text-uppercase tracking-widest text-muted">Categories</h6>
-                        <ul class="list-unstyled mb-4">
-                            {% for category in categories %}
-                            <li class="mb-2">
-                                <a href="{% url 'catalog:category_products' category.slug %}" 
-                                   class="text-decoration-none transition-all hover-translate-x-1 d-block py-1 {% if current_category.slug == category.slug %}text-secondary fw-bold{% else %}text-dark{% endif %}">
-                                    {{ category.name }}
-                                </a>
-                                {% if category.children.all %}
-                                <ul class="list-unstyled ms-3 mt-1">
-                                    {% for child in category.children.all %}
-                                    <li class="mb-1">
-                                        <a href="{% url 'catalog:category_products' child.slug %}" 
-                                           class="text-decoration-none small transition-all hover-text-secondary {% if current_category.slug == child.slug %}text-secondary fw-bold{% else %}text-muted{% endif %}">
-                                            {{ child.name }}
-                                        </a>
-                                    </li>
-                                    {% endfor %}
-                                </ul>
-                                {% endif %}
-                            </li>
-                            {% endfor %}
-                        </ul>
-
-                        <!-- Brands -->
-                        <h6 class="fw-bold mb-3 small text-uppercase tracking-widest text-muted">Brands</h6>
-                        <div class="mb-4">
-                            {% for brand in brands %}
-                            <div class="form-check custom-check mb-2">
-                                <input class="form-check-input" type="radio" name="brand" 
-                                       id="brand_{{ brand.slug }}" value="{{ brand.slug }}"
-                                       {% if current_filters.brand == brand.slug %}checked{% endif %}
-                                       onchange="this.form.submit()">
-                                <label class="form-check-label transition-all" for="brand_{{ brand.slug }}">
-                                    {{ brand.name }}
+                    </div>
+                    
+                    <!-- Categories Filter -->
+                    <div class="filter-group mb-4">
+                        <h6 class="filter-title mb-3 d-flex justify-content-between align-items-center" data-bs-toggle="collapse" data-bs-target="#categoriesFilter">
+                            <span>Categories</span>
+                            <i class="bi bi-chevron-down fs-xs"></i>
+                        </h6>
+                        <div class="collapse show" id="categoriesFilter">
+                            {% for cat in nav_categories %}
+                            <div class="form-check custom-checkbox mb-2">
+                                <input class="form-check-input category-checkbox" type="checkbox" 
+                                       id="cat-{{ cat.slug }}" 
+                                       data-url="{% url 'catalog:category_products' cat.slug %}"
+                                       {% if category and category.slug == cat.slug %}checked{% endif %}>
+                                <label class="form-check-label d-flex justify-content-between align-items-center w-100" for="cat-{{ cat.slug }}">
+                                    <span class="text-dark">{{ cat.name }}</span>
+                                    <span class="badge bg-light text-muted rounded-pill fs-xs">{{ cat.products.count }}</span>
                                 </label>
                             </div>
                             {% endfor %}
-                            {% if current_filters.brand %}
-                            <a href="?" class="small text-secondary text-decoration-none hover-underline"><i class="bi bi-x"></i> Clear brand</a>
-                            {% endif %}
                         </div>
+                    </div>
 
-                        <!-- Price Range -->
-                        <h6 class="fw-bold mb-3 small text-uppercase tracking-widest text-muted">Price Range</h6>
-                        <div class="row g-2 mb-4">
-                            <div class="col-6">
-                                <div class="form-floating">
-                                    <input type="number" class="form-control bg-light border-0" 
-                                           name="min_price" id="minPrice" placeholder="Min" 
-                                           value="{{ current_filters.min_price }}" style="height: 50px; font-size: 0.85rem;">
-                                    <label for="minPrice">Min</label>
-                                </div>
+                    <!-- Brands Filter -->
+                    <div class="filter-group mb-4">
+                        <h6 class="filter-title mb-3 d-flex justify-content-between align-items-center" data-bs-toggle="collapse" data-bs-target="#brandsFilter">
+                            <span>Brands</span>
+                            <i class="bi bi-chevron-down fs-xs"></i>
+                        </h6>
+                        <div class="collapse show" id="brandsFilter">
+                            {% for brand in brands %}
+                            <div class="form-check custom-checkbox mb-2">
+                                <input class="form-check-input brand-checkbox" type="checkbox" 
+                                       id="brand-{{ brand.slug }}" 
+                                       value="{{ brand.slug }}"
+                                       {% if current_filters.brand == brand.slug %}checked{% endif %}>
+                                <label class="form-check-label d-flex justify-content-between align-items-center w-100" for="brand-{{ brand.slug }}">
+                                    <span class="text-dark">{{ brand.name }}</span>
+                                </label>
                             </div>
-                            <div class="col-6">
-                                <div class="form-floating">
-                                    <input type="number" class="form-control bg-light border-0" 
-                                           name="max_price" id="maxPrice" placeholder="Max" 
-                                           value="{{ current_filters.max_price }}" style="height: 50px; font-size: 0.85rem;">
-                                    <label for="maxPrice">Max</label>
-                                </div>
-                            </div>
+                            {% endfor %}
                         </div>
-
-                        <!-- Availability -->
-                        <h6 class="fw-bold mb-3 small text-uppercase tracking-widest text-muted">Availability</h6>
-                        <div class="form-check custom-check mb-2">
-                            <input class="form-check-input" type="checkbox" name="in_stock" 
-                                   id="in_stock" value="1" 
-                                   {% if current_filters.in_stock %}checked{% endif %}
-                                   onchange="this.form.submit()">
-                            <label class="form-check-label transition-all" for="in_stock">
-                                In Stock Only
-                            </label>
-                        </div>
-                        <div class="form-check custom-check mb-4">
-                            <input class="form-check-input" type="checkbox" name="featured" 
-                                   id="featured" value="1" 
-                                   {% if current_filters.featured %}checked{% endif %}
-                                   onchange="this.form.submit()">
-                            <label class="form-check-label transition-all" for="featured">
-                                Featured Only
-                            </label>
-                        </div>
-
-                        <button type="submit" class="btn btn-primary w-100 py-3 rounded-pill shadow-sm mb-2 transition-all hover-shadow-lg">
-                            <i class="bi bi-funnel me-2"></i>Apply Filters
-                        </button>
-                        
-                        <a href="{% if current_category %}{% url 'catalog:category_products' current_category.slug %}{% else %}{% url 'catalog:product_list' %}{% endif %}" 
-                           class="btn btn-outline-light text-muted w-100 py-2 rounded-pill border-0 bg-light-subtle">
-                            Clear All
-                        </a>
-                    </form>
-                </div>
-            </div>
-        </div>
-
-        <!-- Product Grid -->
-        <div class="col-lg-9">
-            <!-- Grid Header -->
-            <div class="card glass-card border-0 shadow-sm p-4 mb-5">
-                <div class="row align-items-center g-3">
-                    <div class="col-md-auto">
-                        <h4 class="mb-0 fw-bold" style="font-family: 'Merriweather', serif; color: var(--dcl-primary);">
-                            {% if current_category %}
-                                {{ current_category.name }}
-                            {% elif current_filters.q %}
-                                Search: "{{ current_filters.q }}"
-                            {% else %}
-                                All Products
-                            {% endif %}
-                        </h4>
-                        <p class="text-muted small mb-0">{{ page_obj.paginator.count }} items discovered</p>
                     </div>
                     
-                    <div class="col-md ms-auto d-flex flex-wrap justify-content-md-end gap-3 align-items-center">
-                        <!-- Sort Dropdown -->
-                        <div class="d-flex align-items-center gap-2">
-                            <label class="text-muted small text-uppercase fw-bold tracking-widest" style="font-size: 0.65rem;">Sort BY</label>
-                            <select class="form-select form-select-sm glass-card border-0 shadow-none px-3" style="width: auto; min-width: 150px; background-color: rgba(149, 78, 39, 0.03);" 
-                                    onchange="window.location.href='?sort='+this.value+'{% if current_filters.brand %}&brand={{ current_filters.brand }}{% endif %}{% if current_filters.q %}&q={{ current_filters.q }}{% endif %}'">
-                                <option value="-created_at" {% if current_filters.sort == '-created_at' %}selected{% endif %}>Newest First</option>
-                                <option value="created_at" {% if current_filters.sort == 'created_at' %}selected{% endif %}>Oldest First</option>
-                                <option value="name" {% if current_filters.sort == 'name' %}selected{% endif %}>Name (A-Z)</option>
-                                <option value="-name" {% if current_filters.sort == '-name' %}selected{% endif %}>Name (Z-A)</option>
-                                <option value="price" {% if current_filters.sort == 'price' %}selected{% endif %}>Price (Low-High)</option>
-                                <option value="-price" {% if current_filters.sort == '-price' %}selected{% endif %}>Price (High-Low)</option>
-                            </select>
+                    <!-- Price Filter -->
+                    <div class="filter-group mb-4">
+                        <h6 class="filter-title mb-3 d-flex justify-content-between align-items-center" data-bs-toggle="collapse" data-bs-target="#priceFilter">
+                            <span>Price Range</span>
+                            <i class="bi bi-chevron-down fs-xs"></i>
+                        </h6>
+                        <div class="collapse show" id="priceFilter">
+                            <form id="price-filter-form">
+                                <div class="price-range-inputs">
+                                    <div class="row g-2 mb-3">
+                                        <div class="col-6">
+                                            <div class="input-group input-group-sm">
+                                                <span class="input-group-text bg-white border-end-0">৳</span>
+                                                <input type="number" name="min_price" class="form-control ps-1 border-start-0" placeholder="0" value="{{ request.GET.min_price|default:'' }}">
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="input-group input-group-sm">
+                                                <span class="input-group-text bg-white border-end-0">৳</span>
+                                                <input type="number" name="max_price" class="form-control ps-1 border-start-0" placeholder="Max" value="{{ request.GET.max_price|default:'' }}">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary btn-sm w-100 rounded-pill py-2 fw-semibold">Apply Price</button>
+                                </div>
+                            </form>
                         </div>
+                    </div>
+
+                    <!-- Availability Filter -->
+                    <div class="filter-group mb-4">
+                        <h6 class="filter-title mb-3 d-flex justify-content-between align-items-center" data-bs-toggle="collapse" data-bs-target="#availabilityFilter">
+                            <span>Availability</span>
+                            <i class="bi bi-chevron-down fs-xs"></i>
+                        </h6>
+                        <div class="collapse show" id="availabilityFilter">
+                            <div class="form-check custom-checkbox mb-2">
+                                <input class="form-check-input availability-checkbox" type="checkbox" id="in_stock" value="1" {% if current_filters.in_stock %}checked{% endif %}>
+                                <label class="form-check-label text-dark" for="in_stock">In Stock Only</label>
+                            </div>
+                            <div class="form-check custom-checkbox mb-2">
+                                <input class="form-check-input availability-checkbox" type="checkbox" id="featured" value="1" {% if current_filters.featured %}checked{% endif %}>
+                                <label class="form-check-label text-dark" for="featured">Featured Only</label>
+                            </div>
+                        </div>
+                    </div>
                     </div>
                 </div>
             </div>
-
+            
             <!-- Products Grid -->
-            <div class="row g-4 px-1" id="productGrid">
-                {% for product in products %}
-                <div class="col-6 col-md-4">
-                    {% include 'catalog/partials/product_card.html' with product=product %}
-                </div>
-                {% empty %}
-                <div class="col-12">
-                    <div class="text-center py-5 glass-card border-0 shadow-sm rounded-5">
-                        <div class="mb-4">
-                            <div class="d-inline-flex align-items-center justify-content-center rounded-circle" style="width: 120px; height: 120px; background: rgba(149, 78, 39, 0.05);">
-                                <i class="bi bi-box-seam text-muted" style="font-size: 3.5rem; opacity: 0.5;"></i>
+            <div class="col-lg-9">
+                <!-- Toolbar -->
+                <div class="products-toolbar glass-card p-3 rounded-4 mb-4 shadow-sm">
+                    <div class="d-flex flex-wrap align-items-center justify-content-between gap-3">
+                        <!-- Product Count -->
+                        <div id="product-count">
+                            <span class="text-muted">
+                                Showing <span class="text-dark fw-bold">{{ products|length }}</span> <span id="product-count-label">product{{ products|length|pluralize }}</span>
+                            </span>
+                        </div>
+                        
+                        <!-- Sort & View Controls -->
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="d-flex align-items-center gap-2">
+                                <span class="text-muted small d-none d-sm-inline">Sort by:</span>
+                                <select class="form-select form-select-sm border-0 bg-light rounded-pill px-3" id="sort-select" style="min-width: 140px;">
+                                    <option value="featured" {% if current_filters.sort == 'featured' %}selected{% endif %}>Featured</option>
+                                    <option value="price_low" {% if current_filters.sort == 'price_low' %}selected{% endif %}>Price: Low to High</option>
+                                    <option value="price_high" {% if current_filters.sort == 'price_high' %}selected{% endif %}>Price: High to Low</option>
+                                    <option value="newest" {% if current_filters.sort == 'newest' %}selected{% endif %}>Newest First</option>
+                                </select>
+                            </div>
+                            <div class="view-switcher btn-group bg-light p-1 rounded-pill">
+                                <button type="button" class="btn btn-sm rounded-pill px-3 active" id="grid-view" title="Grid View"><i class="bi bi-grid-fill"></i></button>
+                                <button type="button" class="btn btn-sm rounded-pill px-3 text-muted" id="list-view" title="List View"><i class="bi bi-list"></i></button>
                             </div>
                         </div>
-                        <h4 class="mb-3" style="font-family: 'Merriweather', serif; color: var(--dcl-primary);">No products found</h4>
-                        <p class="text-muted mb-4 px-4">Try adjusting your filters or searching for something else.</p>
-                        <a href="{% url 'catalog:product_list' %}" class="btn btn-primary px-5 rounded-pill shadow-sm">
-                            View All Products
-                        </a>
                     </div>
                 </div>
-                {% endfor %}
+                
+                <!-- Products Grid Container -->
+                <div id="product-grid-container" style="min-height: 400px; position: relative;">
+                    <!-- Loading Overlay -->
+                    <div id="grid-loader" class="position-absolute top-0 start-0 w-100 h-100 d-none justify-content-center align-items-start pt-5" 
+                         style="background: rgba(255,255,255,0.7); z-index: 100; backdrop-filter: blur(4px); transition: all 0.3s ease;">
+                        <div class="text-center p-5 bg-white rounded-4 shadow-lg border">
+                            <div class="spinner-border text-primary mb-2" role="status"></div>
+                            <p class="text-primary fw-bold mb-0">Updating Results...</p>
+                        </div>
+                    </div>
+                    
+                    {% include 'catalog/partials/_product_grid.html' %}
+                </div>
             </div>
-
-            <!-- Pagination -->
-            {% if page_obj.has_other_pages %}
-            <nav class="mt-5">
-                <ul class="pagination pagination-rounded justify-content-center gap-2">
-                    {% if page_obj.has_previous %}
-                    <li class="page-item">
-                        <a class="page-link shadow-sm border-0 glass-card" href="?page={{ page_obj.previous_page_number }}{% if current_filters.sort %}&sort={{ current_filters.sort }}{% endif %}{% if current_filters.brand %}&brand={{ current_filters.brand }}{% endif %}">
-                            <i class="bi bi-chevron-left"></i>
-                        </a>
-                    </li>
-                    {% endif %}
-                    
-                    {% for num in page_obj.paginator.page_range %}
-                        {% if page_obj.number == num %}
-                        <li class="page-item active"><span class="page-link shadow-sm border-0">{{ num }}</span></li>
-                        {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
-                        <li class="page-item">
-                            <a class="page-link shadow-sm border-0 glass-card" href="?page={{ num }}{% if current_filters.sort %}&sort={{ current_filters.sort }}{% endif %}{% if current_filters.brand %}&brand={{ current_filters.brand }}{% endif %}">
-                                {{ num }}
-                            </a>
-                        </li>
-                        {% endif %}
-                    {% endfor %}
-                    
-                    {% if page_obj.has_next %}
-                    <li class="page-item">
-                        <a class="page-link shadow-sm border-0 glass-card" href="?page={{ page_obj.next_page_number }}{% if current_filters.sort %}&sort={{ current_filters.sort }}{% endif %}{% if current_filters.brand %}&brand={{ current_filters.brand }}{% endif %}">
-                            <i class="bi bi-chevron-right"></i>
-                        </a>
-                    </li>
-                    {% endif %}
-                </ul>
-            </nav>
-            {% endif %}
         </div>
     </div>
-</div>
-
-<style>
-    .glass-card {
-        background: rgba(255, 255, 255, 0.8) !important;
-        backdrop-filter: blur(20px) !important;
-        -webkit-backdrop-filter: blur(20px) !important;
-        border: 1px solid rgba(255, 255, 255, 0.5) !important;
-        border-radius: 28px !important;
-    }
-    .hover-translate-x-1:hover { transform: translateX(8px); }
-    .pagination-rounded .page-link {
-        width: 45px;
-        height: 45px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 50% !important;
-        margin: 0;
-        color: var(--dcl-primary);
-        font-weight: 600;
-    }
-    .pagination-rounded .page-item.active .page-link {
-        background: var(--dcl-secondary);
-        color: white;
-    }
-    .custom-check .form-check-input:checked {
-        background-color: var(--dcl-secondary);
-        border-color: var(--dcl-secondary);
-    }
-    .custom-check .form-check-label:hover { color: var(--dcl-secondary); cursor: pointer; }
-    .tracking-widest { letter-spacing: 0.15em; }
-    .bg-light-subtle { background: rgba(149, 78, 39, 0.05); }
-</style>
+</section>
+{% endblock %}
 
 {% block extra_js %}
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    // Add to Cart listeners
-    document.querySelectorAll('.add-cart-btn').forEach(btn => {
-        btn.addEventListener('click', function() {
-            const variantId = this.dataset.variantId;
-            if (typeof addToCart === 'function') {
-                addToCart(variantId);
+    const priceForm = document.getElementById('price-filter-form');
+    const categoryCheckboxes = document.querySelectorAll('.category-checkbox');
+    const sortSelect = document.getElementById('sort-select');
+    const gridLoader = document.getElementById('grid-loader');
+    const productCountText = document.querySelector('#product-count span');
+    
+    // Function to fetch and update grid
+    function updateGrid(url) {
+        const gridContainer = document.getElementById('product-grid-container');
+        if (!gridContainer) return;
+        
+        // Show loader
+        if (gridLoader) {
+            gridLoader.classList.remove('d-none');
+            gridLoader.classList.add('d-flex');
+        }
+        
+        fetch(url, {
+            headers: { 'x-requested-with': 'XMLHttpRequest' }
+        })
+        .then(response => response.text())
+        .then(html => {
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+            
+            // Update grid
+            const newGrid = doc.getElementById('product-grid') || doc.querySelector('#product-grid');
+            const currentGrid = document.getElementById('product-grid');
+            
+            if (newGrid && currentGrid) {
+                // Ensure visibility immediately for AJAX content
+                newGrid.querySelectorAll('.product-card').forEach(card => {
+                    card.style.opacity = '1';
+                    card.style.transform = 'none';
+                    card.classList.add('animated'); 
+                });
+                
+                currentGrid.replaceWith(newGrid);
+                console.log('Grid replaced and forced visible');
+            }
+            
+            // Re-sync product count - robust search in new fragments
+            // Try both finding in the doc and in the new grid fragment
+            const newCountInput = doc.querySelector('#ajax-product-count') || newGrid.querySelector('#ajax-product-count');
+            const newCountVal = newCountInput ? newCountInput.value : null;
+            const countDisplay = document.querySelector('#product-count .text-dark.fw-bold');
+            
+            console.log('DEBUG: Found new count input:', !!newCountInput, 'Value:', newCountVal);
+
+            if (newCountVal !== null && countDisplay) {
+                countDisplay.textContent = newCountVal;
+                // Update pluralization label
+                const countLabel = document.getElementById('product-count-label');
+                if (countLabel) {
+                    countLabel.textContent = parseInt(newCountVal) === 1 ? 'product' : 'products';
+                }
+            }
+
+            // Sync URL
+            window.history.pushState({}, '', url);
+            
+            // Refresh animations
+            if (typeof initScrollAnimations === 'function') initScrollAnimations();
+            
+            // Re-apply view mode if list view is active
+            const currentListViewBtn = document.getElementById('list-view');
+            if (currentListViewBtn && currentListViewBtn.classList.contains('active')) {
+                const targetGrid = document.getElementById('product-grid');
+                if (targetGrid) targetGrid.classList.add('view-list');
+                console.log('List view re-applied after AJAX');
+            }
+        })
+        .catch(error => {
+            console.error('AJAX Error:', error);
+            if (typeof showNotification === 'function') showNotification('Update failed', 'error');
+        })
+        .finally(() => {
+            if (gridLoader) {
+                gridLoader.classList.add('d-none');
+                gridLoader.classList.remove('d-flex');
             }
         });
+    }
+
+    // Clear All AJAX
+    const clearAllBtn = document.getElementById('clear-all-filters'); // Corrected ID
+    if (clearAllBtn) {
+        clearAllBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            // Reset checkboxes
+            document.querySelectorAll('.category-checkbox, .brand-checkbox, #in_stock, #featured').forEach(cb => cb.checked = false);
+            // Reset price
+            document.querySelectorAll('#price-filter-form input').forEach(input => input.value = '');
+            // Update grid to default URL
+            updateGrid(this.getAttribute('href'));
+        });
+    }
+
+    // Build URL helper
+    function getFilterUrl() {
+        // Use full catalog path as base for current filter building
+        const url = new URL("{% url 'catalog:product_list' %}", window.location.origin);
+        const params = url.searchParams;
+        
+        if (sortSelect.value) params.set('sort', sortSelect.value);
+        
+        // Category - handle as search param for consistency in collective filtering
+        const selectedCat = document.querySelector('.category-checkbox:checked');
+        if (selectedCat) {
+            // Extract slug from ID if data-url doesn't help with direct slug
+            const slug = selectedCat.id.replace('cat-', '');
+            params.set('category', slug); 
+        }
+        
+        // Price
+        const minPrice = priceForm.querySelector('input[name="min_price"]').value;
+        const maxPrice = priceForm.querySelector('input[name="max_price"]').value;
+        if (minPrice) params.set('min_price', minPrice);
+        if (maxPrice) params.set('max_price', maxPrice);
+        
+        // Brand
+        const selectedBrand = document.querySelector('.brand-checkbox:checked');
+        if (selectedBrand) params.set('brand', selectedBrand.value);
+        
+        // Availability
+        const inStock = document.querySelector('#in_stock:checked');
+        if (inStock) params.set('in_stock', '1');
+        
+        const featured = document.querySelector('#featured:checked');
+        if (featured) params.set('featured', '1');
+        
+        return url.toString();
+    }
+
+    // Listeners
+    categoryCheckboxes.forEach(cb => {
+        cb.addEventListener('change', () => updateGrid(getFilterUrl()));
     });
 
-    // Add to Wishlist listeners
-    document.querySelectorAll('.add-wishlist-btn').forEach(btn => {
-        btn.addEventListener('click', function() {
-            const variantId = this.dataset.variantId;
-            if (typeof addToWishlist === 'function') {
-                addToWishlist(variantId);
-            }
+
+    // Brand and Availability listeners
+    document.querySelectorAll('.brand-checkbox, .availability-checkbox').forEach(cb => {
+        cb.addEventListener('change', () => updateGrid(getFilterUrl()));
+    });
+
+    sortSelect.addEventListener('change', () => updateGrid(getFilterUrl()));
+    
+    if (priceForm) {
+        priceForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            updateGrid(getFilterUrl());
         });
+    }
+
+    // View Switcher Login
+    const gridBtn = document.getElementById('grid-view');
+    const listBtn = document.getElementById('list-view');
+    const gridElement = document.getElementById('product-grid-container');
+
+    if (gridBtn && listBtn) {
+        gridBtn.addEventListener('click', () => {
+            gridBtn.classList.add('active');
+            gridBtn.classList.remove('text-muted');
+            listBtn.classList.remove('active');
+            listBtn.classList.add('text-muted');
+            document.getElementById('product-grid').classList.remove('view-list');
+        });
+
+        listBtn.addEventListener('click', () => {
+            listBtn.classList.add('active');
+            listBtn.classList.remove('text-muted');
+            gridBtn.classList.remove('active');
+            gridBtn.classList.add('text-muted');
+            document.getElementById('product-grid').classList.add('view-list');
+        });
+    }
+
+    // Handle pagination clicks (AJAX)
+    gridContainer.addEventListener('click', (e) => {
+        const pageLink = e.target.closest('.page-link');
+        if (pageLink && pageLink.getAttribute('href')) {
+            e.preventDefault();
+            updateGrid(pageLink.href);
+            window.scrollTo({ top: 300, behavior: 'smooth' });
+        }
     });
 });
 </script>
 {% endblock %}
+
+
+{% block extra_css %}
+<style>
+    .filter-sidebar { position: sticky; top: 100px; }
+    .filter-title { cursor: pointer; transition: color 0.3s; }
+    .filter-title:hover { color: var(--primary); }
+    .form-check-input:checked { background-color: var(--primary); border-color: var(--primary); }
+    .page-link { border: none; border-radius: 10px !important; margin: 0 4px; color: #444; transition: all 0.3s; }
+    .page-link:hover, .page-item.active .page-link { background: var(--primary); color: white; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+    
+    /* Product Card Enhancements */
+    .product-card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        border: 1px solid rgba(0,0,0,0.05);
+        border-radius: 16px;
+        overflow: hidden;
+        background: white;
+    }
+    .product-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    }
+    .product-image {
+        position: relative;
+        padding-top: 100%; /* 1:1 Aspect Ratio */
+        overflow: hidden;
+        background: #f8f9fa;
+    }
+    .product-image img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+    }
+    .product-card:hover .product-image img {
+        transform: scale(1.05);
+    }
+    .product-overlay {
+        position: absolute;
+        bottom: -50px;
+        left: 0;
+        right: 0;
+        padding: 15px;
+        background: rgba(255,255,255,0.9);
+        backdrop-filter: blur(5px);
+        display: flex;
+        justify-content: center;
+        transition: bottom 0.3s ease;
+        opacity: 0;
+    }
+    .product-card:hover .product-overlay {
+        bottom: 0;
+        opacity: 1;
+    }
+    .product-info {
+        padding: 1.25rem;
+    }
+    .product-category {
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        color: #6c757d;
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+    }
+    .product-title {
+        font-size: 1rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        line-height: 1.4;
+        height: 2.8em; /* 2 lines */
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        line-clamp: 2; /* Added for compatibility */
+    }
+    .product-price {
+        display: flex;
+        align-items: baseline;
+        gap: 8px;
+    }
+    .current-price {
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: var(--primary);
+    }
+    .original-price {
+        font-size: 0.9rem;
+        text-decoration: line-through;
+        color: #adb5bd;
+    }
+    .product-badge {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        padding: 4px 10px;
+        border-radius: 20px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        color: white;
+        z-index: 2;
+    }
+    .badge-sale { background: #ef4444; }
+    .badge-new { background: #3b82f6; }
+    
+    .wishlist-btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background: white;
+        border: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #dc3545;
+        z-index: 2;
+        opacity: 0;
+        transform: translateX(10px);
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    .product-card:hover .wishlist-btn {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    .wishlist-btn:hover {
+        background: #dc3545;
+        color: white;
+    }
+</style>
 {% endblock %}

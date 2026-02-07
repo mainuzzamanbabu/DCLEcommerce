@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="My Wishlist | DCL E-Commerce">
+    <title>Wishlist | DCL E-Commerce</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/animations.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg fixed-top navbar-sticky">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <span class="brand-gradient">DCL</span><span class="brand-text">Store</span>
+            </a>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <i class="bi bi-list fs-2"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="products.html">Shop</a></li>
+                </ul>
+                <div class="d-flex align-items-center gap-3">
+                    <a href="wishlist.html" class="btn btn-link p-0 text-danger"><i class="bi bi-heart-fill fs-5"></i></a>
+                    <a href="cart.html" class="btn btn-link p-0 position-relative cart-icon">
+                        <i class="bi bi-bag fs-5"></i><span class="cart-count">3</span>
+                    </a>
+                    <a href="profile.html" class="btn btn-link p-0"><i class="bi bi-person fs-5"></i></a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header py-5 mt-5" style="background: var(--gradient-dark);">
+        <div class="container py-4">
+            <nav aria-label="breadcrumb" class="mb-3">
+                <ol class="breadcrumb mb-0">
+                    <li class="breadcrumb-item"><a href="index.html" class="text-white-50">Home</a></li>
+                    <li class="breadcrumb-item"><a href="profile.html" class="text-white-50">Account</a></li>
+                    <li class="breadcrumb-item active text-white">Wishlist</li>
+                </ol>
+            </nav>
+            <h1 class="text-white mb-0"><i class="bi bi-heart-fill text-danger me-2"></i>My Wishlist</h1>
+        </div>
+    </section>
+
+    <!-- Wishlist Section -->
+    <section class="section py-5">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <p class="text-muted mb-0"><span class="fw-bold">8 items</span> in your wishlist</p>
+                <div class="d-flex gap-2">
+                    <button class="btn btn-outline-primary btn-sm"><i class="bi bi-share me-1"></i>Share</button>
+                    <button class="btn btn-outline-danger btn-sm"><i class="bi bi-trash me-1"></i>Clear All</button>
+                </div>
+            </div>
+            
+            <div class="row g-4 stagger-children">
+                <!-- Wishlist Item 1 -->
+                <div class="col-sm-6 col-lg-3" data-animate="fade-up">
+                    <div class="product-card wishlist-card">
+                        <div class="product-image">
+                            <a href="product-detail.html">
+                                <img src="https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?w=400" alt="MacBook Pro">
+                            </a>
+                            <span class="product-badge badge-sale">-15%</span>
+                            <button class="wishlist-btn active" data-product-id="1"><i class="bi bi-heart-fill"></i></button>
+                            <div class="product-overlay">
+                                <button class="btn btn-primary btn-sm add-to-cart-btn" data-product-id="1">
+                                    <i class="bi bi-bag-plus me-2"></i>Add to Cart
+                                </button>
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <span class="product-category">Laptops</span>
+                            <a href="product-detail.html"><h5 class="product-title">MacBook Pro M3</h5></a>
+                            <div class="d-flex align-items-center gap-2 mb-2">
+                                <div class="rating text-warning small">
+                                    <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-half"></i>
+                                </div>
+                                <span class="text-muted small">(128)</span>
+                            </div>
+                            <div class="product-price">
+                                <span class="current-price">৳189,990</span>
+                                <span class="original-price">৳223,500</span>
+                            </div>
+                            <span class="badge bg-success mt-2"><i class="bi bi-check-circle me-1"></i>In Stock</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Wishlist Item 2 -->
+                <div class="col-sm-6 col-lg-3" data-animate="fade-up">
+                    <div class="product-card wishlist-card">
+                        <div class="product-image">
+                            <a href="product-detail.html">
+                                <img src="https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?w=400" alt="iPhone 15 Pro">
+                            </a>
+                            <span class="product-badge badge-new">New</span>
+                            <button class="wishlist-btn active"><i class="bi bi-heart-fill"></i></button>
+                            <div class="product-overlay">
+                                <button class="btn btn-primary btn-sm add-to-cart-btn">
+                                    <i class="bi bi-bag-plus me-2"></i>Add to Cart
+                                </button>
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <span class="product-category">Smartphones</span>
+                            <a href="product-detail.html"><h5 class="product-title">iPhone 15 Pro</h5></a>
+                            <div class="d-flex align-items-center gap-2 mb-2">
+                                <div class="rating text-warning small">
+                                    <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                                </div>
+                                <span class="text-muted small">(256)</span>
+                            </div>
+                            <div class="product-price">
+                                <span class="current-price">৳164,990</span>
+                            </div>
+                            <span class="badge bg-success mt-2"><i class="bi bi-check-circle me-1"></i>In Stock</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Wishlist Item 3 -->
+                <div class="col-sm-6 col-lg-3" data-animate="fade-up">
+                    <div class="product-card wishlist-card">
+                        <div class="product-image">
+                            <a href="product-detail.html">
+                                <img src="https://images.unsplash.com/photo-1546435770-a3e426bf472b?w=400" alt="Sony Headphones">
+                            </a>
+                            <button class="wishlist-btn active"><i class="bi bi-heart-fill"></i></button>
+                            <div class="product-overlay">
+                                <button class="btn btn-primary btn-sm add-to-cart-btn">
+                                    <i class="bi bi-bag-plus me-2"></i>Add to Cart
+                                </button>
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <span class="product-category">Accessories</span>
+                            <a href="product-detail.html"><h5 class="product-title">Sony WH-1000XM5</h5></a>
+                            <div class="d-flex align-items-center gap-2 mb-2">
+                                <div class="rating text-warning small">
+                                    <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star"></i>
+                                </div>
+                                <span class="text-muted small">(89)</span>
+                            </div>
+                            <div class="product-price">
+                                <span class="current-price">৳34,990</span>
+                            </div>
+                            <span class="badge bg-warning mt-2"><i class="bi bi-exclamation-circle me-1"></i>Low Stock</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Wishlist Item 4 -->
+                <div class="col-sm-6 col-lg-3" data-animate="fade-up">
+                    <div class="product-card wishlist-card">
+                        <div class="product-image">
+                            <a href="product-detail.html">
+                                <img src="https://images.unsplash.com/photo-1612815154858-60aa4c59eaa6?w=400" alt="PlayStation 5">
+                            </a>
+                            <button class="wishlist-btn active"><i class="bi bi-heart-fill"></i></button>
+                        </div>
+                        <div class="product-info">
+                            <span class="product-category">Gaming</span>
+                            <a href="product-detail.html"><h5 class="product-title">PlayStation 5</h5></a>
+                            <div class="d-flex align-items-center gap-2 mb-2">
+                                <div class="rating text-warning small">
+                                    <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                                </div>
+                                <span class="text-muted small">(412)</span>
+                            </div>
+                            <div class="product-price">
+                                <span class="current-price">৳74,990</span>
+                            </div>
+                            <span class="badge bg-danger mt-2"><i class="bi bi-x-circle me-1"></i>Out of Stock</span>
+                            <button class="btn btn-outline-primary btn-sm w-100 mt-2">Notify Me</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- More Items -->
+                <div class="col-sm-6 col-lg-3" data-animate="fade-up">
+                    <div class="product-card wishlist-card">
+                        <div class="product-image">
+                            <a href="product-detail.html"><img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400" alt="Apple Watch"></a>
+                            <button class="wishlist-btn active"><i class="bi bi-heart-fill"></i></button>
+                            <div class="product-overlay"><button class="btn btn-primary btn-sm"><i class="bi bi-bag-plus me-2"></i>Add to Cart</button></div>
+                        </div>
+                        <div class="product-info">
+                            <span class="product-category">Wearables</span>
+                            <h5 class="product-title">Apple Watch Ultra 2</h5>
+                            <div class="product-price"><span class="current-price">৳89,990</span></div>
+                            <span class="badge bg-success mt-2"><i class="bi bi-check-circle me-1"></i>In Stock</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-sm-6 col-lg-3" data-animate="fade-up">
+                    <div class="product-card wishlist-card">
+                        <div class="product-image">
+                            <a href="product-detail.html"><img src="https://images.unsplash.com/photo-1625961332771-3f40b0e2bdcf?w=400" alt="Galaxy S24"></a>
+                            <button class="wishlist-btn active"><i class="bi bi-heart-fill"></i></button>
+                            <div class="product-overlay"><button class="btn btn-primary btn-sm"><i class="bi bi-bag-plus me-2"></i>Add to Cart</button></div>
+                        </div>
+                        <div class="product-info">
+                            <span class="product-category">Smartphones</span>
+                            <h5 class="product-title">Samsung Galaxy S24 Ultra</h5>
+                            <div class="product-price"><span class="current-price">৳149,990</span></div>
+                            <span class="badge bg-success mt-2"><i class="bi bi-check-circle me-1"></i>In Stock</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-sm-6 col-lg-3" data-animate="fade-up">
+                    <div class="product-card wishlist-card">
+                        <div class="product-image">
+                            <a href="product-detail.html"><img src="https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=400" alt="iPad Pro"></a>
+                            <button class="wishlist-btn active"><i class="bi bi-heart-fill"></i></button>
+                            <div class="product-overlay"><button class="btn btn-primary btn-sm"><i class="bi bi-bag-plus me-2"></i>Add to Cart</button></div>
+                        </div>
+                        <div class="product-info">
+                            <span class="product-category">Tablets</span>
+                            <h5 class="product-title">iPad Pro M4</h5>
+                            <div class="product-price"><span class="current-price">৳139,990</span></div>
+                            <span class="badge bg-success mt-2"><i class="bi bi-check-circle me-1"></i>In Stock</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-sm-6 col-lg-3" data-animate="fade-up">
+                    <div class="product-card wishlist-card">
+                        <div class="product-image">
+                            <a href="product-detail.html"><img src="https://images.unsplash.com/photo-1585792180666-f7347c490ee2?w=400" alt="AirPods"></a>
+                            <button class="wishlist-btn active"><i class="bi bi-heart-fill"></i></button>
+                            <div class="product-overlay"><button class="btn btn-primary btn-sm"><i class="bi bi-bag-plus me-2"></i>Add to Cart</button></div>
+                        </div>
+                        <div class="product-info">
+                            <span class="product-category">Accessories</span>
+                            <h5 class="product-title">AirPods Pro 2</h5>
+                            <div class="product-price"><span class="current-price">৳34,990</span></div>
+                            <span class="badge bg-success mt-2"><i class="bi bi-check-circle me-1"></i>In Stock</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Add All to Cart -->
+            <div class="text-center mt-5" data-animate="fade-up">
+                <button class="btn btn-primary btn-lg btn-glow">
+                    <i class="bi bi-bag-plus me-2"></i>Add All Available to Cart
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-4"><div class="footer-brand gradient-text">DCLStore</div></div>
+            </div>
+            <div class="footer-bottom"><p class="footer-copyright mb-0">© 2026 DCL E-Commerce.</p></div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+
+    <style>
+        .wishlist-card .wishlist-btn { color: var(--secondary); }
+        .wishlist-card .wishlist-btn.active i { color: var(--secondary); }
+    </style>
+</body>
+</html>

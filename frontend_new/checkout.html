@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Checkout | DCL E-Commerce">
+    <title>Checkout | DCL E-Commerce</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/animations.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg fixed-top navbar-sticky">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <span class="brand-gradient">DCL</span><span class="brand-text">Store</span>
+            </a>
+            <div class="ms-auto d-flex align-items-center gap-3">
+                <div class="d-flex align-items-center gap-2 text-white-50 small">
+                    <i class="bi bi-shield-lock-fill text-success"></i>
+                    <span>Secure Checkout</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Checkout Progress -->
+    <section class="checkout-progress py-4 mt-5 pt-5" style="background: rgba(15, 23, 42, 0.02);">
+        <div class="container">
+            <div class="progress-steps d-flex justify-content-center align-items-center gap-2">
+                <div class="step active">
+                    <span class="step-number">1</span>
+                    <span class="step-label d-none d-md-inline">Shipping</span>
+                </div>
+                <div class="step-line"></div>
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <span class="step-label d-none d-md-inline">Payment</span>
+                </div>
+                <div class="step-line"></div>
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <span class="step-label d-none d-md-inline">Review</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Checkout Section -->
+    <section class="section py-5">
+        <div class="container">
+            <div class="row g-5">
+                <!-- Checkout Form -->
+                <div class="col-lg-7" data-animate="fade-right">
+                    <!-- Shipping Information -->
+                    <div class="checkout-section mb-5" id="shippingSection">
+                        <h4 class="mb-4"><i class="bi bi-truck me-2 text-primary"></i>Shipping Information</h4>
+                        
+                        <form class="needs-validation" novalidate>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="form-label">First Name</label>
+                                    <input type="text" class="form-control" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Last Name</label>
+                                    <input type="text" class="form-control" required>
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label">Email</label>
+                                    <input type="email" class="form-control" placeholder="you@example.com" required>
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label">Phone</label>
+                                    <input type="tel" class="form-control" placeholder="+880 1XXX-XXXXXX" required>
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label">Address</label>
+                                    <input type="text" class="form-control" placeholder="House/Flat No., Street Name" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">City</label>
+                                    <select class="form-select" required>
+                                        <option value="">Choose...</option>
+                                        <option>Dhaka</option>
+                                        <option>Chittagong</option>
+                                        <option>Sylhet</option>
+                                        <option>Rajshahi</option>
+                                        <option>Khulna</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Area/Post Code</label>
+                                    <input type="text" class="form-control" placeholder="1205" required>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="saveAddress">
+                                        <label class="form-check-label" for="saveAddress">Save this address for future orders</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Shipping Method -->
+                    <div class="checkout-section mb-5">
+                        <h4 class="mb-4"><i class="bi bi-box-seam me-2 text-primary"></i>Shipping Method</h4>
+                        
+                        <div class="shipping-options">
+                            <label class="shipping-option glass-card p-4 mb-3 d-block cursor-pointer">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="d-flex align-items-center gap-3">
+                                        <input class="form-check-input" type="radio" name="shipping" value="standard" checked>
+                                        <div>
+                                            <strong>Standard Delivery</strong>
+                                            <div class="text-muted small">3-5 business days</div>
+                                        </div>
+                                    </div>
+                                    <span class="text-success fw-bold">Free</span>
+                                </div>
+                            </label>
+                            <label class="shipping-option glass-card p-4 mb-3 d-block cursor-pointer">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="d-flex align-items-center gap-3">
+                                        <input class="form-check-input" type="radio" name="shipping" value="express">
+                                        <div>
+                                            <strong>Express Delivery</strong>
+                                            <div class="text-muted small">1-2 business days</div>
+                                        </div>
+                                    </div>
+                                    <span class="fw-bold">৳150</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Payment Method -->
+                    <div class="checkout-section mb-5">
+                        <h4 class="mb-4"><i class="bi bi-credit-card me-2 text-primary"></i>Payment Method</h4>
+                        
+                        <div class="payment-options">
+                            <label class="payment-option glass-card p-4 mb-3 d-block cursor-pointer">
+                                <div class="d-flex align-items-center gap-3">
+                                    <input class="form-check-input" type="radio" name="payment" value="card" checked>
+                                    <div class="d-flex align-items-center gap-3">
+                                        <i class="bi bi-credit-card-2-front fs-4 text-primary"></i>
+                                        <div>
+                                            <strong>Credit/Debit Card</strong>
+                                            <div class="text-muted small">Visa, Mastercard, AMEX</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </label>
+                            
+                            <!-- Card Details (shown when card is selected) -->
+                            <div class="card-details glass-card p-4 mb-3" id="cardDetails">
+                                <div class="row g-3">
+                                    <div class="col-12">
+                                        <label class="form-label">Card Number</label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" placeholder="1234 5678 9012 3456" maxlength="19">
+                                            <span class="input-group-text"><i class="bi bi-lock-fill text-muted"></i></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">Expiry Date</label>
+                                        <input type="text" class="form-control" placeholder="MM/YY">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label">CVV</label>
+                                        <input type="text" class="form-control" placeholder="123" maxlength="4">
+                                    </div>
+                                    <div class="col-12">
+                                        <label class="form-label">Cardholder Name</label>
+                                        <input type="text" class="form-control" placeholder="Name on card">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <label class="payment-option glass-card p-4 mb-3 d-block cursor-pointer">
+                                <div class="d-flex align-items-center gap-3">
+                                    <input class="form-check-input" type="radio" name="payment" value="bkash">
+                                    <div class="d-flex align-items-center gap-3">
+                                        <div class="payment-logo" style="width: 40px; height: 40px; background: #E2136E; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">bK</div>
+                                        <div>
+                                            <strong>bKash</strong>
+                                            <div class="text-muted small">Pay with your bKash account</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </label>
+                            
+                            <label class="payment-option glass-card p-4 mb-3 d-block cursor-pointer">
+                                <div class="d-flex align-items-center gap-3">
+                                    <input class="form-check-input" type="radio" name="payment" value="cod">
+                                    <div class="d-flex align-items-center gap-3">
+                                        <i class="bi bi-cash-coin fs-4 text-success"></i>
+                                        <div>
+                                            <strong>Cash on Delivery</strong>
+                                            <div class="text-muted small">Pay when you receive your order</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-xl w-100 btn-glow mt-4">
+                        <i class="bi bi-check2-circle me-2"></i>Complete Order - ৳488,704
+                    </button>
+                </div>
+                
+                <!-- Order Summary Sidebar -->
+                <div class="col-lg-5" data-animate="fade-left">
+                    <div class="order-summary glass-card p-4 sticky-top" style="top: 30px;">
+                        <h5 class="fw-bold mb-4">Order Summary</h5>
+                        
+                        <!-- Cart Items Preview -->
+                        <div class="order-items mb-4" style="max-height: 300px; overflow-y: auto;">
+                            <div class="order-item d-flex gap-3 mb-3">
+                                <img src="https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?w=100" alt="" class="rounded" style="width: 60px; height: 60px; object-fit: cover;">
+                                <div class="flex-grow-1">
+                                    <h6 class="mb-1 small">MacBook Pro M3</h6>
+                                    <small class="text-muted">Qty: 1</small>
+                                </div>
+                                <span class="fw-semibold">৳189,990</span>
+                            </div>
+                            <div class="order-item d-flex gap-3 mb-3">
+                                <img src="https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?w=100" alt="" class="rounded" style="width: 60px; height: 60px; object-fit: cover;">
+                                <div class="flex-grow-1">
+                                    <h6 class="mb-1 small">iPhone 15 Pro</h6>
+                                    <small class="text-muted">Qty: 1</small>
+                                </div>
+                                <span class="fw-semibold">৳164,990</span>
+                            </div>
+                            <div class="order-item d-flex gap-3 mb-3">
+                                <img src="https://images.unsplash.com/photo-1546435770-a3e426bf472b?w=100" alt="" class="rounded" style="width: 60px; height: 60px; object-fit: cover;">
+                                <div class="flex-grow-1">
+                                    <h6 class="mb-1 small">Sony WH-1000XM5</h6>
+                                    <small class="text-muted">Qty: 2</small>
+                                </div>
+                                <span class="fw-semibold">৳69,980</span>
+                            </div>
+                        </div>
+                        
+                        <a href="cart.html" class="small text-primary mb-4 d-block">
+                            <i class="bi bi-pencil me-1"></i>Edit Cart
+                        </a>
+                        
+                        <hr>
+                        
+                        <div class="summary-row d-flex justify-content-between mb-2">
+                            <span class="text-muted">Subtotal</span>
+                            <span>৳424,960</span>
+                        </div>
+                        <div class="summary-row d-flex justify-content-between mb-2">
+                            <span class="text-muted">Shipping</span>
+                            <span class="text-success">Free</span>
+                        </div>
+                        <div class="summary-row d-flex justify-content-between mb-2">
+                            <span class="text-muted">Tax (VAT 15%)</span>
+                            <span>৳63,744</span>
+                        </div>
+                        
+                        <hr>
+                        
+                        <div class="summary-total d-flex justify-content-between">
+                            <span class="h5 mb-0">Total</span>
+                            <span class="h4 mb-0 fw-bold text-primary">৳488,704</span>
+                        </div>
+                        
+                        <!-- Trust Badges -->
+                        <div class="trust-badges mt-4 pt-4 border-top">
+                            <div class="row g-3 text-center">
+                                <div class="col-4">
+                                    <div class="trust-badge">
+                                        <i class="bi bi-shield-check text-success fs-4 d-block mb-1"></i>
+                                        <small class="text-muted">Secure</small>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="trust-badge">
+                                        <i class="bi bi-arrow-repeat text-primary fs-4 d-block mb-1"></i>
+                                        <small class="text-muted">7-Day Return</small>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="trust-badge">
+                                        <i class="bi bi-headset text-warning fs-4 d-block mb-1"></i>
+                                        <small class="text-muted">Support</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+    
+    <script>
+        // Toggle card details based on payment selection
+        document.querySelectorAll('input[name="payment"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                const cardDetails = document.getElementById('cardDetails');
+                if (this.value === 'card') {
+                    cardDetails.style.display = 'block';
+                } else {
+                    cardDetails.style.display = 'none';
+                }
+            });
+        });
+    </script>
+
+    <style>
+        .checkout-progress .step {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--dark-tertiary);
+        }
+        .checkout-progress .step.active { color: var(--primary); }
+        .checkout-progress .step-number {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--light-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        .checkout-progress .step.active .step-number {
+            background: var(--gradient-primary);
+            color: white;
+        }
+        .checkout-progress .step.completed .step-number {
+            background: var(--success);
+            color: white;
+        }
+        .checkout-progress .step-line {
+            width: 60px;
+            height: 2px;
+            background: var(--light-secondary);
+        }
+        .shipping-option, .payment-option {
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+        .shipping-option:hover, .payment-option:hover {
+            border-color: var(--primary-light);
+        }
+        .shipping-option:has(input:checked), .payment-option:has(input:checked) {
+            border-color: var(--primary);
+            background: rgba(99, 102, 241, 0.05);
+        }
+        .form-control, .form-select {
+            border: 2px solid var(--light-secondary);
+            border-radius: var(--radius-lg);
+            padding: 0.75rem 1rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .form-control:focus, .form-select:focus {
+            border-color: var(--primary) !important;
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.15) !important;
+            background-color: white;
+        }
+        /* Override Bootstrap validation green if it appears */
+        .was-validated .form-control:valid, .form-control.is-valid {
+            border-color: var(--light-secondary) !important;
+            background-image: none !important;
+            box-shadow: none !important;
+        }
+        .was-validated .form-control:valid:focus {
+            border-color: var(--primary) !important;
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.15) !important;
+        }
+    </style>
+</body>
+</html>

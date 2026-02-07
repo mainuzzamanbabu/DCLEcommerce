@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="My Account | DCL E-Commerce">
+    <title>My Account | DCL E-Commerce</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/animations.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg fixed-top navbar-sticky">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <span class="brand-gradient">DCL</span><span class="brand-text">Store</span>
+            </a>
+            
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <i class="bi bi-list fs-2"></i>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="products.html">Shop</a></li>
+                </ul>
+                
+                <div class="d-flex align-items-center gap-3">
+                    <a href="wishlist.html" class="btn btn-link p-0 position-relative"><i class="bi bi-heart fs-5"></i></a>
+                    <a href="cart.html" class="btn btn-link p-0 position-relative cart-icon">
+                        <i class="bi bi-bag fs-5"></i>
+                        <span class="cart-count">3</span>
+                    </a>
+                    <a href="profile.html" class="btn btn-link p-0 text-primary"><i class="bi bi-person-fill fs-5"></i></a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header py-5 mt-5" style="background: var(--gradient-dark);">
+        <div class="container py-4">
+            <h1 class="text-white mb-0">My Account</h1>
+        </div>
+    </section>
+
+    <!-- Account Section -->
+    <section class="section py-5">
+        <div class="container">
+            <div class="row g-4">
+                <!-- Sidebar Navigation -->
+                <div class="col-lg-3">
+                    <div class="account-sidebar glass-card p-4" data-animate="fade-right">
+                        <div class="user-info text-center mb-4 pb-4 border-bottom">
+                            <div class="avatar-upload mx-auto mb-3 position-relative">
+                                <div class="avatar bg-gradient-primary text-white rounded-circle d-flex align-items-center justify-content-center mx-auto" style="width: 80px; height: 80px; font-size: 2rem;">
+                                    RA
+                                </div>
+                                <button class="btn btn-sm btn-primary rounded-circle position-absolute bottom-0 end-0" style="width: 28px; height: 28px; padding: 0;">
+                                    <i class="bi bi-camera-fill" style="font-size: 12px;"></i>
+                                </button>
+                            </div>
+                            <h6 class="mb-1">Rahim Ahmed</h6>
+                            <small class="text-muted">rahim@email.com</small>
+                        </div>
+                        
+                        <nav class="account-nav">
+                            <a href="profile.html" class="account-nav-link active">
+                                <i class="bi bi-person"></i>Profile
+                            </a>
+                            <a href="orders.html" class="account-nav-link">
+                                <i class="bi bi-receipt"></i>My Orders
+                                <span class="badge bg-primary ms-auto">5</span>
+                            </a>
+                            <a href="wishlist.html" class="account-nav-link">
+                                <i class="bi bi-heart"></i>Wishlist
+                                <span class="badge bg-secondary ms-auto">8</span>
+                            </a>
+                            <a href="addresses.html" class="account-nav-link">
+                                <i class="bi bi-geo-alt"></i>Addresses
+                            </a>
+                            <a href="payment-methods.html" class="account-nav-link">
+                                <i class="bi bi-credit-card"></i>Payment Methods
+                            </a>
+                            <a href="settings.html" class="account-nav-link">
+                                <i class="bi bi-gear"></i>Settings
+                            </a>
+                            <hr>
+                            <a href="signin.html" class="account-nav-link text-danger">
+                                <i class="bi bi-box-arrow-left"></i>Logout
+                            </a>
+                        </nav>
+                    </div>
+                </div>
+                
+                <!-- Main Content -->
+                <div class="col-lg-9">
+                    <!-- Profile Info Card -->
+                    <div class="profile-card glass-card p-4 mb-4" data-animate="fade-up">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h5 class="mb-0"><i class="bi bi-person me-2 text-primary"></i>Personal Information</h5>
+                            <button class="btn btn-outline-primary btn-sm" id="editProfileBtn">
+                                <i class="bi bi-pencil me-1"></i>Edit
+                            </button>
+                        </div>
+                        
+                        <form class="profile-form">
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="form-label">First Name</label>
+                                    <input type="text" class="form-control" value="Rahim" disabled>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Last Name</label>
+                                    <input type="text" class="form-control" value="Ahmed" disabled>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Email</label>
+                                    <input type="email" class="form-control" value="rahim@email.com" disabled>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Phone</label>
+                                    <input type="tel" class="form-control" value="+880 1712-345678" disabled>
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label">Date of Birth</label>
+                                    <input type="date" class="form-control" value="1995-06-15" disabled>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Recent Orders -->
+                    <div class="orders-card glass-card p-4 mb-4" data-animate="fade-up">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h5 class="mb-0"><i class="bi bi-receipt me-2 text-primary"></i>Recent Orders</h5>
+                            <a href="orders.html" class="btn btn-link btn-sm">View All</a>
+                        </div>
+                        
+                        <div class="order-item d-flex flex-wrap gap-3 p-3 bg-light rounded-3 mb-3">
+                            <div class="order-images d-flex">
+                                <img src="https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?w=60" class="rounded" style="width: 50px; height: 50px; object-fit: cover;">
+                            </div>
+                            <div class="flex-grow-1">
+                                <div class="d-flex justify-content-between">
+                                    <div>
+                                        <h6 class="mb-1">#ORD-5234</h6>
+                                        <small class="text-muted">Feb 6, 2026 • 3 items</small>
+                                    </div>
+                                    <div class="text-end">
+                                        <span class="badge bg-warning mb-1">Processing</span>
+                                        <div class="fw-bold">৳424,960</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="w-100">
+                                <a href="#" class="btn btn-outline-primary btn-sm">Track Order</a>
+                                <a href="#" class="btn btn-outline-secondary btn-sm">View Details</a>
+                            </div>
+                        </div>
+                        
+                        <div class="order-item d-flex flex-wrap gap-3 p-3 bg-light rounded-3">
+                            <div class="order-images d-flex">
+                                <img src="https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?w=60" class="rounded" style="width: 50px; height: 50px; object-fit: cover;">
+                            </div>
+                            <div class="flex-grow-1">
+                                <div class="d-flex justify-content-between">
+                                    <div>
+                                        <h6 class="mb-1">#ORD-5120</h6>
+                                        <small class="text-muted">Jan 28, 2026 • 1 item</small>
+                                    </div>
+                                    <div class="text-end">
+                                        <span class="badge bg-success mb-1">Delivered</span>
+                                        <div class="fw-bold">৳164,990</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="w-100">
+                                <a href="#" class="btn btn-outline-primary btn-sm">Buy Again</a>
+                                <a href="#" class="btn btn-outline-secondary btn-sm">Write Review</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Saved Addresses -->
+                    <div class="addresses-card glass-card p-4" data-animate="fade-up">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h5 class="mb-0"><i class="bi bi-geo-alt me-2 text-primary"></i>Saved Addresses</h5>
+                            <button class="btn btn-outline-primary btn-sm"><i class="bi bi-plus me-1"></i>Add New</button>
+                        </div>
+                        
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <div class="address-card p-3 border rounded-3 position-relative">
+                                    <span class="badge bg-primary position-absolute top-0 end-0 m-2">Default</span>
+                                    <h6 class="mb-2"><i class="bi bi-house me-1"></i>Home</h6>
+                                    <p class="mb-1 small">Rahim Ahmed</p>
+                                    <p class="mb-1 small text-muted">House 12, Road 5, Block C<br>Banani, Dhaka 1213</p>
+                                    <p class="mb-2 small text-muted">+880 1712-345678</p>
+                                    <a href="#" class="btn btn-link btn-sm p-0">Edit</a>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="address-card p-3 border rounded-3">
+                                    <h6 class="mb-2"><i class="bi bi-building me-1"></i>Office</h6>
+                                    <p class="mb-1 small">Rahim Ahmed</p>
+                                    <p class="mb-1 small text-muted">Floor 8, Tower A<br>Gulshan 2, Dhaka 1212</p>
+                                    <p class="mb-2 small text-muted">+880 1712-345678</p>
+                                    <a href="#" class="btn btn-link btn-sm p-0">Edit</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-4"><div class="footer-brand gradient-text">DCLStore</div></div>
+            </div>
+            <div class="footer-bottom"><p class="footer-copyright mb-0">© 2026 DCL E-Commerce.</p></div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+
+    <style>
+        .account-nav-link {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1rem;
+            color: var(--dark);
+            text-decoration: none;
+            border-radius: var(--radius-lg);
+            transition: all 0.3s;
+            margin-bottom: 0.25rem;
+        }
+        .account-nav-link:hover { background: var(--light); color: var(--primary); }
+        .account-nav-link.active { background: var(--primary); color: white; }
+        .account-nav-link i { font-size: 1.125rem; }
+        .bg-gradient-primary { background: var(--gradient-primary); }
+    </style>
+</body>
+</html>

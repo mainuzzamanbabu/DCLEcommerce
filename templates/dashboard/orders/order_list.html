@@ -1,124 +1,204 @@
 {% extends 'dashboard/base.html' %}
 {% load humanize %}
 
+{% block title %}Orders{% endblock %}
+{% block page_title %}Orders{% endblock %}
+
 {% block dashboard_content %}
-<!-- Filters -->
-<div class="card mb-4 border-0 shadow-sm">
-    <div class="card-body">
-        <form method="get" class="row g-3 align-items-end">
-            <div class="col-md-3">
-                <label class="form-label small text-muted">Order Status</label>
-                <select name="status" class="form-select">
-                    <option value="">All Statuses</option>
-                    {% for value, label in status_choices %}
-                    <option value="{{ value }}" {% if current_status == value %}selected{% endif %}>{{ label }}</option>
-                    {% endfor %}
-                </select>
-            </div>
-            <div class="col-md-3">
-                <label class="form-label small text-muted">Payment Status</label>
-                <select name="payment_status" class="form-select">
-                    <option value="">All Payments</option>
-                    {% for value, label in payment_status_choices %}
-                    <option value="{{ value }}" {% if current_payment_status == value %}selected{% endif %}>{{ label }}</option>
-                    {% endfor %}
-                </select>
-            </div>
-            <div class="col-md-2">
-                <button type="submit" class="btn btn-primary w-100">
-                    <i class="bi bi-funnel me-1"></i> Filter
-                </button>
-            </div>
-            <div class="col-md-2">
-                <a href="{% url 'dashboard:order_list' %}" class="btn btn-outline-secondary w-100">
-                    <i class="bi bi-x-circle me-1"></i> Clear
-                </a>
-            </div>
-        </form>
+<!-- Order Overview Header -->
+<div class="d-flex justify-content-between align-items-end mb-4">
+    <div>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-1">
+                <li class="breadcrumb-item small"><a href="{% url 'dashboard:home' %}" class="text-decoration-none text-muted">Dashboard</a></li>
+                <li class="breadcrumb-item small active" aria-current="page">Orders</li>
+            </ol>
+        </nav>
+        <h2 class="h4 fw-bold mb-0">Total Orders</h2>
+        <p class="text-muted small mb-0">Track and manage your customer fulfillment lifecycle</p>
+    </div>
+    <div class="d-flex gap-2">
+        <button class="btn btn-outline-secondary btn-sm d-flex align-items-center gap-2" onclick="window.print()">
+            <i class="bi bi-printer"></i>
+            <span>Print Report</span>
+        </button>
     </div>
 </div>
 
-<!-- Orders Table -->
-<div class="table-premium">
-    <div class="table-header d-flex justify-content-between align-items-center">
-        <h5 class="mb-0"><i class="bi bi-cart-check me-2"></i>Orders ({{ orders.paginator.count }})</h5>
+<!-- Order Stats Grid -->
+<div class="stats-grid mb-4">
+    <div class="stat-card">
+        <div class="stat-header">
+            <span class="stat-title">T. Orders</span>
+            <div class="stat-icon text-primary"><i class="bi bi-receipt-cutoff"></i></div>
+        </div>
+        <div class="stat-value">{{ orders.paginator.count|intcomma }}</div>
+        <div class="stat-trend text-success"><i class="bi bi-graph-up-arrow"></i> 12% <span class="text-muted ms-1">vs last mo.</span></div>
     </div>
-    <div class="table-responsive">
-        <table class="table table-hover mb-0">
-            <thead>
-                <tr>
-                    <th>Order ID</th>
-                    <th>Customer</th>
-                    <th>Date</th>
-                    <th>Total</th>
-                    <th>Payment</th>
-                    <th>Status</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for order in orders %}
-                <tr>
-                    <td class="fw-bold text-primary">#{{ order.order_number }}</td>
-                    <td>
-                        {% if order.user %}
-                            {{ order.user.get_full_name|default:order.user.email }}
-                        {% else %}
-                            {{ order.guest_email|default:"Guest" }}
-                        {% endif %}
-                    </td>
-                    <td>{{ order.created_at|date:"M d, Y H:i" }}</td>
-                    <td class="fw-bold">৳{{ order.total|floatformat:2|intcomma }}</td>
-                    <td>
-                        <span class="badge rounded-pill 
-                            {% if order.payment_status == 'paid' %}bg-success
-                            {% elif order.payment_status == 'pending' %}bg-warning text-dark
-                            {% else %}bg-danger{% endif %}">
-                            {{ order.get_payment_status_display }}
-                        </span>
-                    </td>
-                    <td>
-                        <span class="badge rounded-pill 
-                            {% if order.status == 'delivered' %}bg-success
-                            {% elif order.status == 'shipped' %}bg-info
-                            {% elif order.status == 'processing' %}bg-warning text-dark
-                            {% elif order.status == 'cancelled' %}bg-danger
-                            {% else %}bg-secondary{% endif %}">
-                            {{ order.get_status_display }}
-                        </span>
-                    </td>
-                    <td>
-                        <a href="{% url 'dashboard:order_detail' order.order_number %}" class="btn btn-sm btn-outline-primary">
-                            <i class="bi bi-eye"></i> View
-                        </a>
-                    </td>
-                </tr>
-                {% empty %}
-                <tr>
-                    <td colspan="7" class="text-center py-5">
-                        <div class="text-muted">
-                            <i class="bi bi-inbox display-4 d-block mb-3 opacity-50"></i>
-                            <p class="mb-0">No orders found.</p>
-                        </div>
-                    </td>
-                </tr>
+    <div class="stat-card">
+        <div class="stat-header">
+            <span class="stat-title">Awaiting Processing</span>
+            <div class="stat-icon text-warning"><i class="bi bi-clock"></i></div>
+        </div>
+        <div class="stat-value text-warning">{{ pending_count|default:0 }}</div>
+        <div class="text-muted small">Requires attention</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-header">
+            <span class="stat-title">Currently Packing</span>
+            <div class="stat-icon text-info"><i class="bi bi-box-seam"></i></div>
+        </div>
+        <div class="stat-value text-info">{{ processing_count|default:0 }}</div>
+        <div class="text-muted small">In operations</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-header">
+            <span class="stat-title">Fulfilled Today</span>
+            <div class="stat-icon text-success"><i class="bi bi-check2-circle"></i></div>
+        </div>
+        <div class="stat-value text-success">{{ delivered_count|default:0 }}</div>
+        <div class="text-muted small">Successful deliveries</div>
+    </div>
+</div>
+
+<!-- Advanced Filters -->
+<div class="table-card p-3 mb-4">
+    <form method="get" class="row g-2 align-items-center">
+        <div class="col-md-4">
+            <div class="input-group input-group-sm">
+                <span class="input-group-text bg-light border-end-0"><i class="bi bi-search text-muted"></i></span>
+                <input type="text" name="search" class="form-control border-start-0" placeholder="Search by ID or Reference..." value="{{ request.GET.search }}">
+            </div>
+        </div>
+        <div class="col-md-2">
+            <select name="status" class="form-select form-select-sm">
+                <option value="">Status: All</option>
+                {% for value, label in status_choices %}
+                <option value="{{ value }}" {% if current_status == value %}selected{% endif %}>{{ label }}</option>
                 {% endfor %}
-            </tbody>
-        </table>
-    </div>
+            </select>
+        </div>
+        <div class="col-md-2">
+            <select name="payment_status" class="form-select form-select-sm">
+                <option value="">Payment: All</option>
+                {% for value, label in payment_status_choices %}
+                <option value="{{ value }}" {% if current_payment_status == value %}selected{% endif %}>{{ label }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-md-4 d-flex gap-2">
+            <button type="submit" class="btn btn-sm btn-dark flex-grow-1">Filter Records</button>
+            <a href="{% url 'dashboard:order_list' %}" class="btn btn-sm btn-link text-muted" title="Reset View">
+                <i class="bi bi-arrow-counterclockwise fs-5"></i>
+            </a>
+        </div>
+    </form>
+</div>
+
+<!-- Orders Ledger Table -->
+<div class="table-card overflow-hidden">
+    <table class="admin-table mb-0">
+        <thead>
+            <tr>
+                <th style="width: 40px;"><input type="checkbox" class="form-check-input"></th>
+                <th>Reference</th>
+                <th>Client Details</th>
+                <th>Manifest</th>
+                <th>Amount</th>
+                <th>Timeline</th>
+                <th>Status</th>
+                <th class="text-end">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for order in orders %}
+            <tr>
+                <td><input type="checkbox" class="form-check-input"></td>
+                <td class="fw-bold text-dark">#{{ order.order_number }}</td>
+                <td>
+                    <div class="d-flex align-items-center gap-2">
+                        <div class="avatar-circle bg-primary text-white d-flex align-items-center justify-content-center fw-bold" style="width:28px;height:28px;font-size:10px;border-radius:50%;">
+                            {{ order.user.username|default:order.guest_email|slice:":1"|upper }}
+                        </div>
+                        <div>
+                            <div class="fw-bold text-dark small" style="line-height: 1;">
+                                {% if order.user %}
+                                    {{ order.user.get_full_name|default:order.user.username|truncatechars:18 }}
+                                {% else %}
+                                    {{ order.guest_full_name|default:"Guest"|truncatechars:18 }}
+                                {% endif %}
+                            </div>
+                            <small class="text-muted extra-small">{{ order.user.email|default:order.guest_email|truncatechars:22 }}</small>
+                        </div>
+                    </div>
+                </td>
+                <td class="small">{{ order.items.count }} item{{ order.items.count|pluralize }}</td>
+                <td class="fw-bold">৳{{ order.total|floatformat:0|intcomma }}</td>
+                <td class="text-muted small">{{ order.created_at|date:"M d, Y" }}</td>
+                <td>
+                    <span class="status-badge 
+                        {% if order.status == 'delivered' %}success
+                        {% elif order.status == 'shipped' %}success
+                        {% elif order.status == 'processing' %}info
+                        {% elif order.status == 'pending' %}warning
+                        {% elif order.status == 'cancelled' %}danger
+                        {% else %}info{% endif %}">
+                        <i class="bi bi-dot me-0"></i>{{ order.get_status_display }}
+                    </span>
+                </td>
+                <td class="text-end">
+                    <div class="d-flex justify-content-end gap-1">
+                        <a href="{% url 'dashboard:order_detail' order.order_number %}" class="action-btn" title="View Detail">
+                            <i class="bi bi-search"></i>
+                        </a>
+                        <button class="action-btn" title="Generate Invoice" onclick="window.print()">
+                            <i class="bi bi-file-earmark-pdf"></i>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="8" class="text-center py-5">
+                    <div class="text-muted">
+                        <i class="bi bi-receipt display-3 d-block mb-3 opacity-25"></i>
+                        <h5 class="fw-bold mb-1">No orders discovered</h5>
+                        <p class="small mb-0">Your order activity will populate this space once customers begin checkout.</p>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
     
+    <!-- Unified Ledger Pagination -->
     {% if orders.has_other_pages %}
-    <div class="card-footer bg-white border-0 py-3">
+    <div class="d-flex justify-content-between align-items-center p-3 border-top bg-light-subtle">
+        <div class="text-muted extra-small">
+            Displaying {{ orders.start_index }}-{{ orders.end_index }} of total {{ orders.paginator.count }} transactions
+        </div>
         <nav>
-            <ul class="pagination justify-content-center mb-0">
+            <ul class="pagination pagination-sm mb-0">
                 {% if orders.has_previous %}
-                <li class="page-item"><a class="page-link" href="?page={{ orders.previous_page_number }}{% if current_status %}&status={{ current_status }}{% endif %}{% if current_payment_status %}&payment_status={{ current_payment_status }}{% endif %}">Previous</a></li>
+                <li class="page-item">
+                    <a class="page-link border-0 rounded-start" href="?page={{ orders.previous_page_number }}{% if current_status %}&status={{ current_status }}{% endif %}{% if current_payment_status %}&payment_status={{ current_payment_status }}{% endif %}">
+                        <i class="bi bi-chevron-left"></i>
+                    </a>
+                </li>
+                {% else %}
+                <li class="page-item disabled"><a class="page-link border-0 rounded-start" href="#"><i class="bi bi-chevron-left"></i></a></li>
                 {% endif %}
                 
-                <li class="page-item disabled"><span class="page-link">Page {{ orders.number }} of {{ orders.paginator.num_pages }}</span></li>
+                <li class="page-item active"><a class="page-link border-0 mx-1 rounded" href="#">{{ orders.number }}</a></li>
                 
                 {% if orders.has_next %}
-                <li class="page-item"><a class="page-link" href="?page={{ orders.next_page_number }}{% if current_status %}&status={{ current_status }}{% endif %}{% if current_payment_status %}&payment_status={{ current_payment_status }}{% endif %}">Next</a></li>
+                <li class="page-item">
+                    <a class="page-link border-0 rounded-end" href="?page={{ orders.next_page_number }}{% if current_status %}&status={{ current_status }}{% endif %}{% if current_payment_status %}&payment_status={{ current_payment_status }}{% endif %}">
+                        <i class="bi bi-chevron-right"></i>
+                    </a>
+                </li>
+                {% else %}
+                <li class="page-item disabled"><a class="page-link border-0 rounded-end" href="#"><i class="bi bi-chevron-right"></i></a></li>
                 {% endif %}
             </ul>
         </nav>

@@ -1,237 +1,261 @@
 {% extends 'dashboard/base.html' %}
 {% load humanize %}
+{% load static %}
+
+{% block title %}{{ title }}{% endblock %}
+{% block page_title %}{{ title }}{% endblock %}
 
 {% block dashboard_content %}
-<div class="row">
+<div class="row g-4">
     <!-- Main Form -->
     <div class="col-lg-8">
-        <div class="card border-0 shadow-sm mb-4">
-            <div class="card-header bg-white py-3">
-                <h5 class="mb-0 fw-bold">{{ title }}</h5>
+        <div class="table-card mb-4">
+            <div class="form-header mb-4">
+                <h2 class="form-title">{{ title }}</h2>
+                <p class="form-subtitle">General product information and classification</p>
             </div>
-            <div class="card-body">
-                <form method="post">
-                    {% csrf_token %}
-                    
-                    <div class="mb-3">
+            
+            <form method="post">
+                {% csrf_token %}
+                
+                <div class="row g-4">
+                    <div class="col-12">
                         <label class="form-label">Product Name <span class="text-danger">*</span></label>
                         {{ form.name }}
-                        {% if form.name.errors %}<div class="text-danger small">{{ form.name.errors.0 }}</div>{% endif %}
+                        {% if form.name.errors %}<div class="text-danger small mt-1">{{ form.name.errors.0 }}</div>{% endif %}
                     </div>
                     
-                    <div class="row mb-3">
-                        <div class="col-md-4">
-                            <label class="form-label">Category</label>
-                            {{ form.category }}
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label">Brand</label>
-                            {{ form.brand }}
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label">Product Type</label>
-                            {{ form.product_type }}
-                        </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Category</label>
+                        {{ form.category }}
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Brand</label>
+                        {{ form.brand }}
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Product Type</label>
+                        {{ form.product_type }}
                     </div>
                     
-                    <div class="mb-3">
+                    <div class="col-12">
                         <label class="form-label">Short Description</label>
                         {{ form.short_description }}
+                        <small class="text-muted">A brief summary shown in product lists</small>
                     </div>
                     
-                    <div class="mb-3">
+                    <div class="col-12">
                         <label class="form-label">Full Description</label>
                         {{ form.description }}
                     </div>
                     
-                    <div class="row mb-3">
-                        <div class="col-md-4">
-                            <label class="form-label">Warranty (Months)</label>
-                            {{ form.warranty_months }}
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-check mt-4 pt-2">
+                    <div class="col-md-4">
+                        <label class="form-label">Warranty (Months)</label>
+                        {{ form.warranty_months }}
+                    </div>
+                    
+                    <div class="col-md-8">
+                        <div class="d-flex gap-4 mt-4">
+                            <div class="form-check form-switch p-0 ms-4">
                                 {{ form.is_active }}
-                                <label class="form-check-label">Active</label>
+                                <label class="form-check-label fw-semibold ms-2" for="{{ form.is_active.id_for_label }}">Active</label>
                             </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-check mt-4 pt-2">
+                            <div class="form-check form-switch p-0">
                                 {{ form.is_featured }}
-                                <label class="form-check-label">Featured</label>
+                                <label class="form-check-label fw-semibold ms-2" for="{{ form.is_featured.id_for_label }}">Featured</label>
                             </div>
                         </div>
                     </div>
-                    
-                    <hr>
-                    
-                    <div class="d-flex gap-2">
-                        <button type="submit" class="btn btn-primary">
-                            <i class="bi bi-check-circle me-1"></i> Save Product
-                        </button>
-                        <a href="{% url 'dashboard:product_list' %}" class="btn btn-outline-secondary">Cancel</a>
-                    </div>
-                </form>
-            </div>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="submit" class="btn-primary px-5">
+                        <i class="bi bi-check-lg me-2"></i>Save Product
+                    </button>
+                    <a href="{% url 'dashboard:product_list' %}" class="btn-outline">Cancel</a>
+                </div>
+            </form>
         </div>
         
-        <!-- Variants Section (only show for existing products) -->
+        <!-- Variants Section -->
         {% if product %}
-        <div class="card border-0 shadow-sm mb-4">
-            <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
-                <h6 class="mb-0 fw-bold"><i class="bi bi-layers me-2"></i>Product Variants & Pricing</h6>
-                <a href="{% url 'dashboard:variant_create' product.pk %}" class="btn btn-sm btn-primary">
-                    <i class="bi bi-plus-circle me-1"></i> Add Variant
+        <div class="table-card p-0 overflow-hidden mb-4">
+            <div class="d-flex justify-content-between align-items-center p-4 border-bottom">
+                <div>
+                    <h5 class="fw-bold mb-1"><i class="bi bi-layers me-2 text-primary"></i>Variants & Pricing</h5>
+                    <p class="text-muted small mb-0">Manage different versions, prices and stock levels</p>
+                </div>
+                <a href="{% url 'dashboard:variant_create' product.pk %}" class="btn-primary btn-sm">
+                    <i class="bi bi-plus-lg me-1"></i>Add Variant
                 </a>
             </div>
-            <div class="card-body p-0">
-                {% if product.variants.exists %}
-                <div class="table-responsive">
-                    <table class="table table-hover align-middle mb-0">
-                        <thead class="table-light">
-                            <tr>
-                                <th>SKU</th>
-                                <th>Variant</th>
-                                <th>Price</th>
-                                <th>Stock</th>
-                                <th>Status</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for variant in product.variants.all %}
-                            <tr>
-                                <td><code>{{ variant.sku }}</code></td>
-                                <td>{{ variant.variant_name|default:"-" }}</td>
-                                <td>
-                                    {% if variant.price %}
-                                    <strong>৳{{ variant.price.effective_price|floatformat:0|intcomma }}</strong>
-                                    {% if variant.price.is_on_sale %}
-                                    <br><small class="text-muted text-decoration-line-through">৳{{ variant.price.list_price|floatformat:0|intcomma }}</small>
-                                    <span class="badge bg-danger">-{{ variant.price.discount_percent }}%</span>
-                                    {% endif %}
-                                    {% else %}
-                                    <span class="text-muted">Not set</span>
-                                    {% endif %}
-                                </td>
-                                <td>
-                                    {% if variant.inventory %}
-                                        {% if variant.inventory.is_out_of_stock %}
-                                        <span class="badge bg-danger">Out of Stock</span>
-                                        {% elif variant.inventory.is_low_stock %}
-                                        <span class="badge bg-warning text-dark">{{ variant.inventory.available_qty }} (Low)</span>
-                                        {% else %}
-                                        <span class="badge bg-success">{{ variant.inventory.available_qty }}</span>
-                                        {% endif %}
-                                    {% else %}
-                                    <span class="text-muted">Not set</span>
-                                    {% endif %}
-                                </td>
-                                <td>
-                                    {% if variant.is_active %}
-                                    <span class="badge bg-success">Active</span>
-                                    {% else %}
-                                    <span class="badge bg-secondary">Inactive</span>
-                                    {% endif %}
-                                </td>
-                                <td>
-                                    <a href="{% url 'dashboard:variant_edit' product.pk variant.pk %}" class="btn btn-sm btn-outline-primary me-1">
-                                        <i class="bi bi-pencil"></i>
-                                    </a>
-                                    <a href="{% url 'dashboard:variant_delete' product.pk variant.pk %}" class="btn btn-sm btn-outline-danger">
-                                        <i class="bi bi-trash"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
-                {% else %}
-                <div class="text-center py-4">
-                    <i class="bi bi-layers display-4 text-muted mb-3"></i>
-                    <p class="text-muted mb-3">No variants yet. Add a variant to set prices and inventory.</p>
-                    <a href="{% url 'dashboard:variant_create' product.pk %}" class="btn btn-primary">
-                        <i class="bi bi-plus-circle me-1"></i> Add First Variant
-                    </a>
-                </div>
-                {% endif %}
+            
+            {% if product.variants.exists %}
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>SKU</th>
+                        <th>Variant Name</th>
+                        <th>Pricing</th>
+                        <th>Stock</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for variant in product.variants.all %}
+                    <tr>
+                        <td><code class="px-2 py-1 bg-light rounded">{{ variant.sku }}</code></td>
+                        <td class="fw-semibold">{{ variant.variant_name|default:"Base Product" }}</td>
+                        <td>
+                            {% if variant.price %}
+                            <div class="fw-bold text-dark">৳{{ variant.price.effective_price|floatformat:0|intcomma }}</div>
+                            {% if variant.price.is_on_sale %}
+                            <div class="d-flex align-items-center gap-2">
+                                <small class="text-muted text-decoration-line-through">৳{{ variant.price.list_price|floatformat:0|intcomma }}</small>
+                                <span class="status-badge danger py-0 px-2" style="font-size: 0.7rem;">-{{ variant.price.discount_percent }}%</span>
+                            </div>
+                            {% endif %}
+                            {% else %}
+                            <span class="text-muted small">Not set</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if variant.inventory %}
+                                {% if variant.inventory.is_out_of_stock %}
+                                <span class="status-badge danger">Out of Stock</span>
+                                {% elif variant.inventory.is_low_stock %}
+                                <span class="status-badge warning">{{ variant.inventory.available_qty }} (Low)</span>
+                                {% else %}
+                                <span class="status-badge success">{{ variant.inventory.available_qty }} in stock</span>
+                                {% endif %}
+                            {% else %}
+                            <span class="status-badge info">No stock data</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if variant.is_active %}
+                            <span class="status-badge success">Active</span>
+                            {% else %}
+                            <span class="status-badge danger">Inactive</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <div class="d-flex gap-1">
+                                <a href="{% url 'dashboard:variant_edit' product.pk variant.pk %}" class="action-btn" title="Edit">
+                                    <i class="bi bi-pencil"></i>
+                                </a>
+                                <a href="{% url 'dashboard:variant_delete' product.pk variant.pk %}" class="action-btn text-danger" title="Delete">
+                                    <i class="bi bi-trash"></i>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <div class="text-center py-5">
+                <i class="bi bi-layers display-4 text-muted mb-3 opacity-25"></i>
+                <p class="text-muted">No variants added yet.</p>
+                <a href="{% url 'dashboard:variant_create' product.pk %}" class="btn-outline mt-2">Add First Variant</a>
             </div>
+            {% endif %}
         </div>
         {% endif %}
     </div>
     
-    <!-- Sidebar - Images & Actions -->
+    <!-- Sidebar -->
     <div class="col-lg-4">
         {% if product %}
-        <div class="card border-0 shadow-sm mb-4">
-            <div class="card-header bg-white py-3">
-                <h6 class="mb-0 fw-bold">Product Images</h6>
-            </div>
-            <div class="card-body">
-                <!-- Existing Images -->
-                {% if product.images.exists %}
-                <div class="row g-2 mb-3">
-                    {% for image in product.images.all %}
-                    <div class="col-6">
-                        <div class="position-relative">
-                            <img src="{{ image.image.url }}" alt="{{ image.alt_text }}" class="rounded w-100" style="height: 100px; object-fit: cover;">
-                            {% if image.is_primary %}
-                            <span class="badge bg-primary position-absolute top-0 start-0 m-1">Primary</span>
-                            {% endif %}
-                            <form method="post" action="{% url 'dashboard:product_image_delete' product.pk image.pk %}" class="position-absolute top-0 end-0 m-1">
+        <div class="table-card mb-4">
+            <h5 class="fw-bold mb-4"><i class="bi bi-images me-2 text-primary"></i>Media Library</h5>
+            
+            {% if product.images.exists %}
+            <div class="row g-3 mb-4">
+                {% for image in product.images.all %}
+                <div class="col-6">
+                    <div class="position-relative group">
+                        <img src="{{ image.image.url }}" alt="{{ image.alt_text }}" class="rounded w-100 border shadow-sm" style="height: 110px; object-fit: cover;">
+                        {% if image.is_primary %}
+                        <span class="status-badge success position-absolute top-0 start-0 m-1 py-0 px-2" style="font-size: 0.65rem;">Primary</span>
+                        {% endif %}
+                        <div class="position-absolute top-0 end-0 m-1">
+                            <form method="post" action="{% url 'dashboard:product_image_delete' product.pk image.pk %}">
                                 {% csrf_token %}
-                                <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Delete this image?')">
-                                    <i class="bi bi-trash"></i>
+                                <button type="submit" class="btn btn-dark btn-sm p-1 rounded-circle opacity-75 hover-opacity-100" style="width: 24px; height: 24px; display: flex; align-items: center; justify-content: center;" onclick="return confirm('Delete this image?')">
+                                    <i class="bi bi-x-lg" style="font-size: 0.75rem;"></i>
                                 </button>
                             </form>
                         </div>
                     </div>
-                    {% endfor %}
                 </div>
-                {% else %}
-                <p class="text-muted small">No images uploaded yet.</p>
-                {% endif %}
-                
-                <!-- Upload Form -->
-                <form method="post" action="{% url 'dashboard:product_image_upload' product.pk %}" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    <div class="mb-3">
-                        {{ image_form.image }}
-                    </div>
-                    <div class="mb-3">
-                        {{ image_form.alt_text }}
-                    </div>
-                    <div class="form-check mb-3">
-                        {{ image_form.is_primary }}
-                        <label class="form-check-label">Set as primary image</label>
-                    </div>
-                    <button type="submit" class="btn btn-outline-primary w-100">
-                        <i class="bi bi-upload me-1"></i> Upload Image
-                    </button>
-                </form>
+                {% endfor %}
             </div>
+            {% else %}
+            <div class="text-center py-4 bg-light rounded border border-dashed mb-4">
+                <i class="bi bi-image text-muted display-6"></i>
+                <p class="text-muted small mt-2">No product images</p>
+            </div>
+            {% endif %}
+            
+            <form method="post" action="{% url 'dashboard:product_image_upload' product.pk %}" enctype="multipart/form-data" class="bg-light p-3 rounded border">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label class="form-label small fw-bold">Upload Gallery Image</label>
+                    {{ image_form.image }}
+                </div>
+                <div class="mb-3">
+                    {{ image_form.alt_text }}
+                </div>
+                <div class="form-check mb-3">
+                    {{ image_form.is_primary }}
+                    <label class="form-check-label small">Set as primary image</label>
+                </div>
+                <button type="submit" class="btn-primary btn-sm w-100">
+                    <i class="bi bi-cloud-upload me-1"></i> Upload
+                </button>
+            </form>
         </div>
         
-        <div class="card border-0 shadow-sm">
-            <div class="card-header bg-white py-3">
-                <h6 class="mb-0 fw-bold">Quick Actions</h6>
-            </div>
-            <div class="card-body">
-                <a href="{% url 'catalog:product_detail' product.slug %}" class="btn btn-outline-secondary w-100 mb-2" target="_blank">
-                    <i class="bi bi-eye me-1"></i> View on Shop
+        <div class="table-card">
+            <h5 class="fw-bold mb-4">Quick Actions</h5>
+            <div class="d-grid gap-2">
+                <a href="{% url 'catalog:product_detail' product.slug %}" class="btn-outline text-center py-2" target="_blank">
+                    <i class="bi bi-box-arrow-up-right me-2"></i>Live Preview
                 </a>
-                <a href="{% url 'dashboard:product_delete' product.pk %}" class="btn btn-outline-danger w-100">
-                    <i class="bi bi-trash me-1"></i> Delete Product
+                <a href="{% url 'dashboard:product_delete' product.pk %}" class="btn-outline text-danger text-center py-2">
+                    <i class="bi bi-trash me-2"></i>Delete Product
                 </a>
             </div>
         </div>
         {% else %}
-        <div class="alert alert-info">
-            <i class="bi bi-info-circle me-2"></i>
-            Save the product first to upload images and add variants.
+        <div class="table-card border-dashed d-flex flex-column align-items-center justify-content-center text-center py-5">
+            <div class="rounded-circle bg-light p-3 mb-3">
+                <i class="bi bi-info-circle text-primary fs-3"></i>
+            </div>
+            <h6>Media Restricted</h6>
+            <p class="text-muted small mb-0 px-4">Save the basic product details first to unlock image uploads and variants.</p>
         </div>
         {% endif %}
     </div>
 </div>
+
+<style>
+    /* Product Form Specific Overrides */
+    .table-card input[type="text"], 
+    .table-card input[type="number"], 
+    .table-card textarea, 
+    .table-card select {
+        display: block;
+        width: 100%;
+        padding: 0.625rem 1rem;
+        font-size: 0.875rem;
+        border: 1px solid var(--admin-gray-200);
+        border-radius: var(--radius-md);
+    }
+    .table-card textarea { height: 120px; }
+    .form-check-input { width: 40px; height: 20px; cursor: pointer; }
+    .border-dashed { border: 2px dashed var(--admin-gray-200) !important; background: transparent; }
+</style>
 {% endblock %}

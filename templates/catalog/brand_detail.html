@@ -4,44 +4,58 @@
 {% block title %}{{ brand.name }}{% endblock %}
 
 {% block content %}
-<div class="container py-4">
-    <!-- Breadcrumb -->
-    <nav aria-label="breadcrumb" class="mb-4">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="{% url 'core:home' %}">Home</a></li>
-            <li class="breadcrumb-item"><a href="{% url 'catalog:brand_list' %}">Brands</a></li>
-            <li class="breadcrumb-item active">{{ brand.name }}</li>
-        </ol>
-    </nav>
+<!-- Brand Hero -->
+<section class="page-header py-5 mb-5" style="background: var(--gradient-dark); position: relative; overflow: hidden;">
+    <div class="position-absolute inset-0" style="background: var(--gradient-mesh); opacity: 0.4;"></div>
+    <div class="container position-relative z-1">
+        <!-- Breadcrumbs -->
+        <nav aria-label="breadcrumb" class="mb-3" data-animate="fade-down">
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item"><a href="{% url 'core:home' %}" class="text-white-50 text-decoration-none transition-all hover-white">Home</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'catalog:brand_list' %}" class="text-white-50 text-decoration-none transition-all hover-white">Brands</a></li>
+                <li class="breadcrumb-item active text-white" aria-current="page">{{ brand.name }}</li>
+            </ol>
+        </nav>
 
-    <!-- Brand Header -->
-    <div class="row mb-5 align-items-center">
-        <div class="col-auto">
+        <div class="row align-items-center">
+            <div class="col-lg-8">
+                <h1 class="display-4 fw-bold text-white mb-3" data-animate="fade-up">{{ brand.name }}</h1>
+                {% if brand.description %}
+                <p class="lead text-white-50 mb-0" data-animate="fade-up" data-animate-delay="100">{{ brand.description }}</p>
+                {% else %}
+                <p class="lead text-white-50 mb-0" data-animate="fade-up" data-animate-delay="100">Browse and shop our exclusive {{ brand.name }} collection.</p>
+                {% endif %}
+                {% if brand.website %}
+                <a href="{{ brand.website }}" target="_blank" class="btn btn-outline-light btn-sm rounded-pill px-4 mt-4" data-animate="fade-up" data-animate-delay="200">
+                    <i class="bi bi-globe me-2"></i>Visit Website
+                </a>
+                {% endif %}
+            </div>
             {% if brand.logo %}
-            <img src="{{ brand.logo.url }}" alt="{{ brand.name }}" class="rounded bg-light p-3" style="max-height: 100px;">
-            {% else %}
-            <div class="bg-light rounded p-4">
-                <span class="display-6 fw-bold text-primary">{{ brand.name|slice:":2"|upper }}</span>
+            <div class="col-lg-4 d-none d-lg-block" data-animate="fade-left">
+                <div class="glass-card p-4 rounded-4 shadow-lg float-end" style="width: 200px; border: 1px solid rgba(255,255,255,0.1); background: white;">
+                    <img src="{{ brand.logo.url }}" alt="{{ brand.name }}" class="img-fluid">
+                </div>
             </div>
             {% endif %}
         </div>
-        <div class="col">
-            <h1 class="display-6 fw-bold">{{ brand.name }}</h1>
-            {% if brand.description %}
-            <p class="text-muted mb-2">{{ brand.description }}</p>
-            {% endif %}
-            {% if brand.website %}
-            <a href="{{ brand.website }}" target="_blank" class="text-primary">
-                <i class="bi bi-globe me-1"></i>Visit Website
-            </a>
-            {% endif %}
-        </div>
     </div>
+</section>
 
-    <!-- Products -->
-    {% if products %}
+<div class="container pb-5">
+    <!-- Products by Brand -->
     <section>
-        <h4 class="section-title">Products by {{ brand.name }}</h4>
+        <div class="d-flex justify-content-between align-items-end mb-4" data-animate="fade-up">
+            <div>
+                <h4 class="fw-bold mb-1">Products by {{ brand.name }}</h4>
+                <p class="text-muted small mb-0">Found {{ products|length }} items</p>
+            </div>
+            <a href="{% url 'catalog:product_list' %}?brand={{ brand.slug }}" class="btn btn-outline-primary rounded-pill px-4 btn-sm fw-bold">
+                See All <i class="bi bi-arrow-right ms-1"></i>
+            </a>
+        </div>
+
+        {% if products %}
         <div class="row g-4">
             {% for product in products %}
             <div class="col-6 col-md-4 col-lg-3">
@@ -49,18 +63,20 @@
             </div>
             {% endfor %}
         </div>
-        
-        <div class="text-center mt-4">
-            <a href="{% url 'catalog:product_list' %}?brand={{ brand.slug }}" class="btn btn-primary">
-                View All {{ brand.name }} Products <i class="bi bi-arrow-right ms-1"></i>
-            </a>
+        {% else %}
+        <div class="glass-card text-center py-5" data-animate="fade-up">
+            <div class="mb-4">
+                <i class="bi bi-bag-x text-muted opacity-25" style="font-size: 5rem;"></i>
+            </div>
+            <h5 class="fw-bold text-dark">No products available</h5>
+            <p class="text-muted">Currently, we don't have any products available from this brand.</p>
+            <a href="{% url 'catalog:product_list' %}" class="btn btn-primary rounded-pill px-5 mt-3">Explore All Brands</a>
         </div>
+        {% endif %}
     </section>
-    {% else %}
-    <div class="text-center py-5">
-        <i class="bi bi-box-seam text-muted" style="font-size: 4rem;"></i>
-        <h5 class="mt-3 text-muted">No products from this brand yet</h5>
-    </div>
-    {% endif %}
 </div>
+
+<style>
+    .hover-white:hover { color: white !important; }
+</style>
 {% endblock %}

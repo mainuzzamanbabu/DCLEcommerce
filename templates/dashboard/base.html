@@ -4,518 +4,210 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Staff Dashboard{% endblock %} | DCL Ecommerce</title>
+    <meta name="description" content="DCL E-Commerce Admin Dashboard">
+    <title>{% block title %}Dashboard{% endblock %} | DCL Admin</title>
     
-    <!-- Bootstrap 5 CSS -->
+    <!-- Bootstrap 5 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Bootstrap Icons -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.css" rel="stylesheet">
-    <!-- Google Fonts: Outfit -->
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
     
-    <style>
-        :root {
-            --sidebar-width: 280px;
-            --primary-brown: #954e27;
-            --primary-dark: #7a3f1e;
-            --accent-terracotta: #da5d04;
-            --glass-bg: rgba(255, 255, 255, 0.6);
-            --glass-border: rgba(255, 255, 255, 0.4);
-            --card-shadow: 0 10px 30px rgba(149, 78, 39, 0.1);
-            --bg-body: #fdf6f2; /* Warm Cream */
-            --sidebar-text: #e8e0da;
-            --sidebar-active: #ffffff;
-        }
-        
-        body {
-            font-family: 'Outfit', sans-serif;
-            background-color: var(--bg-body);
-            color: #0d0d0d;
-            overflow-x: hidden;
-            background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23954E27' fill-opacity='0.02'%3E%3Ccircle cx='40' cy='40' r='3'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-        }
-
-        /* Modern Glassmorphism Utilities */
-        .glass-card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid var(--glass-border);
-            box-shadow: var(--card-shadow);
-            border-radius: 24px;
-            transition: all 0.3s ease;
-        }
-
-        .glass-card:hover {
-            background: rgba(255, 255, 255, 0.75);
-            transform: translateY(-5px);
-        }
-
-        /* Sidebar Redesign */
-        #sidebar {
-            width: var(--sidebar-width);
-            height: 100vh;
-            position: fixed;
-            left: 0;
-            top: 0;
-            background: var(--primary-dark);
-            color: #f3f4f6;
-            z-index: 1050;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            overflow-y: auto;
-            scrollbar-width: thin;
-            scrollbar-color: rgba(255,255,255,0.1) transparent;
-            display: flex;
-            flex-direction: column;
-            border-right: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        #sidebar::-webkit-scrollbar {
-            width: 5px;
-        }
-        #sidebar::-webkit-scrollbar-thumb {
-            background: rgba(255,255,255,0.1);
-            border-radius: 10px;
-        }
-
-        .sidebar-header {
-            padding: 30px 25px;
-            background: rgba(0, 0, 0, 0.1);
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-        }
-
-        .nav-link {
-            color: var(--sidebar-text);
-            padding: 12px 25px;
-            margin: 4px 15px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            font-size: 0.95rem;
-            font-weight: 500;
-            transition: all 0.2s ease;
-        }
-
-        .nav-link i {
-            margin-right: 15px;
-            font-size: 1.2rem;
-            width: 20px;
-            transition: transform 0.2s;
-            opacity: 0.7;
-        }
-
-        .nav-link:hover {
-            color: white;
-            background: rgba(255, 255, 255, 0.05);
-        }
-
-        .nav-link:hover i {
-            transform: scale(1.1);
-            opacity: 1;
-        }
-
-        .nav-link.active {
-            color: white;
-            background: var(--accent-terracotta);
-            box-shadow: 0 4px 15px rgba(218, 93, 4, 0.3);
-        }
-
-        .nav-link.active i {
-            color: white;
-            opacity: 1;
-        }
-
-        /* Main Content */
-        #content {
-            margin-left: var(--sidebar-width);
-            width: calc(100% - var(--sidebar-width));
-            padding: 40px;
-            min-height: 100vh;
-            transition: all 0.3s ease;
-        }
-
-        /* Mobile Sidebar Toggle */
-        .sidebar-toggler {
-            display: none;
-            background: white;
-            border: 1px solid rgba(149, 78, 39, 0.1);
-            color: var(--primary-brown);
-            width: 45px;
-            height: 45px;
-            border-radius: 12px;
-            align-items: center;
-            justify-content: center;
-            margin-right: 15px;
-            cursor: pointer;
-            transition: all 0.2s;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
-        }
-
-        .sidebar-toggler:hover {
-            background: #fdf6f2;
-            color: var(--accent-terracotta);
-            transform: scale(1.05);
-        }
-
-        /* Sidebar Backdrop */
-        .sidebar-backdrop {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: rgba(149, 78, 39, 0.3);
-            backdrop-filter: blur(4px);
-            -webkit-backdrop-filter: blur(4px);
-            z-index: 1040;
-        }
-
-        /* Responsive Breakpoints */
-        @media (max-width: 991.98px) {
-            #sidebar {
-                left: calc(-1 * var(--sidebar-width));
-            }
-            #sidebar.active {
-                left: 0;
-                box-shadow: 20px 0 50px rgba(149, 78, 39, 0.2);
-            }
-            #content {
-                margin-left: 0;
-                width: 100%;
-                padding: 24px;
-            }
-            .sidebar-toggler {
-                display: flex;
-            }
-            .sidebar-backdrop.active {
-                display: block;
-            }
-        }
-
-        /* Stats Cards Redesign */
-        .stats-card {
-            border: none;
-            border-radius: 24px;
-            box-shadow: 0 10px 30px rgba(149, 78, 39, 0.05);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            background: rgba(255, 255, 255, 0.6);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .stats-card:hover {
-            transform: translateY(-8px);
-            background: rgba(255, 255, 255, 0.8);
-            box-shadow: 0 20px 40px rgba(149, 78, 39, 0.1);
-        }
-        
-        .icon-box {
-            width: 64px;
-            height: 64px;
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.8rem;
-            margin-bottom: 20px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.05);
-        }
-
-        /* Top Bar Redesign */
-        .dash-navbar {
-            background: transparent;
-            margin-bottom: 40px;
-            border-radius: 0;
-            padding: 0;
-            box-shadow: none;
-        }
-
-        .dash-navbar h4 {
-            font-family: 'Merriweather', serif;
-            font-weight: 700;
-            color: var(--primary-brown);
-            font-size: 1.75rem;
-        }
-
-        .user-profile {
-            background: rgba(255, 255, 255, 0.6);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            padding: 8px 12px;
-            padding-right: 8px;
-            border-radius: 50px;
-            box-shadow: 0 4px 15px rgba(149, 78, 39, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.4);
-        }
-
-        /* Table Styling Redesign */
-        .table-premium {
-            background: rgba(255, 255, 255, 0.6);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border-radius: 24px;
-            box-shadow: 0 10px 30px rgba(149, 78, 39, 0.05);
-            overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.4);
-        }
-
-        .table-premium thead th {
-            background: rgba(149, 78, 39, 0.03);
-            border-bottom: 2px solid rgba(149, 78, 39, 0.05);
-            color: var(--primary-brown);
-            text-transform: uppercase;
-            font-size: 0.75rem;
-            letter-spacing: 0.08em;
-            padding: 1.5rem;
-            font-weight: 700;
-        }
-
-        .table-premium tbody td {
-            padding: 1.5rem;
-            vertical-align: middle;
-            border-bottom: 1px solid rgba(149, 78, 39, 0.05);
-            color: #444;
-        }
-
-        .table-premium tbody tr:hover {
-            background: rgba(255, 255, 255, 0.4);
-        }
-
-        /* Buttons Redesign */
-        .btn {
-            padding: 10px 22px;
-            border-radius: 14px;
-            font-weight: 600;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .btn-primary {
-            background: var(--primary-brown) !important;
-            color: white !important;
-            border: none !important;
-            box-shadow: 0 4px 12px rgba(149, 78, 39, 0.15);
-        }
-
-        .btn-primary:hover {
-            background: var(--primary-dark) !important;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(149, 78, 39, 0.25);
-        }
-
-        .btn-outline-primary {
-            color: var(--primary-brown);
-            border: 2px solid rgba(149, 78, 39, 0.1);
-            background: rgba(255, 255, 255, 0.5);
-        }
-
-        .btn-outline-primary:hover {
-            background: white;
-            border-color: var(--primary-brown);
-            color: var(--primary-brown);
-            transform: translateY(-1px);
-        }
-
-        /* User Info Redesign */
-        .user-avatar {
-            width: 42px;
-            height: 42px;
-            border-radius: 50%;
-            background: var(--primary-brown);
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.1rem;
-            box-shadow: 0 4px 10px rgba(149, 78, 39, 0.2);
-        }
-
-        /* Badge Styles Redesign */
-        .badge {
-            padding: 8px 16px !important;
-            border-radius: 30px !important;
-            font-weight: 600;
-            font-size: 0.7rem;
-            letter-spacing: 0.03em;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-        }
-
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #f1f5f9;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #cbd5e1;
-            border-radius: 10px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #94a3b8;
-        }
-    </style>
+    <!-- Admin Styles -->
+    <link rel="stylesheet" href="{% static 'css/admin.css' %}">
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    
     {% block extra_css %}{% endblock %}
 </head>
 <body>
-
-    <!-- Sidebar -->
-    <div id="sidebar">
-        <div class="sidebar-header">
-            <div class="d-flex align-items-center">
-                <img src="{% static 'img/dcl_logo.png' %}" alt="Logo" height="32" class="bg-white rounded p-1 me-3">
-                <h5 class="mb-0 fw-bold" style="letter-spacing: -0.5px;">DCL Admin</h5>
+    <div class="admin-wrapper">
+        <!-- Sidebar -->
+        <aside class="admin-sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <a href="{% url 'dashboard:home' %}" class="sidebar-brand">
+                    <div class="brand-icon"><i class="bi bi-box-seam"></i></div>
+                    <span>DCL Store</span>
+                </a>
             </div>
-        </div>
+            <nav class="sidebar-nav">
+                <div class="nav-section">
+                    <div class="nav-section-title">Overview</div>
+                    <ul class="nav-menu">
+                        <li class="nav-item">
+                            <a href="{% url 'dashboard:home' %}" class="nav-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}">
+                                <i class="bi bi-speedometer2"></i>
+                                <span>Overview</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="nav-section">
+                    <div class="nav-section-title">E-Commerce</div>
+                    <ul class="nav-menu">
+                        <li class="nav-item">
+                            <a href="{% url 'dashboard:product_list' %}" class="nav-link {% if 'product' in request.resolver_match.url_name %}active{% endif %}">
+                                <i class="bi bi-box-seam"></i>
+                                <span>Products</span>
+                                <span class="badge bg-primary ms-auto">{{ product_count|default:"" }}</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'dashboard:order_list' %}" class="nav-link {% if 'order' in request.resolver_match.url_name %}active{% endif %}">
+                                <i class="bi bi-receipt"></i>
+                                <span>Orders</span>
+                                <span class="badge bg-danger ms-auto">{{ pending_orders|default:"" }}</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'dashboard:customer_list' %}" class="nav-link {% if 'customer' in request.resolver_match.url_name %}active{% endif %}">
+                                <i class="bi bi-people"></i>
+                                <span>Customers</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Catalog Management</div>
+                    <ul class="nav-menu">
+                        <li class="nav-item">
+                            <a href="{% url 'dashboard:category_list' %}" class="nav-link {% if 'category' in request.resolver_match.url_name %}active{% endif %}">
+                                <i class="bi bi-grid"></i>
+                                <span>Categories</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'dashboard:brand_list' %}" class="nav-link {% if 'brand' in request.resolver_match.url_name %}active{% endif %}">
+                                <i class="bi bi-tag"></i>
+                                <span>Brands</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Storefront Content</div>
+                    <ul class="nav-menu">
+                        <li class="nav-item">
+                            <a href="{% url 'dashboard:site_settings' %}" class="nav-link {% if 'site_settings' in request.resolver_match.url_name %}active{% endif %}">
+                                <i class="bi bi-gear-wide-connected"></i>
+                                <span>Site Config</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'dashboard:slide_list' %}" class="nav-link {% if 'slide' in request.resolver_match.url_name %}active{% endif %}">
+                                <i class="bi bi-window"></i>
+                                <span>Hero Slides</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'dashboard:banner_list' %}" class="nav-link {% if 'banner' in request.resolver_match.url_name %}active{% endif %}">
+                                <i class="bi bi-card-image"></i>
+                                <span>Banners</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="{% url 'core:home' %}" target="_blank" class="view-shop-btn">
+                    <i class="bi bi-arrow-up-right-square"></i>
+                    <span>Live Store</span>
+                </a>
+                <a href="{% url 'account_logout' %}" class="logout-btn">
+                    <i class="bi bi-box-arrow-right"></i>
+                    <span>Log out</span>
+                </a>
+            </div>
+        </aside>
         
-        <div class="nav flex-column mt-4">
-            <div class="px-4 mb-2 small text-uppercase fw-bold text-muted opacity-50" style="font-size: 0.65rem;">Main Menu</div>
+        <!-- Mobile Sidebar Backdrop -->
+        <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+        
+        <!-- Main Content -->
+        <main class="admin-main">
+            <header class="admin-header">
+                <div class="header-left">
+                    <button class="header-btn d-lg-none me-2" id="sidebarToggle">
+                        <i class="bi bi-list"></i>
+                    </button>
+                    <h2 class="page-title">{% block page_title %}Dashboard{% endblock %}</h2>
+                </div>
+                <div class="header-right">
+                    <div class="header-search d-none d-md-block me-3">
+                        <i class="bi bi-search"></i>
+                        <input type="text" placeholder="Search orders, products...">
+                    </div>
+                    <button class="header-btn me-2">
+                        <i class="bi bi-bell"></i>
+                        <span class="badge-dot"></span>
+                    </button>
+                    <div class="user-dropdown">
+                        <img src="https://ui-avatars.com/api/?name={{ user.get_full_name|urlencode }}&background=4f46e5&color=fff" alt="Admin" class="user-avatar">
+                        <div class="user-info d-none d-sm-block">
+                            <div class="user-name">{{ user.get_full_name|default:user.username }}</div>
+                            <div class="user-role">Shop Manager</div>
+                        </div>
+                        <i class="bi bi-chevron-down d-none d-sm-block ms-1"></i>
+                    </div>
+                </div>
+            </header>
             
-            <a href="{% url 'dashboard:home' %}" class="nav-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}">
-                <i class="bi bi-grid-1x2"></i> Overview
-            </a>
-            <a href="{% url 'dashboard:order_list' %}" class="nav-link {% if 'order' in request.resolver_match.url_name %}active{% endif %}">
-                <i class="bi bi-bag"></i> Orders
-            </a>
-            <a href="{% url 'dashboard:product_list' %}" class="nav-link {% if 'product' in request.resolver_match.url_name %}active{% endif %}">
-                <i class="bi bi-box-seam"></i> Products
-            </a>
-            <a href="{% url 'dashboard:category_list' %}" class="nav-link {% if 'category' in request.resolver_match.url_name %}active{% endif %}">
-                <i class="bi bi-folder2"></i> Categories
-            </a>
-            <a href="{% url 'dashboard:brand_list' %}" class="nav-link {% if 'brand' in request.resolver_match.url_name %}active{% endif %}">
-                <i class="bi bi-tag"></i> Brands
-            </a>
-            <a href="{% url 'dashboard:customer_list' %}" class="nav-link {% if 'customer' in request.resolver_match.url_name %}active{% endif %}">
-                <i class="bi bi-people"></i> Customers
-            </a>
-            
-            <div class="px-4 mt-4 mb-2 small text-uppercase fw-bold text-muted opacity-50" style="font-size: 0.65rem;">CMS</div>
-            
-            <a href="{% url 'dashboard:site_settings' %}" class="nav-link {% if 'site_settings' in request.resolver_match.url_name %}active{% endif %}">
-                <i class="bi bi-gear"></i> Site Settings
-            </a>
-            <a href="{% url 'dashboard:slide_list' %}" class="nav-link {% if 'slide' in request.resolver_match.url_name %}active{% endif %}">
-                <i class="bi bi-collection"></i> Hero Slides
-            </a>
-            <a href="{% url 'dashboard:banner_list' %}" class="nav-link {% if 'banner' in request.resolver_match.url_name %}active{% endif %}">
-                <i class="bi bi-flag"></i> Banners
-            </a>
-            <a href="{% url 'dashboard:testimonial_list' %}" class="nav-link {% if 'testimonial' in request.resolver_match.url_name %}active{% endif %}">
-                <i class="bi bi-chat-quote"></i> Testimonials
-            </a>
-            <a href="{% url 'dashboard:faq_list' %}" class="nav-link {% if 'faq' in request.resolver_match.url_name %}active{% endif %}">
-                <i class="bi bi-question-circle"></i> FAQs
-            </a>
-            
-            <div class="px-4 mt-4 mb-2 small text-uppercase fw-bold text-muted opacity-50" style="font-size: 0.65rem;">Settings</div>
-            
-            <a href="{% url 'dashboard:shipping_method_list' %}" class="nav-link {% if 'shipping' in request.resolver_match.url_name %}active{% endif %}">
-                <i class="bi bi-truck"></i> Shipping
-            </a>
-            <a href="{% url 'dashboard:payment_list' %}" class="nav-link {% if 'payment' in request.resolver_match.url_name %}active{% endif %}">
-                <i class="bi bi-credit-card"></i> Payments
-            </a>
-        </div>
-            
-        <div class="mt-auto px-3 pb-4">
-            <hr class="mx-3 opacity-10">
-            <a href="{% url 'core:home' %}" target="_blank" class="nav-link mb-2">
-                <i class="bi bi-display"></i> View Shop
-            </a>
-            <a href="{% url 'account_logout' %}" class="nav-link text-danger">
-                <i class="bi bi-box-arrow-left text-danger"></i> Logout
-            </a>
-        </div>
+            <div class="admin-content">
+                <!-- Messages -->
+                {% if messages %}
+                <script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                        {% for message in messages %}
+                            let type = "{{ message.tags }}";
+                            if (type === 'error' || type === 'danger') type = 'error';
+                            else if (type === 'success') type = 'success';
+                            else if (type === 'warning') type = 'warning';
+                            else type = 'info';
+
+                            if (typeof showNotification === 'function') {
+                                showNotification("{{ message|escapejs }}", type);
+                            }
+                        {% endfor %}
+                    });
+                </script>
+                {% endif %}
+                
+                {% block dashboard_content %}{% endblock %}
+            </div>
+        </main>
     </div>
-
-    <!-- Sidebar Backdrop for Mobile -->
-    <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
-
-    <!-- Main Content -->
-    <div id="content">
-        <!-- Top Navbar -->
-        <nav class="dash-navbar d-flex justify-content-between align-items-center">
-            <div class="d-flex align-items-center">
-                <button class="sidebar-toggler" id="sidebarToggle">
-                    <i class="bi bi-list"></i>
-                </button>
-                <div>
-                    <h4 class="mb-1 fw-bold text-slate-900">{{ title|default:"Dashboard" }}</h4>
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb mb-0" style="font-size: 0.75rem;">
-                            <li class="breadcrumb-item"><a href="#" class="text-decoration-none text-muted opacity-75">Admin</a></li>
-                            <li class="breadcrumb-item active text-slate-900 fw-medium" aria-current="page">{{ title|default:"Overview" }}</li>
-                        </ol>
-                    </nav>
-                </div>
-            </div>
-            
-            <div class="user-profile d-flex align-items-center">
-                <div class="me-3 text-end d-none d-md-block">
-                    <div class="fw-bold small lh-1 mb-1">{{ user.get_full_name|default:user.username }}</div>
-                    <div class="text-muted" style="font-size: 0.7rem;">Administrator</div>
-                </div>
-                <div class="user-avatar shadow-sm">
-                    <i class="bi bi-person-fill"></i>
-                </div>
-            </div>
-        </nav>
-
-        {% if messages %}
-        <div class="mb-4">
-            {% for message in messages %}
-            <div class="alert alert-{{ message.tags }} alert-dismissible fade show border-0 shadow-sm" role="alert">
-                {{ message }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-            </div>
-            {% endfor %}
-        </div>
-        {% endif %}
-
-        {% block dashboard_content %}{% endblock %}
-    </div>
-
+    
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     
+    <!-- Custom JS -->
+    <script src="{% static 'js/main.js' %}"></script>
+    
+    <!-- Mobile Sidebar Toggle -->
     <script>
-        // Sidebar Toggle Logic
-        const sidebar = document.getElementById('sidebar');
-        const sidebarToggle = document.getElementById('sidebarToggle');
-        const sidebarBackdrop = document.getElementById('sidebarBackdrop');
-
-        function toggleSidebar() {
-            sidebar.classList.toggle('active');
-            sidebarBackdrop.classList.toggle('active');
-            document.body.style.overflow = sidebar.classList.contains('active') ? 'hidden' : '';
-        }
-
-        if (sidebarToggle) {
-            sidebarToggle.addEventListener('click', toggleSidebar);
-        }
-
-        if (sidebarBackdrop) {
-            sidebarBackdrop.addEventListener('click', toggleSidebar);
-        }
-
-        // Close sidebar on link click (mobile)
-        if (window.innerWidth < 992) {
-            const navLinks = document.querySelectorAll('.nav-link');
-            navLinks.forEach(link => {
-                link.addEventListener('click', () => {
-                    if (sidebar.classList.contains('active')) {
-                        toggleSidebar();
-                    }
+        document.addEventListener('DOMContentLoaded', function() {
+            const sidebar = document.getElementById('sidebar');
+            const backdrop = document.getElementById('sidebarBackdrop');
+            const toggle = document.getElementById('sidebarToggle');
+            
+            if (toggle) {
+                toggle.addEventListener('click', function() {
+                    sidebar.classList.toggle('show');
+                    backdrop.classList.toggle('show');
                 });
-            });
-        }
+            }
+            
+            if (backdrop) {
+                backdrop.addEventListener('click', function() {
+                    sidebar.classList.remove('show');
+                    backdrop.classList.remove('show');
+                });
+            }
+        });
     </script>
+    
     {% block extra_js %}{% endblock %}
 </body>
 </html>

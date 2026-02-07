@@ -194,3 +194,21 @@ class Address(models.Model):
             parts.append(self.postal_code)
         parts.append(self.country)
         return ', '.join(parts)
+
+
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
+@receiver(post_save, sender=User)
+def create_customer_profile(sender, instance, created, **kwargs):
+    """Auto-create profile for new users."""
+    if created:
+        CustomerProfile.objects.get_or_create(user=instance)
+
+@receiver(post_save, sender=User)
+def save_customer_profile(sender, instance, **kwargs):
+    """Ensure profile exists and is saved for existing users."""
+    if not hasattr(instance, 'profile'):
+        CustomerProfile.objects.get_or_create(user=instance)
+    else:
+        instance.profile.save()

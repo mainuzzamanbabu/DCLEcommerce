@@ -1,71 +1,99 @@
 {% extends 'dashboard/base.html' %}
+{% load static %}
+
+{% block title %}Payment Method Editor{% endblock %}
+{% block page_title %}Payment Method Editor{% endblock %}
 
 {% block dashboard_content %}
-<div class="card stats-card">
-    <div class="card-header bg-transparent border-bottom py-3">
-        <h5 class="mb-0 fw-bold">{{ title }}</h5>
-    </div>
-    <div class="card-body">
+<div class="admin-form-container">
+    <div class="table-card">
+        <div class="form-header mb-4">
+            <h2 class="form-title">{{ title }}</h2>
+            <p class="form-subtitle">Configure payment gateway integration and settings</p>
+        </div>
+        
         <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
             
-            <div class="row">
-                <div class="col-md-6 mb-3">
-                    <label class="form-label fw-bold">Name</label>
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <label class="form-label">Display Name <span class="text-danger">*</span></label>
                     {{ form.name }}
+                    {% if form.name.errors %}<div class="text-danger small mt-1">{{ form.name.errors.0 }}</div>{% endif %}
                 </div>
-                <div class="col-md-6 mb-3">
-                    <label class="form-label fw-bold">Code</label>
+                
+                <div class="col-md-6">
+                    <label class="form-label">Unique Code (Identifier) <span class="text-danger">*</span></label>
                     {{ form.code }}
-                    <small class="text-muted">Internal identifier (e.g., sslcommerz, cod)</small>
+                    <small class="text-muted d-block mt-1">SSLCommerz, Bkash, COD, etc.</small>
                 </div>
-            </div>
-            
-            <div class="mb-3">
-                <label class="form-label fw-bold">Description</label>
-                {{ form.description }}
-            </div>
-            
-            <div class="mb-3">
-                <label class="form-label fw-bold">Customer Instructions</label>
-                {{ form.instruction }}
-                <small class="text-muted">Instructions shown to customers during checkout</small>
-            </div>
-            
-            <div class="row">
-                <div class="col-md-6 mb-3">
-                    <label class="form-label fw-bold">Logo</label>
-                    {{ form.logo }}
+                
+                <div class="col-12">
+                    <label class="form-label">Internal Description</label>
+                    {{ form.description }}
                 </div>
-                <div class="col-md-6 mb-3">
-                    <label class="form-label fw-bold">Sort Order</label>
+                
+                <div class="col-12">
+                    <label class="form-label">Checkout Instructions (For Customers)</label>
+                    {{ form.instruction }}
+                </div>
+                
+                <div class="col-md-6">
+                    <label class="form-label">Gateway Logo</label>
+                    <div class="d-flex align-items-center gap-4">
+                        {% if method and method.logo %}
+                        <div class="p-2 border rounded bg-white">
+                            <img src="{{ method.logo.url }}" alt="{{ method.name }}" style="height: 40px; width: 60px; object-fit: contain;">
+                        </div>
+                        {% endif %}
+                        <div class="flex-grow-1">
+                            {{ form.logo }}
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <label class="form-label">Sort Order</label>
                     {{ form.sort_order }}
                 </div>
-            </div>
-            
-            <div class="row">
-                <div class="col-md-6 mb-3">
-                    <div class="form-check">
-                        {{ form.is_active }}
-                        <label class="form-check-label fw-bold">Active</label>
+                
+                <div class="col-md-12">
+                    <div class="d-flex gap-5">
+                        <div class="form-check form-switch p-0 ms-4">
+                            {{ form.is_active }}
+                            <label class="form-check-label fw-semibold ms-2" for="{{ form.is_active.id_for_label }}">Active</label>
+                        </div>
+                        <div class="form-check form-switch p-0">
+                            {{ form.is_test_mode }}
+                            <label class="form-check-label fw-semibold ms-2" for="{{ form.is_test_mode.id_for_label }}">Test Mode (Sandbox)</label>
+                        </div>
                     </div>
                 </div>
-                <div class="col-md-6 mb-3">
-                    <div class="form-check">
-                        {{ form.is_test_mode }}
-                        <label class="form-check-label fw-bold">Test Mode</label>
-                    </div>
-                </div>
             </div>
             
-            <hr>
-            <div class="d-flex gap-2">
-                <button type="submit" class="btn btn-primary">
-                    <i class="bi bi-check-lg me-1"></i> Save Payment Method
+            <div class="form-actions mt-5">
+                <button type="submit" class="btn-primary px-5">
+                    <i class="bi bi-check-lg me-2"></i>Save Method
                 </button>
-                <a href="{% url 'dashboard:payment_method_list' %}" class="btn btn-outline-secondary">Cancel</a>
+                <a href="{% url 'dashboard:payment_method_list' %}" class="btn-outline">Cancel</a>
             </div>
         </form>
     </div>
 </div>
+
+<style>
+    .table-card input[type="text"], 
+    .table-card input[type="number"], 
+    .table-card textarea, 
+    .table-card select {
+        display: block;
+        width: 100%;
+        padding: 0.625rem 1rem;
+        font-size: 0.875rem;
+        border: 1px solid var(--admin-gray-200);
+        border-radius: var(--radius-md);
+    }
+    .table-card textarea { height: 100px; }
+    .form-check-input { width: 40px; height: 20px; cursor: pointer; }
+</style>
 {% endblock %}

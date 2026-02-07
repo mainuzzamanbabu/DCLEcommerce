@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="DCL E-Commerce Admin Dashboard">
+    <title>Dashboard | DCL Admin</title>
+    
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    
+    <!-- Admin Styles -->
+    <link rel="stylesheet" href="css/admin.css">
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+    <div class="admin-wrapper">
+        <!-- Sidebar -->
+        <aside class="admin-sidebar">
+            <div class="sidebar-header">
+                <a href="dashboard.html" class="sidebar-brand">
+                    <div class="brand-icon">
+                        <i class="bi bi-box-seam"></i>
+                    </div>
+                    <span>DCL Store</span>
+                </a>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <div class="nav-section">
+                    <div class="nav-section-title">Main Menu</div>
+                    <ul class="nav-menu">
+                        <li class="nav-item">
+                            <a href="dashboard.html" class="nav-link active">
+                                <i class="bi bi-grid-1x2"></i>
+                                Dashboard
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="products.html" class="nav-link">
+                                <i class="bi bi-box"></i>
+                                Products
+                                <span class="badge bg-primary">245</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="bi bi-lightning"></i>
+                                Flash Sales
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="users.html" class="nav-link">
+                                <i class="bi bi-people"></i>
+                                Customers
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="orders.html" class="nav-link">
+                                <i class="bi bi-receipt"></i>
+                                Order List
+                                <span class="badge bg-danger">12</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="reports.html" class="nav-link">
+                                <i class="bi bi-bar-chart"></i>
+                                Reports
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="nav-section">
+                    <div class="nav-section-title">Store Management</div>
+                    <ul class="nav-menu">
+                        <li class="nav-item">
+                            <a href="categories.html" class="nav-link">
+                                <i class="bi bi-folder"></i>
+                                Categories
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="bi bi-tag"></i>
+                                Coupons
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="bi bi-star"></i>
+                                Reviews
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="nav-section">
+                    <div class="nav-section-title">Settings</div>
+                    <ul class="nav-menu">
+                        <li class="nav-item">
+                            <a href="settings.html" class="nav-link">
+                                <i class="bi bi-gear"></i>
+                                Settings
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <button class="logout-btn">
+                    <i class="bi bi-box-arrow-left"></i>
+                    Log out
+                </button>
+            </div>
+        </aside>
+        
+        <!-- Main Content -->
+        <main class="admin-main">
+            <!-- Header -->
+            <header class="admin-header">
+                <div class="header-left">
+                    <h1 class="page-title">Report Analysis</h1>
+                    <div class="header-search">
+                        <i class="bi bi-search"></i>
+                        <input type="text" placeholder="Search products, orders...">
+                    </div>
+                </div>
+                <div class="header-right">
+                    <button class="header-btn">
+                        <i class="bi bi-bell"></i>
+                        <span class="badge-dot"></span>
+                    </button>
+                    <div class="user-dropdown">
+                        <img src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?w=100" alt="Admin" class="user-avatar">
+                        <div class="user-info">
+                            <div class="user-name">Admin User</div>
+                            <div class="user-role">Administrator</div>
+                        </div>
+                        <i class="bi bi-chevron-down"></i>
+                    </div>
+                </div>
+            </header>
+            
+            <!-- Content -->
+            <div class="admin-content">
+                <!-- Stats Cards -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <span class="stat-title">Total Sales</span>
+                            <i class="bi bi-three-dots stat-menu"></i>
+                        </div>
+                        <div class="stat-value">৳34,456.00</div>
+                        <div class="stat-trend up">
+                            <i class="bi bi-arrow-up"></i> 14%
+                            <span>in the last month</span>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <span class="stat-title">Total Orders</span>
+                            <i class="bi bi-three-dots stat-menu"></i>
+                        </div>
+                        <div class="stat-value">3,456</div>
+                        <div class="stat-trend down">
+                            <i class="bi bi-arrow-down"></i> 17%
+                            <span>in the last month</span>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <span class="stat-title">Total Revenue</span>
+                            <i class="bi bi-three-dots stat-menu"></i>
+                        </div>
+                        <div class="stat-value">৳1,456.00</div>
+                        <div class="stat-trend up">
+                            <i class="bi bi-arrow-up"></i> 14%
+                            <span>in the last month</span>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <span class="stat-title">Total Customers</span>
+                            <i class="bi bi-three-dots stat-menu"></i>
+                        </div>
+                        <div class="stat-value">42,456</div>
+                        <div class="stat-trend up">
+                            <i class="bi bi-arrow-up"></i> 11%
+                            <span>in the last month</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Charts Row -->
+                <div class="chart-grid">
+                    <!-- Revenue Chart -->
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3 class="chart-title">Revenue</h3>
+                            <div class="chart-legend">
+                                <div class="legend-item">
+                                    <span class="legend-dot" style="background: #6366f1;"></span>
+                                    Current Week ৳58,211
+                                </div>
+                                <div class="legend-item">
+                                    <span class="legend-dot" style="background: #10b981;"></span>
+                                    Previous Week ৳68,768
+                                </div>
+                            </div>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="revenueChart"></canvas>
+                        </div>
+                    </div>
+                    
+                    <!-- Sales by Location -->
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3 class="chart-title">Sales By Location</h3>
+                        </div>
+                        <div class="chart-container" style="height: auto;">
+                            <div class="location-list">
+                                <div class="location-item d-flex justify-content-between align-items-center py-2 border-bottom">
+                                    <span>Dhaka</span>
+                                    <div class="d-flex align-items-center gap-3">
+                                        <div class="progress" style="width: 100px; height: 6px;">
+                                            <div class="progress-bar bg-primary" style="width: 72%;"></div>
+                                        </div>
+                                        <span class="fw-semibold" style="width: 40px;">72K</span>
+                                    </div>
+                                </div>
+                                <div class="location-item d-flex justify-content-between align-items-center py-2 border-bottom">
+                                    <span>Chittagong</span>
+                                    <div class="d-flex align-items-center gap-3">
+                                        <div class="progress" style="width: 100px; height: 6px;">
+                                            <div class="progress-bar bg-success" style="width: 39%;"></div>
+                                        </div>
+                                        <span class="fw-semibold" style="width: 40px;">39K</span>
+                                    </div>
+                                </div>
+                                <div class="location-item d-flex justify-content-between align-items-center py-2 border-bottom">
+                                    <span>Sylhet</span>
+                                    <div class="d-flex align-items-center gap-3">
+                                        <div class="progress" style="width: 100px; height: 6px;">
+                                            <div class="progress-bar bg-warning" style="width: 25%;"></div>
+                                        </div>
+                                        <span class="fw-semibold" style="width: 40px;">25K</span>
+                                    </div>
+                                </div>
+                                <div class="location-item d-flex justify-content-between align-items-center py-2">
+                                    <span>Rajshahi</span>
+                                    <div class="d-flex align-items-center gap-3">
+                                        <div class="progress" style="width: 100px; height: 6px;">
+                                            <div class="progress-bar bg-info" style="width: 61%;"></div>
+                                        </div>
+                                        <span class="fw-semibold" style="width: 40px;">61K</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Total Sales Donut -->
+                    <div class="chart-card">
+                        <div class="chart-header">
+                            <h3 class="chart-title">Total Sales</h3>
+                        </div>
+                        <div class="chart-container" style="height: 200px;">
+                            <canvas id="salesDonut"></canvas>
+                        </div>
+                        <div class="sales-legend mt-3">
+                            <div class="d-flex justify-content-between align-items-center mb-2" style="font-size: 0.8rem;">
+                                <div class="d-flex align-items-center gap-2">
+                                    <span class="legend-dot" style="background: #6366f1;"></span>
+                                    Direct
+                                </div>
+                                <span class="fw-semibold">৳300.56</span>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center mb-2" style="font-size: 0.8rem;">
+                                <div class="d-flex align-items-center gap-2">
+                                    <span class="legend-dot" style="background: #10b981;"></span>
+                                    Affiliate
+                                </div>
+                                <span class="fw-semibold">৳135.18</span>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center mb-2" style="font-size: 0.8rem;">
+                                <div class="d-flex align-items-center gap-2">
+                                    <span class="legend-dot" style="background: #f59e0b;"></span>
+                                    Sponsored
+                                </div>
+                                <span class="fw-semibold">৳154.02</span>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center" style="font-size: 0.8rem;">
+                                <div class="d-flex align-items-center gap-2">
+                                    <span class="legend-dot" style="background: #ec4899;"></span>
+                                    E-mail
+                                </div>
+                                <span class="fw-semibold">৳48.96</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Bottom Section -->
+                <div class="row g-4">
+                    <!-- Top Selling Products -->
+                    <div class="col-lg-8">
+                        <div class="table-card">
+                            <div class="table-header">
+                                <h3 class="table-title">Top Selling Products</h3>
+                                <div class="table-actions">
+                                    <button class="btn-filter">
+                                        <i class="bi bi-funnel me-1"></i> Filter
+                                    </button>
+                                    <button class="btn-see-all">See All</button>
+                                </div>
+                            </div>
+                            <table class="admin-table">
+                                <thead>
+                                    <tr>
+                                        <th><input type="checkbox" class="form-check-input"></th>
+                                        <th>Product Name</th>
+                                        <th>Price</th>
+                                        <th>Category</th>
+                                        <th>Quantity</th>
+                                        <th>Amount</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><input type="checkbox" class="form-check-input"></td>
+                                        <td>
+                                            <div class="product-cell">
+                                                <img src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=100" class="product-thumb" alt="">
+                                                <span class="product-name">MacBook Pro M3</span>
+                                            </div>
+                                        </td>
+                                        <td>৳189,990</td>
+                                        <td>Laptops</td>
+                                        <td>128</td>
+                                        <td>৳24,318,720</td>
+                                        <td><button class="action-btn"><i class="bi bi-three-dots-vertical"></i></button></td>
+                                    </tr>
+                                    <tr>
+                                        <td><input type="checkbox" class="form-check-input"></td>
+                                        <td>
+                                            <div class="product-cell">
+                                                <img src="https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?w=100" class="product-thumb" alt="">
+                                                <span class="product-name">iPhone 15 Pro</span>
+                                            </div>
+                                        </td>
+                                        <td>৳164,990</td>
+                                        <td>Smartphones</td>
+                                        <td>89</td>
+                                        <td>৳14,684,110</td>
+                                        <td><button class="action-btn"><i class="bi bi-three-dots-vertical"></i></button></td>
+                                    </tr>
+                                    <tr>
+                                        <td><input type="checkbox" class="form-check-input"></td>
+                                        <td>
+                                            <div class="product-cell">
+                                                <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=100" class="product-thumb" alt="">
+                                                <span class="product-name">Sony WH-1000XM5</span>
+                                            </div>
+                                        </td>
+                                        <td>৳34,990</td>
+                                        <td>Audio</td>
+                                        <td>74</td>
+                                        <td>৳2,589,260</td>
+                                        <td><button class="action-btn"><i class="bi bi-three-dots-vertical"></i></button></td>
+                                    </tr>
+                                    <tr>
+                                        <td><input type="checkbox" class="form-check-input"></td>
+                                        <td>
+                                            <div class="product-cell">
+                                                <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=100" class="product-thumb" alt="">
+                                                <span class="product-name">Apple Watch Ultra 2</span>
+                                            </div>
+                                        </td>
+                                        <td>৳89,990</td>
+                                        <td>Wearables</td>
+                                        <td>69</td>
+                                        <td>৳6,209,310</td>
+                                        <td><button class="action-btn"><i class="bi bi-three-dots-vertical"></i></button></td>
+                                    </tr>
+                                    <tr>
+                                        <td><input type="checkbox" class="form-check-input"></td>
+                                        <td>
+                                            <div class="product-cell">
+                                                <img src="https://images.unsplash.com/photo-1612815154858-60aa4c59eaa6?w=100" class="product-thumb" alt="">
+                                                <span class="product-name">PlayStation 5</span>
+                                            </div>
+                                        </td>
+                                        <td>৳74,990</td>
+                                        <td>Gaming</td>
+                                        <td>65</td>
+                                        <td>৳4,874,350</td>
+                                        <td><button class="action-btn"><i class="bi bi-three-dots-vertical"></i></button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <!-- Monthly Target -->
+                    <div class="col-lg-4">
+                        <div class="target-card">
+                            <div class="target-header">
+                                <h3 class="target-title">Monthly Target</h3>
+                                <i class="bi bi-three-dots"></i>
+                            </div>
+                            <p class="target-subtitle">Target you've set for each month</p>
+                            
+                            <div class="target-gauge">
+                                <canvas id="targetGauge"></canvas>
+                            </div>
+                            
+                            <div class="target-value">
+                                <span class="target-percent">75.34%</span>
+                                <span class="target-change">+12%</span>
+                            </div>
+                            
+                            <p class="target-message">You earn ৳3,267 today, It's higher than last month. Keep up your good trends!</p>
+                            
+                            <div class="target-stats">
+                                <div class="target-stat">
+                                    <div class="target-stat-label">Target</div>
+                                    <div class="target-stat-value down">৳25k <i class="bi bi-arrow-down"></i></div>
+                                </div>
+                                <div class="target-stat">
+                                    <div class="target-stat-label">Revenue</div>
+                                    <div class="target-stat-value up">৳18k <i class="bi bi-arrow-up"></i></div>
+                                </div>
+                                <div class="target-stat">
+                                    <div class="target-stat-label">Today</div>
+                                    <div class="target-stat-value up">৳1.8k <i class="bi bi-arrow-up"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Chart Initialization -->
+    <script>
+        // Revenue Line Chart
+        const revenueCtx = document.getElementById('revenueChart').getContext('2d');
+        new Chart(revenueCtx, {
+            type: 'line',
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                datasets: [{
+                    label: 'Current Week',
+                    data: [10, 15, 25, 22, 28, 25],
+                    borderColor: '#6366f1',
+                    backgroundColor: 'rgba(99, 102, 241, 0.1)',
+                    tension: 0.4,
+                    fill: true,
+                    pointRadius: 0,
+                    borderWidth: 2
+                }, {
+                    label: 'Previous Week',
+                    data: [8, 12, 18, 16, 22, 20],
+                    borderColor: '#10b981',
+                    backgroundColor: 'transparent',
+                    tension: 0.4,
+                    fill: false,
+                    pointRadius: 0,
+                    borderWidth: 2,
+                    borderDash: [5, 5]
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    x: {
+                        grid: { display: false },
+                        ticks: { color: '#64748b' }
+                    },
+                    y: {
+                        grid: { color: '#f1f5f9' },
+                        ticks: { 
+                            color: '#64748b',
+                            callback: function(value) { return value + 'M'; }
+                        }
+                    }
+                }
+            }
+        });
+        
+        // Sales Donut Chart
+        const salesCtx = document.getElementById('salesDonut').getContext('2d');
+        new Chart(salesCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Direct', 'Affiliate', 'Sponsored', 'E-mail'],
+                datasets: [{
+                    data: [38.6, 21.2, 24.1, 16.1],
+                    backgroundColor: ['#6366f1', '#10b981', '#f59e0b', '#ec4899'],
+                    borderWidth: 0,
+                    cutout: '70%'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false }
+                }
+            }
+        });
+        
+        // Target Gauge Chart
+        const targetCtx = document.getElementById('targetGauge').getContext('2d');
+        new Chart(targetCtx, {
+            type: 'doughnut',
+            data: {
+                datasets: [{
+                    data: [75.34, 24.66],
+                    backgroundColor: ['#6366f1', '#e2e8f0'],
+                    borderWidth: 0,
+                    cutout: '80%',
+                    circumference: 270,
+                    rotation: 225
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: { enabled: false }
+                }
+            }
+        });
+        
+        // Mobile Sidebar Toggle
+        document.addEventListener('DOMContentLoaded', function() {
+            const sidebar = document.querySelector('.admin-sidebar');
+            
+            // Add hamburger menu for mobile
+            const header = document.querySelector('.header-left');
+            const toggleBtn = document.createElement('button');
+            toggleBtn.className = 'header-btn d-lg-none me-2';
+            toggleBtn.innerHTML = '<i class="bi bi-list"></i>';
+            toggleBtn.addEventListener('click', function() {
+                sidebar.classList.toggle('show');
+            });
+            header.insertBefore(toggleBtn, header.firstChild);
+        });
+    </script>
+</body>
+</html>

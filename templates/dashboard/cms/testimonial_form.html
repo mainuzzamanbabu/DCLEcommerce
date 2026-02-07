@@ -1,53 +1,93 @@
 {% extends 'dashboard/base.html' %}
+{% load static %}
+
+{% block title %}Testimonial Editor{% endblock %}
+{% block page_title %}Testimonial Editor{% endblock %}
 
 {% block dashboard_content %}
-<div class="card stats-card">
-    <div class="card-header bg-transparent border-bottom py-3 d-flex justify-content-between align-items-center">
-        <h5 class="mb-0 fw-bold">
-            <i class="bi bi-chat-quote me-2"></i>
-            {% if testimonial %}Edit{% else %}Add{% endif %} Testimonial
-        </h5>
-    </div>
-    <div class="card-body">
+<div class="admin-form-container">
+    <div class="table-card">
+        <div class="form-header mb-4">
+            <h2 class="form-title">{% if testimonial %}Edit{% else %}Add{% endif %} Testimonial</h2>
+            <p class="form-subtitle">Manage customer feedback and success stories</p>
+        </div>
+        
         <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
-            <div class="row g-3">
+            
+            <div class="row g-4">
                 <div class="col-md-6">
-                    <label class="form-label">Customer Name *</label>
+                    <label class="form-label">Customer Name <span class="text-danger">*</span></label>
                     {{ form.customer_name }}
+                    {% if form.customer_name.errors %}<div class="text-danger small mt-1">{{ form.customer_name.errors.0 }}</div>{% endif %}
                 </div>
+                
                 <div class="col-md-6">
                     <label class="form-label">Title/Location</label>
                     {{ form.customer_title }}
                 </div>
+                
                 <div class="col-md-6">
-                    <label class="form-label">Customer Image</label>
-                    {{ form.customer_image }}
-                </div>
-                <div class="col-md-3">
-                    <label class="form-label">Rating</label>
+                    <label class="form-label">Review Rating</label>
                     {{ form.rating }}
                 </div>
-                <div class="col-md-3">
-                    <label class="form-label">Sort Order</label>
+                
+                <div class="col-md-6">
+                    <label class="form-label">Display Order</label>
                     {{ form.sort_order }}
                 </div>
+                
                 <div class="col-12">
-                    <label class="form-label">Testimonial Content *</label>
+                    <label class="form-label">Feedback Content <span class="text-danger">*</span></label>
                     {{ form.content }}
                 </div>
-                <div class="col-md-6">
-                    <div class="form-check">
+                
+                <div class="col-md-12">
+                    <label class="form-label">Customer Avatar</label>
+                    <div class="d-flex align-items-center gap-4">
+                        {% if testimonial and testimonial.customer_image %}
+                        <div class="p-1 border rounded-circle bg-light">
+                            <img src="{{ testimonial.customer_image.url }}" alt="{{ testimonial.customer_name }}" class="rounded-circle" style="height: 60px; width: 60px; object-fit: cover;">
+                        </div>
+                        {% endif %}
+                        <div class="flex-grow-1">
+                            {{ form.customer_image }}
+                            <p class="text-muted small mt-1">Upload a squarish image for best results</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-12">
+                    <div class="form-check form-switch p-0 ms-4">
                         {{ form.is_active }}
-                        <label class="form-check-label">Active</label>
+                        <label class="form-check-label fw-semibold ms-2" for="{{ form.is_active.id_for_label }}">Active & Published</label>
                     </div>
                 </div>
             </div>
-            <div class="d-flex gap-2 mt-4">
-                <button type="submit" class="btn btn-primary"><i class="bi bi-check-lg me-1"></i>Save</button>
-                <a href="{% url 'dashboard:testimonial_list' %}" class="btn btn-outline-secondary">Cancel</a>
+            
+            <div class="form-actions mt-5">
+                <button type="submit" class="btn-primary px-5">
+                    <i class="bi bi-check-lg me-2"></i>Save Testimonial
+                </button>
+                <a href="{% url 'dashboard:testimonial_list' %}" class="btn-outline">Cancel</a>
             </div>
         </form>
     </div>
 </div>
+
+<style>
+    .table-card input[type="text"], 
+    .table-card input[type="number"], 
+    .table-card textarea, 
+    .table-card select {
+        display: block;
+        width: 100%;
+        padding: 0.625rem 1rem;
+        font-size: 0.875rem;
+        border: 1px solid var(--admin-gray-200);
+        border-radius: var(--radius-md);
+    }
+    .table-card textarea { height: 120px; }
+    .form-check-input { width: 40px; height: 20px; cursor: pointer; }
+</style>
 {% endblock %}

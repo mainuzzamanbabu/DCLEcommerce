@@ -1,117 +1,282 @@
-{% extends "account/base_auth.html" %}
-{% load i18n %}
-{% load account socialaccount %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Create your DCL E-Commerce account">
+    <title>Sign Up | DCL Store</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    
+    <style>
+        body {
+            background: #0f172a;
+            color: white;
+            min-height: 100vh;
+        }
+        .navbar {
+            background: transparent;
+            transition: all 0.3s ease;
+        }
+        .navbar.scrolled {
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(20px);
+        }
+        .auth-container {
+            display: flex;
+            min-height: 100vh;
+            padding-top: 80px;
+        }
+        .auth-visual {
+            flex: 1.2;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(5, 150, 105, 0.2) 100%), 
+                        url('https://images.unsplash.com/photo-1593642632823-8f785ba67e45?w=1200&q=80') no-repeat center center;
+            background-size: cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 3rem;
+            position: relative;
+            border-radius: 0 40px 40px 0;
+            margin: 20px;
+            box-shadow: 20px 0 50px rgba(0,0,0,0.5);
+        }
+        .visual-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.2));
+            border-radius: inherit;
+        }
+        .visual-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            color: white;
+            max-width: 500px;
+        }
+        .visual-icon {
+            width: 100px;
+            height: 100px;
+            background: rgba(16, 185, 129, 0.2);
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 2rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+        .visual-icon i { font-size: 3rem; color: #10b981; }
+        .visual-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+        .visual-text { font-size: 1.2rem; opacity: 0.8; margin-bottom: 2rem; }
+        .visual-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            width: 100%;
+        }
+        .stat-box {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 1.25rem;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        .stat-box:hover { transform: translateY(-5px); }
+        .stat-value { font-family: 'Outfit', sans-serif; font-size: 1.75rem; font-weight: 700; color: #10b981; }
+        .stat-label { font-size: 0.8rem; opacity: 0.6; text-transform: uppercase; letter-spacing: 1px; }
+        .auth-form-container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 3rem;
+        }
+        .auth-form-wrapper { width: 100%; max-width: 450px; }
+        .auth-title { font-family: 'Outfit', sans-serif; font-size: 2.25rem; font-weight: 700; color: white; margin-bottom: 0.5rem; }
+        .auth-subtitle { color: #94a3b8; margin-bottom: 2.5rem; }
+        .form-label { color: #cbd5e1; font-weight: 500; font-size: 0.9rem; margin-bottom: 0.5rem; }
+        .form-control {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 14px;
+            padding: 0.9rem 1.1rem;
+            color: white;
+            transition: all 0.3s ease;
+        }
+        .form-control:focus {
+            background: rgba(255,255,255,0.08);
+            border-color: #10b981;
+            box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.15);
+        }
+        .btn-auth {
+            width: 100%;
+            padding: 1.1rem;
+            background: linear-gradient(135deg, #10b981, #059669);
+            border: none;
+            border-radius: 14px;
+            color: white;
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+        }
+        .btn-auth:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 24px rgba(16, 185, 129, 0.3);
+        }
+        .divider { display: flex; align-items: center; gap: 1rem; margin: 2rem 0; color: #64748b; font-size: 0.9rem; }
+        .divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: rgba(255,255,255,0.1); }
+        .social-btns { display: flex; gap: 1rem; }
+        .btn-social {
+            flex: 1;
+            padding: 0.9rem;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 14px;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            font-weight: 500;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        .btn-social:hover { background: rgba(255,255,255,0.1); }
+        .auth-footer { text-align: center; margin-top: 2.5rem; color: #94a3b8; font-size: 0.95rem; }
+        .auth-footer a { color: #10b981; text-decoration: none; font-weight: 600; }
+        @media (max-width: 992px) {
+            .auth-visual { display: none; }
+            .auth-container { padding-top: 100px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="{% url 'core:home' %}">
+          <span class="brand-gradient">DCL</span><span class="brand-text">Store</span>
+        </a>
+        <div class="ms-auto d-flex align-items-center gap-3">
+          <a href="{% url 'account_login' %}" class="nav-link">Sign In</a>
+          <a href="{% url 'core:home' %}" class="btn btn-outline-light btn-sm rounded-pill px-3">Back to Store</a>
+        </div>
+      </div>
+    </nav>
 
-{% block title %}{% trans "Sign Up" %}{% endblock %}
-
-{% block content %}
-<div class="row justify-content-center">
-    <div class="col-md-7 col-lg-6 col-xl-5">
-        <div class="auth-card">
-            <div class="auth-header">
-                <h3>{% trans "Create Account" %}</h3>
-                <p>{% trans "Join our community today" %}</p>
-            </div>
-            
-            <div class="auth-body">
-                {% if socialaccount_providers %}
-                <div class="social-login">
-                    {% for provider in socialaccount_providers %}
-                    <a href="{% provider_login_url provider.id process='signup' %}" class="social-btn">
-                        <i class="bi bi-google me-2"></i>Sign up with {{ provider.name }}
-                    </a>
-                    {% endfor %}
+    <div class="auth-container">
+        <!-- Left Visual Side -->
+        <div class="auth-visual">
+            <div class="visual-overlay"></div>
+            <div class="visual-content">
+                <div class="visual-icon">
+                    <i class="bi bi-person-plus-fill"></i>
                 </div>
-                <div class="divider"><span>{% trans "OR" %}</span></div>
-                {% endif %}
-
-                <form method="post" action="{% url 'account_signup' %}">
+                <h2 class="visual-title">Join the Future of Tech</h2>
+                <p class="visual-text">Create your account to unlock premium benefits, exclusive launches, and personalized recommendations.</p>
+                
+                <div class="visual-stats">
+                    <div class="stat-box">
+                        <div class="stat-value">50K+</div>
+                        <div class="stat-label">Products</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value">100K+</div>
+                        <div class="stat-label">Users</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value">4.9★</div>
+                        <div class="stat-label">Review</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Right Form Side -->
+        <div class="auth-form-container">
+            <div class="auth-form-wrapper">
+                <h1 class="auth-title">Create Account</h1>
+                <p class="auth-subtitle">Get started with your free account today.</p>
+                
+                <form method="POST" action="{% url 'account_signup' %}">
                     {% csrf_token %}
                     
-                    <div class="mb-3">
-                        <label class="form-label">{% trans "Full Name" %} *</label>
-                        <input type="text" name="full_name" class="form-control" placeholder="{% trans 'Enter your full name' %}" value="{{ form.full_name.value|default:'' }}" required>
-                        {% if form.full_name.errors %}
-                            <div class="text-danger">{% for e in form.full_name.errors %}{{ e }}{% endfor %}</div>
-                        {% endif %}
+                    {% if form.non_field_errors %}
+                    <div class="alert alert-danger">
+                        {% for error in form.non_field_errors %}
+                        {{ error }}
+                        {% endfor %}
                     </div>
+                    {% endif %}
                     
                     <div class="mb-3">
-                        <label class="form-label">{% trans "Username" %} *</label>
-                        <input type="text" name="username" class="form-control" placeholder="{% trans 'Choose a username' %}" value="{{ form.username.value|default:'' }}" required>
-                        {% if form.username.errors %}
-                            <div class="text-danger">{% for e in form.username.errors %}{{ e }}{% endfor %}</div>
-                        {% endif %}
-                    </div>
-                    
-                    <div class="mb-3">
-                        <label class="form-label">{% trans "Email" %} *</label>
-                        <input type="email" name="email" class="form-control" placeholder="{% trans 'Enter your email address' %}" value="{{ form.email.value|default:'' }}" required>
+                        <label class="form-label">Email Address</label>
+                        <input type="email" name="email" class="form-control" placeholder="john@example.com" value="{{ form.email.value|default:'' }}" required>
                         {% if form.email.errors %}
-                            <div class="text-danger">{% for e in form.email.errors %}{{ e }}{% endfor %}</div>
+                        <div class="text-danger small mt-1">{{ form.email.errors.0 }}</div>
                         {% endif %}
                     </div>
                     
                     <div class="mb-3">
-                        <label class="form-label">{% trans "Phone Number" %} *</label>
-                        <input type="tel" name="phone_number" class="form-control" placeholder="{% trans 'Enter your phone number' %}" value="{{ form.phone_number.value|default:'' }}" required>
-                        {% if form.phone_number.errors %}
-                            <div class="text-danger">{% for e in form.phone_number.errors %}{{ e }}{% endfor %}</div>
+                        <label class="form-label">Password</label>
+                        <input type="password" name="password1" class="form-control" placeholder="Min. 8 characters" required>
+                        {% if form.password1.errors %}
+                        <div class="text-danger small mt-1">{{ form.password1.errors.0 }}</div>
                         {% endif %}
                     </div>
                     
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label class="form-label">{% trans "Password" %} *</label>
-                            <input type="password" name="password1" class="form-control" placeholder="{% trans 'Create password' %}" required>
-                            {% if form.password1.errors %}
-                                <div class="text-danger">{% for e in form.password1.errors %}{{ e }}{% endfor %}</div>
-                            {% endif %}
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label class="form-label">{% trans "Confirm Password" %} *</label>
-                            <input type="password" name="password2" class="form-control" placeholder="{% trans 'Confirm password' %}" required>
-                            {% if form.password2.errors %}
-                                <div class="text-danger">{% for e in form.password2.errors %}{{ e }}{% endfor %}</div>
-                            {% endif %}
-                        </div>
-                    </div>
-                    
                     <div class="mb-3">
-                        <div class="form-check">
-                            <input type="checkbox" name="terms_accepted" class="form-check-input" id="terms" required>
-                            <label class="form-check-label" for="terms">
-                                {% trans "I agree to the" %} <a href="{% url 'core:terms' %}" target="_blank" style="color: var(--dcl-primary); font-weight: 600;">{% trans "Terms and Conditions" %}</a>
-                            </label>
-                        </div>
-                        {% if form.terms_accepted.errors %}
-                            <div class="text-danger">{% for e in form.terms_accepted.errors %}{{ e }}{% endfor %}</div>
+                        <label class="form-label">Confirm Password</label>
+                        <input type="password" name="password2" class="form-control" placeholder="Repeat password" required>
+                        {% if form.password2.errors %}
+                        <div class="text-danger small mt-1">{{ form.password2.errors.0 }}</div>
                         {% endif %}
                     </div>
                     
                     {% if redirect_field_value %}
-                    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+                    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}">
                     {% endif %}
-
-                    {% for error in form.non_field_errors %}
-                    <div class="alert alert-danger py-2 mb-3">
-                        <small>{{ error }}</small>
+                    
+                    <button type="submit" class="btn-auth">Create Account</button>
+                    
+                    <div class="divider">or continue with</div>
+                    
+                    <div class="social-btns">
+                        <button type="button" class="btn-social" onclick="alert('Social signup coming soon!')">
+                            <img src="https://www.google.com/favicon.ico" alt="Google" width="20"> Google
+                        </button>
                     </div>
-                    {% endfor %}
-
-                    <button type="submit" class="btn-auth">
-                        <i class="bi bi-person-plus me-2"></i>{% trans "Create Account" %}
-                    </button>
                 </form>
-            </div>
-            
-            <div class="auth-footer">
-                <p>
-                    {% trans "Already have an account?" %}
-                    <a href="{% url 'account_login' %}">{% trans "Sign In" %}</a>
-                </p>
+                
+                <div class="auth-footer">
+                    Already a member? <a href="{% url 'account_login' %}">Sign In</a>
+                </div>
             </div>
         </div>
     </div>
-</div>
-{% endblock %}
+    
+    <script>
+        const nav = document.querySelector('.navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 20) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+    </script>
+</body>
+</html>

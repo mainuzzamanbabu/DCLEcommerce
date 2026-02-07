@@ -19,4 +19,5 @@ urlpatterns = [
     
     # Product detail (last to avoid conflicts)
     path('product/<slug:slug>/', views.ProductDetailView.as_view(), name='product_detail'),
+    path('product/<int:pk>/quickview/', views.ProductQuickView.as_view(), name='product_quickview'),
 ]

@@ -2,171 +2,162 @@
 {% load humanize %}
 
 {% block dashboard_content %}
-<!-- Stats Grid -->
-<div class="row g-4 mb-5">
-    <div class="col-xl-3 col-md-6">
-        <div class="card stats-card h-100">
-            <div class="card-body">
-                <div class="icon-box" style="background: rgba(149, 78, 39, 0.1); color: var(--primary-brown);">
-                    <i class="bi bi-bag-check-fill"></i>
-                </div>
-                <h6 class="text-muted mb-2 small fw-bold">TOTAL ORDERS</h6>
-                <h3 class="mb-0 fw-bold">{{ total_orders }}</h3>
-            </div>
+<!-- Stats Cards -->
+<div class="stats-grid">
+    <div class="stat-card">
+        <div class="stat-header">
+            <span class="stat-title">T. Revenue</span>
+            <div class="stat-icon text-primary"><i class="bi bi-wallet2"></i></div>
+        </div>
+        <div class="stat-value">৳{{ total_revenue|floatformat:0|intcomma }}</div>
+        <div class="stat-trend text-success">
+            <i class="bi bi-graph-up-arrow"></i> 14% 
+            <span class="text-muted ms-1">vs last mo.</span>
         </div>
     </div>
-    <div class="col-xl-3 col-md-6">
-        <div class="card stats-card h-100">
-            <div class="card-body">
-                <div class="icon-box" style="background: rgba(218, 93, 4, 0.1); color: var(--accent-terracotta);">
-                    <i class="bi bi-wallet2"></i>
-                </div>
-                <h6 class="text-muted mb-2 small fw-bold">TOTAL REVENUE</h6>
-                <h3 class="mb-0 fw-bold">৳{{ total_revenue|floatformat:0|intcomma }}</h3>
-            </div>
+    
+    <div class="stat-card">
+        <div class="stat-header">
+            <span class="stat-title">Total Orders</span>
+            <div class="stat-icon text-info"><i class="bi bi-cart-check"></i></div>
+        </div>
+        <div class="stat-value">{{ total_orders|intcomma }}</div>
+        <div class="stat-trend text-success">
+            <i class="bi bi-graph-up-arrow"></i> 8%
+            <span class="text-muted ms-1">vs last mo.</span>
         </div>
     </div>
-    <div class="col-xl-3 col-md-6">
-        <div class="card stats-card h-100">
-            <div class="card-body">
-                <div class="icon-box" style="background: rgba(16, 185, 129, 0.1); color: #10b981;">
-                    <i class="bi bi-people-fill"></i>
-                </div>
-                <h6 class="text-muted mb-2 small fw-bold">TOTAL CUSTOMERS</h6>
-                <h3 class="mb-0 fw-bold">{{ total_customers }}</h3>
-            </div>
+    
+    <div class="stat-card">
+        <div class="stat-header">
+            <span class="stat-title">Active Products</span>
+            <div class="stat-icon text-warning"><i class="bi bi-box-seam"></i></div>
+        </div>
+        <div class="stat-value">{{ total_products|intcomma }}</div>
+        <div class="stat-trend text-info">
+            <i class="bi bi-dash"></i> Steady
         </div>
     </div>
-    <div class="col-xl-3 col-md-6">
-        <div class="card stats-card h-100">
-            <div class="card-body">
-                <div class="icon-box" style="background: rgba(149, 78, 39, 0.1); color: var(--primary-brown);">
-                    <i class="bi bi-box-seam-fill"></i>
-                </div>
-                <h6 class="text-muted mb-2 small fw-bold">ACTIVE PRODUCTS</h6>
-                <h3 class="mb-0 fw-bold">{{ total_products }}</h3>
-            </div>
+    
+    <div class="stat-card">
+        <div class="stat-header">
+            <span class="stat-title">C. Customers</span>
+            <div class="stat-icon text-danger"><i class="bi bi-people"></i></div>
+        </div>
+        <div class="stat-value">{{ total_customers|intcomma }}</div>
+        <div class="stat-trend text-success">
+            <i class="bi bi-graph-up-arrow"></i> 11%
+            <span class="text-muted ms-1">vs last mo.</span>
         </div>
     </div>
 </div>
 
-<!-- Charts Section -->
-<div class="row g-4 mb-5">
-    <div class="col-xl-8 col-lg-7">
-        <div class="card stats-card h-100">
-            <div class="card-body">
-                <div class="d-flex justify-content-between align-items-center mb-4">
-                    <h5 class="mb-0 fw-bold">Sales Overview</h5>
-                    <div class="btn-group">
-                        <button class="btn btn-sm btn-light border dropdown-toggle" style="font-size: 0.7rem; border-radius: 8px;">Last 6 Months</button>
+<!-- Charts Row -->
+<div class="chart-grid">
+    <!-- Revenue Chart -->
+    <div class="chart-card">
+        <div class="chart-header d-flex justify-content-between align-items-center">
+            <h3 class="chart-title mb-0">Sales Analytics</h3>
+            <div class="dropdown">
+                <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">Last 30 Days</button>
+            </div>
+        </div>
+        <div class="chart-container" style="height: 300px;">
+            <canvas id="revenueChart"></canvas>
+        </div>
+    </div>
+    
+    <!-- Sales by Location -->
+    <div class="chart-card">
+        <div class="chart-header">
+            <h3 class="chart-title">Sales by Category</h3>
+        </div>
+        <div class="location-list">
+            {% for label, data in category_summary %}
+            <div class="location-item d-flex justify-content-between align-items-center py-2 mb-2">
+                <span class="text-muted small">{{ label }}</span>
+                <div class="d-flex align-items-center gap-2">
+                    <div class="progress" style="width: 80px; height: 4px;">
+                        <div class="progress-bar bg-primary" style="width: {{ data }}%;"></div>
                     </div>
-                </div>
-                <div style="min-height: 320px;">
-                    <canvas id="salesChart"></canvas>
+                    <span class="fw-bold small" style="min-width: 30px;">{{ data }}%</span>
                 </div>
             </div>
-        </div>
-    </div>
-    <div class="col-xl-4 col-lg-5">
-        <div class="card stats-card h-100">
-            <div class="card-body">
-                <div class="d-flex justify-content-between align-items-center mb-4">
-                    <h5 class="mb-0 fw-bold">Top Categories</h5>
-                    <i class="bi bi-pie-chart text-muted"></i>
-                </div>
-                <div style="min-height: 320px;">
-                    <canvas id="categoryChart"></canvas>
-                </div>
-            </div>
+            {% empty %}
+            <div class="text-muted text-center py-4 small">No data available</div>
+            {% endfor %}
         </div>
     </div>
 </div>
-
-<!-- Data for Charts (Passed safely via json_script) -->
-{{ sales_labels|json_script:"sales-labels" }}
-{{ sales_data|json_script:"sales-data" }}
-{{ category_labels|json_script:"category-labels" }}
-{{ category_data|json_script:"category-data" }}
 
 <!-- Recent Orders Section -->
-<div class="row">
-    <div class="col-12">
-        <div class="table-premium">
-            <div class="table-header d-flex justify-content-between align-items-center bg-white border-bottom py-4 px-4">
-                <h5 class="mb-0 fw-bold">Recent Transactions</h5>
-                <a href="{% url 'dashboard:order_list' %}" class="btn btn-sm btn-outline-primary">
-                    View All Orders <i class="bi bi-arrow-right ms-1"></i>
-                </a>
-            </div>
-            <div class="table-responsive">
-                <table class="table table-hover mb-0">
-                    <thead>
-                        <tr>
-                            <th>ORDER ID</th>
-                            <th>CUSTOMER</th>
-                            <th>DATE</th>
-                            <th>AMOUNT</th>
-                            <th>STATUS</th>
-                            <th class="text-end">ACTION</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for order in recent_orders %}
-                        <tr>
-                            <td>
-                                <span class="fw-bold">#{{ order.order_number }}</span>
-                            </td>
-                            <td>
-                                <div class="d-flex align-items-center">
-                                    <div class="avatar-sm me-3 bg-light rounded-circle d-flex align-items-center justify-content-center fw-bold text-muted small" style="width: 32px; height: 32px;">
-                                        {{ order.user.username|default:order.guest_email|slice:":1"|upper }}
-                                    </div>
-                                    <div>
-                                        {% if order.user %}
-                                            <div class="fw-medium">{{ order.user.get_full_name|default:order.user.email }}</div>
-                                            <div class="text-muted small">{{ order.user.email }}</div>
-                                        {% else %}
-                                            <div class="fw-medium">{{ order.guest_full_name|default:"Guest Customer" }}</div>
-                                            <div class="text-muted small">{{ order.guest_email }}</div>
-                                        {% endif %}
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                <div>{{ order.created_at|date:"M d, Y" }}</div>
-                                <div class="text-muted small">{{ order.created_at|time:"H:i" }}</div>
-                            </td>
-                            <td class="fw-bold">৳{{ order.total|floatformat:2|intcomma }}</td>
-                            <td>
-                                <span class="badge 
-                                    {% if order.status == 'delivered' %}bg-success-subtle text-success
-                                    {% elif order.status == 'shipped' %}bg-info-subtle text-info
-                                    {% elif order.status == 'processing' %}bg-warning-subtle text-warning
-                                    {% elif order.status == 'cancelled' %}bg-danger-subtle text-danger
-                                    {% else %}bg-secondary-subtle text-secondary{% endif %}">
-                                    {{ order.get_status_display }}
-                                </span>
-                            </td>
-                            <td class="text-end">
-                                <a href="{% url 'dashboard:order_detail' order.order_number %}" class="btn btn-sm btn-light border">
-                                    <i class="bi bi-eye"></i> Detail
-                                </a>
-                            </td>
-                        </tr>
-                        {% empty %}
-                        <tr>
-                            <td colspan="6" class="text-center py-5">
-                                <div class="text-muted">
-                                    <i class="bi bi-inbox display-4 d-block mb-3 opacity-25"></i>
-                                    <p class="mb-0">No orders found yet.</p>
-                                </div>
-                            </td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-        </div>
+<div class="table-card mt-4">
+    <div class="table-header d-flex justify-content-between align-items-center">
+        <h3 class="table-title mb-0">Recent Activity</h3>
+        <a href="{% url 'dashboard:order_list' %}" class="btn btn-sm btn-link text-primary text-decoration-none fw-bold">View Reports <i class="bi bi-arrow-right ms-1"></i></a>
+    </div>
+    <div class="table-responsive">
+        <table class="admin-table">
+            <thead>
+                <tr>
+                    <th><input type="checkbox" class="form-check-input"></th>
+                    <th>Reference</th>
+                    <th>Customer</th>
+                    <th>Date</th>
+                    <th>Amount</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in recent_orders %}
+                <tr>
+                    <td><input type="checkbox" class="form-check-input"></td>
+                    <td class="fw-bold text-dark">#{{ order.order_number }}</td>
+                    <td>
+                        <div class="d-flex align-items-center">
+                            <div class="avatar-circle me-2 bg-light text-primary fw-bold" style="width: 24px; height: 24px; font-size: 10px; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 1px solid var(--admin-gray-200);">
+                                {{ order.user.username|default:order.guest_email|slice:":1"|upper }}
+                            </div>
+                            <span class="text-muted small">
+                                {% if order.user %}
+                                    {{ order.user.get_full_name|default:order.user.email|truncatechars:20 }}
+                                {% else %}
+                                    {{ order.guest_full_name|default:"Guest"|truncatechars:20 }}
+                                {% endif %}
+                            </span>
+                        </div>
+                    </td>
+                    <td class="text-muted small">{{ order.created_at|date:"M d, Y" }}</td>
+                    <td class="fw-bold">৳{{ order.total|floatformat:0|intcomma }}</td>
+                    <td>
+                        <span class="status-badge 
+                            {% if order.status == 'delivered' %}success
+                            {% elif order.status == 'shipped' %}info
+                            {% elif order.status == 'processing' %}warning
+                            {% elif order.status == 'cancelled' %}danger
+                            {% else %}info{% endif %}">
+                            <i class="bi bi-dot me-0"></i>{{ order.get_status_display }}
+                        </span>
+                    </td>
+                    <td>
+                        <a href="{% url 'dashboard:order_detail' order.order_number %}" class="action-btn" title="View Detail">
+                            <i class="bi bi-arrow-right-short fs-4"></i>
+                        </a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="7" class="text-center py-5">
+                        <div class="text-muted">
+                            <i class="bi bi-receipt-cutoff display-6 d-block mb-2 opacity-25"></i>
+                            <p class="small mb-0">No recent orders to show.</p>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
 </div>
 {% endblock %}
@@ -174,31 +165,29 @@
 {% block extra_js %}
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        // Read data from json_script tags
         const salesLabels = JSON.parse(document.getElementById('sales-labels').textContent);
         const salesData = JSON.parse(document.getElementById('sales-data').textContent);
-        const categoryLabels = JSON.parse(document.getElementById('category-labels').textContent);
-        const categoryData = JSON.parse(document.getElementById('category-data').textContent);
 
-        // Sales Overview Chart
-        const salesCtx = document.getElementById('salesChart').getContext('2d');
-        new Chart(salesCtx, {
+        const revenueCtx = document.getElementById('revenueChart').getContext('2d');
+        const gradient = revenueCtx.createLinearGradient(0, 0, 0, 300);
+        gradient.addColorStop(0, 'rgba(79, 70, 229, 0.1)');
+        gradient.addColorStop(1, 'rgba(79, 70, 229, 0.0)');
+
+        new Chart(revenueCtx, {
             type: 'line',
             data: {
                 labels: salesLabels,
                 datasets: [{
-                    label: 'Revenue (৳)',
+                    label: 'Revenue',
                     data: salesData,
-                    borderColor: '#da5d04',
-                    backgroundColor: 'rgba(218, 93, 4, 0.08)',
-                    borderWidth: 3,
-                    tension: 0.4,
+                    borderColor: '#4f46e5',
+                    backgroundColor: gradient,
+                    tension: 0.3,
                     fill: true,
-                    pointBackgroundColor: '#fff',
-                    pointBorderColor: '#da5d04',
-                    pointBorderWidth: 2,
                     pointRadius: 4,
-                    pointHoverRadius: 6
+                    pointBackgroundColor: '#fff',
+                    pointBorderWidth: 2,
+                    borderWidth: 3
                 }]
             },
             options: {
@@ -207,65 +196,29 @@
                 plugins: {
                     legend: { display: false },
                     tooltip: {
-                        backgroundColor: '#954e27',
-                        titleFont: { family: 'Outfit', size: 14 },
-                        bodyFont: { family: 'Outfit', size: 13 },
-                        padding: 12,
-                        cornerRadius: 10,
+                        mode: 'index',
+                        intersect: false,
+                        backgroundColor: '#1e293b',
+                        padding: 10,
+                        titleFont: { size: 12 },
+                        bodyFont: { size: 12 },
                         displayColors: false
                     }
                 },
                 scales: {
-                    y: {
-                        beginAtZero: true,
-                        grid: { color: 'rgba(149, 78, 39, 0.05)', drawBorder: false },
-                        ticks: { font: { family: 'Outfit' }, color: '#954e27' }
-                    },
                     x: {
                         grid: { display: false },
-                        ticks: { font: { family: 'Outfit' }, color: '#954e27' }
-                    }
-                }
-            }
-        });
-
-        // Category Distribution Chart
-        const categoryCtx = document.getElementById('categoryChart').getContext('2d');
-        new Chart(categoryCtx, {
-            type: 'doughnut',
-            data: {
-                labels: categoryLabels,
-                datasets: [{
-                    data: categoryData,
-                    backgroundColor: [
-                        '#954e27',
-                        '#da5d04',
-                        '#10b981',
-                        '#b86b3d',
-                        '#7a3f1e'
-                    ],
-                    borderWidth: 0,
-                    hoverOffset: 15
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                cutout: '72%',
-                plugins: {
-                    legend: {
-                        position: 'bottom',
-                        labels: {
-                            padding: 20,
-                            usePointStyle: true,
-                            font: { family: 'Outfit', size: 12 },
-                            color: '#954e27'
-                        }
+                        ticks: { color: '#94a3b8', font: { size: 11 } }
                     },
-                    tooltip: {
-                        backgroundColor: '#954e27',
-                        padding: 12,
-                        cornerRadius: 10
+                    y: {
+                        border: { display: false },
+                        grid: { color: '#f1f5f9' },
+                        ticks: { 
+                            color: '#94a3b8', 
+                            font: { size: 11 },
+                            callback: function(value) { return '৳' + (value >= 1000 ? (value/1000) + 'k' : value); }
+                        },
+                        beginAtZero: true
                     }
                 }
             }

@@ -1,70 +1,78 @@
 {% extends 'dashboard/base.html' %}
+{% load static %}
+
+{% block title %}Categories{% endblock %}
+{% block page_title %}Categories{% endblock %}
 
 {% block dashboard_content %}
-<div class="d-flex justify-content-between align-items-center mb-4">
-    <h5 class="mb-0">Categories ({{ categories|length }})</h5>
-    <a href="{% url 'dashboard:category_create' %}" class="btn btn-success">
-        <i class="bi bi-plus-circle me-1"></i> Add Category
+<!-- Category Header -->
+<div class="d-flex justify-content-between align-items-end mb-4">
+    <div>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-1">
+                <li class="breadcrumb-item small"><a href="{% url 'dashboard:home' %}" class="text-decoration-none text-muted">Dashboard</a></li>
+                <li class="breadcrumb-item small active" aria-current="page">Categories</li>
+            </ol>
+        </nav>
+        <h2 class="h4 fw-bold mb-0">Collections</h2>
+        <p class="text-muted small mb-0">Organize and structure your product catalog taxonomy</p>
+    </div>
+    <a href="{% url 'dashboard:category_create' %}" class="btn btn-primary d-flex align-items-center gap-2 px-3">
+        <i class="bi bi-plus-lg"></i>
+        <span>Add Collection</span>
     </a>
 </div>
 
-<div class="table-premium">
-    <div class="table-responsive">
-        <table class="table table-hover mb-0">
-            <thead>
-                <tr>
-                    <th style="width: 60px;">Image</th>
-                    <th>Name</th>
-                    <th>Parent</th>
-                    <th>Products</th>
-                    <th>Status</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for category in categories %}
-                <tr>
-                    <td>
-                        {% if category.image %}
-                        <img src="{{ category.image.url }}" alt="{{ category.name }}" class="rounded" style="width: 50px; height: 50px; object-fit: cover;">
-                        {% else %}
-                        <div class="bg-light rounded d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
-                            <i class="bi bi-folder text-muted"></i>
+<!-- Categories Grid -->
+<div class="row g-4">
+    {% for category in categories %}
+    <div class="col-md-6 col-lg-4">
+        <div class="table-card h-100 p-3">
+            <div class="d-flex align-items-start gap-3">
+                <div class="rounded-3 d-flex align-items-center justify-content-center" style="width: 48px; height: 48px; background: var(--admin-gray-100); border: 1px solid var(--admin-gray-200); flex-shrink: 0;">
+                    {% if category.image %}
+                        <img src="{{ category.image.url }}" alt="{{ category.name }}" style="width: 24px; height: 24px; object-fit: contain;">
+                    {% else %}
+                        <i class="bi bi-folder2 text-primary fs-5"></i>
+                    {% endif %}
+                </div>
+                <div class="flex-grow-1 min-w-0">
+                    <div class="d-flex justify-content-between">
+                        <h5 class="fw-bold text-dark small mb-1 text-truncate">{{ category.name }}</h5>
+                        <div class="dropdown">
+                            <button class="action-btn" data-bs-toggle="dropdown" style="width: 20px; height: 20px; padding: 0;"><i class="bi bi-three-dots-vertical" style="font-size: 12px;"></i></button>
+                            <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 small">
+                                <li><a class="dropdown-item" href="{% url 'dashboard:category_edit' category.pk %}"><i class="bi bi-pencil me-2"></i>Edit Details</a></li>
+                                <li><a class="dropdown-item" href="{% url 'catalog:category_products' category.slug %}" target="_blank"><i class="bi bi-eye me-2"></i>Live Preview</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item text-danger" href="{% url 'dashboard:category_delete' category.pk %}"><i class="bi bi-trash me-2"></i>Delete</a></li>
+                            </ul>
                         </div>
-                        {% endif %}
-                    </td>
-                    <td class="fw-bold">{{ category.name }}</td>
-                    <td>{{ category.parent.name|default:"-" }}</td>
-                    <td><span class="badge bg-secondary">{{ category.products.count }}</span></td>
-                    <td>
+                    </div>
+                    <p class="text-muted extra-small mb-2 text-wrap">{{ category.description|truncatechars:80|default:"No description provided." }}</p>
+                    <div class="d-flex align-items-center gap-2">
+                        <span class="badge bg-light text-primary border fw-normal extra-small">{{ category.products.count }} Products</span>
                         {% if category.is_active %}
-                        <span class="badge bg-success">Active</span>
+                            <span class="status-badge success extra-small py-0 px-2" style="font-size: 9px; height: 18px;">Active</span>
                         {% else %}
-                        <span class="badge bg-danger">Inactive</span>
+                            <span class="status-badge warning extra-small py-0 px-2" style="font-size: 9px; height: 18px;">Draft</span>
                         {% endif %}
-                    </td>
-                    <td>
-                        <a href="{% url 'dashboard:category_edit' category.pk %}" class="btn btn-sm btn-outline-primary">
-                            <i class="bi bi-pencil"></i>
-                        </a>
-                        <a href="{% url 'dashboard:category_delete' category.pk %}" class="btn btn-sm btn-outline-danger">
-                            <i class="bi bi-trash"></i>
-                        </a>
-                    </td>
-                </tr>
-                {% empty %}
-                <tr>
-                    <td colspan="6" class="text-center py-5">
-                        <div class="text-muted">
-                            <i class="bi bi-folder display-4 d-block mb-3 opacity-50"></i>
-                            <p class="mb-0">No categories found.</p>
-                            <a href="{% url 'dashboard:category_create' %}" class="btn btn-primary mt-3">Create First Category</a>
-                        </div>
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+    {% empty %}
+    <div class="col-12">
+        <div class="table-card text-center py-5">
+            <div class="text-muted">
+                <i class="bi bi-folder2-open display-3 d-block mb-3 opacity-25"></i>
+                <h5 class="fw-bold mb-1">No collections yet</h5>
+                <p class="small mb-4">Start organizing your catalog by creating your first product collection.</p>
+                <a href="{% url 'dashboard:category_create' %}" class="btn btn-primary btn-sm px-4">Create Collection</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
 </div>
 {% endblock %}

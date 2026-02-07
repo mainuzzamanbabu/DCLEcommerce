@@ -204,9 +204,47 @@ class Product(models.Model):
     def get_absolute_url(self):
         return reverse('catalog:product_detail', kwargs={'slug': self.slug})
     
-    def get_primary_image(self):
+    @property
+    def primary_image(self):
         """Get the primary product image."""
         return self.images.filter(is_primary=True).first() or self.images.first()
+    
+    @property
+    def price(self):
+        """Get the effective price of the default variant."""
+        variant = self.get_default_variant()
+        if variant and hasattr(variant, 'price'):
+            return variant.price.effective_price
+        return None
+
+    @property
+    def base_price(self):
+        """Alias for price for template compatibility."""
+        return self.price
+
+    @property
+    def compare_at_price(self):
+        """Get the list price of the default variant if on sale."""
+        variant = self.get_default_variant()
+        if variant and hasattr(variant, 'price') and variant.price.is_on_sale:
+            return variant.price.list_price
+        return None
+
+    @property
+    def is_on_sale(self):
+        """Check if the default variant is on sale."""
+        variant = self.get_default_variant()
+        if variant and hasattr(variant, 'price'):
+            return variant.price.is_on_sale
+        return False
+
+    @property
+    def discount_percent(self):
+        """Get the discount percentage of the default variant."""
+        variant = self.get_default_variant()
+        if variant and hasattr(variant, 'price'):
+            return variant.price.discount_percent
+        return 0
     
     def get_default_variant(self):
         """Get the default (first active) variant."""

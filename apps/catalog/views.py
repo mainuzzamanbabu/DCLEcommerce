@@ -12,6 +12,11 @@ class ProductListView(ListView):
     context_object_name = 'products'
     paginate_by = 12
     
+    def get_template_names(self):
+        if self.request.headers.get('x-requested-with') == 'XMLHttpRequest':
+            return ['catalog/partials/_product_grid.html']
+        return [self.template_name]
+
     def get_queryset(self):
         queryset = Product.objects.filter(is_active=True).select_related(
             'category', 'brand'
@@ -24,7 +29,7 @@ class ProductListView(ListView):
         )
         
         # Filter by category
-        category_slug = self.kwargs.get('category_slug')
+        category_slug = self.kwargs.get('category_slug') or self.request.GET.get('category')
         if category_slug:
             category = get_object_or_404(Category, slug=category_slug, is_active=True)
             # Include child categories
@@ -51,9 +56,13 @@ class ProductListView(ListView):
         if min_price or max_price:
             variant_filter = Q()
             if min_price:
-                variant_filter &= Q(variants__price__list_price__gte=min_price)
+                try:
+                    variant_filter &= Q(variants__price__list_price__gte=float(min_price))
+                except ValueError: pass
             if max_price:
-                variant_filter &= Q(variants__price__list_price__lte=max_price)
+                try:
+                    variant_filter &= Q(variants__price__list_price__lte=float(max_price))
+                except ValueError: pass
             queryset = queryset.filter(variant_filter).distinct()
         
         # Featured only
@@ -70,17 +79,20 @@ class ProductListView(ListView):
         # Sorting
         sort_by = self.request.GET.get('sort', '-created_at')
         valid_sorts = {
+            'featured': '-is_featured',
+            'price_low': 'variants__price__list_price',
+            'price_high': '-variants__price__list_price',
+            'newest': '-created_at',
             'name': 'name',
             '-name': '-name',
-            'price': 'variants__price__list_price',
-            '-price': '-variants__price__list_price',
-            '-created_at': '-created_at',
-            'created_at': 'created_at',
         }
+        
         if sort_by in valid_sorts:
             queryset = queryset.order_by(valid_sorts[sort_by])
+        else:
+            queryset = queryset.order_by('-created_at')
         
-        return queryset
+        return queryset.distinct()
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -166,6 +178,21 @@ class ProductDetailView(DetailView):
             })
         context['breadcrumbs'] = breadcrumbs
         
+        return context
+
+
+class ProductQuickView(DetailView):
+    """AJAX view for quick view modal."""
+    model = Product
+    template_name = 'catalog/partials/_quick_view.html'
+    context_object_name = 'product'
+    
+    def get_queryset(self):
+        return Product.objects.filter(is_active=True).prefetch_related('images', 'variants')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['default_variant'] = self.object.get_default_variant()
         return context
 
 

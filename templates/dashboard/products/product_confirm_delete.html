@@ -1,25 +1,36 @@
 {% extends 'dashboard/base.html' %}
+{% load static %}
+
+{% block title %}Delete Product{% endblock %}
+{% block page_title %}Confirmation{% endblock %}
 
 {% block dashboard_content %}
-<div class="row justify-content-center">
-    <div class="col-lg-6">
-        <div class="card border-0 shadow-sm">
-            <div class="card-header bg-danger text-white py-3">
-                <h5 class="mb-0 fw-bold"><i class="bi bi-exclamation-triangle me-2"></i>Delete Product</h5>
+<div class="row justify-content-center py-5">
+    <div class="col-lg-5">
+        <div class="table-card text-center py-5 px-4 shadow-lg border-danger-subtle">
+            <div class="rounded-circle bg-danger bg-opacity-10 d-flex align-items-center justify-content-center mx-auto mb-4" style="width: 80px; height: 80px;">
+                <i class="bi bi-exclamation-triangle fs-1 text-danger"></i>
             </div>
-            <div class="card-body text-center py-5">
-                <i class="bi bi-box-seam display-1 text-danger mb-3"></i>
-                <h4>Are you sure you want to delete "{{ product.name }}"?</h4>
-                <p class="text-muted">This action cannot be undone. All images and variants will also be deleted.</p>
-                
-                <form method="post" class="mt-4">
-                    {% csrf_token %}
-                    <button type="submit" class="btn btn-danger btn-lg">
-                        <i class="bi bi-trash me-1"></i> Yes, Delete
+            
+            <h3 class="fw-bold text-dark mb-2">Delete Product?</h3>
+            <p class="text-muted mb-4">Are you sure you want to delete <strong>"{{ product.name }}"</strong>? This action is permanent and cannot be reversed.</p>
+            
+            <div class="bg-light p-3 rounded-3 mb-4 text-start">
+                <div class="small fw-bold text-danger mb-1"><i class="bi bi-info-circle me-1"></i> Impact Alert</div>
+                <div class="small text-muted">Deleting this product will also remove all associated images, variants, and pricing data from the system.</div>
+            </div>
+            
+            <form method="post">
+                {% csrf_token %}
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-danger py-3 fw-bold rounded-pill">
+                        <i class="bi bi-trash me-2"></i>Permanently Delete
                     </button>
-                    <a href="{% url 'dashboard:product_list' %}" class="btn btn-outline-secondary btn-lg">Cancel</a>
-                </form>
-            </div>
+                    <a href="{% url 'dashboard:product_list' %}" class="btn-outline text-center py-3">
+                        Cancel & Go Back
+                    </a>
+                </div>
+            </form>
         </div>
     </div>
 </div>

@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orders | DCL Admin</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+    <div class="admin-wrapper">
+        <!-- Sidebar -->
+        <aside class="admin-sidebar">
+            <div class="sidebar-header">
+                <a href="dashboard.html" class="sidebar-brand">
+                    <div class="brand-icon"><i class="bi bi-box-seam"></i></div>
+                    <span>DCL Store</span>
+                </a>
+            </div>
+            <nav class="sidebar-nav">
+                <div class="nav-section">
+                    <div class="nav-section-title">Main Menu</div>
+                    <ul class="nav-menu">
+                        <li class="nav-item"><a href="dashboard.html" class="nav-link"><i class="bi bi-grid-1x2"></i>Dashboard</a></li>
+                        <li class="nav-item"><a href="products.html" class="nav-link"><i class="bi bi-box"></i>Products</a></li>
+                        <li class="nav-item"><a href="#" class="nav-link"><i class="bi bi-lightning"></i>Flash Sales</a></li>
+                        <li class="nav-item"><a href="users.html" class="nav-link"><i class="bi bi-people"></i>Customers</a></li>
+                        <li class="nav-item"><a href="orders.html" class="nav-link active"><i class="bi bi-receipt"></i>Order List<span class="badge bg-danger">12</span></a></li>
+                        <li class="nav-item"><a href="reports.html" class="nav-link"><i class="bi bi-bar-chart"></i>Reports</a></li>
+                    </ul>
+                </div>
+                <div class="nav-section">
+                    <div class="nav-section-title">Store Management</div>
+                    <ul class="nav-menu">
+                        <li class="nav-item"><a href="categories.html" class="nav-link"><i class="bi bi-folder"></i>Categories</a></li>
+                        <li class="nav-item"><a href="#" class="nav-link"><i class="bi bi-tag"></i>Coupons</a></li>
+                        <li class="nav-item"><a href="#" class="nav-link"><i class="bi bi-star"></i>Reviews</a></li>
+                    </ul>
+                </div>
+                <div class="nav-section">
+                    <div class="nav-section-title">Settings</div>
+                    <ul class="nav-menu">
+                        <li class="nav-item"><a href="settings.html" class="nav-link"><i class="bi bi-gear"></i>Settings</a></li>
+                    </ul>
+                </div>
+            </nav>
+            <div class="sidebar-footer">
+                <button class="logout-btn"><i class="bi bi-box-arrow-left"></i>Log out</button>
+            </div>
+        </aside>
+        
+        <!-- Main Content -->
+        <main class="admin-main">
+            <header class="admin-header">
+                <div class="header-left">
+                    <h1 class="page-title">Orders</h1>
+                    <div class="header-search">
+                        <i class="bi bi-search"></i>
+                        <input type="text" placeholder="Search orders...">
+                    </div>
+                </div>
+                <div class="header-right">
+                    <button class="header-btn"><i class="bi bi-bell"></i><span class="badge-dot"></span></button>
+                    <div class="user-dropdown">
+                        <img src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?w=100" alt="Admin" class="user-avatar">
+                        <div class="user-info">
+                            <div class="user-name">Admin User</div>
+                            <div class="user-role">Administrator</div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            
+            <div class="admin-content">
+                <!-- Order Stats -->
+                <div class="stats-grid mb-4">
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <span class="stat-title">Total Orders</span>
+                        </div>
+                        <div class="stat-value">3,456</div>
+                        <div class="stat-trend up"><i class="bi bi-arrow-up"></i> 12% <span>vs last month</span></div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <span class="stat-title">Pending</span>
+                        </div>
+                        <div class="stat-value" style="color: #f59e0b;">12</div>
+                        <div class="text-muted" style="font-size: 0.8rem;">Awaiting processing</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <span class="stat-title">Processing</span>
+                        </div>
+                        <div class="stat-value" style="color: #3b82f6;">28</div>
+                        <div class="text-muted" style="font-size: 0.8rem;">Being prepared</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <span class="stat-title">Delivered</span>
+                        </div>
+                        <div class="stat-value" style="color: #10b981;">3,416</div>
+                        <div class="text-muted" style="font-size: 0.8rem;">This month</div>
+                    </div>
+                </div>
+                
+                <!-- Filters -->
+                <div class="table-card mb-4">
+                    <div class="row g-3 align-items-center">
+                        <div class="col-md-3">
+                            <input type="text" class="form-control" placeholder="Search by Order ID...">
+                        </div>
+                        <div class="col-md-2">
+                            <select class="form-select">
+                                <option value="">All Status</option>
+                                <option>Pending</option>
+                                <option>Processing</option>
+                                <option>Shipped</option>
+                                <option>Delivered</option>
+                                <option>Cancelled</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <input type="date" class="form-control" placeholder="From Date">
+                        </div>
+                        <div class="col-md-2">
+                            <input type="date" class="form-control" placeholder="To Date">
+                        </div>
+                        <div class="col-md-3 text-end">
+                            <button class="btn-outline me-2"><i class="bi bi-funnel me-1"></i>Filter</button>
+                            <button class="btn-outline"><i class="bi bi-download me-1"></i>Export</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Orders Table -->
+                <div class="table-card">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th><input type="checkbox" class="form-check-input"></th>
+                                <th>Order ID</th>
+                                <th>Customer</th>
+                                <th>Products</th>
+                                <th>Total</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input type="checkbox" class="form-check-input"></td>
+                                <td><span class="fw-semibold">#ORD-2026001</span></td>
+                                <td>
+                                    <div class="d-flex align-items-center gap-2">
+                                        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100" class="rounded-circle" style="width:32px;height:32px;object-fit:cover;">
+                                        <div>
+                                            <div class="fw-semibold">Sarah Ahmed</div>
+                                            <small class="text-muted">sarah@email.com</small>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>MacBook Pro M3 + 2 more</td>
+                                <td class="fw-semibold">৳245,980</td>
+                                <td>Feb 6, 2026</td>
+                                <td><span class="status-badge warning">Pending</span></td>
+                                <td>
+                                    <div class="d-flex gap-1">
+                                        <button class="action-btn" data-bs-toggle="modal" data-bs-target="#orderDetailModal"><i class="bi bi-eye"></i></button>
+                                        <button class="action-btn"><i class="bi bi-printer"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox" class="form-check-input"></td>
+                                <td><span class="fw-semibold">#ORD-2026002</span></td>
+                                <td>
+                                    <div class="d-flex align-items-center gap-2">
+                                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100" class="rounded-circle" style="width:32px;height:32px;object-fit:cover;">
+                                        <div>
+                                            <div class="fw-semibold">Karim Rahman</div>
+                                            <small class="text-muted">karim@email.com</small>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>iPhone 15 Pro</td>
+                                <td class="fw-semibold">৳164,990</td>
+                                <td>Feb 5, 2026</td>
+                                <td><span class="status-badge info">Processing</span></td>
+                                <td>
+                                    <div class="d-flex gap-1">
+                                        <button class="action-btn"><i class="bi bi-eye"></i></button>
+                                        <button class="action-btn"><i class="bi bi-printer"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox" class="form-check-input"></td>
+                                <td><span class="fw-semibold">#ORD-2026003</span></td>
+                                <td>
+                                    <div class="d-flex align-items-center gap-2">
+                                        <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100" class="rounded-circle" style="width:32px;height:32px;object-fit:cover;">
+                                        <div>
+                                            <div class="fw-semibold">Fatima Khan</div>
+                                            <small class="text-muted">fatima@email.com</small>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>Sony WH-1000XM5</td>
+                                <td class="fw-semibold">৳34,990</td>
+                                <td>Feb 5, 2026</td>
+                                <td><span class="status-badge success">Shipped</span></td>
+                                <td>
+                                    <div class="d-flex gap-1">
+                                        <button class="action-btn"><i class="bi bi-eye"></i></button>
+                                        <button class="action-btn"><i class="bi bi-printer"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox" class="form-check-input"></td>
+                                <td><span class="fw-semibold">#ORD-2026004</span></td>
+                                <td>
+                                    <div class="d-flex align-items-center gap-2">
+                                        <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100" class="rounded-circle" style="width:32px;height:32px;object-fit:cover;">
+                                        <div>
+                                            <div class="fw-semibold">Tanvir Hossain</div>
+                                            <small class="text-muted">tanvir@email.com</small>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>PlayStation 5 + 1 more</td>
+                                <td class="fw-semibold">৳89,980</td>
+                                <td>Feb 4, 2026</td>
+                                <td><span class="status-badge success">Delivered</span></td>
+                                <td>
+                                    <div class="d-flex gap-1">
+                                        <button class="action-btn"><i class="bi bi-eye"></i></button>
+                                        <button class="action-btn"><i class="bi bi-printer"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox" class="form-check-input"></td>
+                                <td><span class="fw-semibold">#ORD-2026005</span></td>
+                                <td>
+                                    <div class="d-flex align-items-center gap-2">
+                                        <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100" class="rounded-circle" style="width:32px;height:32px;object-fit:cover;">
+                                        <div>
+                                            <div class="fw-semibold">Nadia Islam</div>
+                                            <small class="text-muted">nadia@email.com</small>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>Apple Watch Ultra 2</td>
+                                <td class="fw-semibold">৳89,990</td>
+                                <td>Feb 3, 2026</td>
+                                <td><span class="status-badge danger">Cancelled</span></td>
+                                <td>
+                                    <div class="d-flex gap-1">
+                                        <button class="action-btn"><i class="bi bi-eye"></i></button>
+                                        <button class="action-btn"><i class="bi bi-printer"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <!-- Pagination -->
+                    <div class="d-flex justify-content-between align-items-center mt-4 pt-3 border-top">
+                        <div class="text-muted" style="font-size: 0.875rem;">Showing 1-5 of 3,456 orders</div>
+                        <nav>
+                            <ul class="pagination pagination-sm mb-0">
+                                <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+                                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <!-- Order Detail Modal -->
+    <div class="modal fade" id="orderDetailModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title fw-bold">Order #ORD-2026001</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <h6 class="fw-semibold mb-3">Customer Details</h6>
+                            <p class="mb-1"><strong>Name:</strong> Sarah Ahmed</p>
+                            <p class="mb-1"><strong>Email:</strong> sarah@email.com</p>
+                            <p class="mb-1"><strong>Phone:</strong> +880 1712-345678</p>
+                        </div>
+                        <div class="col-md-6">
+                            <h6 class="fw-semibold mb-3">Shipping Address</h6>
+                            <p class="mb-1">House 12, Road 5</p>
+                            <p class="mb-1">Dhanmondi, Dhaka 1205</p>
+                            <p class="mb-0">Bangladesh</p>
+                        </div>
+                        <div class="col-12">
+                            <h6 class="fw-semibold mb-3">Order Items</h6>
+                            <table class="table table-sm">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Product</th>
+                                        <th>Price</th>
+                                        <th>Qty</th>
+                                        <th>Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>MacBook Pro M3 14"</td>
+                                        <td>৳189,990</td>
+                                        <td>1</td>
+                                        <td>৳189,990</td>
+                                    </tr>
+                                    <tr>
+                                        <td>AirPods Pro 2</td>
+                                        <td>৳34,990</td>
+                                        <td>1</td>
+                                        <td>৳34,990</td>
+                                    </tr>
+                                    <tr>
+                                        <td>USB-C Hub</td>
+                                        <td>৳5,000</td>
+                                        <td>2</td>
+                                        <td>৳10,000</td>
+                                    </tr>
+                                </tbody>
+                                <tfoot class="fw-semibold">
+                                    <tr><td colspan="3">Subtotal</td><td>৳234,980</td></tr>
+                                    <tr><td colspan="3">Shipping</td><td>Free</td></tr>
+                                    <tr><td colspan="3">Tax (15%)</td><td>৳11,000</td></tr>
+                                    <tr class="table-primary"><td colspan="3">Total</td><td>৳245,980</td></tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold">Update Status</label>
+                            <select class="form-select">
+                                <option selected>Pending</option>
+                                <option>Processing</option>
+                                <option>Shipped</option>
+                                <option>Delivered</option>
+                                <option>Cancelled</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-outline" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn-primary">Update Order</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

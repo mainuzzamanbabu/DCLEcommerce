@@ -1,0 +1,1178 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="DCL E-Commerce - Premium Tech Products with Lightning Fast Delivery"
+    />
+    <title>DCL E-Commerce | Premium Tech Store</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="images/favicon.png" />
+
+    <!-- Bootstrap 5 CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Bootstrap Icons -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="css/animations.css" />
+  </head>
+  <body>
+    <!-- Page Loader -->
+    <div class="page-loader">
+      <div class="loader-spinner"></div>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="index.html">
+          <span class="brand-gradient">DCL</span><span class="brand-text">Store</span>
+        </a>
+
+        <button
+          class="navbar-toggler border-0"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <i class="bi bi-list fs-2"></i>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav mx-auto">
+            <li class="nav-item">
+              <a class="nav-link active" href="index.html">Home</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                data-bs-toggle="dropdown"
+                >Shop</a
+              >
+              <ul class="dropdown-menu glass-light">
+                <li>
+                  <a class="dropdown-item" href="products.html">All Products</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="products.html?category=laptops"
+                    >Laptops</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="products.html?category=phones"
+                    >Smartphones</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="dropdown-item"
+                    href="products.html?category=accessories"
+                    >Accessories</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="products.html?category=gaming"
+                    >Gaming</a
+                  >
+                </li>
+              </ul>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="products.html?featured=true"
+                >Featured</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="products.html?sale=true">Sale</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Contact</a>
+            </li>
+          </ul>
+
+          <div class="d-flex align-items-center gap-3">
+            <!-- Search -->
+            <button class="btn btn-link p-0 search-toggle" aria-label="Search">
+              <i class="bi bi-search fs-5"></i>
+            </button>
+
+            <!-- Wishlist -->
+            <a href="wishlist.html" class="btn btn-link p-0 position-relative">
+              <i class="bi bi-heart fs-5"></i>
+            </a>
+
+            <!-- Cart -->
+            <a
+              href="cart.html"
+              class="btn btn-link p-0 position-relative cart-icon"
+            >
+              <i class="bi bi-bag fs-5"></i>
+              <span class="cart-count">0</span>
+            </a>
+
+            <!-- User -->
+            <div class="dropdown">
+              <button
+                class="btn btn-link p-0 dropdown-toggle"
+                data-bs-toggle="dropdown"
+              >
+                <i class="bi bi-person fs-5"></i>
+              </button>
+              <ul class="dropdown-menu dropdown-menu-end glass-light">
+                <li>
+                  <a class="dropdown-item" href="signin.html"
+                    ><i class="bi bi-box-arrow-in-right me-2"></i>Sign In</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="signup.html"
+                    ><i class="bi bi-person-plus me-2"></i>Sign Up</a
+                  >
+                </li>
+                <li><hr class="dropdown-divider" /></li>
+                <li>
+                  <a class="dropdown-item" href="profile.html"
+                    ><i class="bi bi-person-circle me-2"></i>My Account</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="orders.html"
+                    ><i class="bi bi-box me-2"></i>Orders</a
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Search Overlay -->
+    <div class="search-overlay">
+      <div class="search-overlay-content">
+        <button class="search-close"><i class="bi bi-x-lg"></i></button>
+        <h2 class="text-white mb-4">What are you looking for?</h2>
+        <form class="search-form">
+          <div class="input-group">
+            <input
+              type="text"
+              class="form-control form-control-lg form-control-glass"
+              placeholder="Search products..."
+            />
+            <button class="btn btn-primary btn-lg" type="submit">
+              <i class="bi bi-search"></i>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero-shapes">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+      </div>
+
+      <div class="container">
+        <div class="row align-items-center min-vh-100">
+          <div class="col-lg-6 hero-content" data-animate="fade-right">
+          <h1 class="hero-title">
+              Premium Tech
+              <span class="d-block gradient-text">For Everyone</span>
+            </h1>
+            <p class="hero-subtitle">
+              Discover the latest gadgets and electronics with unbeatable prices
+              and lightning-fast delivery across Bangladesh.
+            </p>
+            <div class="d-flex flex-wrap gap-3">
+              <a href="products.html" class="btn btn-primary btn-xl btn-glow">
+                <i class="bi bi-bag-check me-2"></i>Shop Now
+              </a>
+              <a href="#featured" class="btn btn-glass btn-xl">
+                <i class="bi bi-play-circle me-2"></i>Explore
+              </a>
+            </div>
+
+            <!-- Stats -->
+            <div class="row mt-5 pt-4">
+              <div class="col-4">
+                <h3 class="text-white mb-0" data-counter="15000">0</h3>
+                <p class="text-white-50 small mb-0">Happy Customers</p>
+              </div>
+              <div class="col-4">
+                <h3 class="text-white mb-0" data-counter="2500">0</h3>
+                <p class="text-white-50 small mb-0">Products</p>
+              </div>
+              <div class="col-4">
+                <h3 class="text-white mb-0" data-counter="64">0</h3>
+                <p class="text-white-50 small mb-0">Districts</p>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="col-lg-6 d-none d-lg-block"
+            data-animate="fade-left"
+            data-animate-delay="300"
+          >
+            <!-- Bento Grid Product Showcase -->
+            <div class="hero-bento-grid">
+              <div class="bento-item bento-main floating">
+                <img
+                  src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=600"
+                  alt="Premium Laptop"
+                />
+                <div class="bento-overlay">
+                  <span class="bento-label">Laptops</span>
+                </div>
+              </div>
+              <div class="bento-item bento-top floating floating-delay-1">
+                <img
+                  src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=300"
+                  alt="Headphones"
+                />
+                <div class="bento-overlay">
+                  <span class="bento-label">Audio</span>
+                </div>
+              </div>
+              <div class="bento-item bento-bottom floating floating-delay-2">
+                <img
+                  src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=300"
+                  alt="Smart Watch"
+                />
+                <div class="bento-overlay">
+                  <span class="bento-label">Wearables</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Scroll Indicator -->
+      <a href="#categories" class="scroll-indicator">
+        <div class="mouse"></div>
+        <span>Scroll</span>
+      </a>
+    </section>
+
+    <!-- Categories Section -->
+    <section id="categories" class="section bg-light">
+      <div class="container">
+        <div class="section-header" data-animate="fade-up">
+          <span class="section-subtitle">Browse By</span>
+          <h2 class="section-title">Shop by Category</h2>
+          <p class="section-description">
+            Find exactly what you need from our carefully curated categories
+          </p>
+        </div>
+
+        <div class="row g-4">
+          <div
+            class="col-md-6 col-lg-3"
+            data-animate="fade-up"
+            data-animate-delay="100"
+          >
+            <a
+              href="products.html?category=laptops"
+              class="category-card d-block"
+            >
+              <img
+                src="https://images.unsplash.com/photo-1525547719571-a2d4ac8945e2?w=400"
+                alt="Laptops"
+              />
+              <div class="category-overlay">
+                <span class="category-arrow"
+                  ><i class="bi bi-arrow-right"></i
+                ></span>
+                <h4 class="category-name">Laptops</h4>
+                <span class="category-count">250+ Products</span>
+              </div>
+            </a>
+          </div>
+
+          <div
+            class="col-md-6 col-lg-3"
+            data-animate="fade-up"
+            data-animate-delay="200"
+          >
+            <a
+              href="products.html?category=phones"
+              class="category-card d-block"
+            >
+              <img
+                src="https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=400"
+                alt="Smartphones"
+              />
+              <div class="category-overlay">
+                <span class="category-arrow"
+                  ><i class="bi bi-arrow-right"></i
+                ></span>
+                <h4 class="category-name">Smartphones</h4>
+                <span class="category-count">180+ Products</span>
+              </div>
+            </a>
+          </div>
+
+          <div
+            class="col-md-6 col-lg-3"
+            data-animate="fade-up"
+            data-animate-delay="300"
+          >
+            <a
+              href="products.html?category=accessories"
+              class="category-card d-block"
+            >
+              <img
+                src="https://images.unsplash.com/photo-1583394838336-acd977736f90?w=400"
+                alt="Accessories"
+              />
+              <div class="category-overlay">
+                <span class="category-arrow"
+                  ><i class="bi bi-arrow-right"></i
+                ></span>
+                <h4 class="category-name">Accessories</h4>
+                <span class="category-count">320+ Products</span>
+              </div>
+            </a>
+          </div>
+
+          <div
+            class="col-md-6 col-lg-3"
+            data-animate="fade-up"
+            data-animate-delay="400"
+          >
+            <a
+              href="products.html?category=gaming"
+              class="category-card d-block"
+            >
+              <img
+                src="https://images.unsplash.com/photo-1593305841991-05c297ba4575?w=400"
+                alt="Gaming"
+              />
+              <div class="category-overlay">
+                <span class="category-arrow"
+                  ><i class="bi bi-arrow-right"></i
+                ></span>
+                <h4 class="category-name">Gaming</h4>
+                <span class="category-count">150+ Products</span>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Featured Products Section -->
+    <section id="featured" class="section">
+      <div class="container">
+        <div class="section-header" data-animate="fade-up">
+          <span class="section-subtitle">Our Collection</span>
+          <h2 class="section-title">Featured Products</h2>
+          <p class="section-description">
+            Handpicked favorites that our customers love
+          </p>
+        </div>
+
+        <div class="row g-4">
+          <!-- Product 1 -->
+          <div
+            class="col-sm-6 col-lg-3"
+            data-animate="fade-up"
+            data-animate-delay="100"
+          >
+            <div class="product-card">
+              <div class="product-image">
+                <img
+                  src="https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?w=400"
+                  alt="MacBook Pro"
+                />
+                <span class="product-badge badge-sale">-15%</span>
+                <button class="wishlist-btn" data-product-id="1">
+                  <i class="bi bi-heart"></i>
+                </button>
+                <div class="product-overlay">
+                  <button
+                    class="btn btn-primary btn-sm add-to-cart-btn"
+                    data-product-id="1"
+                    data-product-name="MacBook Pro M3"
+                    data-product-price="189990"
+                    data-product-image="https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?w=400"
+                  >
+                    <i class="bi bi-bag-plus me-2"></i>Add to Cart
+                  </button>
+                </div>
+              </div>
+              <div class="product-info">
+                <span class="product-category">Laptops</span>
+                <h5 class="product-title">MacBook Pro M3</h5>
+                <div class="product-price">
+                  <span class="current-price">৳189,990</span>
+                  <span class="original-price">৳223,500</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Product 2 -->
+          <div
+            class="col-sm-6 col-lg-3"
+            data-animate="fade-up"
+            data-animate-delay="200"
+          >
+            <div class="product-card">
+              <div class="product-image">
+                <img
+                  src="https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?w=400"
+                  alt="iPhone 15 Pro"
+                />
+                <span class="product-badge badge-new">New</span>
+                <button class="wishlist-btn" data-product-id="2">
+                  <i class="bi bi-heart"></i>
+                </button>
+                <div class="product-overlay">
+                  <button
+                    class="btn btn-primary btn-sm add-to-cart-btn"
+                    data-product-id="2"
+                    data-product-name="iPhone 15 Pro"
+                    data-product-price="164990"
+                    data-product-image="https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?w=400"
+                  >
+                    <i class="bi bi-bag-plus me-2"></i>Add to Cart
+                  </button>
+                </div>
+              </div>
+              <div class="product-info">
+                <span class="product-category">Smartphones</span>
+                <h5 class="product-title">iPhone 15 Pro</h5>
+                <div class="product-price">
+                  <span class="current-price">৳164,990</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Product 3 -->
+          <div
+            class="col-sm-6 col-lg-3"
+            data-animate="fade-up"
+            data-animate-delay="300"
+          >
+            <div class="product-card">
+              <div class="product-image">
+                <img
+                  src="https://images.unsplash.com/photo-1546435770-a3e426bf472b?w=400"
+                  alt="Sony WH-1000XM5"
+                />
+                <span class="product-badge badge-sale">-20%</span>
+                <button class="wishlist-btn" data-product-id="3">
+                  <i class="bi bi-heart"></i>
+                </button>
+                <div class="product-overlay">
+                  <button
+                    class="btn btn-primary btn-sm add-to-cart-btn"
+                    data-product-id="3"
+                    data-product-name="Sony WH-1000XM5"
+                    data-product-price="34990"
+                    data-product-image="https://images.unsplash.com/photo-1546435770-a3e426bf472b?w=400"
+                  >
+                    <i class="bi bi-bag-plus me-2"></i>Add to Cart
+                  </button>
+                </div>
+              </div>
+              <div class="product-info">
+                <span class="product-category">Accessories</span>
+                <h5 class="product-title">Sony WH-1000XM5</h5>
+                <div class="product-price">
+                  <span class="current-price">৳34,990</span>
+                  <span class="original-price">৳43,740</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Product 4 -->
+          <div
+            class="col-sm-6 col-lg-3"
+            data-animate="fade-up"
+            data-animate-delay="400"
+          >
+            <div class="product-card">
+              <div class="product-image">
+                <img
+                  src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400"
+                  alt="Apple Watch Ultra"
+                />
+                <button class="wishlist-btn" data-product-id="4">
+                  <i class="bi bi-heart"></i>
+                </button>
+                <div class="product-overlay">
+                  <button
+                    class="btn btn-primary btn-sm add-to-cart-btn"
+                    data-product-id="4"
+                    data-product-name="Apple Watch Ultra 2"
+                    data-product-price="89990"
+                    data-product-image="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400"
+                  >
+                    <i class="bi bi-bag-plus me-2"></i>Add to Cart
+                  </button>
+                </div>
+              </div>
+              <div class="product-info">
+                <span class="product-category">Wearables</span>
+                <h5 class="product-title">Apple Watch Ultra 2</h5>
+                <div class="product-price">
+                  <span class="current-price">৳89,990</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Product 5 -->
+          <div
+            class="col-sm-6 col-lg-3"
+            data-animate="fade-up"
+            data-animate-delay="100"
+          >
+            <div class="product-card">
+              <div class="product-image">
+                <img
+                  src="https://images.unsplash.com/photo-1625961332771-3f40b0e2bdcf?w=400"
+                  alt="Samsung Galaxy S24"
+                />
+                <span class="product-badge badge-new">New</span>
+                <button class="wishlist-btn" data-product-id="5">
+                  <i class="bi bi-heart"></i>
+                </button>
+                <div class="product-overlay">
+                  <button
+                    class="btn btn-primary btn-sm add-to-cart-btn"
+                    data-product-id="5"
+                    data-product-name="Samsung Galaxy S24 Ultra"
+                    data-product-price="149990"
+                    data-product-image="https://images.unsplash.com/photo-1625961332771-3f40b0e2bdcf?w=400"
+                  >
+                    <i class="bi bi-bag-plus me-2"></i>Add to Cart
+                  </button>
+                </div>
+              </div>
+              <div class="product-info">
+                <span class="product-category">Smartphones</span>
+                <h5 class="product-title">Samsung Galaxy S24 Ultra</h5>
+                <div class="product-price">
+                  <span class="current-price">৳149,990</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Product 6 -->
+          <div
+            class="col-sm-6 col-lg-3"
+            data-animate="fade-up"
+            data-animate-delay="200"
+          >
+            <div class="product-card">
+              <div class="product-image">
+                <img
+                  src="https://images.unsplash.com/photo-1612815154858-60aa4c59eaa6?w=400"
+                  alt="PS5"
+                />
+                <button class="wishlist-btn" data-product-id="6">
+                  <i class="bi bi-heart"></i>
+                </button>
+                <div class="product-overlay">
+                  <button
+                    class="btn btn-primary btn-sm add-to-cart-btn"
+                    data-product-id="6"
+                    data-product-name="PlayStation 5"
+                    data-product-price="74990"
+                    data-product-image="https://images.unsplash.com/photo-1612815154858-60aa4c59eaa6?w=400"
+                  >
+                    <i class="bi bi-bag-plus me-2"></i>Add to Cart
+                  </button>
+                </div>
+              </div>
+              <div class="product-info">
+                <span class="product-category">Gaming</span>
+                <h5 class="product-title">PlayStation 5</h5>
+                <div class="product-price">
+                  <span class="current-price">৳74,990</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Product 7 -->
+          <div
+            class="col-sm-6 col-lg-3"
+            data-animate="fade-up"
+            data-animate-delay="300"
+          >
+            <div class="product-card">
+              <div class="product-image">
+                <img
+                  src="https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=400"
+                  alt="iPad Pro"
+                />
+                <span class="product-badge badge-sale">-10%</span>
+                <button class="wishlist-btn" data-product-id="7">
+                  <i class="bi bi-heart"></i>
+                </button>
+                <div class="product-overlay">
+                  <button
+                    class="btn btn-primary btn-sm add-to-cart-btn"
+                    data-product-id="7"
+                    data-product-name="iPad Pro M4"
+                    data-product-price="139990"
+                    data-product-image="https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=400"
+                  >
+                    <i class="bi bi-bag-plus me-2"></i>Add to Cart
+                  </button>
+                </div>
+              </div>
+              <div class="product-info">
+                <span class="product-category">Tablets</span>
+                <h5 class="product-title">iPad Pro M4</h5>
+                <div class="product-price">
+                  <span class="current-price">৳139,990</span>
+                  <span class="original-price">৳155,544</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Product 8 -->
+          <div
+            class="col-sm-6 col-lg-3"
+            data-animate="fade-up"
+            data-animate-delay="400"
+          >
+            <div class="product-card">
+              <div class="product-image">
+                <img
+                  src="https://images.unsplash.com/photo-1606983340126-99ab4feaa64a?w=400"
+                  alt="Camera"
+                />
+                <button class="wishlist-btn" data-product-id="8">
+                  <i class="bi bi-heart"></i>
+                </button>
+                <div class="product-overlay">
+                  <button
+                    class="btn btn-primary btn-sm add-to-cart-btn"
+                    data-product-id="8"
+                    data-product-name="Sony Alpha A7 IV"
+                    data-product-price="249990"
+                    data-product-image="https://images.unsplash.com/photo-1606983340126-99ab4feaa64a?w=400"
+                  >
+                    <i class="bi bi-bag-plus me-2"></i>Add to Cart
+                  </button>
+                </div>
+              </div>
+              <div class="product-info">
+                <span class="product-category">Cameras</span>
+                <h5 class="product-title">Sony Alpha A7 IV</h5>
+                <div class="product-price">
+                  <span class="current-price">৳249,990</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- View All Button -->
+        <div class="text-center mt-5" data-animate="fade-up">
+          <a href="products.html" class="btn btn-outline-primary btn-lg">
+            View All Products <i class="bi bi-arrow-right ms-2"></i>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Promotional Banner -->
+    <section class="section py-0">
+      <div class="container-fluid px-0">
+        <div
+          class="promo-banner position-relative overflow-hidden"
+          style="background: var(--gradient-dark); min-height: 500px"
+        >
+          <div
+            class="position-absolute inset-0"
+            style="background: var(--gradient-mesh); opacity: 0.5"
+          ></div>
+          <div class="container h-100">
+            <div class="row align-items-center h-100 min-vh-50 py-5">
+              <div class="col-lg-6" data-animate="fade-right">
+                <span class="badge bg-danger px-3 py-2 mb-3"
+                  >Limited Time Offer</span
+                >
+                <h2 class="display-4 fw-bold text-white mb-4">
+                  Flash Sale
+                  <span class="d-block gradient-text">Up to 50% Off</span>
+                </h2>
+                <p class="text-white-50 mb-4 fs-5">
+                  Don't miss out on our biggest sale of the year. Premium
+                  products at unbeatable prices.
+                </p>
+
+                <!-- Countdown Timer -->
+                <div class="countdown d-flex gap-3 mb-4">
+                  <div
+                    class="countdown-item glass p-3 text-center"
+                    style="min-width: 80px"
+                  >
+                    <span class="d-block fs-2 fw-bold text-white" id="days"
+                      >12</span
+                    >
+                    <span class="small text-white-50">Days</span>
+                  </div>
+                  <div
+                    class="countdown-item glass p-3 text-center"
+                    style="min-width: 80px"
+                  >
+                    <span class="d-block fs-2 fw-bold text-white" id="hours"
+                      >08</span
+                    >
+                    <span class="small text-white-50">Hours</span>
+                  </div>
+                  <div
+                    class="countdown-item glass p-3 text-center"
+                    style="min-width: 80px"
+                  >
+                    <span class="d-block fs-2 fw-bold text-white" id="minutes"
+                      >45</span
+                    >
+                    <span class="small text-white-50">Minutes</span>
+                  </div>
+                  <div
+                    class="countdown-item glass p-3 text-center"
+                    style="min-width: 80px"
+                  >
+                    <span class="d-block fs-2 fw-bold text-white" id="seconds"
+                      >30</span
+                    >
+                    <span class="small text-white-50">Seconds</span>
+                  </div>
+                </div>
+
+                <a
+                  href="products.html?sale=true"
+                  class="btn btn-primary btn-xl btn-glow"
+                >
+                  Shop Sale <i class="bi bi-arrow-right ms-2"></i>
+                </a>
+              </div>
+
+              <div
+                class="col-lg-6 d-none d-lg-block position-relative"
+                data-animate="fade-left"
+              >
+                <img
+                  src="https://images.unsplash.com/photo-1468495244123-6c6c332eeece?w=600"
+                  alt="Sale Products"
+                  class="img-fluid rounded-4 shadow-lg floating"
+                  style="max-width: 80%; margin-left: auto; display: block"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="section bg-light">
+      <div class="container">
+        <div class="row g-4">
+          <div
+            class="col-md-6 col-lg-3"
+            data-animate="fade-up"
+            data-animate-delay="100"
+          >
+            <div class="feature-card">
+              <div class="feature-icon">
+                <i class="bi bi-truck"></i>
+              </div>
+              <h5 class="feature-title">Free Shipping</h5>
+              <p class="feature-description">
+                Free shipping on orders over ৳5,000 across Bangladesh
+              </p>
+            </div>
+          </div>
+
+          <div
+            class="col-md-6 col-lg-3"
+            data-animate="fade-up"
+            data-animate-delay="200"
+          >
+            <div class="feature-card">
+              <div class="feature-icon">
+                <i class="bi bi-shield-check"></i>
+              </div>
+              <h5 class="feature-title">Secure Payment</h5>
+              <p class="feature-description">
+                100% secure payment with SSL encryption
+              </p>
+            </div>
+          </div>
+
+          <div
+            class="col-md-6 col-lg-3"
+            data-animate="fade-up"
+            data-animate-delay="300"
+          >
+            <div class="feature-card">
+              <div class="feature-icon">
+                <i class="bi bi-arrow-repeat"></i>
+              </div>
+              <h5 class="feature-title">Easy Returns</h5>
+              <p class="feature-description">7-day hassle-free return policy</p>
+            </div>
+          </div>
+
+          <div
+            class="col-md-6 col-lg-3"
+            data-animate="fade-up"
+            data-animate-delay="400"
+          >
+            <div class="feature-card">
+              <div class="feature-icon">
+                <i class="bi bi-headset"></i>
+              </div>
+              <h5 class="feature-title">24/7 Support</h5>
+              <p class="feature-description">
+                Dedicated customer support around the clock
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="section">
+      <div class="container">
+        <div class="newsletter" data-animate="zoom-in">
+          <div class="newsletter-content text-center text-white">
+            <h2 class="mb-3">Stay Updated</h2>
+            <p class="mb-4 opacity-75">
+              Subscribe to get special offers, free giveaways, and exclusive
+              deals!
+            </p>
+            <form class="newsletter-form">
+              <input
+                type="email"
+                class="form-control"
+                placeholder="Enter your email address"
+                required
+              />
+              <button type="submit" class="btn">Subscribe</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <div class="row g-5">
+          <div class="col-lg-4">
+            <div class="footer-brand gradient-text">DCLStore</div>
+            <p class="footer-description">
+              Premium tech products with unbeatable prices and lightning-fast
+              delivery across Bangladesh. Your trusted destination for all
+              things tech.
+            </p>
+            <div class="social-links">
+              <a href="#" class="social-link"><i class="bi bi-facebook"></i></a>
+              <a href="#" class="social-link"
+                ><i class="bi bi-instagram"></i
+              ></a>
+              <a href="#" class="social-link"
+                ><i class="bi bi-twitter-x"></i
+              ></a>
+              <a href="#" class="social-link"><i class="bi bi-youtube"></i></a>
+            </div>
+          </div>
+
+          <div class="col-6 col-lg-2">
+            <h5 class="footer-title">Shop</h5>
+            <ul class="footer-links">
+              <li><a href="products.html">All Products</a></li>
+              <li><a href="products.html?category=laptops">Laptops</a></li>
+              <li><a href="products.html?category=phones">Smartphones</a></li>
+              <li>
+                <a href="products.html?category=accessories">Accessories</a>
+              </li>
+              <li><a href="products.html?sale=true">Sale</a></li>
+            </ul>
+          </div>
+
+          <div class="col-6 col-lg-2">
+            <h5 class="footer-title">Account</h5>
+            <ul class="footer-links">
+              <li><a href="profile.html">My Account</a></li>
+              <li><a href="orders.html">Order History</a></li>
+              <li><a href="wishlist.html">Wishlist</a></li>
+              <li><a href="cart.html">Shopping Cart</a></li>
+            </ul>
+          </div>
+
+          <div class="col-6 col-lg-2">
+            <h5 class="footer-title">Help</h5>
+            <ul class="footer-links">
+              <li><a href="#">Contact Us</a></li>
+              <li><a href="#">FAQs</a></li>
+              <li><a href="#">Shipping Info</a></li>
+              <li><a href="#">Returns</a></li>
+            </ul>
+          </div>
+
+          <div class="col-6 col-lg-2">
+            <h5 class="footer-title">Contact</h5>
+            <ul class="footer-links">
+              <li><i class="bi bi-geo-alt me-2"></i>Dhaka, Bangladesh</li>
+              <li><i class="bi bi-telephone me-2"></i>+880 1XXX-XXXXXX</li>
+              <li><i class="bi bi-envelope me-2"></i>info@dclstore.com</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <p class="footer-copyright mb-0">
+            © 2026 DCL E-Commerce. All rights reserved.
+          </p>
+          <div class="payment-methods">
+            <i class="bi bi-credit-card fs-4 text-white-50"></i>
+            <i class="bi bi-wallet2 fs-4 text-white-50"></i>
+            <i class="bi bi-phone fs-4 text-white-50"></i>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top">
+      <i class="bi bi-arrow-up"></i>
+    </button>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Custom JS -->
+    <script src="js/main.js"></script>
+    <script>
+      // Navbar scroll effect
+      const navbar = document.querySelector('.navbar');
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+          navbar.classList.add('scrolled');
+        } else {
+          navbar.classList.remove('scrolled');
+        }
+      });
+    </script>
+    <!-- Countdown Timer Script -->
+    <script>
+      // Countdown Timer
+      function updateCountdown() {
+        const endDate = new Date();
+        endDate.setDate(endDate.getDate() + 12);
+        endDate.setHours(endDate.getHours() + 8);
+
+        const now = new Date();
+        const diff = endDate - now;
+
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor(
+          (diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60),
+        );
+        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+        document.getElementById("days").textContent = days
+          .toString()
+          .padStart(2, "0");
+        document.getElementById("hours").textContent = hours
+          .toString()
+          .padStart(2, "0");
+        document.getElementById("minutes").textContent = minutes
+          .toString()
+          .padStart(2, "0");
+        document.getElementById("seconds").textContent = seconds
+          .toString()
+          .padStart(2, "0");
+      }
+
+      setInterval(updateCountdown, 1000);
+      updateCountdown();
+    </script>
+
+    <style>
+      /* Additional Homepage Styles */
+      .hero-product-main {
+        position: relative;
+        z-index: 2;
+      }
+
+      .hero-product-float-1 {
+        position: absolute;
+        top: -20px;
+        right: -30px;
+        z-index: 3;
+      }
+
+      .hero-product-float-2 {
+        position: absolute;
+        bottom: 100px;
+        right: 50px;
+        z-index: 3;
+      }
+
+      .scroll-indicator {
+        position: absolute;
+        bottom: 40px;
+        left: 50%;
+        transform: translateX(-50%);
+        text-align: center;
+        color: rgba(255, 255, 255, 0.7);
+        text-decoration: none;
+        z-index: 10;
+      }
+
+      .mouse {
+        width: 26px;
+        height: 40px;
+        border: 2px solid rgba(255, 255, 255, 0.5);
+        border-radius: 15px;
+        margin: 0 auto 10px;
+        position: relative;
+      }
+
+      .mouse::before {
+        content: "";
+        position: absolute;
+        top: 8px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 4px;
+        height: 8px;
+        background: rgba(255, 255, 255, 0.7);
+        border-radius: 2px;
+        animation: scroll 2s infinite;
+      }
+
+      @keyframes scroll {
+        0%,
+        100% {
+          opacity: 1;
+          transform: translateX(-50%) translateY(0);
+        }
+        50% {
+          opacity: 0.5;
+          transform: translateX(-50%) translateY(12px);
+        }
+      }
+
+      .scroll-indicator span {
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+      }
+
+      .min-vh-50 {
+        min-height: 50vh;
+      }
+
+      /* Search Overlay */
+      .search-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(15, 23, 42, 0.95);
+        backdrop-filter: blur(20px);
+        z-index: 9999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+      }
+
+      .search-overlay.active {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .search-overlay-content {
+        width: 100%;
+        max-width: 600px;
+        padding: 20px;
+        text-align: center;
+      }
+
+      .search-close {
+        position: absolute;
+        top: 40px;
+        right: 40px;
+        background: none;
+        border: none;
+        color: white;
+        font-size: 24px;
+        cursor: pointer;
+        transition: transform 0.3s ease;
+      }
+
+      .search-close:hover {
+        transform: rotate(90deg);
+      }
+
+      .search-form .form-control {
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        color: white;
+        padding: 20px 25px;
+        font-size: 18px;
+      }
+
+      .search-form .form-control::placeholder {
+        color: rgba(255, 255, 255, 0.6);
+      }
+
+      /* Dropdown Styles */
+      .dropdown-menu {
+        border: none;
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-xl);
+        padding: var(--space-3);
+      }
+
+      .dropdown-item {
+        border-radius: var(--radius-md);
+        padding: var(--space-3) var(--space-4);
+        transition: all var(--transition-fast);
+      }
+
+      .dropdown-item:hover {
+        background: var(--primary);
+        color: white;
+      }
+    </style>
+  </body>
+</html>

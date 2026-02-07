@@ -2,13 +2,13 @@
 
 <div class="product-card card h-100 position-relative glass-card border-0 overflow-hidden transition-all hover-lift">
     <!-- Badges -->
-    <div class="position-absolute top-0 start-0 m-3 z-3 d-flex flex-column gap-2">
+    <div class="position-absolute top-0 start-0 p-3 z-3 d-flex flex-column gap-2">
         {% if product.is_featured %}
-        <span class="badge bg-success shadow-sm px-3 py-2 rounded-pill" style="font-size: 0.7rem; letter-spacing: 0.05em; text-transform: uppercase;">Featured</span>
+        <span class="badge shadow-sm px-3 py-2 rounded-pill" style="background: var(--dcl-primary); font-size: 0.65rem; letter-spacing: 0.02em; font-weight: 600;">FEATURED</span>
         {% endif %}
         {% with variant=product.get_default_variant %}
         {% if variant.price.is_on_sale %}
-        <span class="badge bg-danger shadow-sm px-3 py-2 rounded-pill" style="font-size: 0.7rem; letter-spacing: 0.05em; text-transform: uppercase;">Sale</span>
+        <span class="badge bg-danger shadow-sm px-3 py-2 rounded-pill" style="font-size: 0.65rem; letter-spacing: 0.02em; font-weight: 600;">SALE</span>
         {% endif %}
         {% endwith %}
     </div>
@@ -27,13 +27,22 @@
     </div>
     
     <!-- Product Image -->
-    <div class="product-image-wrapper overflow-hidden bg-light" style="aspect-ratio: 1/1;">
+    <div class="product-image-wrapper overflow-hidden bg-light" style="aspect-ratio: 1/1; position: relative;">
         <a href="{{ product.get_absolute_url }}" class="d-block h-100">
             {% with image=product.get_primary_image %}
-            <img src="{% if image %}{{ image.image.url }}{% else %}https://via.placeholder.com/400x400?text={{ product.name|urlencode }}{% endif %}" 
-                 class="card-img-top h-100 w-100 transition-all hover-scale" 
-                 alt="{{ image.alt_text|default:product.name }}"
-                 style="object-fit: cover;">
+            {% if image %}
+                <img src="{{ image.image.url }}" 
+                     class="card-img-top h-100 w-100 transition-all hover-scale" 
+                     alt="{{ image.alt_text|default:product.name }}"
+                     style="object-fit: cover;">
+            {% else %}
+                <div class="h-100 w-100 d-flex align-items-center justify-content-center bg-gray-100 text-muted">
+                    <div class="text-center">
+                        <i class="bi bi-image fs-1 opacity-25 d-block mb-2"></i>
+                        <span class="small fw-semibold opacity-50 uppercase tracking-wider" style="font-size: 0.6rem;">NO IMAGE</span>
+                    </div>
+                </div>
+            {% endif %}
             {% endwith %}
         </a>
     </div>

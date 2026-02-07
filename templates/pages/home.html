@@ -1,159 +1,73 @@
 {% extends 'base.html' %}
 {% load static %}
-{% load humanize %}
 
-{% block title %}Home{% endblock %}
+{% block title %}DCL E-Commerce | Premium Tech Store{% endblock %}
 
 {% block content %}
 <!-- Hero Section -->
-<section class="hero-section text-white">
-    <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel">
-        {% if slides %}
-        <div class="carousel-indicators">
-            {% for slide in slides %}
-            <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="{{ forloop.counter0 }}" {% if forloop.first %}class="active"{% endif %}></button>
-            {% endfor %}
-        </div>
-        <div class="carousel-inner">
-            {% for slide in slides %}
-            <div class="carousel-item {% if forloop.first %}active{% endif %}" style="background: {{ slide.background_style|default:slide.background_color }};">
-                <div class="container h-100">
-                    <div class="row h-100 align-items-center" style="min-height: 400px;">
-                        <div class="col-lg-6">
-                            {% if slide.badge_text %}
-                            <span class="badge bg-{{ slide.badge_style }} mb-3 px-3 py-2 fs-6">{{ slide.badge_text }}</span>
-                            {% endif %}
-                            <h1 class="display-4 fw-bold mb-4">{{ slide.title }}</h1>
-                            {% if slide.subtitle %}
-                            <p class="lead mb-4">{{ slide.subtitle }}</p>
-                            {% endif %}
-                            {% if slide.button_text and slide.button_link %}
-                            <a href="{{ slide.button_link }}" class="btn btn-{{ slide.button_style }} btn-lg hero-btn">
-                                {% if slide.icon_class %}<i class="bi {{ slide.icon_class }} me-2"></i>{% endif %}{{ slide.button_text }}
-                            </a>
-                            {% endif %}
-                        </div>
-                        <div class="col-lg-6 d-none d-lg-block text-center">
-                            {% if slide.icon_class %}
-                            <i class="bi {{ slide.icon_class }} display-1" style="font-size: 200px; opacity: 0.3;"></i>
-                            {% endif %}
-                        </div>
-                    </div>
-                </div>
-            </div>
-            {% endfor %}
-        </div>
-        {% else %}
-        <!-- Default slides if no CMS slides exist -->
-        <div class="carousel-indicators">
-            <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active"></button>
-            <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1"></button>
-            <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2"></button>
-        </div>
-        <div class="carousel-inner">
-            <!-- Slide 1 -->
-            <div class="carousel-item active" style="background: linear-gradient(135deg, #FDF6F2 0%, #f8ece4 50%, #f5e6da 100%);">
-                <div class="container h-100">
-                    <div class="row h-100 align-items-center" style="min-height: 450px;">
-                        <div class="col-lg-6">
-                            <h1 class="display-4 fw-bold mb-4" style="color: #954E27;">Premium Laptops for Every Need</h1>
-                            <p class="lead mb-4" style="color: #0D0D0D;">Discover our collection of high-performance laptops from top brands. Perfect for work, gaming, and creativity.</p>
-                            <a href="{% url 'catalog:product_list' %}" class="btn btn-lg hero-btn" style="background: #DA5D04; color: white;">
-                                <i class="bi bi-laptop me-2"></i>Shop Laptops
-                            </a>
-                        </div>
-                        <div class="col-lg-6 d-none d-lg-block text-center">
-                            <i class="bi bi-laptop display-1" style="font-size: 200px; opacity: 0.15; color: #954E27;"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Slide 2 -->
-            <div class="carousel-item" style="background: linear-gradient(135deg, #f8ece4 0%, #FDF6F2 100%);">
-                <div class="container h-100">
-                    <div class="row h-100 align-items-center" style="min-height: 450px;">
-                        <div class="col-lg-6">
-                            <span class="badge mb-3 px-3 py-2 fs-6" style="background: #DA5D04; color: white;">🔥 HOT DEALS</span>
-                            <h1 class="display-4 fw-bold mb-4" style="color: #954E27;">Up to 30% Off Gaming PCs</h1>
-                            <p class="lead mb-4" style="color: #0D0D0D;">Build your dream gaming setup with our exclusive deals on high-end gaming computers and accessories.</p>
-                            <a href="{% url 'catalog:product_list' %}" class="btn btn-lg hero-btn" style="background: #DA5D04; color: white;">
-                                <i class="bi bi-controller me-2"></i>Shop Gaming
-                            </a>
-                        </div>
-                        <div class="col-lg-6 d-none d-lg-block text-center">
-                            <i class="bi bi-pc-display-horizontal display-1" style="font-size: 200px; opacity: 0.15; color: #954E27;"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Slide 3 -->
-            <div class="carousel-item" style="background: linear-gradient(135deg, #FDF6F2 0%, #f5e6da 100%);">
-                <div class="container h-100">
-                    <div class="row h-100 align-items-center" style="min-height: 450px;">
-                        <div class="col-lg-6">
-                            <h1 class="display-4 fw-bold mb-4" style="color: #954E27;">Complete Office Solutions</h1>
-                            <p class="lead mb-4" style="color: #0D0D0D;">Everything you need for a productive workspace - desktops, monitors, printers, and more.</p>
-                            <a href="{% url 'catalog:product_list' %}" class="btn btn-lg hero-btn" style="background: #DA5D04; color: white;">
-                                <i class="bi bi-briefcase me-2"></i>Shop Office
-                            </a>
-                        </div>
-                        <div class="col-lg-6 d-none d-lg-block text-center">
-                            <i class="bi bi-display display-1" style="font-size: 200px; opacity: 0.15; color: #954E27;"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        {% endif %}
-        
-        <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon"></span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
-            <span class="carousel-control-next-icon"></span>
-        </button>
+<section class="hero" style="position: relative; overflow: hidden; min-height: 80vh; display: flex; align-items: center; background: var(--gradient-dark);">
+    <div class="hero-shapes">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
     </div>
-</section>
 
-<!-- Features Bar -->
-<section class="features-bar py-4 bg-white border-bottom">
-    <div class="container">
-        <div class="row g-4 text-center">
-            <div class="col-6 col-md-3">
-                <div class="feature-item justify-content-center">
-                    <i class="bi bi-truck"></i>
-                    <div class="text-start">
-                        <h6>Free Shipping</h6>
-                        <small>On orders over ৳5,000</small>
+    <div class="container position-relative">
+        <div class="row align-items-center">
+            <div class="col-lg-6 hero-content" data-animate="fade-right">
+                <h1 class="hero-title text-white mb-4">
+                    Premium Tech
+                    <span class="d-block gradient-text">For Everyone</span>
+                </h1>
+                <p class="hero-subtitle text-white-50 mb-5 fs-5">
+                    Discover the latest gadgets and electronics with unbeatable prices
+                    and lightning-fast delivery across Bangladesh.
+                </p>
+                <div class="d-flex flex-wrap gap-3">
+                    <a href="{% url 'catalog:product_list' %}" class="btn btn-primary btn-xl btn-glow rounded-pill px-5">
+                        <i class="bi bi-bag-check me-2"></i>Shop Now
+                    </a>
+                    <a href="#featured" class="btn btn-glass btn-xl rounded-pill px-5">
+                        <i class="bi bi-play-circle me-2"></i>Explore
+                    </a>
+                </div>
+
+                <!-- Stats -->
+                <div class="row mt-5 pt-4">
+                    <div class="col-4">
+                        <h3 class="text-white mb-0" data-counter="15000">15K+</h3>
+                        <p class="text-white-50 small mb-0">Happy Customers</p>
+                    </div>
+                    <div class="col-4">
+                        <h3 class="text-white mb-0" data-counter="2500">2.5K+</h3>
+                        <p class="text-white-50 small mb-0">Products</p>
+                    </div>
+                    <div class="col-4">
+                        <h3 class="text-white mb-0" data-counter="64">64</h3>
+                        <p class="text-white-50 small mb-0">Districts</p>
                     </div>
                 </div>
             </div>
-            <div class="col-6 col-md-3">
-                <div class="feature-item justify-content-center">
-                    <i class="bi bi-shield-check"></i>
-                    <div class="text-start">
-                        <h6>Secure Payment</h6>
-                        <small>100% secure checkout</small>
+
+            <div class="col-lg-6 d-none d-lg-block" data-animate="fade-left" data-animate-delay="300">
+                <div class="hero-bento-grid">
+                    <div class="bento-item bento-main floating shadow-lg rounded-4 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=600" alt="Premium Laptop" class="w-100 h-100 object-fit-cover">
+                        <div class="bento-overlay">
+                            <span class="bento-label">Laptops</span>
+                        </div>
                     </div>
-                </div>
-            </div>
-            <div class="col-6 col-md-3">
-                <div class="feature-item justify-content-center">
-                    <i class="bi bi-arrow-repeat"></i>
-                    <div class="text-start">
-                        <h6>Easy Returns</h6>
-                        <small>7-day return policy</small>
+                    <div class="bento-item bento-top floating floating-delay-1 shadow-lg rounded-4 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=300" alt="Headphones" class="w-100 h-100 object-fit-cover">
+                        <div class="bento-overlay">
+                            <span class="bento-label">Audio</span>
+                        </div>
                     </div>
-                </div>
-            </div>
-            <div class="col-6 col-md-3">
-                <div class="feature-item justify-content-center">
-                    <i class="bi bi-headset"></i>
-                    <div class="text-start">
-                        <h6>24/7 Support</h6>
-                        <small>Dedicated support</small>
+                    <div class="bento-item bento-bottom floating floating-delay-2 shadow-lg rounded-4 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=300" alt="Smart Watch" class="w-100 h-100 object-fit-cover">
+                        <div class="bento-overlay">
+                            <span class="bento-label">Wearables</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -161,86 +75,30 @@
     </div>
 </section>
 
-<!-- Featured Categories -->
-<section class="py-5">
+<!-- Categories Section -->
+<section id="categories" class="section py-5 bg-light">
     <div class="container">
-        <h2 class="section-title text-center">Shop by Category</h2>
-        
+        <div class="section-header text-center mb-5" data-animate="fade-up">
+            <span class="text-primary fw-bold text-uppercase small tracking-widest">Browse By</span>
+            <h2 class="display-5 fw-bold mt-2">Shop by Category</h2>
+            <p class="text-muted mx-auto" style="max-width: 600px;">
+                Find exactly what you need from our carefully curated categories
+            </p>
+        </div>
+
         <div class="row g-4">
-            {% for category in categories %}
-            <div class="col-6 col-md-4 col-lg-2">
-                <a href="{% url 'catalog:category_detail' category.slug %}" class="text-decoration-none">
-                    <div class="category-card card h-100">
-                        <div class="card-body text-center py-4">
-                            {% if category.image %}
-                            <img src="{{ category.image.url }}" alt="{{ category.name }}" class="rounded-circle mb-3" style="width: 60px; height: 60px; object-fit: cover;">
-                            {% else %}
-                            <i class="bi bi-folder text-primary" style="font-size: 3rem;"></i>
-                            {% endif %}
-                            <h6 class="mt-3 mb-0 text-dark">{{ category.name }}</h6>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            {% empty %}
-            <!-- Default categories when no DB categories exist -->
-            <div class="col-6 col-md-4 col-lg-2">
-                <a href="{% url 'catalog:product_list' %}" class="text-decoration-none">
-                    <div class="category-card card h-100">
-                        <div class="card-body text-center py-4">
-                            <i class="bi bi-laptop text-primary" style="font-size: 3rem;"></i>
-                            <h6 class="mt-3 mb-0 text-dark">Laptops</h6>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <div class="col-6 col-md-4 col-lg-2">
-                <a href="{% url 'catalog:product_list' %}" class="text-decoration-none">
-                    <div class="category-card card h-100">
-                        <div class="card-body text-center py-4">
-                            <i class="bi bi-pc-display text-primary" style="font-size: 3rem;"></i>
-                            <h6 class="mt-3 mb-0 text-dark">Desktop PCs</h6>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <div class="col-6 col-md-4 col-lg-2">
-                <a href="{% url 'catalog:product_list' %}" class="text-decoration-none">
-                    <div class="category-card card h-100">
-                        <div class="card-body text-center py-4">
-                            <i class="bi bi-controller text-primary" style="font-size: 3rem;"></i>
-                            <h6 class="mt-3 mb-0 text-dark">Gaming</h6>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <div class="col-6 col-md-4 col-lg-2">
-                <a href="{% url 'catalog:product_list' %}" class="text-decoration-none">
-                    <div class="category-card card h-100">
-                        <div class="card-body text-center py-4">
-                            <i class="bi bi-display text-primary" style="font-size: 3rem;"></i>
-                            <h6 class="mt-3 mb-0 text-dark">Monitors</h6>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <div class="col-6 col-md-4 col-lg-2">
-                <a href="{% url 'catalog:product_list' %}" class="text-decoration-none">
-                    <div class="category-card card h-100">
-                        <div class="card-body text-center py-4">
-                            <i class="bi bi-cpu text-primary" style="font-size: 3rem;"></i>
-                            <h6 class="mt-3 mb-0 text-dark">Components</h6>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <div class="col-6 col-md-4 col-lg-2">
-                <a href="{% url 'catalog:product_list' %}" class="text-decoration-none">
-                    <div class="category-card card h-100">
-                        <div class="card-body text-center py-4">
-                            <i class="bi bi-keyboard text-primary" style="font-size: 3rem;"></i>
-                            <h6 class="mt-3 mb-0 text-dark">Peripherals</h6>
-                        </div>
+            {% for cat in categories %}
+            <div class="col-md-6 col-lg-3" data-animate="fade-up" data-animate-delay="{{ forloop.counter|add:1 }}00">
+                <a href="{% url 'catalog:category_detail' cat.slug %}" class="category-card d-block position-relative rounded-4 overflow-hidden shadow-sm">
+                    {% if cat.image %}
+                    <img src="{{ cat.image.url }}" alt="{{ cat.name }}" class="w-100" style="aspect-ratio: 4/5; object-fit: cover;">
+                    {% else %}
+                    <img src="https://images.unsplash.com/photo-1525547719571-a2d4ac8945e2?w=400" alt="{{ cat.name }}" class="w-100" style="aspect-ratio: 4/5; object-fit: cover;">
+                    {% endif %}
+                    <div class="category-overlay p-4 d-flex flex-column justify-content-end">
+                        <span class="category-arrow mb-3"><i class="bi bi-arrow-right"></i></span>
+                        <h4 class="category-name text-white mb-1">{{ cat.name }}</h4>
+                        <span class="category-count text-white-50 small">{{ cat.products.count }}+ Products</span>
                     </div>
                 </a>
             </div>
@@ -249,176 +107,143 @@
     </div>
 </section>
 
-<!-- Featured Products -->
-<section class="py-5 bg-light">
+<!-- Featured Products Section -->
+<section id="featured" class="section py-5">
     <div class="container">
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <h2 class="section-title mb-0">Featured Products</h2>
-            <a href="{% url 'catalog:product_list' %}?featured=1" class="btn btn-outline-primary">View All <i class="bi bi-arrow-right ms-1"></i></a>
+        <div class="section-header text-center mb-5" data-animate="fade-up">
+            <span class="text-primary fw-bold text-uppercase small tracking-widest">Our Collection</span>
+            <h2 class="display-5 fw-bold mt-2">Featured Products</h2>
+            <p class="text-muted mx-auto" style="max-width: 600px;">
+                Handpicked favorites that our customers love
+            </p>
         </div>
-        
+
         <div class="row g-4">
             {% for product in featured_products %}
-            <div class="col-6 col-md-4 col-lg-3">
-                {% include 'catalog/partials/product_card.html' with product=product %}
-            </div>
-            {% empty %}
-            <div class="col-12 text-center py-5">
-                <i class="bi bi-box-seam display-1 text-muted mb-3"></i>
-                <h5 class="text-muted">No featured products yet</h5>
-                <p class="text-muted">Add products and mark them as featured to display here.</p>
+            <div class="col-sm-6 col-lg-3" data-animate="fade-up" data-animate-delay="{{ forloop.counter }}00">
+                <div class="product-card">
+                    <div class="product-image">
+                        <a href="{% url 'catalog:product_detail' product.slug %}">
+                            {% with primary_image=product.primary_image %}
+                            {% if primary_image %}
+                            <img src="{{ primary_image.image.url }}" alt="{{ product.name }}">
+                            {% else %}
+                            <img src="https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?w=400" alt="{{ product.name }}">
+                            {% endif %}
+                            {% endwith %}
+                        </a>
+                        {% if product.is_on_sale %}
+                        <span class="product-badge badge-sale">-{{ product.discount_percent|default:"10" }}%</span>
+                        {% endif %}
+                        <button class="wishlist-btn" data-product-id="{{ product.id }}">
+                            <i class="bi bi-heart"></i>
+                        </button>
+                        <div class="product-overlay">
+                            <a href="{% url 'catalog:product_detail' product.slug %}" class="btn btn-primary btn-sm">
+                                <i class="bi bi-eye me-2"></i>Quick View
+                            </a>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <span class="product-category small text-muted">{{ product.category.name }}</span>
+                        <a href="{% url 'catalog:product_detail' product.slug %}" class="text-decoration-none"><h5 class="product-title text-dark h6 mt-1">{{ product.name }}</h5></a>
+                        <div class="product-price">
+                            <span class="current-price text-primary fw-bold">৳{{ product.base_price|default:product.price|floatformat:0 }}</span>
+                            {% if product.compare_at_price %}
+                            <span class="original-price text-muted text-decoration-line-through small ms-2">৳{{ product.compare_at_price|floatformat:0 }}</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
             </div>
             {% endfor %}
+        </div>
+
+        <div class="text-center mt-5" data-animate="fade-up">
+            <a href="{% url 'catalog:product_list' %}" class="btn btn-outline-primary btn-lg rounded-pill px-5">
+                View All Products <i class="bi bi-arrow-right ms-2"></i>
+            </a>
         </div>
     </div>
 </section>
 
 <!-- Promotional Banner -->
-<section class="py-5">
+<section class="section py-0">
+    <div class="container py-5">
+        <div class="promo-banner position-relative overflow-hidden rounded-5 shadow-lg" style="background: var(--gradient-dark); min-height: 400px">
+            <div class="position-absolute inset-0" style="background: var(--gradient-mesh); opacity: 0.5"></div>
+            <div class="container h-100 position-relative">
+                <div class="row align-items-center h-100 py-5 px-4">
+                    <div class="col-lg-6" data-animate="fade-right">
+                        <span class="badge bg-danger px-3 py-2 mb-3 rounded-pill">Limited Time Offer</span>
+                        <h2 class="display-4 fw-bold text-white mb-4">
+                            Flash Sale
+                            <span class="d-block gradient-text">Up to 50% Off</span>
+                        </h2>
+                        <p class="text-white-50 mb-4 fs-5">
+                            Don't miss out on our biggest sale of the year. Premium
+                            products at unbeatable prices.
+                        </p>
+                        <a href="{% url 'catalog:product_list' %}" class="btn btn-primary btn-xl btn-glow rounded-pill px-5">
+                            Shop Sale <i class="bi bi-arrow-right ms-2"></i>
+                        </a>
+                    </div>
+                    <div class="col-lg-6 d-none d-lg-block text-center" data-animate="fade-left">
+                        <img src="https://images.unsplash.com/photo-1468495244123-6c6c332eeece?w=600" alt="Sale Products" class="img-fluid rounded-4 shadow-lg floating mt-lg-n5" style="max-width: 80%;">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="section py-5 bg-light">
     <div class="container">
         <div class="row g-4">
-            {% for banner in banners %}
-            <div class="col-lg-6">
-                <div class="card border-0 text-white h-100" style="background: {{ banner.background_style }}; border-radius: 1rem; overflow: hidden;">
-                    <div class="card-body p-4 p-lg-5">
-                        {% if banner.badge_text %}
-                        <span class="badge bg-{{ banner.badge_style }} mb-3">{{ banner.badge_text }}</span>
-                        {% endif %}
-                        <h3 class="fw-bold mb-3">{{ banner.title }}</h3>
-                        {% if banner.description %}
-                        <p class="mb-4">{{ banner.description }}</p>
-                        {% endif %}
-                        {% if banner.button_text and banner.button_link %}
-                        <a href="{{ banner.button_link }}" class="btn btn-{{ banner.button_style }}">
-                            {{ banner.button_text }} <i class="bi bi-arrow-right ms-2"></i>
-                        </a>
-                        {% endif %}
+            <div class="col-md-6 col-lg-3" data-animate="fade-up" data-animate-delay="100">
+                <div class="feature-card glass-card p-4 rounded-4 text-center h-100 shadow-sm border-0">
+                    <div class="feature-icon bg-primary bg-opacity-10 text-primary rounded-circle p-3 mx-auto mb-3" style="width: 60px; height: 60px; display: flex; align-items: center; justify-content: center;">
+                        <i class="bi bi-truck fs-3"></i>
                     </div>
+                    <h5 class="feature-title fw-bold">Free Shipping</h5>
+                    <p class="feature-description text-muted small mb-0">
+                        Free shipping on orders over ৳5,000 across Bangladesh
+                    </p>
                 </div>
             </div>
-            {% empty %}
-            <!-- Default banners -->
-            <div class="col-lg-6">
-                <div class="card border-0 text-white h-100" style="background: linear-gradient(135deg, #954E27 0%, #B86B3D 100%); border-radius: 1rem; overflow: hidden;">
-                    <div class="card-body p-4 p-lg-5">
-                        <span class="badge mb-3" style="background: #DA5D04;">Limited Offer</span>
-                        <h3 class="fw-bold mb-3">Gaming Accessories Sale</h3>
-                        <p class="mb-4">Get up to 40% off on gaming keyboards, mice, headsets, and more!</p>
-                        <a href="{% url 'catalog:product_list' %}" class="btn btn-light" style="color: #954E27;">
-                            Shop Now <i class="bi bi-arrow-right ms-2"></i>
-                        </a>
+            <div class="col-md-6 col-lg-3" data-animate="fade-up" data-animate-delay="200">
+                <div class="feature-card glass-card p-4 rounded-4 text-center h-100 shadow-sm border-0">
+                    <div class="feature-icon bg-success bg-opacity-10 text-success rounded-circle p-3 mx-auto mb-3" style="width: 60px; height: 60px; display: flex; align-items: center; justify-content: center;">
+                        <i class="bi bi-shield-check fs-3"></i>
                     </div>
+                    <h5 class="feature-title fw-bold">Secure Payment</h5>
+                    <p class="feature-description text-muted small mb-0">
+                        100% secure payment processing with SSLCommerz
+                    </p>
                 </div>
             </div>
-            <div class="col-lg-6">
-                <div class="card border-0 text-white h-100" style="background: linear-gradient(135deg, #DA5D04 0%, #F07020 100%); border-radius: 1rem; overflow: hidden;">
-                    <div class="card-body p-4 p-lg-5">
-                        <span class="badge bg-dark mb-3">New Arrival</span>
-                        <h3 class="fw-bold mb-3">Latest Processors</h3>
-                        <p class="mb-4">Check out the newest Intel & AMD processors for your next build!</p>
-                        <a href="{% url 'catalog:product_list' %}" class="btn btn-dark">
-                            Explore <i class="bi bi-arrow-right ms-2"></i>
-                        </a>
+            <div class="col-md-6 col-lg-3" data-animate="fade-up" data-animate-delay="300">
+                <div class="feature-card glass-card p-4 rounded-4 text-center h-100 shadow-sm border-0">
+                    <div class="feature-icon bg-warning bg-opacity-10 text-warning rounded-circle p-3 mx-auto mb-3" style="width: 60px; height: 60px; display: flex; align-items: center; justify-content: center;">
+                        <i class="bi bi-arrow-repeat fs-3"></i>
                     </div>
+                    <h5 class="feature-title fw-bold">Easy Return</h5>
+                    <p class="feature-description text-muted small mb-0">
+                        7-day easy return policy for a worry-free shopping
+                    </p>
                 </div>
             </div>
-            {% endfor %}
-        </div>
-    </div>
-</section>
-
-<!-- Best Deals / More Products -->
-<section class="py-5 bg-light">
-    <div class="container">
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <h2 class="section-title mb-0">🔥 Best Deals</h2>
-            <a href="{% url 'catalog:product_list' %}" class="btn btn-outline-danger">View All <i class="bi bi-arrow-right ms-1"></i></a>
-        </div>
-        
-        <div class="row g-4">
-            {% for product in deal_products %}
-            <div class="col-6 col-md-4 col-lg-3">
-                {% include 'catalog/partials/product_card.html' with product=product %}
-            </div>
-            {% empty %}
-            <div class="col-12 text-center py-5">
-                <i class="bi bi-tag display-1 text-muted mb-3"></i>
-                <h5 class="text-muted">No deals available</h5>
-                <p class="text-muted">Check back later for exciting deals!</p>
-            </div>
-            {% endfor %}
-        </div>
-    </div>
-</section>
-
-<!-- Brand Logos Marquee -->
-<section class="brand-marquee-section">
-    <div class="container">
-        <h6 class="brand-marquee-title text-center">Trusted Brands We Carry</h6>
-    </div>
-    <div class="brand-marquee">
-        <div class="brand-track">
-            {% for brand in brands %}
-            <a href="{% url 'catalog:brand_detail' brand.slug %}" class="brand-item text-decoration-none">
-                {% if brand.logo %}
-                <img src="{{ brand.logo.url }}" alt="{{ brand.name }}">
-                {% else %}
-                <span>{{ brand.name }}</span>
-                {% endif %}
-            </a>
-            {% empty %}
-            <!-- Default brands when no DB brands exist -->
-            <div class="brand-item"><span>ASUS</span></div>
-            <div class="brand-item"><span>HP</span></div>
-            <div class="brand-item"><span>DELL</span></div>
-            <div class="brand-item"><span>LENOVO</span></div>
-            <div class="brand-item"><span>MSI</span></div>
-            <div class="brand-item"><span>ACER</span></div>
-            <div class="brand-item"><span>INTEL</span></div>
-            <div class="brand-item"><span>AMD</span></div>
-            <div class="brand-item"><span>NVIDIA</span></div>
-            <div class="brand-item"><span>SAMSUNG</span></div>
-            <div class="brand-item"><span>CORSAIR</span></div>
-            <div class="brand-item"><span>LOGITECH</span></div>
-            {% endfor %}
-            <!-- Duplicate for seamless loop -->
-            {% for brand in brands %}
-            <a href="{% url 'catalog:brand_detail' brand.slug %}" class="brand-item text-decoration-none">
-                {% if brand.logo %}
-                <img src="{{ brand.logo.url }}" alt="{{ brand.name }}">
-                {% else %}
-                <span>{{ brand.name }}</span>
-                {% endif %}
-            </a>
-            {% empty %}
-            <div class="brand-item"><span>ASUS</span></div>
-            <div class="brand-item"><span>HP</span></div>
-            <div class="brand-item"><span>DELL</span></div>
-            <div class="brand-item"><span>LENOVO</span></div>
-            <div class="brand-item"><span>MSI</span></div>
-            <div class="brand-item"><span>ACER</span></div>
-            <div class="brand-item"><span>INTEL</span></div>
-            <div class="brand-item"><span>AMD</span></div>
-            <div class="brand-item"><span>NVIDIA</span></div>
-            <div class="brand-item"><span>SAMSUNG</span></div>
-            <div class="brand-item"><span>CORSAIR</span></div>
-            <div class="brand-item"><span>LOGITECH</span></div>
-            {% endfor %}
-        </div>
-    </div>
-</section>
-
-<!-- Newsletter -->
-<section class="newsletter-section py-5 text-white position-relative">
-    <div class="container position-relative">
-        <div class="row justify-content-center">
-            <div class="col-lg-6 text-center">
-                <h3 class="fw-bold mb-3">Stay Updated</h3>
-                <p class="mb-4 opacity-75">Subscribe to our newsletter for exclusive deals, tech news, and product launches.</p>
-                <form class="d-flex gap-2 justify-content-center flex-wrap">
-                    <input type="email" class="form-control newsletter-input" style="max-width: 320px;" placeholder="Enter your email">
-                    <button type="submit" class="btn btn-secondary px-4">Subscribe</button>
-                </form>
+            <div class="col-md-6 col-lg-3" data-animate="fade-up" data-animate-delay="400">
+                <div class="feature-card glass-card p-4 rounded-4 text-center h-100 shadow-sm border-0">
+                    <div class="feature-icon bg-info bg-opacity-10 text-info rounded-circle p-3 mx-auto mb-3" style="width: 60px; height: 60px; display: flex; align-items: center; justify-content: center;">
+                        <i class="bi bi-headset fs-3"></i>
+                    </div>
+                    <h5 class="feature-title fw-bold">24/7 Support</h5>
+                    <p class="feature-description text-muted small mb-0">
+                        Dedicated support team to help you anytime
+                    </p>
+                </div>
             </div>
         </div>
     </div>

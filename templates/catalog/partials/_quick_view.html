@@ -1,0 +1,60 @@
+{% load static %}
+
+<div class="col-lg-6">
+    <div class="quick-view-gallery p-4 h-100 bg-light d-flex align-items-center justify-content-center">
+        {% if product.primary_image %}
+        <img src="{{ product.primary_image.image.url }}" alt="{{ product.name }}" class="img-fluid rounded-4 shadow-sm" style="max-height: 500px; object-fit: contain;">
+        {% else %}
+        <div class="text-muted opacity-25">
+            <i class="bi bi-image" style="font-size: 5rem;"></i>
+        </div>
+        {% endif %}
+    </div>
+</div>
+<div class="col-lg-6">
+    <div class="quick-view-details p-5 h-100 d-flex flex-column">
+        <div class="mb-4">
+            {% if product.category %}
+            <span class="text-uppercase tracking-wider text-primary fw-bold mb-2 d-block" style="font-size: 0.75rem;">
+                {{ product.category.name }}
+            </span>
+            {% endif %}
+            <h2 class="fw-bold mb-3">{{ product.name }}</h2>
+            <div class="product-price mb-3">
+                {% if product.price %}
+                    <span class="fs-3 fw-bold text-dark">৳{{ product.price|floatformat:0 }}</span>
+                    {% if product.is_on_sale %}
+                    <span class="ms-2 text-muted text-decoration-line-through fs-5">৳{{ product.compare_at_price|floatformat:0 }}</span>
+                    {% endif %}
+                {% else %}
+                    <span class="text-danger fw-bold fs-4">Out of Stock</span>
+                {% endif %}
+            </div>
+            
+            <p class="text-muted mb-4 fs-5">{{ product.short_description|default:product.description|truncatewords:30 }}</p>
+        </div>
+
+        <div class="mt-auto">
+            <div class="d-flex gap-3 mb-4">
+                <div class="quantity-selector bg-light rounded-pill px-3 py-2 d-flex align-items-center gap-3" style="width: fit-content;">
+                    <button class="btn btn-link link-dark p-0 qty-minus"><i class="bi bi-dash"></i></button>
+                    <input type="number" class="border-0 bg-transparent text-center fw-bold qty-input" value="1" min="1" max="99" style="width: 40px;">
+                    <button class="btn btn-link link-dark p-0 qty-plus"><i class="bi bi-plus"></i></button>
+                </div>
+            </div>
+            
+            <div class="d-grid gap-3 d-sm-flex">
+                <button class="btn btn-primary btn-lg rounded-pill px-5 flex-grow-1 add-to-cart-btn"
+                        data-product-id="{{ product.id }}"
+                        data-product-name="{{ product.name }}"
+                        data-product-price="{{ product.price|default:0 }}"
+                        data-product-image="{{ product.primary_image.image.url|default:'' }}">
+                    <i class="bi bi-cart-plus me-2"></i> Add to Cart
+                </button>
+                <a href="{{ product.get_absolute_url }}" class="btn btn-outline-dark btn-lg rounded-pill px-4">
+                    View Details
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
