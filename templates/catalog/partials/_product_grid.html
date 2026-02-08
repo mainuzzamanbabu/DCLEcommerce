@@ -3,109 +3,19 @@
 <div class="row g-4" id="product-grid">
     <input type="hidden" id="ajax-product-count" value="{% if paginator %}{{ paginator.count }}{% else %}{{ products|length }}{% endif %}">
     {% for product in products %}
-    <div class="col-sm-6 col-lg-4" data-animate="fade-up">
-        <div class="product-card h-100 glass-card-hover border-0 shadow-sm rounded-4 overflow-hidden position-relative bg-white transition-all duration-300">
-            <!-- Badges -->
-            <div class="product-badges position-absolute top-0 start-0 p-3 z-3">
-                {% if product.is_on_sale %}
-                <span class="badge bg-danger rounded-pill px-3 shadow-sm mb-2 d-block">
-                    -{{ product.discount_percent }}% OFF
-                </span>
-                {% endif %}
-                {% if product.created_at|timesince < "14 days" %}
-                <span class="badge bg-primary rounded-pill px-3 shadow-sm d-block">NEW</span>
-                {% endif %}
-            </div>
-
-            <!-- Wishlist Button -->
-            <button class="wishlist-btn position-absolute top-0 end-0 m-3 z-3 btn btn-white rounded-circle shadow-sm d-flex align-items-center justify-content-center" 
-                    data-product-id="{{ product.id }}" style="width: 38px; height: 38px; border: none;">
-                <i class="bi bi-heart text-danger"></i>
-            </button>
-
-            <!-- Image Container -->
-            <div class="product-image-wrapper position-relative overflow-hidden bg-light" style="aspect-ratio: 4/3;">
-                <a href="{{ product.get_absolute_url }}" class="d-block h-100">
-                    {% if product.primary_image %}
-                    <img src="{{ product.primary_image.image.url }}" alt="{{ product.name }}" 
-                         class="w-100 h-100 object-fit-cover transition-transform duration-500 product-img">
-                    {% else %}
-                    <div class="d-flex align-items-center justify-content-center h-100 opacity-25">
-                        <i class="bi bi-image fs-1"></i>
-                    </div>
-                    {% endif %}
-                </a>
-                
-                <!-- Quick View Centered Button -->
-                <div class="product-actions-centered position-absolute inset-0 d-flex align-items-center justify-content-center opacity-0 transition-all duration-300 z-2">
-                    <button class="btn btn-white btn-sm rounded-pill fw-bold quick-view-btn shadow-lg py-2 px-4 transition-all duration-300" data-product-id="{{ product.id }}">
-                        <i class="bi bi-eye me-2"></i> Quick View
-                    </button>
-                </div>
-            </div>
-
-            <!-- Product Details -->
-            <div class="product-details p-4 d-flex flex-column">
-                <div class="d-flex justify-content-between align-items-start mb-2">
-                    {% if product.category %}
-                    <span class="text-uppercase tracking-wider text-primary fw-bold" style="font-size: 0.65rem; letter-spacing: 1px;">
-                        {{ product.category.name }}
-                    </span>
-                    {% endif %}
-                    <div class="product-rating text-warning" style="font-size: 0.75rem;">
-                        <i class="bi bi-star-fill"></i>
-                        <span class="text-muted ms-1">(4.5)</span>
-                    </div>
-                </div>
-                
-                <h3 class="product-title h6 mb-3 flex-grow-1">
-                    <a href="{{ product.get_absolute_url }}" class="text-dark text-decoration-none fw-bold hover-primary transition-colors" style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">
-                        {{ product.name }}
-                    </a>
-                </h3>
-
-                <div class="d-flex justify-content-between align-items-end mt-auto pt-3 border-top">
-                    <div class="price-box">
-                        {% if product.price %}
-                            <div class="d-flex flex-column">
-                                <span class="current-price fs-3 fw-bold text-dark">৳{{ product.price|floatformat:0 }}</span>
-                                {% if product.is_on_sale %}
-                                <span class="text-muted text-decoration-line-through mt-1" style="font-size: 0.9rem;">৳{{ product.compare_at_price|floatformat:0 }}</span>
-                                {% endif %}
-                            </div>
-                        {% else %}
-                            <span class="text-danger fw-bold fs-sm">Out of Stock</span>
-                        {% endif %}
-                    </div>
-                    
-                    {% if product.price %}
-                    <div class="product-actions">
-                        <button class="btn btn-primary rounded-circle p-0 d-flex align-items-center justify-content-center add-to-cart-btn hover-scale shadow-sm" 
-                                style="width: 48px; height: 48px; transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);"
-                                data-product-id="{{ product.id }}"
-                                data-product-name="{{ product.name }}"
-                                data-product-price="{{ product.price|default:0 }}"
-                                data-product-image="{{ product.primary_image.image.url|default:'' }}">
-                            <i class="bi bi-cart-plus fs-4"></i>
-                        </button>
-                    </div>
-                    {% endif %}
-                </div>
-            </div>
-        </div>
+    <div class="col-sm-6 col-xl-3 d-flex align-items-stretch" data-animate="fade-up">
+        {% include 'catalog/partials/_product_card.html' %}
     </div>
     {% empty %}
-    <div class="col-12 text-center py-5 glass-card rounded-4 bg-white shadow-sm">
-        <div class="empty-state-icon mb-4">
-            <div class="bg-light rounded-circle d-inline-flex align-items-center justify-content-center" style="width: 100px; height: 100px;">
-                <i class="bi bi-search text-muted opacity-50 display-4"></i>
+    <div class="col-12">
+        <div class="text-center py-5">
+            <div class="mb-3">
+                 <i class="bi bi-search display-1 text-muted opacity-25"></i>
             </div>
+            <h4 class="fw-bold text-secondary">No products found</h4>
+             <p class="text-muted">Try adjusting your filters.</p>
+             <a href="{% url 'catalog:product_list' %}" class="btn btn-outline-primary rounded-pill">Clear Filters</a>
         </div>
-        <h4 class="fw-bold">No items found</h4>
-        <p class="text-muted mb-4 px-4">We couldn't find any products matching your current filters. Try different criteria or browse all products.</p>
-        <a href="{% url 'catalog:product_list' %}" class="btn btn-primary rounded-pill px-5 py-2 fw-bold shadow-sm">
-            Show All Products
-        </a>
     </div>
     {% endfor %}
 </div>

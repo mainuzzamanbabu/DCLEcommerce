@@ -1,57 +1,101 @@
-<div class="card shadow-sm border-0 rounded-4 overflow-hidden sticky-top" style="top: 8rem;">
-    <div class="card-body p-0">
-        <div class="p-4 text-center bg-primary text-white">
-            <div class="mb-3">
+<div class="user-sidebar h-100 shadow-sm border-0 rounded-4 overflow-hidden sticky-top" style="top: 100px;">
+    <div class="p-0">
+        <!-- User Profile Header -->
+        <div class="p-4 text-center bg-white border-bottom" style="border-color: rgba(149, 78, 39, 0.05) !important;">
+            <div class="avatar-wrapper mb-3 position-relative d-inline-block">
                 {% if request.user.profile.avatar %}
                     <img src="{{ request.user.profile.avatar.url }}" alt="{{ request.user.get_full_name }}" 
-                         class="rounded-circle border border-3 border-white shadow-sm" style="width: 100px; height: 100px; object-fit: cover;">
+                         class="rounded-circle border border-4 border-white shadow-sm" style="width: 90px; height: 90px; object-fit: cover;">
                 {% else %}
-                    <div class="rounded-circle bg-white text-primary d-inline-flex align-items-center justify-content-center border border-3 border-white shadow-sm" 
-                         style="width: 100px; height: 100px; font-size: 2.5rem;">
+                    <div class="rounded-circle bg-primary text-white d-inline-flex align-items-center justify-content-center border border-4 border-white shadow-sm" 
+                         style="width: 90px; height: 90px; font-size: 2.2rem; font-weight: 700;">
                         {{ request.user.email.0|upper }}
                     </div>
                 {% endif %}
+                <div class="status-indicator position-absolute bottom-0 end-0 bg-success rounded-circle border border-3 border-white shadow-sm" style="width: 20px; height: 20px;"></div>
             </div>
-            <h5 class="mb-1 fw-bold">{{ request.user.get_full_name }}</h5>
-            <p class="mb-0 small opacity-75">{{ request.user.email }}</p>
+            <h5 class="mb-1 fw-bold" style="color: var(--dcl-primary);">{{ request.user.get_full_name|default:request.user.username }}</h5>
+            <p class="mb-0 small text-muted opacity-75 fw-medium">{{ request.user.email }}</p>
         </div>
-        <div class="list-group list-group-flush py-2">
-            <a href="{% url 'accounts:profile' %}" class="list-group-item list-group-item-action border-0 py-3 {% if request.resolver_match.url_name == 'profile' %}active{% endif %}">
-                <i class="bi bi-person-circle me-3"></i>Profile Settings
-            </a>
-            <a href="{% url 'orders:order_list' %}" class="list-group-item list-group-item-action border-0 py-3 {% if request.resolver_match.url_name == 'order_list' %}active{% endif %}">
-                <i class="bi bi-bag-check me-3"></i>My Orders
-            </a>
-            <a href="{% url 'accounts:address_list' %}" class="list-group-item list-group-item-action border-0 py-3 {% if 'address' in request.resolver_match.url_name %}active{% endif %}">
-                <i class="bi bi-geo-alt me-3"></i>Manage Addresses
-            </a>
-            <a href="{% url 'wishlist:wishlist_detail' %}" class="list-group-item list-group-item-action border-0 py-3 {% if request.resolver_match.app_name == 'wishlist' %}active{% endif %}">
-                <i class="bi bi-heart me-3"></i>My Wishlist
-            </a>
-            <div class="list-group-item border-0 py-3">
-                <hr class="my-1">
+
+        <!-- Navigation Menu -->
+        <div class="navigation-menu py-3">
+            <div class="menu-section px-4 mb-2">
+                <span class="text-uppercase smaller fw-bold text-muted letter-spacing-1">Personal</span>
             </div>
-            <a href="{% url 'account_logout' %}" class="list-group-item list-group-item-action border-0 py-3 text-danger">
-                <i class="bi bi-box-arrow-right me-3"></i>Sign Out
+            <a href="{% url 'accounts:profile' %}" class="nav-link-item {% if request.resolver_match.url_name == 'profile' %}active{% endif %}">
+                <i class="bi bi-person-circle"></i>Profile Settings
             </a>
+            <a href="{% url 'accounts:address_list' %}" class="nav-link-item {% if 'address' in request.resolver_match.url_name %}active{% endif %}">
+                <i class="bi bi-geo-alt"></i>Manage Addresses
+            </a>
+
+            <div class="menu-section px-4 mt-4 mb-2">
+                <span class="text-uppercase smaller fw-bold text-muted letter-spacing-1">Purchase</span>
+            </div>
+            <a href="{% url 'orders:order_list' %}" class="nav-link-item {% if request.resolver_match.url_name == 'order_list' %}active{% endif %}">
+                <i class="bi bi-bag-check"></i>My Orders
+            </a>
+            <a href="{% url 'wishlist:wishlist_detail' %}" class="nav-link-item {% if request.resolver_match.app_name == 'wishlist' %}active{% endif %}">
+                <i class="bi bi-heart"></i>My Wishlist
+            </a>
+
+            <div class="mt-4 pt-3 border-top" style="border-color: rgba(149, 78, 39, 0.05) !important;">
+                <a href="{% url 'account_logout' %}" class="nav-link-item text-danger">
+                    <i class="bi bi-box-arrow-right"></i>Sign Out
+                </a>
+            </div>
         </div>
     </div>
 </div>
 
 <style>
-    .list-group-item {
-        transition: all 0.2s;
+    .user-sidebar {
+        background: white;
+        transition: all 0.3s ease;
+    }
+    .avatar-wrapper .status-indicator {
+        z-index: 2;
+    }
+    .letter-spacing-1 { letter-spacing: 0.1em; }
+    
+    .nav-link-item {
+        display: flex;
+        align-items: center;
+        padding: 0.85rem 1.75rem;
+        color: #475569;
+        text-decoration: none;
         font-weight: 500;
-        color: #495057;
+        font-size: 0.95rem;
+        transition: all 0.2s ease;
+        border-right: 4px solid transparent;
     }
-    .list-group-item.active {
-        background-color: rgba(99, 102, 241, 0.05) !important;
-        color: var(--primary) !important;
-        border-left: 4px solid var(--primary) !important;
-        border-radius: 0;
+    .nav-link-item i {
+        font-size: 1.15rem;
+        margin-right: 1rem;
+        transition: all 0.2s ease;
+        opacity: 0.7;
     }
-    .list-group-item:hover:not(.active) {
-        background-color: #f8f9fa;
-        color: var(--primary);
+    .nav-link-item:hover {
+        background-color: rgba(218, 93, 4, 0.02);
+        color: var(--dcl-accent);
+    }
+    .nav-link-item:hover i {
+        opacity: 1;
+        transform: translateX(3px);
+    }
+    .nav-link-item.active {
+        background-color: rgba(218, 93, 4, 0.05);
+        color: var(--dcl-accent);
+        font-weight: 700;
+        border-right-color: var(--dcl-accent);
+    }
+    .nav-link-item.active i {
+        opacity: 1;
+        color: var(--dcl-accent);
+    }
+    .nav-link-item.text-danger:hover {
+        background-color: rgba(220, 38, 38, 0.05);
+        color: #dc2626;
     }
 </style>

@@ -89,7 +89,7 @@
         <div class="row g-4">
             {% for cat in categories %}
             <div class="col-md-6 col-lg-3" data-animate="fade-up" data-animate-delay="{{ forloop.counter|add:1 }}00">
-                <a href="{% url 'catalog:category_detail' cat.slug %}" class="category-card d-block position-relative rounded-4 overflow-hidden shadow-sm">
+                <a href="{% url 'catalog:product_list' %}?category={{ cat.slug }}" class="category-card d-block position-relative rounded-4 overflow-hidden shadow-sm">
                     {% if cat.image %}
                     <img src="{{ cat.image.url }}" alt="{{ cat.name }}" class="w-100" style="aspect-ratio: 4/5; object-fit: cover;">
                     {% else %}
@@ -120,41 +120,8 @@
 
         <div class="row g-4">
             {% for product in featured_products %}
-            <div class="col-sm-6 col-lg-3" data-animate="fade-up" data-animate-delay="{{ forloop.counter }}00">
-                <div class="product-card">
-                    <div class="product-image">
-                        <a href="{% url 'catalog:product_detail' product.slug %}">
-                            {% with primary_image=product.primary_image %}
-                            {% if primary_image %}
-                            <img src="{{ primary_image.image.url }}" alt="{{ product.name }}">
-                            {% else %}
-                            <img src="https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?w=400" alt="{{ product.name }}">
-                            {% endif %}
-                            {% endwith %}
-                        </a>
-                        {% if product.is_on_sale %}
-                        <span class="product-badge badge-sale">-{{ product.discount_percent|default:"10" }}%</span>
-                        {% endif %}
-                        <button class="wishlist-btn" data-product-id="{{ product.id }}">
-                            <i class="bi bi-heart"></i>
-                        </button>
-                        <div class="product-overlay">
-                            <a href="{% url 'catalog:product_detail' product.slug %}" class="btn btn-primary btn-sm">
-                                <i class="bi bi-eye me-2"></i>Quick View
-                            </a>
-                        </div>
-                    </div>
-                    <div class="product-info">
-                        <span class="product-category small text-muted">{{ product.category.name }}</span>
-                        <a href="{% url 'catalog:product_detail' product.slug %}" class="text-decoration-none"><h5 class="product-title text-dark h6 mt-1">{{ product.name }}</h5></a>
-                        <div class="product-price">
-                            <span class="current-price text-primary fw-bold">৳{{ product.base_price|default:product.price|floatformat:0 }}</span>
-                            {% if product.compare_at_price %}
-                            <span class="original-price text-muted text-decoration-line-through small ms-2">৳{{ product.compare_at_price|floatformat:0 }}</span>
-                            {% endif %}
-                        </div>
-                    </div>
-                </div>
+            <div class="col-sm-6 col-lg-3 d-flex align-items-stretch" data-animate="fade-up" data-animate-delay="{{ forloop.counter }}00">
+                {% include 'catalog/partials/_product_card.html' %}
             </div>
             {% endfor %}
         </div>
@@ -184,7 +151,7 @@
                             Don't miss out on our biggest sale of the year. Premium
                             products at unbeatable prices.
                         </p>
-                        <a href="{% url 'catalog:product_list' %}" class="btn btn-primary btn-xl btn-glow rounded-pill px-5">
+                        <a href="{% url 'catalog:product_list' %}?flash_sale=true" class="btn btn-primary btn-xl btn-glow rounded-pill px-5">
                             Shop Sale <i class="bi bi-arrow-right ms-2"></i>
                         </a>
                     </div>

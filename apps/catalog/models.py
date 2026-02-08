@@ -63,7 +63,7 @@ class Category(models.Model):
         super().save(*args, **kwargs)
     
     def get_absolute_url(self):
-        return reverse('catalog:category_detail', kwargs={'slug': self.slug})
+        return f"{reverse('catalog:product_list')}?category={self.slug}"
     
     def get_ancestors(self):
         """Get all ancestor categories."""
@@ -245,6 +245,13 @@ class Product(models.Model):
         if variant and hasattr(variant, 'price'):
             return variant.price.discount_percent
         return 0
+
+    @property
+    def discount_amount(self):
+        """Calculate the discount amount."""
+        if self.compare_at_price and self.price:
+            return self.compare_at_price - self.price
+        return 0
     
     def get_default_variant(self):
         """Get the default (first active) variant."""
@@ -419,7 +426,7 @@ class ProductVariant(models.Model):
     
     def get_image(self):
         """Get variant image or fall back to product primary image."""
-        return self.product.get_primary_image()
+        return self.product.primary_image
     
     def get_effective_price(self):
         """Get the effective selling price."""

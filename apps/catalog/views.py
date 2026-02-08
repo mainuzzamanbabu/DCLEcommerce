@@ -1,6 +1,7 @@
 from django.views.generic import ListView, DetailView
 from django.shortcuts import get_object_or_404
-from django.db.models import Q, Prefetch
+from django.db import models
+from django.db.models import Q, Prefetch, F, Min, Max
 from .models import Category, Brand, Product, ProductVariant
 
 
@@ -16,6 +17,46 @@ class ProductListView(ListView):
         if self.request.headers.get('x-requested-with') == 'XMLHttpRequest':
             return ['catalog/partials/_product_grid.html']
         return [self.template_name]
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        
+        # Current category if filtered
+        category_slug = self.kwargs.get('category_slug') or self.request.GET.get('category')
+        if category_slug:
+            context['current_category'] = get_object_or_404(
+                Category, slug=category_slug, is_active=True
+            )
+            context['category'] = context['current_category'] # For template compatibility
+        
+        # Filters data
+        context['brands'] = Brand.objects.filter(is_active=True).annotate(
+            product_count=models.Count('products', filter=models.Q(products__is_active=True))
+        ).filter(product_count__gt=0).order_by('name')
+        
+        context['nav_categories'] = Category.objects.filter(is_active=True, parent__isnull=True).prefetch_related('children')
+        context['categories'] = context['nav_categories'] # Alias if needed
+        
+        # Price range
+        price_agg = ProductVariant.objects.filter(is_active=True).aggregate(
+            min_price=Min('price__list_price'),
+            max_price=Max('price__list_price')
+        )
+        context['min_price_range'] = price_agg['min_price'] or 0
+        context['max_price_range'] = price_agg['max_price'] or 1000000
+        
+        # Current filters state for UI
+        context['current_filters'] = {
+            'min_price': self.request.GET.get('min_price'),
+            'max_price': self.request.GET.get('max_price'),
+            'brand': self.request.GET.get('brand'),
+            'sort': self.request.GET.get('sort', 'default'),
+            'in_stock': self.request.GET.get('in_stock'),
+            'featured': self.request.GET.get('featured'),
+            'q': self.request.GET.get('q', ''),
+        }
+        
+        return context
 
     def get_queryset(self):
         queryset = Product.objects.filter(is_active=True).select_related(
@@ -68,6 +109,13 @@ class ProductListView(ListView):
         # Featured only
         if self.request.GET.get('featured'):
             queryset = queryset.filter(is_featured=True)
+            
+        # Flash Sale / On Sale
+        if self.request.GET.get('flash_sale') == 'true':
+            queryset = queryset.filter(
+                variants__price__sale_price__isnull=False,
+                variants__price__sale_price__lt=F('variants__price__list_price')
+            ).distinct()
         
         # In stock only
         if self.request.GET.get('in_stock'):
@@ -93,37 +141,6 @@ class ProductListView(ListView):
             queryset = queryset.order_by('-created_at')
         
         return queryset.distinct()
-    
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        
-        # Current category if filtered
-        category_slug = self.kwargs.get('category_slug')
-        if category_slug:
-            context['current_category'] = get_object_or_404(
-                Category, slug=category_slug, is_active=True
-            )
-        
-        # All categories for sidebar
-        context['categories'] = Category.objects.filter(
-            is_active=True, parent__isnull=True
-        ).prefetch_related('children')
-        
-        # All brands for filter
-        context['brands'] = Brand.objects.filter(is_active=True)
-        
-        # Current filters for template
-        context['current_filters'] = {
-            'brand': self.request.GET.get('brand', ''),
-            'min_price': self.request.GET.get('min_price', ''),
-            'max_price': self.request.GET.get('max_price', ''),
-            'sort': self.request.GET.get('sort', '-created_at'),
-            'q': self.request.GET.get('q', ''),
-            'featured': self.request.GET.get('featured', ''),
-            'in_stock': self.request.GET.get('in_stock', ''),
-        }
-        
-        return context
 
 
 class ProductDetailView(DetailView):
@@ -209,38 +226,7 @@ class CategoryListView(ListView):
         ).prefetch_related('children', 'products')
 
 
-class CategoryDetailView(DetailView):
-    """Category detail - shows products in category."""
-    
-    model = Category
-    template_name = 'catalog/category_detail.html'
-    context_object_name = 'category'
-    slug_url_kwarg = 'slug'
-    
-    def get_queryset(self):
-        return Category.objects.filter(is_active=True)
-    
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        category = self.object
-        
-        # Get products in this category and child categories
-        category_ids = [category.id] + [c.id for c in category.get_all_children()]
-        context['products'] = Product.objects.filter(
-            is_active=True,
-            category_id__in=category_ids
-        ).prefetch_related('images', 'variants')[:12]
-        
-        # Child categories
-        context['child_categories'] = category.children.filter(is_active=True)
-        
-        # Breadcrumbs
-        context['breadcrumbs'] = [
-            {'name': ancestor.name, 'url': ancestor.get_absolute_url()}
-            for ancestor in category.get_ancestors()
-        ]
-        
-        return context
+
 
 
 class BrandListView(ListView):

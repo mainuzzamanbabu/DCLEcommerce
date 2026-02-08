@@ -9,8 +9,10 @@ urlpatterns = [
     path('search/', views.SearchView.as_view(), name='search'),
     
     # Category views
-    path('categories/', views.CategoryListView.as_view(), name='category_list'),
-    path('category/<slug:slug>/', views.CategoryDetailView.as_view(), name='category_detail'),
+    # Category list removed as per user request
+    # path('categories/', views.CategoryListView.as_view(), name='category_list'),
+    
+    # Kept for backward compatibility/short URLs, maps to ProductListView
     path('c/<slug:category_slug>/', views.ProductListView.as_view(), name='category_products'),
     
     # Brand views

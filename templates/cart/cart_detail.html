@@ -1,48 +1,41 @@
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Your Shopping Cart | DCL E-Commerce">
-    <title>Shopping Cart | DCL E-Commerce</title>
-    
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-    <link rel="stylesheet" href="{% static 'css/animations.css' %}">
-</head>
-<body>
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg fixed-top navbar-sticky">
-        <div class="container">
-            <a class="navbar-brand" href="{% url 'core:home' %}">
-                <span class="brand-gradient">DCL</span><span class="brand-text">Store</span>
-            </a>
-            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <i class="bi bi-list fs-2"></i>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav mx-auto">
-                    <li class="nav-item"><a class="nav-link" href="{% url 'core:home' %}">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{% url 'catalog:category_list' %}">Shop</a></li>
-                </ul>
-                <div class="d-flex align-items-center gap-3">
-                    <a href="#" class="btn btn-link p-0"><i class="bi bi-heart fs-5"></i></a>
-                    <a href="{% url 'cart:cart_detail' %}" class="btn btn-link p-0 position-relative cart-icon">
-                        <i class="bi bi-bag-fill fs-5 text-primary"></i>
-                        <span class="cart-count">{{ cart|length }}</span>
-                    </a>
-                    {% if user.is_authenticated %}
-                    <a href="{% url 'orders:order_list' %}" class="btn btn-link p-0"><i class="bi bi-person fs-5"></i></a>
-                    {% else %}
-                    <a href="{% url 'account_login' %}" class="btn btn-link p-0"><i class="bi bi-person fs-5"></i></a>
-                    {% endif %}
-                </div>
-            </div>
-        </div>
-    </nav>
 
+{% block title %}Shopping Cart{% endblock %}
+
+{% block navbar_class %}navbar-sticky scrolled{% endblock %}
+
+{% block extra_css %}
+<style>
+    .cart-item {
+        transition: all 0.3s ease;
+    }
+    .cart-item:hover {
+        box-shadow: var(--shadow-lg);
+        transform: translateY(-2px);
+    }
+    .order-summary {
+        border: 2px solid var(--light-secondary);
+    }
+    .quantity-selector .btn {
+        width: 32px;
+        height: 32px;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .cart-item-title {
+        color: var(--dark);
+        transition: all 0.3s ease;
+    }
+    .cart-item-title:hover {
+        color: var(--primary) !important;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
     <!-- Page Header -->
     <section class="page-header py-5 mt-5" style="background: var(--gradient-dark); position: relative; overflow: hidden;">
         <div class="position-absolute inset-0" style="background: var(--gradient-mesh); opacity: 0.3;"></div>
@@ -88,18 +81,20 @@
                                 {% endif %}
                             </div>
                             <div class="col-md-4 col-9">
-                                <span class="badge bg-primary bg-opacity-10 text-primary mb-2">{{ item.variant.product.category.name }}</span>
-                                <h6 class="mb-1"><a href="{% url 'catalog:product_detail' item.variant.product.slug %}" class="text-dark text-decoration-none">{{ item.variant.product.name }}</a></h6>
-                                <small class="text-muted">{{ item.variant.name }}</small>
+                                <span class="badge bg-primary text-white mb-2">{{ item.variant.product.category.name }}</span>
+                                <h6 class="mb-1"><a href="{% url 'catalog:product_detail' item.variant.product.slug %}" class="cart-item-title text-dark fw-bold text-decoration-none transition-all">{{ item.variant.product.name }}</a></h6>
+                                <small class="text-muted d-block mb-1">{{ item.variant.name }}</small>
+                                <div class="text-primary fw-bold d-md-none mb-2">৳{{ item.total_price|floatformat:0 }}</div>
                             </div>
                             <div class="col-md-3 col-6 mt-3 mt-md-0">
                                 <form method="post" action="{% url 'cart:cart_update' %}" class="quantity-form">
                                     {% csrf_token %}
                                     <input type="hidden" name="variant_id" value="{{ item.variant.id }}">
-                                    <div class="quantity-selector d-flex align-items-center">
-                                        <button type="button" class="qty-minus btn btn-sm btn-outline-secondary">−</button>
-                                        <input type="number" name="quantity" class="qty-input form-control form-control-sm text-center" value="{{ item.quantity }}" min="1" max="10" style="width: 50px;">
-                                        <button type="button" class="qty-plus btn btn-sm btn-outline-secondary">+</button>
+                                    <!-- Use cart-quantity-selector class to avoid main.js double bind -->
+                                    <div class="cart-quantity-selector d-flex align-items-center border rounded-pill px-2 bg-white shadow-sm">
+                                        <button type="button" class="qty-minus btn btn-link link-dark p-0 px-2" style="text-decoration: none;">−</button>
+                                        <input type="number" name="quantity" class="qty-input form-control border-0 text-center p-0" value="{{ item.quantity }}" min="1" max="10" style="width: 35px; background: transparent; font-weight: 600;">
+                                        <button type="button" class="qty-plus btn btn-link link-dark p-0 px-2" style="text-decoration: none;">+</button>
                                     </div>
                                 </form>
                             </div>
@@ -119,7 +114,7 @@
                     
                     <!-- Continue Shopping -->
                     <div class="mt-4">
-                        <a href="{% url 'catalog:category_list' %}" class="btn btn-outline-primary">
+                        <a href="{% url 'catalog:product_list' %}" class="btn btn-outline-primary">
                             <i class="bi bi-arrow-left me-2"></i>Continue Shopping
                         </a>
                     </div>
@@ -193,7 +188,7 @@
                 <i class="bi bi-bag-x text-muted" style="font-size: 6rem;"></i>
                 <h3 class="mt-4">Your cart is empty</h3>
                 <p class="text-muted mb-4">Looks like you haven't added anything to your cart yet.</p>
-                <a href="{% url 'catalog:category_list' %}" class="btn btn-primary btn-lg">
+                <a href="{% url 'catalog:product_list' %}" class="btn btn-primary btn-lg">
                     <i class="bi bi-bag-plus me-2"></i>Start Shopping
                 </a>
             </div>
@@ -261,62 +256,4 @@
             </div>
         </div>
     </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="row g-4">
-                <div class="col-lg-4"><div class="footer-brand gradient-text">DCLStore</div><p class="footer-description">Premium tech products with lightning-fast delivery.</p></div>
-                <div class="col-6 col-lg-2"><h5 class="footer-title">Shop</h5><ul class="footer-links"><li><a href="{% url 'catalog:category_list' %}">All Products</a></li></ul></div>
-                <div class="col-6 col-lg-2"><h5 class="footer-title">Account</h5><ul class="footer-links"><li><a href="{% url 'orders:order_list' %}">My Account</a></li></ul></div>
-            </div>
-            <div class="footer-bottom"><p class="footer-copyright mb-0">© 2026 DCL E-Commerce.</p></div>
-        </div>
-    </footer>
-
-    <button class="back-to-top"><i class="bi bi-arrow-up"></i></button>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="{% static 'js/main.js' %}"></script>
-    
-    <script>
-        // Quantity update
-        document.querySelectorAll('.quantity-form').forEach(form => {
-            const qtyInput = form.querySelector('.qty-input');
-            form.querySelector('.qty-minus').addEventListener('click', () => {
-                if (qtyInput.value > 1) {
-                    qtyInput.value = parseInt(qtyInput.value) - 1;
-                    form.submit();
-                }
-            });
-            form.querySelector('.qty-plus').addEventListener('click', () => {
-                if (qtyInput.value < 10) {
-                    qtyInput.value = parseInt(qtyInput.value) + 1;
-                    form.submit();
-                }
-            });
-        });
-    </script>
-
-    <style>
-        .cart-item {
-            transition: all 0.3s ease;
-        }
-        .cart-item:hover {
-            box-shadow: var(--shadow-lg);
-            transform: translateY(-2px);
-        }
-        .order-summary {
-            border: 2px solid var(--light-secondary);
-        }
-        .quantity-selector .btn {
-            width: 32px;
-            height: 32px;
-            padding: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-    </style>
-</body>
-</html>
+{% endblock %}

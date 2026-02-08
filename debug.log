@@ -4386,3 +4386,585 @@ INFO 2026-02-07 18:13:52,670 autoreload Watching for file changes with StatReloa
 WARNING 2026-02-07 18:48:43,648 log Not Found: /cart/add/
 WARNING 2026-02-07 18:48:43,749 log Not Found: /favicon.ico
 WARNING 2026-02-07 18:48:49,140 log Not Found: /cart/add/
+INFO 2026-02-08 11:03:23,338 autoreload Watching for file changes with StatReloader
+WARNING 2026-02-08 11:03:57,562 log Not Found: /favicon.ico
+WARNING 2026-02-08 11:31:08,737 log Not Found: /favicon.ico
+ERROR 2026-02-08 11:31:15,730 log Internal Server Error: /checkout/address/
+Traceback (most recent call last):
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\apps\checkout\views.py", line 153, in checkout_address
+    return render(request, 'checkout/checkout_address.html', context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\loader_tags.py", line 63, in render
+    result = block.nodelist.render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\defaulttags.py", line 238, in render
+    nodelist.append(node.render_annotated(context))
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\defaulttags.py", line 539, in render
+    values = {key: val.resolve(context) for key, val in self.extra_context.items()}
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\defaulttags.py", line 539, in <dictcomp>
+    values = {key: val.resolve(context) for key, val in self.extra_context.items()}
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 715, in resolve
+    obj = self.var.resolve(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 847, in resolve
+    value = self._resolve_lookup(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 914, in _resolve_lookup
+    current = current()
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\apps\catalog\models.py", line 422, in get_image
+    return self.product.get_primary_image()
+AttributeError: 'Product' object has no attribute 'get_primary_image'
+ERROR 2026-02-08 11:31:22,518 log Internal Server Error: /checkout/address/
+Traceback (most recent call last):
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\apps\checkout\views.py", line 153, in checkout_address
+    return render(request, 'checkout/checkout_address.html', context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\loader_tags.py", line 63, in render
+    result = block.nodelist.render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\defaulttags.py", line 238, in render
+    nodelist.append(node.render_annotated(context))
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\defaulttags.py", line 539, in render
+    values = {key: val.resolve(context) for key, val in self.extra_context.items()}
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\defaulttags.py", line 539, in <dictcomp>
+    values = {key: val.resolve(context) for key, val in self.extra_context.items()}
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 715, in resolve
+    obj = self.var.resolve(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 847, in resolve
+    value = self._resolve_lookup(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 914, in _resolve_lookup
+    current = current()
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\apps\catalog\models.py", line 422, in get_image
+    return self.product.get_primary_image()
+AttributeError: 'Product' object has no attribute 'get_primary_image'
+INFO 2026-02-08 11:31:54,524 autoreload E:\Antigravity_Proj\e-commerce\dcl-ecommerce\apps\catalog\models.py changed, reloading.
+INFO 2026-02-08 11:31:55,629 autoreload Watching for file changes with StatReloader
+INFO 2026-02-08 11:45:26,134 utils SSLCommerz Post Data: {'store_id': 'inter642d324bc79ae', 'store_passwd': 'inter642d324bc79ae@ssl', 'total_amount': '129350.00', 'currency': 'BDT', 'tran_id': 'DCL-ISRKGMHO_2193d2fb', 'success_url': 'http://localhost:8000/payments/sslcommerz/success/', 'fail_url': 'http://localhost:8000/payments/sslcommerz/fail/', 'cancel_url': 'http://localhost:8000/payments/sslcommerz/cancel/', 'ipn_url': 'http://localhost:8000/payments/sslcommerz/ipn/', 'cus_name': 'John Doe', 'cus_email': 'john@example.com', 'cus_add1': 'fgf, ghff', 'cus_city': 'dhaka', 'cus_postcode': '435', 'cus_country': 'Bangladesh', 'cus_phone': '01700000000', 'shipping_method': 'Standard Delivery', 'num_of_item': 2, 'product_name': 'Order DCL-ISRKGMHO', 'product_category': 'Electronic', 'product_profile': 'general', 'ship_name': 'John Doe', 'ship_add1': 'fgf, ghff', 'ship_add2': '', 'ship_city': 'dhaka', 'ship_state': 'gytu', 'ship_postcode': '435', 'ship_country': 'Bangladesh'}
+WARNING 2026-02-08 11:46:53,291 log Not Found: /cart/add/
+WARNING 2026-02-08 11:47:16,945 log Not Found: /cart/add/
+WARNING 2026-02-08 12:04:33,128 log Not Found: /accounts/profile/
+INFO 2026-02-08 12:09:55,770 utils SSLCommerz Post Data: {'store_id': 'inter642d324bc79ae', 'store_passwd': 'inter642d324bc79ae@ssl', 'total_amount': '330000.00', 'currency': 'BDT', 'tran_id': 'DCL-6ZMOODLK_990e841f', 'success_url': 'http://localhost:8000/payments/sslcommerz/success/', 'fail_url': 'http://localhost:8000/payments/sslcommerz/fail/', 'cancel_url': 'http://localhost:8000/payments/sslcommerz/cancel/', 'ipn_url': 'http://localhost:8000/payments/sslcommerz/ipn/', 'cus_name': 'John Doe', 'cus_email': 'john@example.com', 'cus_add1': 'fgf, ghff', 'cus_city': 'dhaka', 'cus_postcode': '', 'cus_country': 'Bangladesh', 'cus_phone': '01700000000', 'shipping_method': 'Standard Delivery', 'num_of_item': 1, 'product_name': 'Order DCL-6ZMOODLK', 'product_category': 'Electronic', 'product_profile': 'general', 'ship_name': 'John Doe', 'ship_add1': 'fgf, ghff', 'ship_add2': '', 'ship_city': 'dhaka', 'ship_state': '', 'ship_postcode': '', 'ship_country': 'Bangladesh'}
+ERROR 2026-02-08 12:09:55,822 utils SSLCommerz Init Error: Invalid Information! 'ship_postcode' is missing. | Full response: {'status': 'FAILED', 'failedreason': "Invalid Information! 'ship_postcode' is missing.", 'sessionkey': '', 'gw': {'visa': '', 'master': '', 'amex': '', 'othercards': '', 'internetbanking': '', 'mobilebanking': ''}, 'redirectGatewayURL': '', 'directPaymentURLBank': '', 'directPaymentURLCard': '', 'directPaymentURL': '', 'redirectGatewayURLFailed': '', 'GatewayPageURL': '', 'storeBanner': 'https://sandbox.sslcommerz.com/stores/logos/demoLogo.png', 'storeLogo': 'https://sandbox.sslcommerz.com/stores/logos/demoLogo.png', 'store_name': 'Demo', 'desc': []}
+ERROR 2026-02-08 12:09:55,884 log Internal Server Error: /checkout/place-order/
+Traceback (most recent call last):
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\views\decorators\http.py", line 43, in inner
+    return func(request, *args, **kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\apps\checkout\views.py", line 395, in place_order
+    raise Exception(f"SSLCommerz initialization failed: {error_message}")
+Exception: SSLCommerz initialization failed: Invalid Information! 'ship_postcode' is missing.
+WARNING 2026-02-08 12:09:56,047 log Not Found: /favicon.ico
+INFO 2026-02-08 12:10:21,420 utils SSLCommerz Post Data: {'store_id': 'inter642d324bc79ae', 'store_passwd': 'inter642d324bc79ae@ssl', 'total_amount': '330000.00', 'currency': 'BDT', 'tran_id': 'DCL-6MBWPCRL_0d92452d', 'success_url': 'http://localhost:8000/payments/sslcommerz/success/', 'fail_url': 'http://localhost:8000/payments/sslcommerz/fail/', 'cancel_url': 'http://localhost:8000/payments/sslcommerz/cancel/', 'ipn_url': 'http://localhost:8000/payments/sslcommerz/ipn/', 'cus_name': 'John Doe', 'cus_email': 'john@example.com', 'cus_add1': 'fgf, ghff', 'cus_city': 'dhaka', 'cus_postcode': '435', 'cus_country': 'Bangladesh', 'cus_phone': '01700000000', 'shipping_method': 'Standard Delivery', 'num_of_item': 1, 'product_name': 'Order DCL-6MBWPCRL', 'product_category': 'Electronic', 'product_profile': 'general', 'ship_name': 'John Doe', 'ship_add1': 'fgf, ghff', 'ship_add2': '', 'ship_city': 'dhaka', 'ship_state': 'gytu', 'ship_postcode': '435', 'ship_country': 'Bangladesh'}
+WARNING 2026-02-08 12:16:52,064 log Not Found: /favicon.ico
+WARNING 2026-02-08 12:18:53,133 log Forbidden (CSRF token from POST has incorrect length.): /accounts/login/
+WARNING 2026-02-08 12:25:56,344 log Not Found: /catalog/products/
+WARNING 2026-02-08 12:27:28,825 log Not Found: /catalog/products/
+WARNING 2026-02-08 12:28:27,517 log Not Found: /favicon.ico
+WARNING 2026-02-08 12:30:26,921 log Not Found: /cart/api/get_cart_count/
+WARNING 2026-02-08 13:07:04,006 log Not Found: /favicon.ico
+WARNING 2026-02-08 13:07:25,024 log Not Found: /favicon.ico
+WARNING 2026-02-08 13:07:39,092 log Not Found: /favicon.ico
+WARNING 2026-02-08 13:07:39,850 log Not Found: /favicon.ico
+WARNING 2026-02-08 13:23:06,828 log Not Found: /favicon.ico
+WARNING 2026-02-08 13:25:50,131 log Not Found: /favicon.ico
+INFO 2026-02-08 14:43:35,200 utils SSLCommerz Post Data: {'store_id': 'inter642d324bc79ae', 'store_passwd': 'inter642d324bc79ae@ssl', 'total_amount': '110000.00', 'currency': 'BDT', 'tran_id': 'DCL-V0OVER76_ee8f7944', 'success_url': 'http://localhost:8000/payments/sslcommerz/success/', 'fail_url': 'http://localhost:8000/payments/sslcommerz/fail/', 'cancel_url': 'http://localhost:8000/payments/sslcommerz/cancel/', 'ipn_url': 'http://localhost:8000/payments/sslcommerz/ipn/', 'cus_name': 'Md Mainuzzaman', 'cus_email': 'mainuzzaman8911@gmail.com', 'cus_add1': '102/1 Shukrabad, Mirpur Road, Dhanmondi', 'cus_city': 'Dhaka', 'cus_postcode': '1207', 'cus_country': 'Bangladesh', 'cus_phone': '01717967348', 'shipping_method': 'Standard Delivery', 'num_of_item': 1, 'product_name': 'Order DCL-V0OVER76', 'product_category': 'Electronic', 'product_profile': 'general', 'ship_name': 'Md Mainuzzaman', 'ship_add1': '102/1 Shukrabad, Mirpur Road, Dhanmondi', 'ship_add2': '1/15/K, BIBIR BAGICHA, NORTH JATRABARI', 'ship_city': 'Dhaka', 'ship_state': 'cx', 'ship_postcode': '1207', 'ship_country': 'Bangladesh'}
+INFO 2026-02-08 15:01:34,009 autoreload E:\Antigravity_Proj\e-commerce\dcl-ecommerce\apps\catalog\views.py changed, reloading.
+INFO 2026-02-08 15:01:34,956 autoreload Watching for file changes with StatReloader
+INFO 2026-02-08 15:21:33,262 autoreload E:\Antigravity_Proj\e-commerce\dcl-ecommerce\apps\catalog\models.py changed, reloading.
+INFO 2026-02-08 15:21:34,246 autoreload Watching for file changes with StatReloader
+INFO 2026-02-08 15:21:45,255 autoreload E:\Antigravity_Proj\e-commerce\dcl-ecommerce\apps\catalog\views.py changed, reloading.
+INFO 2026-02-08 15:21:46,062 autoreload Watching for file changes with StatReloader
+INFO 2026-02-08 15:25:45,001 autoreload E:\Antigravity_Proj\e-commerce\dcl-ecommerce\apps\catalog\urls.py changed, reloading.
+INFO 2026-02-08 15:25:45,784 autoreload Watching for file changes with StatReloader
+WARNING 2026-02-08 15:26:15,309 log Not Found: /catalog/category/electronics/
+WARNING 2026-02-08 15:34:35,749 log Not Found: /favicon.ico
+INFO 2026-02-08 15:35:36,221 utils SSLCommerz Post Data: {'store_id': 'inter642d324bc79ae', 'store_passwd': 'inter642d324bc79ae@ssl', 'total_amount': '28410.00', 'currency': 'BDT', 'tran_id': 'DCL-EJLSRL6I_47e7eaca', 'success_url': 'http://localhost:8000/payments/sslcommerz/success/', 'fail_url': 'http://localhost:8000/payments/sslcommerz/fail/', 'cancel_url': 'http://localhost:8000/payments/sslcommerz/cancel/', 'ipn_url': 'http://localhost:8000/payments/sslcommerz/ipn/', 'cus_name': 'Md Mainuzzaman', 'cus_email': 'mainuzzaman8911@gmail.com', 'cus_add1': '102/1 Shukrabad, Mirpur Road, Dhanmondi', 'cus_city': 'Dhaka', 'cus_postcode': '1207', 'cus_country': 'Bangladesh', 'cus_phone': '01717967348', 'shipping_method': 'Standard Delivery', 'num_of_item': 1, 'product_name': 'Order DCL-EJLSRL6I', 'product_category': 'Electronic', 'product_profile': 'general', 'ship_name': 'Md Mainuzzaman', 'ship_add1': '102/1 Shukrabad, Mirpur Road, Dhanmondi', 'ship_add2': '1/15/K, BIBIR BAGICHA, NORTH JATRABARI', 'ship_city': 'Dhaka', 'ship_state': 'cx', 'ship_postcode': '1207', 'ship_country': 'Bangladesh'}
+WARNING 2026-02-08 15:44:32,260 log Not Found: /catalog/category/laptops/
+WARNING 2026-02-08 15:44:36,303 log Not Found: /c
+ERROR 2026-02-08 15:51:00,844 log Internal Server Error: /catalog/product/macbook-air-m2-chip-136-inch/
+Traceback (most recent call last):
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\response.py", line 92, in rendered_content
+    return template.render(context, self._request)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\loader_tags.py", line 63, in render
+    result = block.nodelist.render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\defaulttags.py", line 321, in render
+    return nodelist.render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\defaulttags.py", line 471, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'category_detail' not found. 'category_detail' is not a valid view function or pattern name.
+ERROR 2026-02-08 15:51:41,343 log Internal Server Error: /catalog/product/hp-probook-440-g10-core-i5-13th-gen-14-fhd-laptop/
+Traceback (most recent call last):
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\response.py", line 92, in rendered_content
+    return template.render(context, self._request)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\loader_tags.py", line 63, in render
+    result = block.nodelist.render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\defaulttags.py", line 321, in render
+    return nodelist.render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\defaulttags.py", line 471, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'category_detail' not found. 'category_detail' is not a valid view function or pattern name.
+INFO 2026-02-08 16:43:04,586 autoreload E:\Antigravity_Proj\e-commerce\dcl-ecommerce\apps\catalog\views.py changed, reloading.
+INFO 2026-02-08 16:43:05,179 autoreload Watching for file changes with StatReloader
+INFO 2026-02-08 16:43:06,470 autoreload E:\Antigravity_Proj\e-commerce\dcl-ecommerce\apps\catalog\views.py changed, reloading.
+INFO 2026-02-08 16:43:07,008 autoreload Watching for file changes with StatReloader
+INFO 2026-02-08 16:43:09,356 autoreload E:\Antigravity_Proj\e-commerce\dcl-ecommerce\apps\catalog\views.py changed, reloading.
+INFO 2026-02-08 16:43:09,908 autoreload Watching for file changes with StatReloader
+ERROR 2026-02-08 16:45:23,769 log Internal Server Error: /catalog/
+Traceback (most recent call last):
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 880, in _resolve_lookup
+    current = current[bit]
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\context.py", line 83, in __getitem__
+    raise KeyError(key)
+KeyError: 'max_price_range'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 886, in _resolve_lookup
+    if isinstance(current, BaseContext) and getattr(
+AttributeError: type object 'RequestContext' has no attribute 'max_price_range'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 896, in _resolve_lookup
+    current = current[int(bit)]
+ValueError: invalid literal for int() with base 10: 'max_price_range'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\response.py", line 92, in rendered_content
+    return template.render(context, self._request)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\loader_tags.py", line 63, in render
+    result = block.nodelist.render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 1064, in render
+    output = self.filter_expression.resolve(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 736, in resolve
+    arg_vals.append(arg.resolve(context))
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 847, in resolve
+    value = self._resolve_lookup(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 903, in _resolve_lookup
+    raise VariableDoesNotExist(
+django.template.base.VariableDoesNotExist: Failed lookup for key [max_price_range] in [{'True': True, 'False': False, 'None': None}, {}, {}, {'paginator': <django.core.paginator.Paginator object at 0x00000211E13D0D30>, 'page_obj': <Page 1 of 1>, 'is_paginated': False, 'object_list': <QuerySet [<Product: Intel Core Ultra 5 245K Desktop PC>, <Product: AMD Ryzen 3 2200G Desktop PC>, <Product: MacBook Air M2 Chip 13.6-inch>, <Product: HP ProBook 440 G10 Core i5 13th Gen 14" FHD Laptop>]>, 'products': <QuerySet [<Product: Intel Core Ultra 5 245K Desktop PC>, <Product: AMD Ryzen 3 2200G Desktop PC>, <Product: MacBook Air M2 Chip 13.6-inch>, <Product: HP ProBook 440 G10 Core i5 13th Gen 14" FHD Laptop>]>, 'view': <apps.catalog.views.ProductListView object at 0x00000211E144AA60>, 'categories': <QuerySet [<Category: Electronics>, <Category: Laptops>, <Category: Gaming PC>, <Category: Desktops>, <Category: Accessories>]>, 'brands': <QuerySet [<Brand: AMD>, <Brand: Acer>, <Brand: Apple>, <Brand: Asus>, <Brand: Dell>, <Brand: HP>, <Brand: Intel>]>, 'current_filters': {'brand': '', 'min_price': '', 'max_price': '', 'sort': '-created_at', 'q': '', 'featured': '', 'in_stock': ''}}]
+ERROR 2026-02-08 16:46:13,342 log Internal Server Error: /catalog/
+Traceback (most recent call last):
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 880, in _resolve_lookup
+    current = current[bit]
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\context.py", line 83, in __getitem__
+    raise KeyError(key)
+KeyError: 'max_price_range'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 886, in _resolve_lookup
+    if isinstance(current, BaseContext) and getattr(
+AttributeError: type object 'RequestContext' has no attribute 'max_price_range'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 896, in _resolve_lookup
+    current = current[int(bit)]
+ValueError: invalid literal for int() with base 10: 'max_price_range'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\response.py", line 92, in rendered_content
+    return template.render(context, self._request)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\loader_tags.py", line 63, in render
+    result = block.nodelist.render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 1064, in render
+    output = self.filter_expression.resolve(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 736, in resolve
+    arg_vals.append(arg.resolve(context))
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 847, in resolve
+    value = self._resolve_lookup(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 903, in _resolve_lookup
+    raise VariableDoesNotExist(
+django.template.base.VariableDoesNotExist: Failed lookup for key [max_price_range] in [{'True': True, 'False': False, 'None': None}, {}, {}, {'paginator': <django.core.paginator.Paginator object at 0x00000211E17980D0>, 'page_obj': <Page 1 of 1>, 'is_paginated': False, 'object_list': <QuerySet [<Product: Intel Core Ultra 5 245K Desktop PC>, <Product: AMD Ryzen 3 2200G Desktop PC>, <Product: MacBook Air M2 Chip 13.6-inch>, <Product: HP ProBook 440 G10 Core i5 13th Gen 14" FHD Laptop>]>, 'products': <QuerySet [<Product: Intel Core Ultra 5 245K Desktop PC>, <Product: AMD Ryzen 3 2200G Desktop PC>, <Product: MacBook Air M2 Chip 13.6-inch>, <Product: HP ProBook 440 G10 Core i5 13th Gen 14" FHD Laptop>]>, 'view': <apps.catalog.views.ProductListView object at 0x00000211E1752280>, 'categories': <QuerySet [<Category: Electronics>, <Category: Laptops>, <Category: Gaming PC>, <Category: Desktops>, <Category: Accessories>]>, 'brands': <QuerySet [<Brand: AMD>, <Brand: Acer>, <Brand: Apple>, <Brand: Asus>, <Brand: Dell>, <Brand: HP>, <Brand: Intel>]>, 'current_filters': {'brand': '', 'min_price': '0', 'max_price': '1000000', 'sort': '-created_at', 'q': '', 'featured': '', 'in_stock': ''}}]
+ERROR 2026-02-08 16:46:46,377 log Internal Server Error: /catalog/
+Traceback (most recent call last):
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 880, in _resolve_lookup
+    current = current[bit]
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\context.py", line 83, in __getitem__
+    raise KeyError(key)
+KeyError: 'max_price_range'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 886, in _resolve_lookup
+    if isinstance(current, BaseContext) and getattr(
+AttributeError: type object 'RequestContext' has no attribute 'max_price_range'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 896, in _resolve_lookup
+    current = current[int(bit)]
+ValueError: invalid literal for int() with base 10: 'max_price_range'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\response.py", line 92, in rendered_content
+    return template.render(context, self._request)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\loader_tags.py", line 63, in render
+    result = block.nodelist.render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 1064, in render
+    output = self.filter_expression.resolve(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 736, in resolve
+    arg_vals.append(arg.resolve(context))
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 847, in resolve
+    value = self._resolve_lookup(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 903, in _resolve_lookup
+    raise VariableDoesNotExist(
+django.template.base.VariableDoesNotExist: Failed lookup for key [max_price_range] in [{'True': True, 'False': False, 'None': None}, {}, {}, {'paginator': <django.core.paginator.Paginator object at 0x00000211E144ADC0>, 'page_obj': <Page 1 of 1>, 'is_paginated': False, 'object_list': <QuerySet [<Product: Intel Core Ultra 5 245K Desktop PC>, <Product: AMD Ryzen 3 2200G Desktop PC>, <Product: MacBook Air M2 Chip 13.6-inch>, <Product: HP ProBook 440 G10 Core i5 13th Gen 14" FHD Laptop>]>, 'products': <QuerySet [<Product: Intel Core Ultra 5 245K Desktop PC>, <Product: AMD Ryzen 3 2200G Desktop PC>, <Product: MacBook Air M2 Chip 13.6-inch>, <Product: HP ProBook 440 G10 Core i5 13th Gen 14" FHD Laptop>]>, 'view': <apps.catalog.views.ProductListView object at 0x00000211E1752430>, 'categories': <QuerySet [<Category: Electronics>, <Category: Laptops>, <Category: Gaming PC>, <Category: Desktops>, <Category: Accessories>]>, 'brands': <QuerySet [<Brand: AMD>, <Brand: Acer>, <Brand: Apple>, <Brand: Asus>, <Brand: Dell>, <Brand: HP>, <Brand: Intel>]>, 'current_filters': {'brand': '', 'min_price': '', 'max_price': '', 'sort': '-created_at', 'q': '', 'featured': '', 'in_stock': ''}}]
+ERROR 2026-02-08 16:47:05,922 log Internal Server Error: /catalog/
+Traceback (most recent call last):
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 880, in _resolve_lookup
+    current = current[bit]
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\context.py", line 83, in __getitem__
+    raise KeyError(key)
+KeyError: 'max_price_range'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 886, in _resolve_lookup
+    if isinstance(current, BaseContext) and getattr(
+AttributeError: type object 'RequestContext' has no attribute 'max_price_range'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 896, in _resolve_lookup
+    current = current[int(bit)]
+ValueError: invalid literal for int() with base 10: 'max_price_range'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\core\handlers\base.py", line 220, in _get_response
+    response = response.render()
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\response.py", line 114, in render
+    self.content = self.rendered_content
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\response.py", line 92, in rendered_content
+    return template.render(context, self._request)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\loader_tags.py", line 63, in render
+    result = block.nodelist.render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 1064, in render
+    output = self.filter_expression.resolve(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 736, in resolve
+    arg_vals.append(arg.resolve(context))
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 847, in resolve
+    value = self._resolve_lookup(context)
+  File "E:\Antigravity_Proj\e-commerce\dcl-ecommerce\venv\lib\site-packages\django\template\base.py", line 903, in _resolve_lookup
+    raise VariableDoesNotExist(
+django.template.base.VariableDoesNotExist: Failed lookup for key [max_price_range] in [{'True': True, 'False': False, 'None': None}, {}, {}, {'paginator': <django.core.paginator.Paginator object at 0x00000211E1655B80>, 'page_obj': <Page 1 of 1>, 'is_paginated': False, 'object_list': <QuerySet [<Product: Intel Core Ultra 5 245K Desktop PC>, <Product: AMD Ryzen 3 2200G Desktop PC>, <Product: MacBook Air M2 Chip 13.6-inch>, <Product: HP ProBook 440 G10 Core i5 13th Gen 14" FHD Laptop>]>, 'products': <QuerySet [<Product: Intel Core Ultra 5 245K Desktop PC>, <Product: AMD Ryzen 3 2200G Desktop PC>, <Product: MacBook Air M2 Chip 13.6-inch>, <Product: HP ProBook 440 G10 Core i5 13th Gen 14" FHD Laptop>]>, 'view': <apps.catalog.views.ProductListView object at 0x00000211E14C5250>, 'categories': <QuerySet [<Category: Electronics>, <Category: Laptops>, <Category: Gaming PC>, <Category: Desktops>, <Category: Accessories>]>, 'brands': <QuerySet [<Brand: AMD>, <Brand: Acer>, <Brand: Apple>, <Brand: Asus>, <Brand: Dell>, <Brand: HP>, <Brand: Intel>]>, 'current_filters': {'brand': '', 'min_price': '', 'max_price': '', 'sort': '-created_at', 'q': '', 'featured': '', 'in_stock': ''}}]
+INFO 2026-02-08 16:48:21,489 autoreload E:\Antigravity_Proj\e-commerce\dcl-ecommerce\apps\catalog\views.py changed, reloading.
+INFO 2026-02-08 16:48:22,083 autoreload Watching for file changes with StatReloader
+INFO 2026-02-08 16:53:20,942 autoreload E:\Antigravity_Proj\e-commerce\dcl-ecommerce\apps\catalog\models.py changed, reloading.
+INFO 2026-02-08 16:53:21,523 autoreload Watching for file changes with StatReloader
+INFO 2026-02-08 17:25:11,392 autoreload E:\Antigravity_Proj\e-commerce\dcl-ecommerce\apps\catalog\urls.py changed, reloading.
+INFO 2026-02-08 17:25:12,511 autoreload Watching for file changes with StatReloader

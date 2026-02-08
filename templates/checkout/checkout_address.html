@@ -3,7 +3,12 @@
 
 {% block title %}Checkout - Address | DCL Ecommerce{% endblock %}
 
+{% block navbar_class %}navbar-solid{% endblock %}
+
 {% block content %}
+<!-- Spacer for fixed navbar -->
+<div style="height: 80px;"></div>
+
 <div class="container py-5">
     <!-- Checkout Progress -->
     <div class="row mb-5 justify-content-center">
@@ -216,61 +221,72 @@
 </div>
 
 <style>
+    /* Premium Design System */
+    :root {
+        --dcl-glass: rgba(255, 255, 255, 0.85);
+        --dcl-border: rgba(149, 78, 39, 0.1);
+        --dcl-accent: #DA5D04;
+        --dcl-sidebar-bg: #f8fafc;
+    }
+
     /* Glass Effect Utilities */
     .glass-card {
-        background: rgba(255, 255, 255, 0.8) !important;
-        backdrop-filter: blur(20px) !important;
-        -webkit-backdrop-filter: blur(20px) !important;
+        background: var(--dcl-glass) !important;
+        backdrop-filter: blur(15px) !important;
+        -webkit-backdrop-filter: blur(15px) !important;
         border: 1px solid rgba(255, 255, 255, 0.5) !important;
-        border-radius: 28px !important;
-        box-shadow: 0 15px 35px rgba(149, 78, 39, 0.1) !important;
+        border-radius: 24px !important;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04) !important;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
     .letter-spacing-05 { letter-spacing: 0.05em; }
     .transition-all { transition: all 0.3s ease; }
     .smaller { font-size: 0.75rem; }
 
-    /* Progress Bar Redesign */
+    /* Progress Bar Redesign - Modern Stepper */
     .checkout-progress {
-        margin-bottom: 2rem;
+        margin-bottom: 3rem;
+        padding: 0 1rem;
     }
-    .checkout-progress .progress-step {
+    .progress-step {
         text-align: center;
         z-index: 2;
         background: transparent;
-        padding: 0 10px;
         flex: 1;
+        position: relative;
     }
     .step-icon {
-        width: 48px;
-        height: 48px;
-        border-radius: 50%;
+        width: 44px;
+        height: 44px;
+        border-radius: 14px;
         background: white;
-        color: var(--dcl-gray);
+        color: #94a3b8;
         display: flex;
         align-items: center;
         justify-content: center;
-        margin: 0 auto 12px;
-        font-size: 1.25rem;
-        transition: all 0.4s ease;
-        border: 2px solid rgba(149, 78, 39, 0.1);
+        margin: 0 auto 10px;
+        font-size: 1.1rem;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        border: 1px solid var(--dcl-border);
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
     }
     .step-label {
-        font-size: 0.75rem;
+        font-size: 0.7rem;
         font-weight: 700;
-        color: var(--dcl-gray);
+        color: #64748b;
         text-transform: uppercase;
-        letter-spacing: 0.1em;
+        letter-spacing: 1px;
     }
     .progress-step.active .step-icon {
-        background: var(--dcl-secondary);
+        background: var(--dcl-accent);
         color: white;
-        border-color: var(--dcl-secondary);
-        transform: scale(1.1);
-        box-shadow: 0 10px 25px rgba(218, 93, 4, 0.3);
+        border-color: var(--dcl-accent);
+        transform: translateY(-5px);
+        box-shadow: 0 12px 20px -5px rgba(218, 93, 4, 0.3);
     }
     .progress-step.active .step-label {
-        color: var(--dcl-secondary);
+        color: var(--dcl-primary);
     }
     .progress-step.completed .step-icon {
         background: var(--dcl-primary);
@@ -279,33 +295,74 @@
     }
     .progress-bar-line {
         position: absolute;
-        top: 24px;
-        left: 50px;
-        right: 50px;
+        top: 22px;
+        left: 12.5%;
+        right: 12.5%;
         height: 2px;
-        background: rgba(149, 78, 39, 0.1);
+        background: #e2e8f0;
         z-index: 1;
+    }
+    .progress-bar-line::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 0%;
+        background: var(--dcl-primary);
+        transition: width 0.6s ease;
+    }
+    .progress-step.active ~ .progress-step .step-icon {
+        opacity: 0.6;
     }
 
     /* Address Card Stylings */
     .address-card {
         cursor: pointer;
-        border: 2px solid rgba(149, 78, 39, 0.05);
+        border: 1px solid #e2e8f0;
         background: white;
+        padding: 1.5rem !important;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
     }
     .address-card:hover {
-        border-color: rgba(218, 93, 4, 0.3);
-        transform: translateY(-3px);
-        background: rgba(218, 93, 4, 0.02);
+        border-color: var(--dcl-accent);
+        transform: translateY(-4px);
+        box-shadow: 0 12px 24px -8px rgba(0, 0, 0, 0.1);
     }
     .address-card:has(input:checked) {
-        border-color: var(--dcl-secondary);
-        background: rgba(218, 93, 4, 0.05);
-        box-shadow: 0 10px 25px rgba(218, 93, 4, 0.1);
+        border-color: var(--dcl-accent);
+        background: rgba(218, 93, 4, 0.02);
     }
-    .address-card .form-check-input:checked {
-        background-color: var(--dcl-secondary);
-        border-color: var(--dcl-secondary);
+    .address-card .form-check-input {
+        position: absolute;
+        top: 1.5rem;
+        right: 1.5rem;
+        margin: 0 !important;
+    }
+
+    /* Form Control Enhancements */
+    .form-control {
+        border-radius: 12px;
+        padding: 0.75rem 1rem;
+        border: 1px solid #e2e8f0;
+        font-size: 0.95rem;
+        transition: all 0.2s ease;
+    }
+    .form-control:focus {
+        border-color: var(--dcl-accent);
+        box-shadow: 0 0 0 4px rgba(218, 93, 4, 0.1);
+    }
+    .form-label {
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        color: #475569;
+    }
+
+    /* Sticky Summary Refinement */
+    .sticky-top {
+        z-index: 10;
     }
 </style>
 {% endblock %}

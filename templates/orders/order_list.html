@@ -3,7 +3,12 @@
 
 {% block title %}My Orders | DCL Ecommerce{% endblock %}
 
+{% block navbar_class %}navbar-solid{% endblock %}
+
 {% block content %}
+<!-- Spacer for fixed navbar -->
+<div style="height: 80px;"></div>
+
 <div class="container py-5">
     <div class="row g-4">
         <!-- Sidebar Navigation -->
@@ -14,78 +19,75 @@
         <!-- Main Content -->
         <div class="col-lg-9">
             <div class="d-flex justify-content-between align-items-center mb-4">
-                <h4 class="mb-0 fw-bold">My Orders</h4>
-                <div class="btn-group">
-                    <button class="btn btn-outline-primary btn-sm active">All Orders</button>
-                    <button class="btn btn-outline-primary btn-sm">Processing</button>
-                    <button class="btn btn-outline-primary btn-sm">Shipped</button>
-                    <button class="btn btn-outline-primary btn-sm">Delivered</button>
-                </div>
+                <h4 class="mb-0 fw-bold" style="color: var(--dcl-primary);">My Orders</h4>
             </div>
 
             <!-- Orders List -->
             <div class="orders-list">
                 {% for order in orders %}
-                <div class="card shadow-sm border-0 rounded-4 mb-4 overflow-hidden order-card">
-                    <div class="card-header bg-white py-3 border-bottom-0">
-                        <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+                <div class="card shadow-sm border-0 rounded-4 mb-4 overflow-hidden order-card bg-white transition-all">
+                    <div class="card-header bg-white py-4 px-4 border-bottom-0">
+                        <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
                             <div>
-                                <span class="text-muted small text-uppercase fw-bold">Order</span>
-                                <span class="fw-bold ms-1">#{{ order.order_number|default:order.id }}</span>
-                                <span class="ms-3 badge {% if order.status == 'delivered' %}bg-success-subtle text-success{% elif order.status == 'pending' %}bg-warning-subtle text-warning text-dark{% else %}bg-primary-subtle text-primary{% endif %} px-3 py-2">
+                                <span class="text-muted smaller fw-bold text-uppercase letter-spacing-1">Order</span>
+                                <span class="h5 fw-bold ms-2 mb-0" style="color: var(--dcl-primary);">#{{ order.order_number|default:order.id|truncatechars:15 }}</span>
+                                <span class="ms-3 badge {% if order.status == 'delivered' %}bg-success-subtle text-success border-success-subtle{% elif order.status == 'pending' %}bg-warning-subtle text-warning text-dark border-warning-subtle{% else %}bg-primary-subtle text-primary border-primary-subtle{% endif %} px-3 py-2 border">
                                     {{ order.get_status_display }}
                                 </span>
                             </div>
-                            <div class="text-end">
+                            <div class="text-md-end">
                                 <span class="text-muted small">Placed on:</span>
-                                <span class="fw-semibold ms-1">{{ order.created_at|date:"M d, Y" }}</span>
+                                <span class="fw-bold ms-1" style="color: var(--dcl-primary);">{{ order.created_at|date:"M d, Y" }}</span>
                             </div>
                         </div>
                     </div>
                     
-                    <div class="card-body p-4 pt-0">
-                        <div class="order-items border-top pt-3">
+                    <div class="card-body px-4 py-0">
+                        <div class="order-items border-top py-4 pt-3" style="border-color: rgba(149, 78, 39, 0.05) !important;">
                             {% for item in order.items.all %}
                             <div class="d-flex gap-3 mb-3 align-items-center">
                                 <div class="flex-shrink-0">
-                                    {% if item.variant.product.primary_image %}
-                                        <img src="{{ item.variant.product.primary_image.image.url }}" class="rounded-3" style="width: 60px; height: 60px; object-fit: cover;">
-                                    {% else %}
-                                        <div class="rounded-3 bg-light d-flex align-items-center justify-content-center text-muted" style="width: 60px; height: 60px;">
-                                            <i class="bi bi-image fs-4"></i>
-                                        </div>
-                                    {% endif %}
+                                    {% with image=item.variant.get_image %}
+                                        <img src="{% if image %}{{ image.image.url }}{% else %}https://via.placeholder.com/64x64?text=Product{% endif %}" 
+                                             class="rounded-3 shadow-sm" 
+                                             style="width: 64px; height: 64px; object-fit: cover; border: 1px solid rgba(149, 78, 39, 0.05);">
+                                    {% endwith %}
                                 </div>
                                 <div class="flex-grow-1">
-                                    <h6 class="mb-0 fw-bold">{{ item.variant.product.name }}</h6>
-                                    <p class="text-muted small mb-0">Qty: {{ item.quantity }} • {{ item.variant.name }}</p>
+                                    <h6 class="mb-1 fw-bold" style="color: var(--dcl-primary);">{{ item.variant.product.name }}</h6>
+                                    <p class="text-muted smaller mb-0 fw-medium">
+                                        Qty: <span class="text-dark">{{ item.quantity }}</span> 
+                                        {% if item.variant.variant_name %}• {{ item.variant.variant_name }}{% endif %}
+                                    </p>
                                 </div>
-                                <div class="text-end">
-                                    <div class="fw-bold">৳{{ item.price|floatformat:2 }}</div>
+                                <div class="text-end ms-auto">
+                                    <div class="fw-bold" style="color: var(--dcl-primary);">৳{{ item.total_price|floatformat:2 }}</div>
                                 </div>
                             </div>
                             {% endfor %}
                         </div>
                     </div>
                     
-                    <div class="card-footer bg-light border-top-0 p-4 d-flex justify-content-between align-items-center flex-wrap gap-3">
-                        <div>
-                            <span class="text-muted">Total Amount:</span>
-                            <span class="h5 mb-0 fw-bold text-primary ms-2">৳{{ order.total|default:0|floatformat:2 }}</span>
+                    <div class="card-footer bg-white border-top py-4 px-4 d-flex justify-content-between align-items-center flex-wrap gap-3" style="border-color: rgba(149, 78, 39, 0.05) !important;">
+                        <div class="d-flex align-items-center">
+                            <span class="text-muted smaller fw-bold text-uppercase letter-spacing-1 me-3">Total Amount</span>
+                            <span class="h4 mb-0 fw-bold" style="color: var(--dcl-secondary);">৳{{ order.total|default:0|floatformat:2 }}</span>
                         </div>
                         <div class="order-actions">
-                            <a href="{% url 'orders:order_detail' order.order_number|default:order.id %}" class="btn btn-primary rounded-pill px-4">View Details</a>
+                            <a href="{% url 'orders:order_detail' order.order_number|default:order.id %}" class="btn btn-primary rounded-pill px-5 py-2 fw-bold shadow-sm">
+                                View Details <i class="bi bi-arrow-right ms-2"></i>
+                            </a>
                         </div>
                     </div>
                 </div>
                 {% empty %}
-                <div class="card shadow-sm border-0 rounded-4 p-5 text-center">
-                    <div class="text-muted mb-3">
-                        <i class="bi bi-bag-x opacity-50" style="font-size: 4rem;"></i>
+                <div class="card shadow-sm border-0 rounded-4 p-5 text-center bg-white">
+                    <div class="text-muted mb-4 opacity-25">
+                        <i class="bi bi-bag-x" style="font-size: 5rem;"></i>
                     </div>
-                    <h5 class="fw-bold">No orders yet</h5>
-                    <p class="text-muted">Start shopping to see your orders here!</p>
-                    <a href="{% url 'catalog:product_list' %}" class="btn btn-primary rounded-pill px-4 mt-2">Shop Now</a>
+                    <h4 class="fw-bold" style="color: var(--dcl-primary);">No orders yet</h4>
+                    <p class="text-muted mb-4">Start shopping to see your orders here!</p>
+                    <a href="{% url 'catalog:product_list' %}" class="btn btn-primary rounded-pill px-5 py-3 fw-bold shadow-lg">Shop Now</a>
                 </div>
                 {% endfor %}
             </div>
@@ -94,15 +96,21 @@
 </div>
 
 <style>
-    .order-card {
-        transition: all 0.3s ease;
-    }
+    .letter-spacing-1 { letter-spacing: 0.1em; }
+    .smaller { font-size: 0.7rem; }
+    .transition-all { transition: all 0.3s ease; }
+    
     .order-card:hover {
         transform: translateY(-5px);
-        box-shadow: 0 10px 20px rgba(0,0,0,0.08) !important;
+        box-shadow: 0 15px 30px rgba(0,0,0,0.06) !important;
     }
-    .bg-success-subtle { background-color: #d1e7dd; }
-    .bg-warning-subtle { background-color: #fff3cd; }
-    .bg-primary-subtle { background-color: #cfe2ff; }
+
+    .bg-primary-subtle { background-color: #eef2ff; }
+    .bg-success-subtle { background-color: #f0fdf4; }
+    .bg-warning-subtle { background-color: #fffbeb; }
+    
+    .border-primary-subtle { border-color: #c7d2fe !important; }
+    .border-success-subtle { border-color: #bbf7d0 !important; }
+    .border-warning-subtle { border-color: #fef3c7 !important; }
 </style>
 {% endblock %}

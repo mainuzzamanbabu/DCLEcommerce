@@ -25,118 +25,100 @@
 </section>
 
 <!-- Products Section -->
-<section class="section py-5 bg-light-subtle">
+<section class="section py-4 bg-light-subtle">
     <div class="container">
         <div class="row">
             <!-- Sidebar Filters -->
-            <div class="col-lg-3 mb-5 mb-lg-0">
-                <!-- Mobile Filter Toggle -->
-                <div class="d-lg-none mb-3">
-                    <button class="btn btn-dark w-100 rounded-4 py-3 d-flex justify-content-between align-items-center shadow-sm" 
-                            type="button" data-bs-toggle="collapse" data-bs-target="#filter-content">
-                        <span class="fw-bold"><i class="bi bi-filter-left me-2"></i>Filters</span>
-                        <i class="bi bi-chevron-down"></i>
-                    </button>
-                </div>
-                
-                <div class="collapse d-lg-block" id="filter-content">
-                    <div class="glass-card p-4 rounded-4 shadow-sm sticky-top" style="top: 100px;">
-                    <div class="d-flex justify-content-between align-items-center mb-4">
-                        <h5 class="mb-0 fw-bold">Filters</h5>
-                        {% if request.GET.items %}
-                        <a href="{% url 'catalog:product_list' %}" class="btn btn-sm btn-link text-danger p-0 text-decoration-none" id="clear-all-filters">Clear All</a>
-                        {% endif %}
-                    </div>
+            <div class="col-lg-3 filter-sidebar-col">
+                <div class="filter-sidebar glass-card rounded-4 p-4 shadow-sm mb-4 mb-lg-0 sticky-top" style="top: 100px; z-index: 10;">
                     
-                    <!-- Categories Filter -->
+                    <!-- Price Range -->
                     <div class="filter-group mb-4">
-                        <h6 class="filter-title mb-3 d-flex justify-content-between align-items-center" data-bs-toggle="collapse" data-bs-target="#categoriesFilter">
-                            <span>Categories</span>
-                            <i class="bi bi-chevron-down fs-xs"></i>
+                        <h6 class="filter-title d-flex justify-content-between align-items-center mb-3 fw-bold text-dark">
+                            Price Range
                         </h6>
-                        <div class="collapse show" id="categoriesFilter">
+                        <div class="price-range-slider px-2">
+                            <form id="price-filter-form">
+                                <input type="range" class="form-range" id="priceRange" 
+                                       min="{{ min_price_range }}" max="{{ max_price_range }}" 
+                                       value="{{ current_filters.max_price|default:max_price_range }}"
+                                       oninput="document.getElementById('max_price_input').value = this.value">
+                                <div class="d-flex justify-content-between align-items-center mt-2 gap-2">
+                                    <input type="number" name="min_price" class="form-control form-control-sm text-center" 
+                                           value="{{ current_filters.min_price|default:min_price_range }}" placeholder="Min">
+                                    <span class="text-muted">-</span>
+                                    <input type="number" name="max_price" id="max_price_input" class="form-control form-control-sm text-center" 
+                                           value="{{ current_filters.max_price|default:max_price_range }}" placeholder="Max">
+                                </div>
+                                <button type="submit" class="btn btn-primary btn-sm w-100 mt-2 rounded-pill">Apply</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <hr class="text-secondary opacity-10 my-4">
+
+                    <!-- Availability -->
+                    <div class="filter-group mb-4">
+                        <h6 class="filter-title d-flex justify-content-between align-items-center mb-3 fw-bold text-dark" data-bs-toggle="collapse" data-bs-target="#availabilityCollapse">
+                            Availability <i class="bi bi-chevron-down fs-xs"></i>
+                        </h6>
+                        <div class="collapse show" id="availabilityCollapse">
+                            <div class="form-check custom-checkbox mb-2">
+                                <input class="form-check-input availability-checkbox" type="checkbox" id="in_stock" value="1" {% if current_filters.in_stock %}checked{% endif %}>
+                                <label class="form-check-label text-dark-secondary small" for="in_stock">In Stock</label>
+                            </div>
+                            <div class="form-check custom-checkbox mb-2">
+                                <input class="form-check-input availability-checkbox" type="checkbox" id="pre_order" value="1">
+                                <label class="form-check-label text-dark-secondary small" for="pre_order">Pre Order</label>
+                            </div>
+                            <div class="form-check custom-checkbox mb-2">
+                                <input class="form-check-input availability-checkbox" type="checkbox" id="up_coming" value="1">
+                                <label class="form-check-label text-dark-secondary small" for="up_coming">Up Coming</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr class="text-secondary opacity-10 my-4">
+
+                    <!-- Series / Categories -->
+                    <div class="filter-group mb-4">
+                         <h6 class="filter-title d-flex justify-content-between align-items-center mb-3 fw-bold text-dark" data-bs-toggle="collapse" data-bs-target="#seriesCollapse">
+                            Categories <i class="bi bi-chevron-down fs-xs"></i>
+                        </h6>
+                        <div class="collapse show" id="seriesCollapse" style="max-height: 200px; overflow-y: auto;">
                             {% for cat in nav_categories %}
                             <div class="form-check custom-checkbox mb-2">
                                 <input class="form-check-input category-checkbox" type="checkbox" 
                                        id="cat-{{ cat.slug }}" 
-                                       data-url="{% url 'catalog:category_products' cat.slug %}"
                                        {% if category and category.slug == cat.slug %}checked{% endif %}>
-                                <label class="form-check-label d-flex justify-content-between align-items-center w-100" for="cat-{{ cat.slug }}">
-                                    <span class="text-dark">{{ cat.name }}</span>
-                                    <span class="badge bg-light text-muted rounded-pill fs-xs">{{ cat.products.count }}</span>
+                                <label class="form-check-label text-dark-secondary small" for="cat-{{ cat.slug }}">
+                                    {{ cat.name }}
                                 </label>
                             </div>
                             {% endfor %}
                         </div>
                     </div>
 
-                    <!-- Brands Filter -->
-                    <div class="filter-group mb-4">
-                        <h6 class="filter-title mb-3 d-flex justify-content-between align-items-center" data-bs-toggle="collapse" data-bs-target="#brandsFilter">
-                            <span>Brands</span>
-                            <i class="bi bi-chevron-down fs-xs"></i>
+                    <hr class="text-secondary opacity-10 my-4">
+
+                    <!-- Brand -->
+                    <div class="filter-group">
+                        <h6 class="filter-title d-flex justify-content-between align-items-center mb-3 fw-bold text-dark" data-bs-toggle="collapse" data-bs-target="#brandCollapse">
+                            Brand <i class="bi bi-chevron-down fs-xs"></i>
                         </h6>
-                        <div class="collapse show" id="brandsFilter">
+                        <div class="collapse show" id="brandCollapse" style="max-height: 200px; overflow-y: auto;">
                             {% for brand in brands %}
                             <div class="form-check custom-checkbox mb-2">
                                 <input class="form-check-input brand-checkbox" type="checkbox" 
                                        id="brand-{{ brand.slug }}" 
                                        value="{{ brand.slug }}"
                                        {% if current_filters.brand == brand.slug %}checked{% endif %}>
-                                <label class="form-check-label d-flex justify-content-between align-items-center w-100" for="brand-{{ brand.slug }}">
-                                    <span class="text-dark">{{ brand.name }}</span>
+                                <label class="form-check-label text-dark-secondary small" for="brand-{{ brand.slug }}">
+                                    {{ brand.name }}
                                 </label>
                             </div>
                             {% endfor %}
                         </div>
-                    </div>
-                    
-                    <!-- Price Filter -->
-                    <div class="filter-group mb-4">
-                        <h6 class="filter-title mb-3 d-flex justify-content-between align-items-center" data-bs-toggle="collapse" data-bs-target="#priceFilter">
-                            <span>Price Range</span>
-                            <i class="bi bi-chevron-down fs-xs"></i>
-                        </h6>
-                        <div class="collapse show" id="priceFilter">
-                            <form id="price-filter-form">
-                                <div class="price-range-inputs">
-                                    <div class="row g-2 mb-3">
-                                        <div class="col-6">
-                                            <div class="input-group input-group-sm">
-                                                <span class="input-group-text bg-white border-end-0">৳</span>
-                                                <input type="number" name="min_price" class="form-control ps-1 border-start-0" placeholder="0" value="{{ request.GET.min_price|default:'' }}">
-                                            </div>
-                                        </div>
-                                        <div class="col-6">
-                                            <div class="input-group input-group-sm">
-                                                <span class="input-group-text bg-white border-end-0">৳</span>
-                                                <input type="number" name="max_price" class="form-control ps-1 border-start-0" placeholder="Max" value="{{ request.GET.max_price|default:'' }}">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <button type="submit" class="btn btn-primary btn-sm w-100 rounded-pill py-2 fw-semibold">Apply Price</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-
-                    <!-- Availability Filter -->
-                    <div class="filter-group mb-4">
-                        <h6 class="filter-title mb-3 d-flex justify-content-between align-items-center" data-bs-toggle="collapse" data-bs-target="#availabilityFilter">
-                            <span>Availability</span>
-                            <i class="bi bi-chevron-down fs-xs"></i>
-                        </h6>
-                        <div class="collapse show" id="availabilityFilter">
-                            <div class="form-check custom-checkbox mb-2">
-                                <input class="form-check-input availability-checkbox" type="checkbox" id="in_stock" value="1" {% if current_filters.in_stock %}checked{% endif %}>
-                                <label class="form-check-label text-dark" for="in_stock">In Stock Only</label>
-                            </div>
-                            <div class="form-check custom-checkbox mb-2">
-                                <input class="form-check-input availability-checkbox" type="checkbox" id="featured" value="1" {% if current_filters.featured %}checked{% endif %}>
-                                <label class="form-check-label text-dark" for="featured">Featured Only</label>
-                            </div>
-                        </div>
-                    </div>
                     </div>
                 </div>
             </div>
@@ -144,29 +126,25 @@
             <!-- Products Grid -->
             <div class="col-lg-9">
                 <!-- Toolbar -->
-                <div class="products-toolbar glass-card p-3 rounded-4 mb-4 shadow-sm">
+                <div class="products-toolbar bg-white p-3 rounded-4 mb-4 shadow-sm border border-light">
                     <div class="d-flex flex-wrap align-items-center justify-content-between gap-3">
-                        <!-- Product Count -->
-                        <div id="product-count">
-                            <span class="text-muted">
-                                Showing <span class="text-dark fw-bold">{{ products|length }}</span> <span id="product-count-label">product{{ products|length|pluralize }}</span>
-                            </span>
-                        </div>
+                        <h5 class="mb-0 fw-bold text-dark">{% if category %}{{ category.name }}{% else %}All Products{% endif %}</h5>
                         
-                        <!-- Sort & View Controls -->
                         <div class="d-flex align-items-center gap-3">
                             <div class="d-flex align-items-center gap-2">
-                                <span class="text-muted small d-none d-sm-inline">Sort by:</span>
-                                <select class="form-select form-select-sm border-0 bg-light rounded-pill px-3" id="sort-select" style="min-width: 140px;">
-                                    <option value="featured" {% if current_filters.sort == 'featured' %}selected{% endif %}>Featured</option>
-                                    <option value="price_low" {% if current_filters.sort == 'price_low' %}selected{% endif %}>Price: Low to High</option>
-                                    <option value="price_high" {% if current_filters.sort == 'price_high' %}selected{% endif %}>Price: High to Low</option>
-                                    <option value="newest" {% if current_filters.sort == 'newest' %}selected{% endif %}>Newest First</option>
+                                <span class="text-muted small">Show:</span>
+                                <select class="form-select form-select-sm border-0 bg-light rounded-pill px-3" style="width: auto;">
+                                    <option value="20">20</option>
+                                    <option value="40">40</option>
                                 </select>
                             </div>
-                            <div class="view-switcher btn-group bg-light p-1 rounded-pill">
-                                <button type="button" class="btn btn-sm rounded-pill px-3 active" id="grid-view" title="Grid View"><i class="bi bi-grid-fill"></i></button>
-                                <button type="button" class="btn btn-sm rounded-pill px-3 text-muted" id="list-view" title="List View"><i class="bi bi-list"></i></button>
+                            <div class="d-flex align-items-center gap-2">
+                                <span class="text-muted small">Sort By:</span>
+                                <select class="form-select form-select-sm border-0 bg-light rounded-pill px-3" id="sort-select" style="min-width: 120px;">
+                                    <option value="default">Default</option>
+                                    <option value="price_low" {% if current_filters.sort == 'price_low' %}selected{% endif %}>Price (Low > High)</option>
+                                    <option value="price_high" {% if current_filters.sort == 'price_high' %}selected{% endif %}>Price (High > Low)</option>
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -176,11 +154,8 @@
                 <div id="product-grid-container" style="min-height: 400px; position: relative;">
                     <!-- Loading Overlay -->
                     <div id="grid-loader" class="position-absolute top-0 start-0 w-100 h-100 d-none justify-content-center align-items-start pt-5" 
-                         style="background: rgba(255,255,255,0.7); z-index: 100; backdrop-filter: blur(4px); transition: all 0.3s ease;">
-                        <div class="text-center p-5 bg-white rounded-4 shadow-lg border">
-                            <div class="spinner-border text-primary mb-2" role="status"></div>
-                            <p class="text-primary fw-bold mb-0">Updating Results...</p>
-                        </div>
+                         style="background: rgba(255,255,255,0.7); z-index: 100; backdrop-filter: blur(4px);">
+                        <div class="spinner-border text-primary" role="status"></div>
                     </div>
                     
                     {% include 'catalog/partials/_product_grid.html' %}

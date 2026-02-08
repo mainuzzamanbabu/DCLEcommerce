@@ -9,162 +9,207 @@
 
 {% block content %}
 <!-- Spacer for fixed navbar -->
-<div style="height: 80px;"></div>
+<div style="height: 100px;"></div>
 
-<!-- Breadcrumb -->
-<section class="py-4 bg-light">
+<!-- Breadcrumb Section -->
+<section class="py-3 bg-white border-bottom mb-4">
     <div class="container">
         <nav aria-label="breadcrumb">
-            <ol class="breadcrumb mb-0">
-                <li class="breadcrumb-item"><a href="{% url 'core:home' %}">Home</a></li>
-                <li class="breadcrumb-item"><a href="{% url 'catalog:product_list' %}">Products</a></li>
+            <ol class="breadcrumb mb-0" style="font-size: 0.85rem;">
+                <li class="breadcrumb-item"><a href="{% url 'core:home' %}" class="text-decoration-none text-muted"><i class="bi bi-house-fill"></i></a></li>
+                <li class="breadcrumb-item"><a href="{% url 'catalog:product_list' %}" class="text-decoration-none text-muted">Products</a></li>
                 {% if product.category %}
-                <li class="breadcrumb-item"><a href="{% url 'catalog:category_detail' product.category.slug %}">{{ product.category.name }}</a></li>
+                <li class="breadcrumb-item"><a href="{% url 'catalog:product_list' %}?category={{ product.category.slug }}" class="text-decoration-none text-muted">{{ product.category.name }}</a></li>
                 {% endif %}
-                <li class="breadcrumb-item active">{{ product.name }}</li>
+                <li class="breadcrumb-item active text-dark fw-medium">{{ product.name }}</li>
             </ol>
         </nav>
     </div>
 </section>
 
-<!-- Product Detail -->
-<section class="section py-5">
+<!-- Main Product Content -->
+<section class="pb-5">
     <div class="container">
-        <div class="row g-5">
-            <!-- Product Gallery -->
-            <div class="col-lg-6" data-animate="fade-right">
-                <div class="product-gallery">
-                    <div class="main-image-container position-relative mb-4 shadow-sm rounded-4 overflow-hidden">
-                        {% with primary_image=product.primary_image %}
-                        {% if primary_image %}
-                        <img src="{{ primary_image.image.url }}" 
-                             alt="{{ product.name }}" 
-                             class="main-image img-fluid w-100"
-                             id="mainProductImage" style="object-fit: cover; aspect-ratio: 1/1;">
-                        {% else %}
-                        <img src="https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?w=800" 
-                             alt="{{ product.name }}" 
-                             class="main-image img-fluid w-100"
-                             id="mainProductImage" style="object-fit: cover; aspect-ratio: 1/1;">
-                        {% endif %}
-                        {% endwith %}
-                        
-                        {% if product.is_on_sale %}
-                        <span class="product-badge badge-sale position-absolute top-0 start-0 m-3">-{{ product.discount_percent|default:"10" }}% OFF</span>
-                        {% endif %}
-                    </div>
-                    {% if product.images.count > 1 %}
-                    <div class="thumbnail-strip d-flex gap-3 overflow-auto pb-2">
-                        {% for image in product.images.all %}
-                        <img src="{{ image.image.url }}" alt="" class="thumbnail {% if image.is_primary %}active{% endif %} rounded-3" data-full="{{ image.image.url }}" style="width: 80px; height: 80px; object-fit: cover; cursor: pointer;">
-                        {% endfor %}
-                    </div>
-                    {% endif %}
-                </div>
-            </div>
-
-            <!-- Product Info -->
-            <div class="col-lg-6" data-animate="fade-left">
-                <div class="product-detail-info">
-                    {% if product.stock_status == 'in_stock' or True %}
-                    <span class="badge bg-success mb-3"><i class="bi bi-check-circle me-1"></i>In Stock</span>
-                    {% else %}
-                    <span class="badge bg-danger mb-3"><i class="bi bi-x-circle me-1"></i>Out of Stock</span>
-                    {% endif %}
-                    <h1 class="product-title h2 fw-bold mb-3">{{ product.name }}</h1>
-                    
-                    <div class="d-flex align-items-center gap-3 mb-4">
-                        <div class="rating text-warning">
-                            <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-half"></i>
-                        </div>
-                        <span class="text-muted">({{ product.review_count|default:"0" }} reviews)</span>
-                        <span class="text-muted">|</span>
-                        <span class="text-muted">SKU: {{ product.sku|default:product.slug|upper }}</span>
-                    </div>
-
-                    <div class="price-section mb-4">
-                        <div class="d-flex align-items-center gap-3">
-                            <span class="current-price h2 fw-bold text-primary mb-0">৳{{ product.base_price|default:product.price|floatformat:0 }}</span>
-                            {% if product.compare_at_price %}
-                            <span class="original-price text-decoration-line-through text-muted h5 mb-0">৳{{ product.compare_at_price|floatformat:0 }}</span>
+        <div class="glass-card p-4 p-md-5 rounded-4 mb-5">
+            <div class="row g-4 g-lg-5">
+                <!-- Product Gallery -->
+                <div class="col-md-6" data-animate="fade-right">
+                    <div class="product-gallery">
+                        <div class="main-image-container position-relative mb-4 p-3 border rounded-4 overflow-hidden bg-white" style="height: 450px; display: flex; align-items: center; justify-content: center;">
+                            {% with primary_image=product.primary_image %}
+                            {% if primary_image %}
+                            <img src="{{ primary_image.image.url }}" alt="{{ product.name }}" class="main-image img-fluid" id="mainProductImage" style="max-height: 100%; object-fit: contain;">
+                            {% else %}
+                            <img src="https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?w=800" alt="{{ product.name }}" class="main-image img-fluid" id="mainProductImage" style="max-height: 100%; object-fit: contain;">
+                            {% endif %}
+                            {% endwith %}
+                            
+                            {% if product.is_on_sale %}
+                            <span class="product-badge badge-sale position-absolute top-0 start-0 m-3">-{{ product.discount_percent|default:"10" }}% OFF</span>
                             {% endif %}
                         </div>
+                        {% if product.images.count > 1 %}
+                        <div class="thumbnail-strip d-flex gap-2 overflow-auto pb-2 justify-content-center">
+                            {% for image in product.images.all %}
+                            <div class="thumbnail-box border rounded-3 p-1 {% if image.is_primary %}border-primary{% endif %}" style="width: 70px; height: 70px; cursor: pointer;">
+                                <img src="{{ image.image.url }}" alt="" class="thumbnail w-100 h-100" data-full="{{ image.image.url }}" style="object-fit: contain;">
+                            </div>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Product Info -->
+                <div class="col-md-6" data-animate="fade-left">
+                    <div class="product-info-header">
+                        <h1 class="h3 fw-bold text-dark mb-3" style="color: #1a237e !important;">{{ product.name }}</h1>
+                        <div class="product-info-bar">
+                            <div class="info-item">
+                                <span class="label">Price:</span>
+                                <span class="value text-primary">৳{{ product.base_price|floatformat:0 }}</span>
+                            </div>
+                            {% if product.compare_at_price %}
+                            <div class="info-item">
+                                <span class="label">Regular Price:</span>
+                                <span class="value text-decoration-line-through">৳{{ product.compare_at_price|floatformat:0 }}</span>
+                            </div>
+                            {% endif %}
+                            <div class="info-item">
+                                <span class="label">Status:</span>
+                                <span class="value text-success">{% if product.stock_status == 'in_stock' %}In Stock{% else %}Available{% endif %}</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="label">Product Code:</span>
+                                <span class="value">{{ product.sku|default:"PN-22714" }}</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="label">Brand:</span>
+                                <span class="value">{{ product.brand.name|default:"DCL" }}</span>
+                            </div>
+                        </div>
                     </div>
 
-                    <p class="text-muted mb-4">{{ product.short_description|default:product.description|truncatewords:50 }}</p>
+                    <div class="key-features mb-4">
+                        <h5 class="fw-bold mb-3">Key Features</h5>
+                        <ul class="key-features-list">
+                            {% if product.short_description %}
+                                {% for feature in product.short_description.splitlines|slice:":5" %}
+                                    {% if feature.strip %}<li>{{ feature.strip }}</li>{% endif %}
+                                {% endfor %}
+                            {% else %}
+                                <li>High performance technology</li>
+                                <li>Premium build materials</li>
+                                <li>Official brand warranty</li>
+                                <li>Expert support and service</li>
+                            {% endif %}
+                        </ul>
+                    </div>
 
-                    <!-- Quantity & Add to Cart -->
+                    <!-- Buy Section (Simplified Logic) -->
+                    <div class="price-section mb-4">
+                        <div class="d-flex align-items-center gap-3">
+                            <span class="h1 fw-bold text-primary mb-0">৳{{ product.base_price|floatformat:0 }}</span>
+                            {% if product.compare_at_price %}
+                            <span class="text-muted text-decoration-line-through h4 mb-0">৳{{ product.compare_at_price|floatformat:0 }}</span>
+                            {% endif %}
+                        </div>
+                        <p class="text-muted small mt-2">Price inclusive of all taxes where applicable.</p>
+                    </div>
+
                     <form method="post" action="{% url 'cart:cart_add' %}" id="add-to-cart-form">
                         {% csrf_token %}
-                        <div class="d-flex flex-wrap gap-3 mb-4">
-                            <div class="quantity-selector d-flex align-items-center border rounded-pill px-2">
-                                <button type="button" class="btn btn-link link-dark qty-minus p-0 px-2" style="text-decoration: none;">−</button>
-                                <input type="number" name="quantity" class="qty-input form-control border-0 text-center" value="1" min="1" max="10" style="width: 50px; background: transparent;">
-                                <button type="button" class="btn btn-link link-dark qty-plus p-0 px-2" style="text-decoration: none;">+</button>
+                        <input type="hidden" name="variant_id" value="{{ default_variant.id }}">
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="quantity-selector d-flex align-items-center border rounded-pill bg-light" style="padding: 5px 15px;">
+                                <button type="button" class="btn btn-link link-dark qty-minus p-0 px-2" style="text-decoration: none; font-size: 1.2rem;">−</button>
+                                <input type="number" name="quantity" class="qty-input form-control border-0 text-center p-0" value="1" min="1" max="10" style="width: 50px; background: transparent; font-weight: 700; font-size: 1.1rem;">
+                                <button type="button" class="btn btn-link link-dark qty-plus p-0 px-2" style="text-decoration: none; font-size: 1.2rem;">+</button>
                             </div>
-                            <button type="submit" class="btn btn-primary btn-lg rounded-pill flex-grow-1 px-4">
-                                <i class="bi bi-bag-plus me-2"></i>Add to Cart
-                            </button>
-                            <button type="button" class="btn btn-outline-danger btn-lg rounded-circle p-2 px-3 wishlist-btn" data-product-id="{{ product.id }}">
-                                <i class="bi bi-heart"></i>
+                            <button type="button" class="btn btn-primary rounded-pill px-5 py-3 fw-bold add-to-cart-btn" 
+                                    style="background: #2b389e; border: none; min-width: 250px;"
+                                    data-variant-id="{{ default_variant.id }}"
+                                    data-product-name="{{ product.name }}"
+                                    data-product-price="{{ product.price|default:0 }}"
+                                    data-product-image="{{ product.primary_image.image.url|default:'' }}">
+                                <i class="bi bi-cart-plus me-2"></i>Buy Now
                             </button>
                         </div>
                     </form>
+                </div>
+            </div>
+        </div>
 
-                    <!-- Product Features -->
-                    <div class="product-features glass-card p-4 rounded-4 mt-4">
-                        <div class="row g-3">
-                            <div class="col-6">
-                                <div class="d-flex align-items-center gap-2">
-                                    <i class="bi bi-truck text-primary fs-4"></i>
-                                    <div>
-                                        <small class="text-muted d-block">Free Delivery</small>
-                                        <span class="fw-semibold small">Orders over ৳5000</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="d-flex align-items-center gap-2">
-                                    <i class="bi bi-shield-check text-success fs-4"></i>
-                                    <div>
-                                        <small class="text-muted d-block">Warranty</small>
-                                        <span class="fw-semibold small">1 Year Official</span>
-                                    </div>
-                                </div>
-                            </div>
+        <!-- Description & Specifications Tabs -->
+        <div class="product-tabs mb-5">
+            <ul class="nav nav-pills gap-2 p-2 bg-white rounded-4 mb-4 shadow-sm border" role="tablist">
+                <li class="nav-item">
+                    <button class="nav-link active fw-bold px-4 py-2 rounded-3" id="spec-tab" data-bs-toggle="pill" data-bs-target="#specifications">Specification</button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link fw-bold px-4 py-2 rounded-3" id="desc-tab" data-bs-toggle="pill" data-bs-target="#description">Description</button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link fw-bold px-4 py-2 rounded-3" id="review-tab" data-bs-toggle="pill" data-bs-target="#reviews">Reviews ({{ product.review_count|default:0 }})</button>
+                </li>
+            </ul>
+            
+            <div class="tab-content">
+                <div class="tab-pane fade show active" id="specifications">
+                    <div class="bg-white p-4 p-md-5 rounded-4 shadow-sm border">
+                        <h5 class="fw-bold mb-4">Full Specifications</h5>
+                        <div class="table-responsive">
+                            <table class="spec-table border">
+                                <tbody>
+                                    <tr class="section-row"><td colspan="2" class="fw-bold text-primary p-3 bg-light">Core Features</td></tr>
+                                    {% if product.brand %}<tr><th>Brand</th><td>{{ product.brand.name }}</td></tr>{% endif %}
+                                    {% if product.sku %}<tr><th>Model</th><td>{{ product.sku }}</td></tr>{% endif %}
+                                    {% if product.warranty_months %}<tr><th>Warranty</th><td>{{ product.warranty_months }} Months</td></tr>{% endif %}
+                                    
+                                    {% for attr_name, attr_value in default_variant.attributes.items %}
+                                    <tr><th>{{ attr_name|title }}</th><td>{{ attr_value }}</td></tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
+                <div class="tab-pane fade" id="description">
+                    <div class="bg-white p-4 p-md-5 rounded-4 shadow-sm border">
+                        <article class="prose max-w-none">
+                            {{ product.description|safe }}
+                        </article>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="reviews">
+                    <div class="bg-white p-4 p-md-5 rounded-4 shadow-sm border">
+                        <p class="text-muted text-center py-4">No reviews yet for this product.</p>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <!-- Tabs -->
-        <div class="product-tabs mt-5 pt-4">
-            <ul class="nav nav-pills mb-4 gap-2" id="productTabs" role="tablist">
-                <li class="nav-item"><button class="nav-link active rounded-pill px-4" data-bs-toggle="pill" data-bs-target="#description">Description</button></li>
-                <li class="nav-item"><button class="nav-link rounded-pill px-4" data-bs-toggle="pill" data-bs-target="#specifications">Specifications</button></li>
-            </ul>
-            <div class="tab-content" id="productTabsContent">
-                <div class="tab-pane fade show active" id="description">
-                    <div class="glass-card p-4 rounded-4">
-                        {{ product.description|safe }}
+        <!-- Related Products (Moved to bottom) -->
+        {% if related_products %}
+        <div class="related-products-section mt-5">
+            <h4 class="fw-bold text-dark mb-4 pb-2 border-bottom d-inline-block">Related Products</h4>
+            <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 g-4">
+                {% for related in related_products %}
+                <div class="col">
+                    <div class="glass-card h-100 p-3 rounded-4 transition-all hover-translate-y border">
+                        <a href="{{ related.get_absolute_url }}" class="text-decoration-none">
+                            <div class="img-container mb-3 bg-white rounded-3 p-2" style="height: 150px; display: flex; align-items: center; justify-content: center;">
+                                <img src="{{ related.primary_image.image.url|default:'https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?w=200' }}" alt="{{ related.name }}" class="img-fluid" style="max-height: 100%; object-fit: contain;">
+                            </div>
+                            <h6 class="text-dark fw-bold line-clamp-2 mb-2" style="font-size: 0.9rem;">{{ related.name }}</h6>
+                            <div class="text-primary fw-bold">৳{{ related.base_price|floatformat:0 }}</div>
+                        </a>
                     </div>
                 </div>
-                <div class="tab-pane fade" id="specifications">
-                    <div class="glass-card p-4 rounded-4">
-                        <table class="table table-borderless mb-0">
-                            <tbody>
-                                <tr><th width="200">Category</th><td>{{ product.category.name }}</td></tr>
-                                <tr><th>Brand</th><td>{{ product.brand.name }}</td></tr>
-                                {% if product.warranty_months %}
-                                <tr><th>Warranty</th><td>{{ product.warranty_months }} Months</td></tr>
-                                {% endif %}
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+                {% endfor %}
             </div>
         </div>
+        {% endif %}
     </div>
 </section>
 {% endblock %}
@@ -172,21 +217,42 @@
 {% block extra_js %}
 <script>
     // Thumbnail Gallery
-    document.querySelectorAll('.thumbnail').forEach(thumb => {
-        thumb.addEventListener('click', () => {
-            document.querySelectorAll('.thumbnail').forEach(t => t.classList.remove('active', 'border-primary'));
-            thumb.classList.add('active', 'border-primary');
+    document.querySelectorAll('.thumbnail-box').forEach(box => {
+        box.addEventListener('click', () => {
+            document.querySelectorAll('.thumbnail-box').forEach(b => b.classList.remove('border-primary'));
+            box.classList.add('border-primary');
+            const thumb = box.querySelector('.thumbnail');
             document.getElementById('mainProductImage').src = thumb.dataset.full;
         });
     });
-    
-    // Quantity selector
-    const qtyInput = document.querySelector('.qty-input');
-    document.querySelector('.qty-minus').addEventListener('click', () => {
-        if (qtyInput.value > 1) qtyInput.value = parseInt(qtyInput.value) - 1;
-    });
-    document.querySelector('.qty-plus').addEventListener('click', () => {
-        if (qtyInput.value < 10) qtyInput.value = parseInt(qtyInput.value) + 1;
-    });
+
+    // Valid Image Zoom Implementation
+    const container = document.querySelector('.main-image-container');
+    const img = document.querySelector('#mainProductImage');
+
+    if (container && img) {
+        container.addEventListener('mousemove', (e) => {
+            const { left, top, width, height } = container.getBoundingClientRect();
+            const x = e.clientX - left;
+            const y = e.clientY - top;
+
+            // Calculate percentage position
+            const xPercent = (x / width) * 100;
+            const yPercent = (y / height) * 100;
+
+            // Apply zoom transform
+            img.style.transformOrigin = `${xPercent}% ${yPercent}%`;
+            img.style.transform = 'scale(2)'; // Zoom level
+        });
+
+        container.addEventListener('mouseleave', () => {
+            img.style.transformOrigin = 'center center';
+            img.style.transform = 'scale(1)';
+        });
+        
+        // Add cursor style
+        container.style.cursor = 'zoom-in';
+        img.style.transition = 'transform 0.1s ease-out'; // Smooth zoom movement
+    }
 </script>
 {% endblock %}

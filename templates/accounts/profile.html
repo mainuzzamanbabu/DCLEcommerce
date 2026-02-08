@@ -4,7 +4,12 @@
 
 {% block title %}My Profile | DCL Ecommerce{% endblock %}
 
+{% block navbar_class %}navbar-solid{% endblock %}
+
 {% block content %}
+<!-- Spacer for fixed navbar -->
+<div style="height: 80px;"></div>
+
 <div class="container py-5">
     <div class="row g-4">
         <!-- Sidebar Navigation -->
@@ -14,22 +19,65 @@
 
         <!-- Main Content -->
         <div class="col-lg-9">
+            <!-- Dashboard Overview Stats -->
+            <div class="row g-3 mb-4">
+                <div class="col-md-4">
+                    <div class="card border-0 shadow-sm rounded-4 h-100 p-3 bg-white">
+                        <div class="d-flex align-items-center">
+                            <div class="rounded-circle bg-primary-subtle text-primary d-flex align-items-center justify-content-center me-3" style="width: 45px; height: 45px;">
+                                <i class="bi bi-cart-check fs-5"></i>
+                            </div>
+                            <div>
+                                <h6 class="text-muted smaller fw-bold mb-0">TOTAL ORDERS</h6>
+                                <h4 class="mb-0 fw-bold">{{ user.orders.count|default:"0" }}</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card border-0 shadow-sm rounded-4 h-100 p-3 bg-white">
+                        <div class="d-flex align-items-center">
+                            <div class="rounded-circle bg-danger-subtle text-danger d-flex align-items-center justify-content-center me-3" style="width: 45px; height: 45px;">
+                                <i class="bi bi-heart fs-5"></i>
+                            </div>
+                            <div>
+                                <h6 class="text-muted smaller fw-bold mb-0">WISHLIST</h6>
+                                <h4 class="mb-0 fw-bold">{{ user.wishlist_items.count|default:"0" }}</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card border-0 shadow-sm rounded-4 h-100 p-3 bg-white">
+                        <div class="d-flex align-items-center">
+                            <div class="rounded-circle bg-success-subtle text-success d-flex align-items-center justify-content-center me-3" style="width: 45px; height: 45px;">
+                                <i class="bi bi-geo-alt fs-5"></i>
+                            </div>
+                            <div>
+                                <h6 class="text-muted smaller fw-bold mb-0">ADDRESSES</h6>
+                                <h4 class="mb-0 fw-bold">{{ user.addresses.count|default:"0" }}</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- Profile Settings -->
-            <div class="card shadow-sm border-0 rounded-4 mb-4">
-                <div class="card-header bg-white py-3">
-                    <h5 class="mb-0 fw-bold">Account Settings</h5>
+            <div class="card shadow-sm border-0 rounded-4 mb-4 overflow-hidden">
+                <div class="card-header bg-white py-4 px-4 border-bottom-0">
+                    <h5 class="mb-0 fw-bold" style="color: var(--dcl-primary);">Account Settings</h5>
                 </div>
                 <div class="card-body p-4">
-                    <form method="post" enctype="multipart/form-data">
+                    <form method="post" enctype="multipart/form-data" class="profile-form">
                         {% csrf_token %}
                         <div class="row">
-                            <div class="col-md-12 mb-3">
+                            <div class="col-md-12">
                                 {{ form|crispy }}
                             </div>
                         </div>
-                        <div class="text-end">
-                            <button type="submit" class="btn btn-primary px-5 py-2 fw-bold">
-                                Save Changes
+                        <div class="mt-4 pt-2">
+                            <button type="submit" class="btn btn-primary px-5 py-3 fw-bold shadow-sm rounded-pill">
+                                <i class="bi bi-check2-circle me-2"></i>Save Changes
                             </button>
                         </div>
                     </form>
@@ -37,41 +85,41 @@
             </div>
 
             <!-- Recent Orders (Summary) -->
-            <div class="card shadow-sm border-0 rounded-4">
-                <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
-                    <h5 class="mb-0 fw-bold">Recent Orders</h5>
-                    <a href="{% url 'orders:order_list' %}" class="btn btn-link text-primary p-0 text-decoration-none small fw-bold">View All</a>
+            <div class="card shadow-sm border-0 rounded-4 overflow-hidden">
+                <div class="card-header bg-white py-4 px-4 d-flex justify-content-between align-items-center border-bottom-0">
+                    <h5 class="mb-0 fw-bold" style="color: var(--dcl-primary);">Recent Orders</h5>
+                    <a href="{% url 'orders:order_list' %}" class="btn btn-link text-primary p-0 text-decoration-none small fw-bold">View All <i class="bi bi-arrow-right ms-1"></i></a>
                 </div>
-                <div class="card-body p-4">
+                <div class="card-body p-0">
                     {% if user.orders.exists %}
                         <div class="table-responsive">
                             <table class="table table-hover align-middle mb-0">
-                                <thead class="table-light">
+                                <thead style="background: #f8fafc;">
                                     <tr>
-                                        <th>Order ID</th>
-                                        <th>Date</th>
-                                        <th>Total</th>
-                                        <th>Status</th>
-                                        <th class="text-end">Action</th>
+                                        <th class="ps-4 py-3 small text-muted letter-spacing-1">ORDER ID</th>
+                                        <th class="py-3 small text-muted letter-spacing-1">DATE</th>
+                                        <th class="py-3 small text-muted letter-spacing-1">TOTAL</th>
+                                        <th class="py-3 small text-muted letter-spacing-1">STATUS</th>
+                                        <th class="pe-4 py-3 small text-muted letter-spacing-1 text-end">ACTION</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {% for order in user.orders.all|slice:":3" %}
-                                    <tr>
-                                        <td><span class="fw-bold">{{ order.order_number }}</span></td>
-                                        <td>{{ order.created_at|date:"M d, Y" }}</td>
-                                        <td class="fw-bold">৳{{ order.total|floatformat:2 }}</td>
-                                        <td>
+                                    <tr class="transition-all">
+                                        <td class="ps-4 py-4"><span class="fw-bold" style="color: var(--dcl-primary);">{{ order.order_number }}</span></td>
+                                        <td class="py-4 text-muted">{{ order.created_at|date:"M d, Y" }}</td>
+                                        <td class="py-4 fw-bold">৳{{ order.total|floatformat:2 }}</td>
+                                        <td class="py-4">
                                             {% if order.status == 'delivered' %}
-                                                <span class="badge bg-success-subtle text-success px-3">Delivered</span>
+                                                <span class="badge bg-success-subtle text-success px-3 py-2 border border-success-subtle">Delivered</span>
                                             {% elif order.status == 'pending' %}
-                                                <span class="badge bg-warning-subtle text-warning px-3 text-dark">Pending</span>
+                                                <span class="badge bg-warning-subtle text-warning px-3 py-2 text-dark border border-warning-subtle">Pending</span>
                                             {% else %}
-                                                <span class="badge bg-primary-subtle text-primary px-3">{{ order.get_status_display }}</span>
+                                                <span class="badge bg-primary-subtle text-primary px-3 py-2 border border-primary-subtle">{{ order.get_status_display }}</span>
                                             {% endif %}
                                         </td>
-                                        <td class="text-end">
-                                            <a href="{% url 'orders:order_detail' order.order_number %}" class="btn btn-sm btn-outline-primary rounded-pill px-3">Details</a>
+                                        <td class="pe-4 py-4 text-end">
+                                            <a href="{% url 'orders:order_detail' order.order_number %}" class="btn btn-sm btn-outline-primary rounded-pill px-3 fw-bold">Details</a>
                                         </td>
                                     </tr>
                                     {% endfor %}
@@ -79,10 +127,13 @@
                             </table>
                         </div>
                     {% else %}
-                        <div class="text-center py-4">
-                            <i class="bi bi-box-seam text-muted" style="font-size: 3rem;"></i>
-                            <p class="mt-2 text-muted mb-0">You haven't placed any orders yet.</p>
-                            <a href="{% url 'catalog:product_list' %}" class="btn btn-link text-primary mt-2">Start Shopping</a>
+                        <div class="text-center py-5">
+                            <div class="mb-3 opacity-25">
+                                <i class="bi bi-receipt-cutoff" style="font-size: 4rem;"></i>
+                            </div>
+                            <h6 class="text-muted fw-bold mb-1">No orders yet</h6>
+                            <p class="small text-muted mb-3">You haven't placed any orders on our store.</p>
+                            <a href="{% url 'catalog:product_list' %}" class="btn btn-primary btn-sm px-4 rounded-pill">Start Shopping</a>
                         </div>
                     {% endif %}
                 </div>
@@ -92,27 +143,33 @@
 </div>
 
 <style>
-    .list-group-item {
-        transition: all 0.2s;
-        font-weight: 500;
-        color: #495057;
+    .letter-spacing-1 { letter-spacing: 0.1em; }
+    .smaller { font-size: 0.7rem; }
+    .transition-all { transition: all 0.2s ease; }
+    
+    tr.transition-all:hover {
+        background-color: rgba(218, 93, 4, 0.01) !important;
     }
-    .list-group-item.active {
-        background-color: rgba(0, 51, 102, 0.05);
-        color: var(--bs-primary);
-        border-left: 4px solid var(--bs-primary) !important;
-        border-radius: 0;
+
+    .bg-primary-subtle { background-color: #eef2ff; }
+    .bg-success-subtle { background-color: #f0fdf4; }
+    .bg-danger-subtle { background-color: #fef2f2; }
+    .bg-warning-subtle { background-color: #fffbeb; }
+    
+    .border-primary-subtle { border-color: #c7d2fe !important; }
+    .border-success-subtle { border-color: #bbf7d0 !important; }
+    .border-warning-subtle { border-color: #fef3c7 !important; }
+
+    /* Form Styling */
+    .profile-form .form-control {
+        border-radius: 12px;
+        padding: 0.75rem 1rem;
+        border: 1px solid #e2e8f0;
+        transition: all 0.2s ease;
     }
-    .list-group-item:hover:not(.active) {
-        background-color: #f8f9fa;
-        color: var(--bs-primary);
+    .profile-form .form-control:focus {
+        border-color: var(--dcl-accent);
+        box-shadow: 0 0 0 4px rgba(218, 93, 4, 0.1);
     }
-    .badge {
-        font-weight: 600;
-        font-size: 0.75rem;
-    }
-    .bg-success-subtle { background-color: #d1e7dd; }
-    .bg-warning-subtle { background-color: #fff3cd; }
-    .bg-primary-subtle { background-color: #cfe2ff; }
 </style>
 {% endblock %}
